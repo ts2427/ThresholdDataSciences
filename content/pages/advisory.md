@@ -1,9 +1,15 @@
 ---
 title: "Advisory"
 eyebrow: "The practice"
-summary: "Threshold Data Sciences takes a small number of advisory engagements: fixed-scope assessments and commissioned analysis on regulatory programs and governance."
-lede: "Threshold Data Sciences takes a small number of engagements. The published research is the credential; the advisory work applies the same methods to a specific organization's question."
+summary: "Threshold Data Sciences takes a small number of advisory engagements: fixed-scope assessments and commissioned analysis."
+lede: "Threshold Data Sciences takes a small number of engagements. The published research demonstrates the method; the advisory work points it at your question."
 ---
+
+## Applied empirical analysis
+
+Study design, causal inference, measurement, and the data engineering
+underneath it — answers that hold up to scrutiny, not charts. The method is
+the product: sources documented, assumptions stated, results reproducible.
 
 ## Regulatory program analysis
 

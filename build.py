@@ -12,8 +12,10 @@ attr_list, toc enabled). `draft: true` excludes a file from all output.
 """
 
 import html
+import json
 import re
 import shutil
+import sys
 from datetime import date, datetime
 from pathlib import Path
 
@@ -46,7 +48,9 @@ def load_yaml(path):
 
 def parse_md(path):
     """Split YAML front matter from Markdown body; return (meta, html_body)."""
-    text = Path(path).read_text(encoding="utf-8")
+    # utf-8-sig: a stray BOM (e.g. from a Windows editor) must not silently
+    # disable front-matter parsing.
+    text = Path(path).read_text(encoding="utf-8-sig")
     meta, body = {}, text
     if text.startswith("---"):
         parts = text.split("---", 2)
@@ -84,9 +88,79 @@ def write(relpath, content):
     print("wrote", relpath)
 
 
-def render(template, relpath, **ctx):
+def jsonld_graph(extra=None):
+    """The page's JSON-LD, built as Python dicts and emitted with json.dumps
+    so the serialization is always well-formed (malformed schema fails
+    silently in the wild — nothing warns you)."""
+    base = SITE["base_url"]
+    author = SITE["author"]
+    org = {
+        "@type": "Organization",
+        "@id": f"{base}/#organization",
+        "name": SITE["name"],
+        "url": f"{base}/",
+        "founder": {"@id": f"{base}/#person"},
+        "description": SITE["description"],
+    }
+    if SITE.get("contact_email"):
+        org["email"] = SITE["contact_email"]
+    person = {
+        "@type": "Person",
+        "@id": f"{base}/#person",
+        "name": author["name"],
+        "url": f"{base}/about/",
+        "jobTitle": author["job_title"],
+        "knowsAbout": author["knows_about"],
+        "affiliation": {"@id": f"{base}/#organization"},
+        "sameAs": [u for u in (author.get("linkedin"), author.get("scholar"),
+                               author.get("orcid"), author.get("personal_site"))
+                   if u],
+    }
+    graph = [org, person]
+    if extra:
+        graph.append(extra)
+    return json.dumps({"@context": "https://schema.org", "@graph": graph},
+                      indent=2)
+
+
+def article_node(view, in_series=False):
+    base = SITE["base_url"]
+    node = {
+        "@type": "Article",
+        "headline": view["title"],
+        "description": view.get("summary", ""),
+        "datePublished": view["iso_date"],
+        "url": base + view["url"],
+        "author": {"@id": f"{base}/#person"},
+        "publisher": {"@id": f"{base}/#organization"},
+    }
+    if view.get("iso_updated"):
+        node["dateModified"] = view["iso_updated"]
+    if in_series:
+        node["isPartOf"] = {
+            "@type": "CreativeWorkSeries",
+            "name": "Threshold Effects",
+            "url": f"{base}/threshold-effects/",
+        }
+    return node
+
+
+def collection_node(name, path, description):
+    base = SITE["base_url"]
+    return {
+        "@type": "CollectionPage",
+        "name": name,
+        "url": base + path,
+        "description": description,
+        "isPartOf": {"@id": f"{base}/#organization"},
+        "author": {"@id": f"{base}/#person"},
+    }
+
+
+def render(template, relpath, schema_extra=None, **ctx):
     tpl = env.get_template(template)
-    write(relpath, tpl.render(site=SITE, **ctx))
+    write(relpath, tpl.render(site=SITE, jsonld=jsonld_graph(schema_extra),
+                              **ctx))
 
 
 # ----------------------------------------------------------------- config ----
@@ -105,12 +179,36 @@ if not SITE.get("contact_email"):
 
 # ---------------------------------------------------------------- content ----
 
+def _reject_placeholders(meta, path):
+    """A non-draft issue with placeholder metadata must never publish.
+
+    This site's claim is a citable record cross-linked to public posts;
+    plausible-looking wrong metadata is worse than an obvious gap. Files with
+    placeholders may sit in the repo, but only as draft: true.
+    """
+    problems = []
+    if "TBC" in str(meta.get("title", "")):
+        problems.append("title contains TBC")
+    if "TODO" in str(meta.get("summary", "")):
+        problems.append("summary contains TODO")
+    if not meta.get("date"):
+        problems.append("date is missing")
+    if problems:
+        sys.exit(
+            f"BUILD FAILED: {path.name} is published (not draft: true) but "
+            f"still has placeholder metadata: {'; '.join(problems)}.\n"
+            "Fill in verified values from the published record, or mark the "
+            "file draft: true."
+        )
+
+
 def load_issues():
     issues = []
     for path in sorted((CONTENT / "threshold-effects").glob("*.md")):
         meta, body = parse_md(path)
         if meta.get("draft"):
             continue
+        _reject_placeholders(meta, path)
         n = int(meta["number"])
         meta["number_label"] = f"No. {n:03d}"
         meta["slug"] = f"no-{n:03d}"
@@ -228,27 +326,40 @@ def main():
     categories = sorted({i["category"] for i in issues if i.get("category")})
     render("te_index.html", "threshold-effects/index.html",
            issues=issues, categories=categories,
-           page_url="/threshold-effects/")
+           page_url="/threshold-effects/",
+           schema_extra=collection_node(
+               "Threshold Effects", "/threshold-effects/",
+               SITE["series_description"]))
     urls.append("/threshold-effects/")
     for idx, issue in enumerate(issues):
         newer = issues[idx - 1] if idx > 0 else None
         older = issues[idx + 1] if idx + 1 < len(issues) else None
         render("issue.html", f"threshold-effects/{issue['slug']}/index.html",
-               issue=issue, newer=newer, older=older, page_url=issue["url"])
+               issue=issue, newer=newer, older=older, page_url=issue["url"],
+               schema_extra=article_node(issue, in_series=True))
         urls.append(issue["url"])
 
     # Analysis
     render("analysis_index.html", "analysis/index.html",
-           pieces=analysis, page_url="/analysis/")
+           pieces=analysis, page_url="/analysis/",
+           schema_extra=collection_node(
+               "Analysis", "/analysis/",
+               "Longer data work from Threshold Data Sciences: named "
+               "sources and visible methods notes."))
     urls.append("/analysis/")
     for piece in analysis:
         render("analysis.html", f"analysis/{piece['slug']}/index.html",
-               piece=piece, page_url=piece["url"])
+               piece=piece, page_url=piece["url"],
+               schema_extra=article_node(piece))
         urls.append(piece["url"])
 
     # Research
     render("research.html", "research/index.html",
-           research=research, page_url="/research/")
+           research=research, page_url="/research/",
+           schema_extra=collection_node(
+               "Research", "/research/",
+               "Peer-reviewed publications and completed working papers "
+               "by Timothy D. Spivey."))
     urls.append("/research/")
 
     # Markdown-driven pages

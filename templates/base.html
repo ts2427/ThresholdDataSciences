@@ -22,33 +22,7 @@
   <meta name="twitter:title" content="{{ self.og_title() }}">
   <meta name="twitter:description" content="{{ self.meta_desc() }}">
   <meta name="twitter:image" content="{{ site.base_url }}/static/img/og-image.png">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "{{ site.base_url }}/#organization",
-        "name": "{{ site.name }}",
-        "url": "{{ site.base_url }}/",
-        "founder": {"@id": "{{ site.base_url }}/#person"},
-        {% if site.contact_email %}"email": {{ site.contact_email | tojson }},
-        {% endif %}"description": {{ site.description | tojson }}
-      },
-      {
-        "@type": "Person",
-        "@id": "{{ site.base_url }}/#person",
-        "name": "{{ site.author.name }}",
-        "url": "{{ site.base_url }}/about/",
-        "jobTitle": {{ site.author.job_title | tojson }},
-        "knowsAbout": {{ site.author.knows_about | tojson }},
-        "affiliation": {"@id": "{{ site.base_url }}/#organization"},
-        {% set same_as = [site.author.linkedin, site.author.scholar, site.author.orcid, site.author.personal_site] | select | list %}
-        "sameAs": {{ same_as | tojson }}
-      }{% block jsonld_extra %}{% endblock %}
-    ]
-  }
-  </script>
+  <script type="application/ld+json">{{ jsonld | safe }}</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>

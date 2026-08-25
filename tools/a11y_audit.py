@@ -25,7 +25,6 @@ PAGES = [
     "/",
     "/threshold-effects/",
     "/threshold-effects/no-011/",
-    "/threshold-effects/no-001/",
     "/analysis/",
     "/research/",
     "/advisory/",

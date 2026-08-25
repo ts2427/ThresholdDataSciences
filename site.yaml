@@ -14,8 +14,16 @@ series_description: >-
 author:
   name: "Timothy D. Spivey"
   job_title: "Founder, Threshold Data Sciences"
-  # knowsAbout feeds the JSON-LD Person schema — topics tied to the published record.
+  # knowsAbout feeds the JSON-LD Person schema. Method first (the practice's
+  # capability), then the domains it is currently pointed at.
   knows_about:
+    - "Event study methodology"
+    - "Causal inference"
+    - "Applied econometrics"
+    - "Research design"
+    - "Measurement and validity"
+    - "Data engineering"
+    - "Panel data analysis"
     - "Mandatory breach disclosure regulation"
     - "Cybersecurity governance"
     - "Shadow IT governance"

@@ -1,15 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Data &amp; analysis | {{ site.name }}{% endblock %}
-{% block meta_desc %}Longer data work from Threshold Data Sciences: named sources, visible methods notes, and downloadable data where licensing allows.{% endblock %}
-{% block jsonld_extra %},
-      {
-        "@type": "CollectionPage",
-        "name": "Analysis",
-        "url": "{{ site.base_url }}/analysis/",
-        "description": "Longer data work from Threshold Data Sciences: named sources, visible methods notes, and downloadable data where licensing allows.",
-        "isPartOf": {"@id": "{{ site.base_url }}/#organization"},
-        "author": {"@id": "{{ site.base_url }}/#person"}
-      }{% endblock %}
+{% block meta_desc %}Longer data work from Threshold Data Sciences: named sources and visible methods notes.{% endblock %}
 
 {% block content %}
 <section class="page-head">

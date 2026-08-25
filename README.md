@@ -38,7 +38,19 @@ feed, and the sitemap all regenerate from the content directory — there is
 nothing else to edit.
 
 `draft: true` in any front matter excludes that file from all output (pages,
-feeds, sitemap). Use it for pieces awaiting a journal prior-publication check.
+feeds, sitemap). Use it for pieces awaiting a journal prior-publication check,
+and for backfill files whose metadata isn't verified yet.
+
+**Content integrity rules.** This site's entire claim is a citable record,
+and issues cross-link to public posts anyone can verify:
+
+- Every title, date, category, and summary comes from the published record —
+  never from memory, never invented, never "close enough."
+- The build **fails** if a non-draft issue has a title containing `TBC`, a
+  summary containing `TODO`, or no date. Placeholder files sit in the repo as
+  `draft: true` until their verified values are supplied.
+- Tooling (including AI assistants) must never generate content for this
+  site — structure, markup, and styling only.
 
 ## Adding an analysis piece
 
@@ -154,9 +166,9 @@ against 11 representative pages. (axe via Selenium is used because the build
 machine has Python and Chrome but not Node; the ruleset is the same engine
 pa11y uses.)
 
-**Result, 2026-08-25 (initial build): PASS — 0 violations across all 11
-pages audited** (home, archive, issue No. 011, issue No. 001, analysis,
-research, advisory, about, contact, privacy, 404).
+**Result, 2026-08-25 (after revision pass 2): PASS — 0 violations across
+all 10 pages audited** (home, archive, issue No. 011, analysis, research,
+advisory, about, contact, privacy, 404).
 
 Manual checks in the same pass: skip-to-content link, visible focus states,
 logical tab order, real `<label>` elements on all form fields,
@@ -176,7 +188,14 @@ The `timothydspivey.com` → `thresholddatasciences.com` redirects — the old
 personal site is hosted, not in this repo. The personal site is also GitHub
 Pages, so its old pages get canonical/meta-refresh stubs (`<link
 rel="canonical">` to the new URL plus `<meta http-equiv="refresh">`) in the
-personal site's repo once this site is live. The mapping:
+personal site's repo once this site is live.
+
+**The issue numbers in this table are UNVERIFIED** — they came from an
+earlier reconstruction that revision pass 2 found to be wrong in at least
+two places (the say-something/build-something piece is No. 010, and No. 009
+was a different piece). Confirm every number against the published record
+when backfilling the issues, and correct this table at the same time. Only
+the No. 011 row is verified.
 
 | Old URL (timothydspivey.com) | New URL (this site) |
 |---|---|
@@ -219,8 +238,15 @@ Remaining:
       certificate issues.
 - [ ] **DNS cutover** — apex A records to GitHub Pages (see Deploy above),
       replacing the Squarespace forward to www.timothydspivey.com.
-- [ ] Backfill issue bodies No. 001–010 (front matter is done; each file has
-      a `TODO` body). Add inline source links while pasting.
+- [ ] **Backfill issues No. 001–010 from the published record.** The files
+      are `draft: true` placeholders (`TITLE TBC`, no date) — supply the
+      real title, category, date, summary, and body for each from the
+      published posts, then remove the draft flag. The build fails if
+      placeholder text remains on a published issue. Do not trust any values
+      from this repo's earlier history: revision pass 2 found the earlier
+      reconstruction wrong in at least two places.
+- [ ] Correct the redirect mapping table (above) against the verified
+      numbering at the same time.
 - [ ] Issue No. 011 body is in place as published; its citations still need
       inline source links.
 - [ ] ORCID iD in `site.yaml` for the Person schema `sameAs`.

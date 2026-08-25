@@ -1,15 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Threshold Effects — the archive | {{ site.name }}{% endblock %}
 {% block meta_desc %}{{ site.series_description }}{% endblock %}
-{% block jsonld_extra %},
-      {
-        "@type": "CollectionPage",
-        "name": "Threshold Effects",
-        "url": "{{ site.base_url }}/threshold-effects/",
-        "description": {{ site.series_description | tojson }},
-        "isPartOf": {"@id": "{{ site.base_url }}/#organization"},
-        "author": {"@id": "{{ site.base_url }}/#person"}
-      }{% endblock %}
 
 {% block content %}
 <section class="page-head">
