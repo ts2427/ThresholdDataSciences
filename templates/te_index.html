@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Threshold Effects — the archive | {{ site.name }}{% endblock %}
+{% block meta_desc %}{{ site.series_description }}{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="shell">
+    <p class="eyebrow">A numbered research series</p>
+    <h1>Threshold Effects</h1>
+    <p class="page-lede">Rules change what organizations are required to do.
+      They rarely change what they are. Each numbered issue examines that gap —
+      regulation, disclosure, governance, and the organizational capacity that
+      decides outcomes. Sources are linked in the text.
+      <a href="/threshold-effects/feed.xml">Subscribe by RSS</a>.</p>
+  </div>
+</section>
+
+{% include "_step.html" %}
+
+<section class="archive">
+  <div class="shell">
+    <div id="filter-slot" data-categories="{{ categories | join('|') }}"></div>
+    <ol class="issue-list" reversed>
+      {% for i in issues %}
+      <li class="issue-row" data-category="{{ i.category }}">
+        <div class="issue-meta">
+          <span class="issue-no">{{ i.number_label }}</span>
+          {% if i.category %}<span class="issue-cat">{{ i.category }}</span>{% endif %}
+        </div>
+        <div>
+          <h2 class="issue-title"><a href="{{ i.url }}">{{ i.title }}</a></h2>
+          <p class="issue-summary">{{ i.summary }}</p>
+          <p class="issue-date"><time datetime="{{ i.iso_date }}">{{ i.display_date }}</time></p>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+{# Category filter is injected by JS; without JS the full archive simply shows. #}
+<script src="/static/js/filter.js" defer></script>
+{% endblock %}

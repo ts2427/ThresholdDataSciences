@@ -1,0 +1,25 @@
+# Netlify / Cloudflare Pages redirects. Copied into dist/ by build.py.
+#
+# NOTE ON SCOPE: this file can only redirect requests made to THIS domain.
+# The old Threshold Effects posts live at timothydspivey.com/blog/<slug>.html,
+# a different domain (GitHub Pages), which needs its own redirect mechanism —
+# see the mapping table and instructions in README.md.
+#
+# The rules below handle the same old paths if they are ever requested on
+# this domain (e.g. after the personal site's blog links here, or if links
+# get pasted against the wrong host).
+
+/blog/the-faster-is-better-assumption.html        /threshold-effects/no-001/   301
+/blog/cover-yourself-8-ks.html                    /threshold-effects/no-002/   301
+/blog/paper-trails-and-shadow-ai.html             /threshold-effects/no-003/   301
+/blog/shadow-it-was-the-rehearsal.html            /threshold-effects/no-004/   301
+/blog/three-rules-same-outcome.html               /threshold-effects/no-005/   301
+/blog/wanted-the-best-counterexample.html         /threshold-effects/no-006/   301
+/blog/what-the-broadband-labels-revealed.html     /threshold-effects/no-007/   301
+/blog/the-dashboard-is-green.html                 /threshold-effects/no-008/   301
+/blog/say-something-vs-build-something.html       /threshold-effects/no-009/   301
+/blog/a-fair-fight-with-sox-404.html              /threshold-effects/no-010/   301
+/blog/gulf-coast-who-the-money-moves-through.html /threshold-effects/no-011/   301
+/blog/why-threshold-effects.html                  /threshold-effects/          301
+/blog/                                            /threshold-effects/          301
+/blog                                             /threshold-effects/          301

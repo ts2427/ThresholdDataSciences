@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}{{ issue.number_label }} — {{ issue.title }} | Threshold Effects{% endblock %}
+{% block meta_desc %}{{ issue.summary }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block jsonld_extra %},
+      {
+        "@type": "Article",
+        "headline": {{ issue.title | tojson }},
+        "description": {{ issue.summary | tojson }},
+        "datePublished": "{{ issue.iso_date }}",
+        {% if issue.iso_updated %}"dateModified": "{{ issue.iso_updated }}",
+        {% endif %}"url": "{{ site.base_url }}{{ issue.url }}",
+        "isPartOf": {
+          "@type": "CreativeWorkSeries",
+          "name": "Threshold Effects",
+          "url": "{{ site.base_url }}/threshold-effects/"
+        },
+        "author": {"@id": "{{ site.base_url }}/#person"},
+        "publisher": {"@id": "{{ site.base_url }}/#organization"}
+      }{% endblock %}
+
+{% block content %}
+<article class="issue">
+  <header class="page-head">
+    <div class="shell measure">
+      <p class="eyebrow"><span class="issue-no">{{ issue.number_label }}</span>
+        {% if issue.category %}<span class="issue-cat">{{ issue.category }}</span>{% endif %}</p>
+      <h1>{{ issue.title }}</h1>
+      <p class="byline">By {{ site.author.name }} ·
+        <time datetime="{{ issue.iso_date }}">{{ issue.display_date }}</time>
+        {% if issue.display_updated %} · Updated
+        <time datetime="{{ issue.iso_updated }}">{{ issue.display_updated }}</time>{% endif %}</p>
+    </div>
+  </header>
+
+  {% include "_step.html" %}
+
+  <div class="shell measure prose">
+    {{ issue.body | safe }}
+  </div>
+
+  <footer class="shell measure issue-foot">
+    <nav class="prevnext" aria-label="Issue">
+      {% if older %}<a class="prev" href="{{ older.url }}">&larr; {{ older.number_label }}: {{ older.title }}</a>{% else %}<span></span>{% endif %}
+      {% if newer %}<a class="next" href="{{ newer.url }}">{{ newer.number_label }}: {{ newer.title }} &rarr;</a>{% endif %}
+    </nav>
+  </footer>
+</article>
+{% endblock %}

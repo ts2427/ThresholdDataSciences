@@ -1,0 +1,8 @@
+# "In the press" entries. While this file is empty the homepage section is
+# omitted entirely — no placeholder text, no visible gap.
+#
+# Format:
+# - title: "Headline or description of the mention"
+#   outlet: "Publication name"
+#   date: 2026-01-01
+#   url: "https://..."

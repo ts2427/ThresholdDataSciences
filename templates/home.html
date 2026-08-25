@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}{{ site.name }} — research and advisory on regulation, disclosure, and governance{% endblock %}
+{% block meta_desc %}{{ site.description }} Its running thesis: rules change what organizations are required to do, but rarely change what they are.{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="shell">
+    <p class="eyebrow">Threshold Data Sciences</p>
+    <h1>Rules change what organizations are required to&nbsp;do. They rarely change what they&nbsp;are.</h1>
+    <p class="hero-sub">An independent research and advisory practice studying the gap between
+      what rules require and what organizations actually do — and the
+      organizational capacity that decides outcomes.</p>
+  </div>
+</section>
+
+{% include "_step.html" %}
+
+<section class="home-latest">
+  <div class="shell">
+    <h2>Latest from Threshold Effects</h2>
+    <p class="section-note">A numbered research series. Each issue examines one
+      rule, one organization, or one gap between the two, with sources linked
+      in the text.</p>
+    <ol class="issue-list" reversed>
+      {% for i in issues %}
+      <li class="issue-row">
+        <div class="issue-meta">
+          <span class="issue-no">{{ i.number_label }}</span>
+          {% if i.category %}<span class="issue-cat">{{ i.category }}</span>{% endif %}
+        </div>
+        <div>
+          <h3 class="issue-title"><a href="{{ i.url }}">{{ i.title }}</a></h3>
+          <p class="issue-summary">{{ i.summary }}</p>
+          <p class="issue-date"><time datetime="{{ i.iso_date }}">{{ i.display_date }}</time></p>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+    <p><a class="more-link" href="/threshold-effects/">Full archive, No. 001 onward &rarr;</a></p>
+  </div>
+</section>
+
+{% include "_step.html" %}
+
+<section class="home-sections">
+  <div class="shell">
+    <div class="section-cards">
+      <div class="section-card">
+        <h2><a href="/threshold-effects/">Threshold Effects</a></h2>
+        <p>The complete numbered archive of the research series — regulation,
+          disclosure, governance, and organizational capacity, one issue at a
+          time.</p>
+      </div>
+      <div class="section-card">
+        <h2><a href="/analysis/">Analysis</a></h2>
+        <p>Longer data work: named sources, a visible methods note, and the
+          underlying data downloadable where licensing allows.</p>
+      </div>
+      <div class="section-card">
+        <h2><a href="/research/">Research</a></h2>
+        <p>Peer-reviewed publications and completed working papers by the
+          practice's founder, Timothy D. Spivey.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% include "_step.html" %}
+
+<section class="home-practice">
+  <div class="shell">
+    <h2>The practice</h2>
+    <p>Threshold Data Sciences takes a small number of advisory engagements:
+      fixed-scope assessments and commissioned analysis on regulatory programs
+      and governance. The published research is the credential.</p>
+    <p><a class="more-link" href="/advisory/">What the practice takes on &rarr;</a></p>
+  </div>
+</section>
+
+{% if press %}
+{% include "_step.html" %}
+<section class="home-press">
+  <div class="shell">
+    <h2>In the press</h2>
+    <ul class="press-list">
+      {% for p in press %}
+      <li><a href="{{ p.url }}">{{ p.title }}</a> — {{ p.outlet }},
+        <time datetime="{{ p.date }}">{{ p.date }}</time></li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

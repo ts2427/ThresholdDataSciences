@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Data &amp; analysis | {{ site.name }}{% endblock %}
+{% block meta_desc %}Longer data work from Threshold Data Sciences: named sources, visible methods notes, and downloadable data where licensing allows.{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="shell">
+    <p class="eyebrow">Data &amp; analysis</p>
+    <h1>Analysis</h1>
+    <p class="page-lede">Longer data work than the series carries. Every piece
+      names its sources, shows its method, and links the underlying data where
+      licensing allows.</p>
+  </div>
+</section>
+
+{% include "_step.html" %}
+
+<section class="archive">
+  <div class="shell">
+    {% if pieces %}
+    <ul class="issue-list">
+      {% for p in pieces %}
+      <li class="issue-row">
+        <div class="issue-meta">
+          <span class="issue-no"><time datetime="{{ p.iso_date }}">{{ p.display_date }}</time></span>
+        </div>
+        <div>
+          <h2 class="issue-title"><a href="{{ p.url }}">{{ p.title }}</a></h2>
+          <p class="issue-summary">{{ p.summary }}</p>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="measure">The first analysis pieces are in preparation. The
+      <a href="/threshold-effects/">Threshold Effects archive</a> is the place
+      to start in the meantime.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

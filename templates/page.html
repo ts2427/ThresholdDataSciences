@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}{{ page.title }} | {{ site.name }}{% endblock %}
+{% block meta_desc %}{{ page.summary }}{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="shell">
+    {% if page.eyebrow %}<p class="eyebrow">{{ page.eyebrow }}</p>{% endif %}
+    <h1>{{ page.title }}</h1>
+    {% if page.lede %}<p class="page-lede">{{ page.lede }}</p>{% endif %}
+  </div>
+</section>
+
+{% include "_step.html" %}
+
+<section class="archive">
+  <div class="shell measure prose">
+    {{ page.body | safe }}
+  </div>
+</section>
+{% endblock %}

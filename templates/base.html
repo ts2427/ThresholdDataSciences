@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ site.name }}{% endblock %}</title>
+  <meta name="description" content="{% block meta_desc %}{{ site.description }}{% endblock %}">
+  <link rel="canonical" href="{{ site.base_url }}{{ page_url }}">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="alternate" type="application/rss+xml" title="Threshold Effects"
+        href="{{ site.base_url }}/threshold-effects/feed.xml">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:title" content="{% block og_title %}{{ self.title() }}{% endblock %}">
+  <meta property="og:description" content="{{ self.meta_desc() }}">
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+  <meta property="og:url" content="{{ site.base_url }}{{ page_url }}">
+  <meta property="og:image" content="{{ site.base_url }}/static/img/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ self.og_title() }}">
+  <meta name="twitter:description" content="{{ self.meta_desc() }}">
+  <meta name="twitter:image" content="{{ site.base_url }}/static/img/og-image.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "{{ site.base_url }}/#organization",
+        "name": "{{ site.name }}",
+        "url": "{{ site.base_url }}/",
+        "founder": {"@id": "{{ site.base_url }}/#person"},
+        "description": {{ site.description | tojson }}
+      },
+      {
+        "@type": "Person",
+        "@id": "{{ site.base_url }}/#person",
+        "name": "{{ site.author.name }}",
+        "url": "{{ site.base_url }}/about/",
+        "affiliation": {"@id": "{{ site.base_url }}/#organization"},
+        "sameAs": [
+          {{ site.author.linkedin | tojson }},
+          {{ site.author.scholar | tojson }}{% if site.author.orcid %},
+          {{ site.author.orcid | tojson }}{% endif %}{% if site.author.personal_site %},
+          {{ site.author.personal_site | tojson }}{% endif %}
+        ]
+      }{% block jsonld_extra %}{% endblock %}
+    ]
+  }
+  </script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="shell header-inner">
+    <a class="brand" href="/">
+      <img class="brand-mark" src="/static/img/logo.svg" alt="" aria-hidden="true">
+      <span class="brand-word">Threshold Data&nbsp;Sciences</span>
+    </a>
+    <nav aria-label="Site">
+      <ul class="site-nav">
+        <li><a href="/threshold-effects/"{% if page_url.startswith('/threshold-effects') %} aria-current="page"{% endif %}>Threshold Effects</a></li>
+        <li><a href="/analysis/"{% if page_url.startswith('/analysis') %} aria-current="page"{% endif %}>Analysis</a></li>
+        <li><a href="/research/"{% if page_url.startswith('/research') %} aria-current="page"{% endif %}>Research</a></li>
+        <li><a href="/advisory/"{% if page_url.startswith('/advisory') %} aria-current="page"{% endif %}>Advisory</a></li>
+        <li><a href="/about/"{% if page_url.startswith('/about') %} aria-current="page"{% endif %}>About</a></li>
+        <li><a href="/contact/"{% if page_url.startswith('/contact') %} aria-current="page"{% endif %}>Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+{% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+  <div class="shell">
+    {% include "_step.html" %}
+    <div class="footer-cols">
+      <p class="footer-name">Threshold Data Sciences<br>
+        <span class="footer-sub">Independent research &amp; advisory · Pensacola, Florida</span></p>
+      <ul class="footer-links">
+        <li><a href="/threshold-effects/">Threshold Effects</a></li>
+        <li><a href="/threshold-effects/feed.xml">RSS feed</a></li>
+        <li><a href="/privacy/">Privacy</a></li>
+        <li><a href="{{ site.author.personal_site }}">Founder's academic site</a></li>
+      </ul>
+    </div>
+    <p class="footer-fine">&copy; {{ site.year }} Threshold Data Sciences. All rights reserved.</p>
+  </div>
+</footer>
+</body>
+</html>

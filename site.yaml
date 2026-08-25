@@ -1,0 +1,28 @@
+# Global site configuration. Edit here, rerun `python build.py`.
+
+name: "Threshold Data Sciences"
+base_url: "https://thresholddatasciences.com"
+description: >-
+  Threshold Data Sciences is an independent research and advisory practice
+  studying the gap between what rules require and what organizations actually
+  do.
+series_description: >-
+  Threshold Effects — a numbered research series from Threshold Data Sciences
+  on regulation, disclosure, governance, and the organizational capacity that
+  decides outcomes.
+
+author:
+  name: "Timothy D. Spivey"
+  # sameAs identity links for JSON-LD Person schema.
+  linkedin: "https://www.linkedin.com/in/tispivey/"
+  scholar: "https://scholar.google.com/citations?user=S9sSV1EAAAAJ&hl=en"
+  orcid: ""            # TODO: add ORCID iD URL (https://orcid.org/XXXX-...) before launch
+  personal_site: "https://timothydspivey.com"
+
+# TODO (launch blocker, see README): a Threshold Data Sciences domain address.
+# Business inquiries must not route through an employer mail system.
+contact_email: ""
+
+# Contact form backend. "netlify" enables Netlify Forms attributes on the
+# form. Leave empty to render the contact page without a form (email only).
+form_backend: "netlify"
