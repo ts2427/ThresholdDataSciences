@@ -160,11 +160,13 @@ GitHub Pages (185.199.108.153, .109.153, .110.153, .111.153) and, if wanted,
 `www` CNAME to `ts2427.github.io` — replacing the current Squarespace
 forward.
 
-**Contact is a plain `mailto:` link** — no form, no third-party form
-processor, nothing extra to disclose in the privacy policy. The address
-lives in exactly one place, `site.yaml` (`contact_email`); the contact page
-and the JSON-LD Organization schema both read it, and `build.py` prints a
-loud warning while it is unset.
+**Contact is a form** posting via FormSubmit (formsubmit.co) to the address
+in `site.yaml` `contact_form_action` — interim target is the PSC address
+(Tim's choice, 2026-08-25) until the new Threshold address is wired in;
+swapping is that one line plus FormSubmit's one-time activation click in the
+receiving inbox. `contact_email`, when set, also shows on the page and joins
+the JSON-LD Organization schema. The privacy policy describes the form and
+FormSubmit; keep it in sync with any change here.
 
 Analytics: none, deliberately. If a counter is ever wanted, use a cookieless
 one (e.g. GoatCounter) and update `/privacy/` first.
@@ -255,27 +257,27 @@ Done (2026-08-25 go-live pass):
 
 Remaining:
 
-- [ ] **Contact email** — a Threshold Data Sciences domain address in
-      `site.yaml` (`contact_email`). Business inquiries must not route
-      through an employer mail system. Launch blocker — the build warns
-      until it is set.
-- [ ] **GitHub repo settings** — Settings → Pages → Source: GitHub Actions;
-      custom domain `thresholddatasciences.com`; Enforce HTTPS once the
-      certificate issues.
-- [ ] **DNS cutover** — apex A records to GitHub Pages (see Deploy above),
-      replacing the Squarespace forward to www.timothydspivey.com.
-- [ ] **Backfill issues No. 001–010 from the published record.** The files
-      are `draft: true` placeholders (`TITLE TBC`, no date) — supply the
-      real title, category, date, summary, and body for each from the
-      published posts, then remove the draft flag. The build fails if
-      placeholder text remains on a published issue. Do not trust any values
-      from this repo's earlier history: revision pass 2 found the earlier
-      reconstruction wrong in at least two places.
-- [ ] Correct the redirect mapping table (above) against the verified
-      numbering at the same time.
-- [ ] Issue No. 011 body is in place as published; its citations still need
-      inline source links.
+- [ ] **DNS cutover — the only launch blocker.** GitHub Pages already
+      serves the site and has the custom domain attached (the interim URL
+      301s to thresholddatasciences.com). In Squarespace: remove the domain
+      forward to www.timothydspivey.com, add the four apex A records (see
+      Deploy above), then Enforce HTTPS in GitHub Pages settings.
+- [ ] **Swap the contact form target** to the new Threshold email (created;
+      address to be wired later) — one line in `site.yaml`
+      (`contact_form_action`) + FormSubmit activation click in that inbox.
+- [ ] Inline source links in issue bodies (all 11 carry the published text;
+      citations are not yet hyperlinked inline).
 - [ ] ORCID iD in `site.yaml` for the Person schema `sameAs`.
+- [ ] After DNS cutover: validate the live feed with the W3C Feed
+      Validator; reconcile the personal site (consulting section shrinks to
+      a pointer here, `/threshold/` redirects here, old blog posts get
+      canonical stubs per the mapping above).
+
+Resolved 2026-08-25 (archive restore): all 11 issues are published,
+restored verbatim from the blog record at timothydspivey.com/blog — whose
+post footers carry the series numbering — so the redirect mapping table
+above is now verified against that record. The axe audit re-run after the
+restore and the contact form: PASS, 0 violations.
 
 Resolved in the design revision pass (2026-08-25): both ISACA Journal
 entries now link to their isaca.org pages; the publication record is two
