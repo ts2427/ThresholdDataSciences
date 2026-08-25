@@ -99,6 +99,17 @@ SVG lockup is ever wanted, only the `.brand` block in `templates/base.html`
 changes. To replace the mark entirely: swap the files, rerun the build,
 nothing else.
 
+**Per-issue share cards.** The build also generates a 1200×630 card for
+every published issue at `dist/static/img/og/no-0XX.png` (Ink field, mono
+issue number, title in the display serif) and points that issue's
+`og:image`/`twitter:image` at it, so shared links don't all look identical.
+Drawn directly with Pillow — pinned pip wheels, no system packages, no SVG
+rasterizer. Non-issue pages keep the global `og-image.png`.
+
+**Citations.** Every issue and analysis page carries a "Cite this" block
+generated from front matter (`citation_name` in `site.yaml` + title, year,
+number, canonical URL) — never hand-written.
+
 ## Design system (for future edits)
 
 - Palette: Ink `#0F2338`, Slate `#2E5A88`, Field `#F2F4F6`, Rule `#C9D1D8`,
@@ -171,11 +182,26 @@ all 10 pages audited** (home, archive, issue No. 011, analysis, research,
 advisory, about, contact, privacy, 404).
 
 Manual checks in the same pass: skip-to-content link, visible focus states,
-logical tab order, real `<label>` elements on all form fields,
-`prefers-reduced-motion` honored (no motion exists), no horizontal scroll at
-360px, all color token pairs ≥ 4.5:1 for text.
+logical tab order, `prefers-reduced-motion` honored (no motion exists), no
+horizontal scroll at 360px, all color token pairs ≥ 4.5:1 for text.
 
 Re-run the audit after any template or CSS change.
+
+**Manual pre-launch checklist** — automated tools catch roughly a third to a
+half of real accessibility problems. Before launch, and after any redesign,
+a human verifies:
+
+- [ ] Tab through every page: focus always visible, order logical, the
+      skip-to-content link appears on first Tab and works.
+- [ ] Zoom to 200% in the browser: no clipped text, no horizontal scroll.
+- [ ] Look at the muted white text on the Ink header and footer: readable by
+      eye, not just by the computed ratios (~8.8:1 body, ~6.5:1 fine print).
+- [ ] Read each page by its headings alone (screen-reader rotor or an
+      outline extension): the outline should make sense on its own.
+- [ ] Open the site at 360px width on an actual phone, not just a resized
+      desktop window.
+- [ ] Print an issue page to PDF: nav and step rules gone, link URLs shown,
+      citation block present.
 
 ## Redirects — handled outside this repo
 

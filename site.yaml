@@ -13,6 +13,7 @@ series_description: >-
 
 author:
   name: "Timothy D. Spivey"
+  citation_name: "Spivey, T. D."   # used in the generated citation blocks
   job_title: "Founder, Threshold Data Sciences"
   # knowsAbout feeds the JSON-LD Person schema. Method first (the practice's
   # capability), then the domains it is currently pointed at.

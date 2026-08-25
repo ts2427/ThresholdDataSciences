@@ -16,7 +16,8 @@ import json
 import re
 import shutil
 import sys
-from datetime import date, datetime
+import tempfile
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 import markdown
@@ -202,14 +203,27 @@ def _reject_placeholders(meta, path):
         )
 
 
+def _citation(meta, container):
+    """APA-style citation string, generated from front matter only."""
+    title = str(meta["title"]).rstrip()
+    if title[-1:] not in ".?!":
+        title += "."
+    year = meta["iso_date"][:4]
+    return (f"{SITE['author']['citation_name']} ({year}). {title} "
+            f"{container}{SITE['name']}. {SITE['base_url']}{meta['url']}")
+
+
 def load_issues():
-    issues = []
+    """Returns (published issues, draft slugs). Drafts appear in NO output;
+    the slugs are kept so the build can verify they never leak."""
+    issues, draft_slugs = [], []
     for path in sorted((CONTENT / "threshold-effects").glob("*.md")):
         meta, body = parse_md(path)
+        n = int(meta["number"])
         if meta.get("draft"):
+            draft_slugs.append(f"no-{n:03d}")
             continue
         _reject_placeholders(meta, path)
-        n = int(meta["number"])
         meta["number_label"] = f"No. {n:03d}"
         meta["slug"] = f"no-{n:03d}"
         meta["url"] = f"/threshold-effects/{meta['slug']}/"
@@ -219,16 +233,19 @@ def load_issues():
         if meta.get("updated") and iso_date(meta["updated"]) != meta["iso_date"]:
             meta["display_updated"] = fmt_date(meta["updated"])
             meta["iso_updated"] = iso_date(meta["updated"])
+        meta["citation"] = _citation(
+            meta, f"Threshold Effects, {meta['number_label']}. ")
         issues.append(meta)
     issues.sort(key=lambda m: m["number"], reverse=True)
-    return issues
+    return issues, draft_slugs
 
 
 def load_analysis():
-    pieces = []
+    pieces, draft_slugs = [], []
     for path in sorted((CONTENT / "analysis").glob("*.md")):
         meta, body = parse_md(path)
         if meta.get("draft"):
+            draft_slugs.append(path.stem)
             continue
         meta["slug"] = path.stem
         meta["url"] = f"/analysis/{meta['slug']}/"
@@ -238,9 +255,10 @@ def load_analysis():
         if meta.get("updated") and iso_date(meta["updated"]) != meta["iso_date"]:
             meta["display_updated"] = fmt_date(meta["updated"])
             meta["iso_updated"] = iso_date(meta["updated"])
+        meta["citation"] = _citation(meta, "")
         pieces.append(meta)
     pieces.sort(key=lambda m: m["iso_date"], reverse=True)
-    return pieces
+    return pieces, draft_slugs
 
 
 def load_pages():
@@ -269,6 +287,8 @@ def build_rss(issues):
             f"<description>{html.escape(i.get('summary', ''))}</description>"
             "</item>"
         )
+    last_build = datetime.now(timezone.utc).strftime(
+        "%a, %d %b %Y %H:%M:%S GMT")
     rss = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>'
@@ -278,6 +298,7 @@ def build_rss(issues):
         'type="application/rss+xml"/>'
         f"<description>{html.escape(SITE['series_description'])}</description>"
         "<language>en-us</language>"
+        f"<lastBuildDate>{last_build}</lastBuildDate>"
         + "".join(items)
         + "</channel></rss>\n"
     )
@@ -303,15 +324,95 @@ def build_robots():
     )
 
 
+# --------------------------------------------------- per-issue social cards --
+
+INK_RGB = (15, 35, 56)
+CARD_MUTED = (184, 190, 195)   # 72% white over Ink
+CARD_W, CARD_H = 1200, 630
+
+
+def _ttf(woff2_name):
+    """Convert a shipped woff2 to a cached TTF Pillow can load (fonttools +
+    brotli — pure pip wheels, no system packages)."""
+    from fontTools.ttLib import TTFont
+    out = Path(tempfile.gettempdir()) / f"tds-{woff2_name}.ttf"
+    if not out.exists():
+        f = TTFont(STATIC / "fonts" / woff2_name)
+        f.flavor = None
+        f.save(out)
+    return out
+
+
+def _wrap(draw, text, font, max_width):
+    lines, line = [], ""
+    for word in text.split():
+        trial = f"{line} {word}".strip()
+        if draw.textlength(trial, font=font) <= max_width or not line:
+            line = trial
+        else:
+            lines.append(line)
+            line = word
+    if line:
+        lines.append(line)
+    return lines
+
+
+def issue_card(issue):
+    """1200x630 share card: Ink field, mono issue number, serif title."""
+    from PIL import Image, ImageDraw, ImageFont
+    serif = ImageFont.truetype(str(_ttf("source-serif-4-600.woff2")), 76)
+    mono = ImageFont.truetype(str(_ttf("ibm-plex-mono-500.woff2")), 34)
+
+    img = Image.new("RGB", (CARD_W, CARD_H), INK_RGB)
+    d = ImageDraw.Draw(img)
+    margin = 90
+    d.text((margin, 110), f"{issue['number_label'].upper()}  ·  THRESHOLD EFFECTS",
+           font=mono, fill=CARD_MUTED)
+    lines = _wrap(d, issue["title"], serif, CARD_W - 2 * margin)
+    if len(lines) > 3:
+        serif = ImageFont.truetype(str(_ttf("source-serif-4-600.woff2")), 58)
+        lines = _wrap(d, issue["title"], serif, CARD_W - 2 * margin)
+    y = 210
+    for line in lines:
+        d.text((margin, y), line, font=serif, fill=(255, 255, 255))
+        y += int(serif.size * 1.22)
+    out = DIST / "static" / "img" / "og" / f"{issue['slug']}.png"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    img.save(out)
+    return f"/static/img/og/{issue['slug']}.png"
+
+
 # ------------------------------------------------------------------ build ----
+
+def _verify_drafts_excluded(draft_slugs):
+    """Regression check: draft slugs must appear nowhere in the output."""
+    if not draft_slugs:
+        print("draft check: no drafts in content/")
+        return
+    haystacks = [DIST / "sitemap.xml", DIST / "threshold-effects" / "feed.xml",
+                 DIST / "index.html", DIST / "threshold-effects" / "index.html"]
+    leaks = []
+    for slug in draft_slugs:
+        for hay in haystacks:
+            if hay.exists() and f"/{slug}/" in hay.read_text(encoding="utf-8"):
+                leaks.append(f"{slug} referenced in {hay.relative_to(DIST)}")
+        if (DIST / "threshold-effects" / slug).exists() or \
+                (DIST / "analysis" / slug).exists():
+            leaks.append(f"{slug} has a rendered page in dist/")
+    if leaks:
+        sys.exit("BUILD FAILED: draft content leaked into output:\n  "
+                 + "\n  ".join(leaks))
+    print(f"draft check: {len(draft_slugs)} draft file(s) verified absent "
+          "from sitemap, feed, homepage, archive, and rendered pages")
+
 
 def main():
     if DIST.exists():
         shutil.rmtree(DIST)
     DIST.mkdir()
 
-    issues = load_issues()
-    analysis = load_analysis()
+    issues, issue_drafts = load_issues()
+    analysis, analysis_drafts = load_analysis()
     pages = load_pages()
     research = load_yaml(CONTENT / "research.yaml") or []
     press = load_yaml(CONTENT / "press.yaml") or []
@@ -336,6 +437,7 @@ def main():
         older = issues[idx + 1] if idx + 1 < len(issues) else None
         render("issue.html", f"threshold-effects/{issue['slug']}/index.html",
                issue=issue, newer=newer, older=older, page_url=issue["url"],
+               og_image=f"/static/img/og/{issue['slug']}.png",
                schema_extra=article_node(issue, in_series=True))
         urls.append(issue["url"])
 
@@ -389,6 +491,12 @@ def main():
     # .nojekyll stops GitHub Pages running Jekyll over the output (Jekyll
     # would drop files and directories that begin with an underscore).
     (DIST / ".nojekyll").write_text("")
+
+    # Per-issue share cards (after copytree so dist/static exists).
+    for issue in issues:
+        issue_card(issue)
+
+    _verify_drafts_excluded(issue_drafts + analysis_drafts)
 
     print(f"\nBuilt {len(urls)} pages, {len(issues)} issues, "
           f"{len(analysis)} analysis pieces -> dist/")

@@ -22,6 +22,11 @@
     {{ issue.body | safe }}
   </div>
 
+  <aside class="shell measure cite-block" aria-label="Citation">
+    <h2>Cite this issue</h2>
+    <p class="cite-text">{{ issue.citation }}</p>
+  </aside>
+
   <footer class="shell measure issue-foot">
     <nav class="prevnext" aria-label="Issue">
       {% if older %}<a class="prev" href="{{ older.url }}">&larr; {{ older.number_label }}: {{ older.title }}</a>{% else %}<span></span>{% endif %}

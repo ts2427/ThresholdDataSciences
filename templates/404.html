@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 {% block title %}Page not found | {{ site.name }}{% endblock %}
 {% block meta_desc %}The page you were looking for does not exist.{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
 
 {% block content %}
 <section class="page-head">
   <div class="shell">
     <p class="eyebrow">404</p>
     <h1>Page not found</h1>
-    <p class="page-lede">The page you were looking for does not exist or has
-      moved. The <a href="/threshold-effects/">Threshold Effects archive</a>
-      is the most likely place to find what you came for.</p>
+    <p class="page-lede">This page does not exist. The
+      <a href="/threshold-effects/">Threshold Effects archive</a> holds the
+      published record, and the <a href="/">homepage</a> is the other place
+      to start.</p>
   </div>
 </section>
 {% endblock %}

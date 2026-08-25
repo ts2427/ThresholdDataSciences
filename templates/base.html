@@ -12,16 +12,18 @@
   <link rel="alternate" type="application/rss+xml" title="Threshold Effects"
         href="{{ site.base_url }}/threshold-effects/feed.xml">
   <link rel="stylesheet" href="/static/css/style.css">
+  {% block robots %}{% endblock %}
+  {% set og_img = site.base_url ~ (og_image or "/static/img/og-image.png") %}
   <meta property="og:site_name" content="{{ site.name }}">
   <meta property="og:title" content="{% block og_title %}{{ self.title() }}{% endblock %}">
   <meta property="og:description" content="{{ self.meta_desc() }}">
   <meta property="og:type" content="{% block og_type %}website{% endblock %}">
   <meta property="og:url" content="{{ site.base_url }}{{ page_url }}">
-  <meta property="og:image" content="{{ site.base_url }}/static/img/og-image.png">
+  <meta property="og:image" content="{{ og_img }}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ self.og_title() }}">
   <meta name="twitter:description" content="{{ self.meta_desc() }}">
-  <meta name="twitter:image" content="{{ site.base_url }}/static/img/og-image.png">
+  <meta name="twitter:image" content="{{ og_img }}">
   <script type="application/ld+json">{{ jsonld | safe }}</script>
 </head>
 <body>
