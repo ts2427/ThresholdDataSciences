@@ -37,9 +37,13 @@ author:
   orcid: ""            # TODO: add ORCID iD URL (https://orcid.org/XXXX-...) — joins sameAs automatically when set
   personal_site: "https://timothydspivey.com"
 
-# THE site email. Single source of truth: the contact page, the About
-# permissions section, and the JSON-LD Organization schema all read this
-# value. TODO (launch blocker, see README): set a Threshold Data Sciences
-# domain address. Business inquiries must not route through an employer
-# mail system. build.py refuses to stay quiet while this is empty.
+# THE site email. Single source of truth: shown on the contact page when
+# set, and included in the JSON-LD Organization schema. TODO (see README):
+# set a Threshold Data Sciences domain address once it exists.
 contact_email: ""
+
+# Contact box delivery. The form posts to FormSubmit, which relays the
+# submission to the address in this URL. Interim target chosen by Tim
+# 2026-08-25: the PSC address, same as the personal site, until the
+# Threshold domain address exists — then swap this one line.
+contact_form_action: "https://formsubmit.co/tspivey@pensacolastate.edu"

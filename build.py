@@ -169,13 +169,16 @@ def render(template, relpath, schema_extra=None, **ctx):
 SITE = load_yaml(HERE / "site.yaml")
 SITE["year"] = date.today().year
 
-if not SITE.get("contact_email"):
+if not SITE.get("contact_email") and not SITE.get("contact_form_action"):
     print("=" * 70)
-    print("WARNING: site.yaml contact_email is NOT SET.")
-    print("The contact page will render without an email address, and the")
-    print("Organization schema will omit it. Set a Threshold Data Sciences")
-    print("domain address before launch. DO NOT SHIP THIS BUILD.")
+    print("WARNING: neither contact_email nor contact_form_action is set in")
+    print("site.yaml — the contact page has no working contact channel.")
+    print("DO NOT SHIP THIS BUILD.")
     print("=" * 70)
+if "pensacolastate" in SITE.get("contact_form_action", ""):
+    print("NOTE: contact box delivers to the PSC address (interim). Swap")
+    print("site.yaml contact_form_action to the Threshold Data Sciences")
+    print("address once it exists.")
 
 
 # ---------------------------------------------------------------- content ----
@@ -469,6 +472,11 @@ def main():
         tpl = page.get("template", "page.html")
         render(tpl, f"{slug}/index.html", page=page, page_url=f"/{slug}/")
         urls.append(f"/{slug}/")
+
+    # Contact-form landing page (noindex, excluded from sitemap)
+    if SITE.get("contact_form_action"):
+        render("thanks.html", "contact/thanks/index.html",
+               page_url="/contact/thanks/")
 
     # 404
     render("404.html", "404.html", page_url="/404.html")

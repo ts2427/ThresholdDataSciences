@@ -323,6 +323,27 @@ h2 {
 
 /* ---------- contact ---------- */
 .contact-email { margin: 1.75rem 0 0; font-weight: 600; font-size: 1.25rem; }
+.contact-form { margin-top: 2.5rem; max-width: 36rem; }
+.form-field { margin-bottom: 1.2rem; }
+.form-field label {
+  display: block; font-weight: 600; font-size: 0.95rem; margin-bottom: 0.35rem;
+}
+.form-field input, .form-field textarea {
+  width: 100%; padding: 0.65rem 0.8rem;
+  font-family: var(--sans); font-size: 1rem; color: var(--ink);
+  background: var(--paper); border: 1px solid var(--rule); border-radius: 0;
+}
+.form-field input:focus, .form-field textarea:focus {
+  outline: 2px solid var(--ink); outline-offset: 1px; border-color: var(--ink);
+}
+.contact-form button {
+  font-family: var(--sans); font-weight: 600; font-size: 1rem;
+  color: var(--paper); background: var(--ink);
+  border: 1px solid var(--ink); border-radius: 0;
+  padding: 0.7rem 2rem; cursor: pointer;
+}
+.contact-form button:hover { background: var(--slate); border-color: var(--slate); }
+.form-note { font-size: 0.88rem; color: var(--muted); margin-top: 1rem; }
 
 /* ---------- category filter (JS-injected) ---------- */
 .filter-bar {

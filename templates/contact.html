@@ -18,10 +18,37 @@
     <div class="prose">
       {{ page.body | safe }}
     </div>
+
     {% if site.contact_email %}
     <p class="contact-email">
       <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a>
     </p>
+    {% endif %}
+
+    {% if site.contact_form_action %}
+    <form class="contact-form" method="POST" action="{{ site.contact_form_action }}">
+      <input type="hidden" name="_subject" value="Inquiry via thresholddatasciences.com">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="{{ site.base_url }}/contact/thanks/">
+      <p class="visually-hidden" aria-hidden="true">
+        <label>Leave this field empty: <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
+      </p>
+      <div class="form-field">
+        <label for="cf-name">Name</label>
+        <input id="cf-name" name="name" type="text" required autocomplete="name">
+      </div>
+      <div class="form-field">
+        <label for="cf-email">Email</label>
+        <input id="cf-email" name="email" type="email" required autocomplete="email">
+      </div>
+      <div class="form-field">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" rows="7" required></textarea>
+      </div>
+      <button type="submit">Send</button>
+      <p class="form-note">What you submit is used only to read and reply to
+        your inquiry. See the <a href="/privacy/">privacy policy</a>.</p>
+    </form>
     {% endif %}
   </div>
 </section>
