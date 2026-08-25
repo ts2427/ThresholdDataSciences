@@ -277,29 +277,8 @@ h2 {
 .research-desc { color: var(--muted); max-width: var(--measure); }
 .mono { font-family: var(--mono); }
 
-/* ---------- contact form ---------- */
-.contact-email { margin: 1.5rem 0; font-weight: 600; }
-.contact-form { margin-top: 2rem; max-width: 34rem; }
-.form-field { margin-bottom: 1.1rem; }
-.form-field label {
-  display: block; font-weight: 600; font-size: 0.92rem; margin-bottom: 0.35rem;
-}
-.form-field input, .form-field textarea {
-  width: 100%; padding: 0.6rem 0.75rem;
-  font-family: var(--sans); font-size: 1rem; color: var(--ink);
-  background: var(--paper); border: 1px solid var(--rule); border-radius: 0;
-}
-.form-field input:focus, .form-field textarea:focus {
-  outline: 2px solid var(--ink); outline-offset: 1px; border-color: var(--ink);
-}
-.contact-form button {
-  font-family: var(--sans); font-weight: 600; font-size: 1rem;
-  color: var(--paper); background: var(--ink);
-  border: 1px solid var(--ink); border-radius: 0;
-  padding: 0.65rem 1.8rem; cursor: pointer;
-}
-.contact-form button:hover { background: var(--slate); border-color: var(--slate); }
-.form-note { font-size: 0.85rem; color: var(--muted); margin-top: 0.9rem; }
+/* ---------- contact ---------- */
+.contact-email { margin: 1.75rem 0 0; font-weight: 600; font-size: 1.15rem; }
 
 /* ---------- category filter (JS-injected) ---------- */
 .filter-bar {

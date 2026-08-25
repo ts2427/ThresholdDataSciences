@@ -19,10 +19,9 @@ author:
   orcid: ""            # TODO: add ORCID iD URL (https://orcid.org/XXXX-...) before launch
   personal_site: "https://timothydspivey.com"
 
-# TODO (launch blocker, see README): a Threshold Data Sciences domain address.
-# Business inquiries must not route through an employer mail system.
+# THE site email. Single source of truth: the contact page, the About
+# permissions section, and the JSON-LD Organization schema all read this
+# value. TODO (launch blocker, see README): set a Threshold Data Sciences
+# domain address. Business inquiries must not route through an employer
+# mail system. build.py refuses to stay quiet while this is empty.
 contact_email: ""
-
-# Contact form backend. "netlify" enables Netlify Forms attributes on the
-# form. Leave empty to render the contact page without a form (email only).
-form_backend: "netlify"

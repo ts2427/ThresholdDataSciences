@@ -32,7 +32,8 @@
         "name": "{{ site.name }}",
         "url": "{{ site.base_url }}/",
         "founder": {"@id": "{{ site.base_url }}/#person"},
-        "description": {{ site.description | tojson }}
+        {% if site.contact_email %}"email": {{ site.contact_email | tojson }},
+        {% endif %}"description": {{ site.description | tojson }}
       },
       {
         "@type": "Person",

@@ -94,6 +94,14 @@ def render(template, relpath, **ctx):
 SITE = load_yaml(HERE / "site.yaml")
 SITE["year"] = date.today().year
 
+if not SITE.get("contact_email"):
+    print("=" * 70)
+    print("WARNING: site.yaml contact_email is NOT SET.")
+    print("The contact page will render without an email address, and the")
+    print("Organization schema will omit it. Set a Threshold Data Sciences")
+    print("domain address before launch. DO NOT SHIP THIS BUILD.")
+    print("=" * 70)
+
 
 # ---------------------------------------------------------------- content ----
 
@@ -256,15 +264,20 @@ def main():
     build_sitemap(urls)
     build_robots()
 
-    # Static assets + redirects
-    shutil.copytree(STATIC, DIST / "static")
+    # Static assets. CNAME is copied to the output root separately (GitHub
+    # Pages requires it there to keep the custom domain across deploys).
+    shutil.copytree(STATIC, DIST / "static",
+                    ignore=shutil.ignore_patterns("CNAME"))
     for fav in ("favicon.svg", "favicon-32.png", "apple-touch-icon.png"):
         src = STATIC / "img" / fav
         if src.exists():
             shutil.copy(src, DIST / fav)
-    redirects = HERE / "_redirects"
-    if redirects.exists():
-        shutil.copy(redirects, DIST / "_redirects")
+    cname = STATIC / "CNAME"
+    if cname.exists():
+        shutil.copy(cname, DIST / "CNAME")
+    # .nojekyll stops GitHub Pages running Jekyll over the output (Jekyll
+    # would drop files and directories that begin with an underscore).
+    (DIST / ".nojekyll").write_text("")
 
     print(f"\nBuilt {len(urls)} pages, {len(issues)} issues, "
           f"{len(analysis)} analysis pieces -> dist/")

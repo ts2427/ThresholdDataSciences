@@ -94,21 +94,50 @@ can become a single SVG later by editing only the `.brand` block in
   admits are charts generated from real data, each needing a text alternative
   or adjacent data table.
 
-## Deploy
+## Licensing
 
-**Cloudflare Pages** or **Netlify**, static deploy from this repo:
+Split, deliberately:
 
-- Build command: `pip install -r requirements.txt && python build.py`
-- Output directory: `dist`
-- `_redirects` (repo root) is copied into `dist/` by the build.
+- **Root `LICENSE` (MIT)** covers the software only: `build.py`,
+  `templates/`, `static/css/`, `static/js/`, `tools/`, and the deploy
+  workflow.
+- **`content/LICENSE` (all rights reserved)** covers the written work in
+  `content/` and the visual identity assets in `static/img/`. Quotation with
+  attribution is welcome under normal fair use; anything more requires
+  permission via the contact page. The About page's "Permissions" section
+  states the same in plain language.
 
-The contact form uses Netlify Forms (`data-netlify="true"`), which works with
-zero backend on Netlify. **On Cloudflare Pages the form needs a different
-backend** (e.g. a Pages Function); set `form_backend: ""` in `site.yaml` to
-render the contact page without the form until one is wired up.
+**Do not apply a Creative Commons license to the content.** CC licenses are
+irrevocable, and there is a pending journal submission plus an unpublished
+dissertation whose publishers may require transferable rights.
+
+## Deploy — GitHub Pages
+
+Deployment is automatic: `.github/workflows/deploy.yml` builds on every push
+to `main` (Python 3.12, pinned requirements) and publishes `dist/` via
+`actions/deploy-pages`. Two output files GitHub Pages depends on, both
+produced by `build.py`:
+
+- `dist/CNAME` (sourced from `static/CNAME`) — keeps the custom domain
+  `thresholddatasciences.com` from resetting on each deploy.
+- `dist/.nojekyll` — stops GitHub running Jekyll over the output, which
+  would drop files and directories beginning with an underscore.
+
+One-time setup in the GitHub repo: **Settings → Pages → Source: GitHub
+Actions**, then set the custom domain and enable **Enforce HTTPS** once the
+certificate issues. DNS (wherever the domain is managed): apex A records to
+GitHub Pages (185.199.108.153, .109.153, .110.153, .111.153) and, if wanted,
+`www` CNAME to `ts2427.github.io` — replacing the current Squarespace
+forward.
+
+**Contact is a plain `mailto:` link** — no form, no third-party form
+processor, nothing extra to disclose in the privacy policy. The address
+lives in exactly one place, `site.yaml` (`contact_email`); the contact page
+and the JSON-LD Organization schema both read it, and `build.py` prints a
+loud warning while it is unset.
 
 Analytics: none, deliberately. If a counter is ever wanted, use a cookieless
-one (Cloudflare Web Analytics or GoatCounter) and update `/privacy/` first.
+one (e.g. GoatCounter) and update `/privacy/` first.
 
 ## Accessibility audit
 
@@ -129,19 +158,18 @@ logical tab order, real `<label>` elements on all form fields,
 
 Re-run the audit after any template or CSS change.
 
-## Redirect mapping — old blog → this site
+## Redirects — handled outside this repo
 
-The Threshold Effects series originally published at
-`timothydspivey.com/blog/`. Two mechanisms:
+Hosting is GitHub Pages, which has no server-side redirects, so **there is
+no redirects file here and the URLs in this repo are permanent — do not
+restructure `/threshold-effects/no-0XX/` after launch.**
 
-1. **This domain** — `_redirects` (repo root) already maps the old `/blog/`
-   paths to the new issue URLs, so stale links pasted against this host
-   resolve.
-2. **The old domain** — `timothydspivey.com` is GitHub Pages, which cannot
-   serve real 301s. When this site is live, each old blog page there should
-   be replaced with a stub carrying `<link rel="canonical">` to the new URL
-   and a `<meta http-equiv="refresh">` redirect. That change happens in the
-   personal site's repo.
+The `timothydspivey.com` → `thresholddatasciences.com` redirects — the old
+`/threshold/` page and the old blog post URLs — are configured wherever the
+personal site is hosted, not in this repo. The personal site is also GitHub
+Pages, so its old pages get canonical/meta-refresh stubs (`<link
+rel="canonical">` to the new URL plus `<meta http-equiv="refresh">`) in the
+personal site's repo once this site is live. The mapping:
 
 | Old URL (timothydspivey.com) | New URL (this site) |
 |---|---|
@@ -161,11 +189,29 @@ The Threshold Effects series originally published at
 
 ## Launch blockers and open TODOs
 
-Content:
+Done (2026-08-25 go-live pass):
+
+- [x] License split (MIT for software, all-rights-reserved for content) with
+      an About-page Permissions section.
+- [x] GitHub Pages deployment workflow, `dist/CNAME`, `dist/.nojekyll`,
+      pinned `requirements.txt`.
+- [x] Netlify/Cloudflare remnants removed (`_redirects`, form backend); the
+      contact page is a plain `mailto:` link and the privacy policy matches.
+- [x] Contact address single-sourced in `site.yaml` with a loud build
+      warning while unset.
+- [x] Verification pass: clean build, axe audit, checks below.
+
+Remaining:
 
 - [ ] **Contact email** — a Threshold Data Sciences domain address in
       `site.yaml` (`contact_email`). Business inquiries must not route
-      through an employer mail system. Launch blocker.
+      through an employer mail system. Launch blocker — the build warns
+      until it is set.
+- [ ] **GitHub repo settings** — Settings → Pages → Source: GitHub Actions;
+      custom domain `thresholddatasciences.com`; Enforce HTTPS once the
+      certificate issues.
+- [ ] **DNS cutover** — apex A records to GitHub Pages (see Deploy above),
+      replacing the Squarespace forward to www.timothydspivey.com.
 - [ ] Backfill issue bodies No. 001–010 (front matter is done; each file has
       a `TODO` body). Add inline source links while pasting.
 - [ ] Issue No. 011 body is in place as published; its citations still need
@@ -201,5 +247,5 @@ action, listed here so they aren't lost):
 
 Domain cutover note: `thresholddatasciences.com` currently 301-redirects (via
 Squarespace forwarding) to `www.timothydspivey.com`. Launching this site
-means pointing the domain's DNS at Cloudflare Pages/Netlify instead of the
-forward.
+means removing that forward and pointing the domain's DNS at GitHub Pages
+(see Deploy above).

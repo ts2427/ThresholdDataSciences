@@ -3,7 +3,7 @@ title: "Contact"
 eyebrow: "Threshold Data Sciences"
 template: "contact.html"
 summary: "Contact Threshold Data Sciences about advisory engagements, commissioned analysis, or the published research."
-lede: "For advisory inquiries, questions about the published work, or press."
+lede: "For advisory inquiries, questions about the published work, press, or reuse permissions — email is the channel."
 ---
 
 If you're writing about an engagement, the most useful message names the

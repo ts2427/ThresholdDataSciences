@@ -1,3 +1,14 @@
+SCOPE OF THIS LICENSE
+
+The MIT License below applies ONLY to the software in this repository:
+build.py, templates/, static/css/, static/js/, tools/, and the GitHub
+Actions workflow.
+
+It does NOT apply to the written content in content/ or to the site's
+visual identity assets in static/img/. See content/LICENSE.
+
+---
+
 MIT License
 
 Copyright (c) 2026 Timothy Spivey

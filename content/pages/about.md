@@ -34,3 +34,11 @@ shadow IT governance, and insider threat dynamics, and I hold an MBA in
 business analytics from the University of West Florida. My academic
 portfolio, teaching record, and CV live on my
 [personal site](https://timothydspivey.com); this site is the practice's.
+
+## Permissions
+
+Quoting this site's work — with attribution to Timothy D. Spivey and
+Threshold Data Sciences — for scholarly, journalistic, or commentary purposes
+is welcome under normal fair-use practice. The written work itself is
+copyrighted and is not licensed for reuse, redistribution, or republication;
+for any use beyond quotation, ask first via the [contact page](/contact/).
