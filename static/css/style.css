@@ -1,6 +1,7 @@
-/* Threshold Data Sciences — flat, square, cool, disciplined.
+/* Threshold Data Sciences — institutional research publication register.
+   Mass, scale, and density; near-monochrome discipline.
    Palette: Ink #0F2338 · Slate #2E5A88 · Field #F2F4F6 · Rule #C9D1D8 ·
-   Signal #C7621B (restricted: logo riser + step-rule riser + chart thresholds only).
+   Signal #C7621B (restricted: step-function risers + chart thresholds only).
    Type: Source Serif 4 (display) · IBM Plex Sans (body) · IBM Plex Mono (utility).
    All fonts self-hosted. No gradients, shadows, radii > 2px, pills, or motion. */
 
@@ -49,7 +50,9 @@
   --rule:   #C9D1D8;
   --signal: #C7621B;
   --paper:  #FFFFFF;
-  --muted:  #51626F;   /* secondary text; >=4.5:1 on field and paper */
+  --muted:  #51626F;                     /* secondary text; >=4.5:1 on field and paper */
+  --ink-tint: rgba(255, 255, 255, 0.72); /* muted white on Ink; ~8.8:1 */
+  --ink-fine: rgba(255, 255, 255, 0.60); /* fine print on Ink; ~6.5:1 */
   --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --sans:  "IBM Plex Sans", "Segoe UI", system-ui, Arial, sans-serif;
   --mono:  "IBM Plex Mono", "Consolas", "Courier New", monospace;
@@ -78,6 +81,9 @@ a:hover { color: var(--ink); }
   outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
+.site-header :focus-visible, .site-footer :focus-visible {
+  outline-color: var(--paper);
+}
 
 .skip-link {
   position: absolute; left: -9999px; top: 0;
@@ -95,102 +101,109 @@ a:hover { color: var(--ink); }
 .shell { max-width: 76rem; margin: 0 auto; padding: 0 1.25rem; }
 .measure { max-width: calc(var(--measure) + 2.5rem); }
 
-/* ---------- header ---------- */
+/* ---------- header: full-bleed Ink anchor ---------- */
 .site-header {
-  background: var(--paper);
-  border-bottom: 1px solid var(--rule);
+  background: var(--ink);
+  color: var(--paper);
 }
 .header-inner {
   display: flex; flex-wrap: wrap; align-items: center;
-  justify-content: space-between; gap: 0.75rem 2rem;
-  padding-top: 1.1rem; padding-bottom: 1.1rem;
+  justify-content: space-between; gap: 0.9rem 2rem;
+  padding-top: 1.6rem; padding-bottom: 1.6rem;
 }
 .brand {
-  display: inline-flex; align-items: center; gap: 0.7rem;
-  text-decoration: none; color: var(--ink);
+  display: inline-flex; align-items: center; gap: 0.85rem;
+  text-decoration: none; color: var(--paper);
 }
-.brand-mark { width: 34px; height: 34px; display: block; }
+.brand-mark { width: 38px; height: 38px; display: block; }
 .brand-word {
   font-family: var(--serif); font-weight: 700;
-  font-size: 1.2rem; letter-spacing: 0.01em; line-height: 1.15;
+  font-size: 1.45rem; letter-spacing: 0.005em; line-height: 1.1;
+  color: var(--paper);
 }
 .site-nav {
-  display: flex; flex-wrap: wrap; gap: 0.25rem 1.4rem; list-style: none;
+  display: flex; flex-wrap: wrap; gap: 0.35rem 1.6rem; list-style: none;
 }
 .site-nav a {
   font-size: 0.92rem; font-weight: 600; text-decoration: none;
-  color: var(--ink); padding: 0.2rem 0;
+  color: var(--ink-tint); padding: 0.2rem 0;
 }
-.site-nav a:hover { color: var(--slate); text-decoration: underline; }
+.site-nav a:hover { color: var(--paper); text-decoration: underline; }
 .site-nav a[aria-current="page"] {
-  color: var(--slate);
-  border-bottom: 2px solid var(--slate);
+  color: var(--paper);
+  border-bottom: 2px solid var(--paper);
 }
 
-/* ---------- step-function rule ---------- */
-.step-rule { height: 14px; }
-.step-rule svg { display: block; width: 100%; height: 14px; }
-.step-low, .step-high { stroke: var(--ink); stroke-width: 1.5; fill: none; }
-.step-riser { stroke: var(--signal); stroke-width: 2; fill: none; }
+/* ---------- step-function rule: the signature, with presence ---------- */
+.step-rule { height: 22px; margin: 4rem 0; }
+.step-rule svg { display: block; width: 100%; height: 22px; }
+.step-low, .step-high { stroke: var(--ink); stroke-width: 3; fill: none; }
+.step-riser { stroke: var(--signal); stroke-width: 3; fill: none; }
+.site-footer .step-low, .site-footer .step-high { stroke: var(--ink-tint); }
 
 /* ---------- page heads & hero ---------- */
-.hero { background: var(--paper); padding: 4.5rem 0 3.5rem; }
+.hero { padding: 5rem 0 1rem; }
 .hero h1 {
   font-family: var(--serif); font-weight: 700;
-  font-size: clamp(1.9rem, 4.5vw, 3rem);
-  line-height: 1.18; max-width: 24em; margin: 0.75rem 0 1.25rem;
+  font-size: clamp(2.75rem, 6vw, 4.25rem);
+  line-height: 1.05; letter-spacing: -0.02em;
+  max-width: 18em; margin: 1rem 0 1.75rem;
 }
-.hero-sub { max-width: var(--measure); color: var(--muted); font-size: 1.1rem; }
+.hero-sub { max-width: 60ch; color: var(--muted); font-size: 1.3rem; line-height: 1.55; }
 
 .eyebrow {
-  font-family: var(--mono); font-size: 0.8rem; font-weight: 500;
-  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
   display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; align-items: baseline;
 }
 
-.page-head { background: var(--paper); padding: 3.25rem 0 2.5rem; }
+.page-head { padding: 4.5rem 0 0.5rem; }
 .page-head h1 {
   font-family: var(--serif); font-weight: 700;
-  font-size: clamp(1.7rem, 4vw, 2.5rem); line-height: 1.2;
-  margin: 0.6rem 0 1rem;
+  font-size: clamp(2.4rem, 5vw, 3.5rem);
+  line-height: 1.05; letter-spacing: -0.02em;
+  margin: 1rem 0 1.5rem;
 }
-.page-lede { max-width: var(--measure); color: var(--muted); }
+.page-lede { max-width: 60ch; color: var(--muted); font-size: 1.25rem; line-height: 1.55; }
 
-.byline { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); }
+.byline { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); margin-top: 1.25rem; }
 
 /* ---------- sections ---------- */
-section { padding: 2.75rem 0; }
-.hero, .page-head { padding-top: 3.5rem; }
+section { padding: 1rem 0; }
 
 h2 {
-  font-family: var(--serif); font-weight: 600; font-size: 1.45rem;
-  line-height: 1.25; margin-bottom: 0.75rem;
+  font-family: var(--serif); font-weight: 600;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  line-height: 1.15; letter-spacing: -0.01em;
+  margin-bottom: 0.9rem;
 }
-.section-note { color: var(--muted); max-width: var(--measure); margin-bottom: 1.75rem; }
+.section-note { color: var(--muted); max-width: var(--measure); margin-bottom: 2.25rem; }
 
 .more-link { font-weight: 600; }
 
-/* ---------- issue lists ---------- */
+/* ---------- issue lists: bibliography register ---------- */
 .issue-list { list-style: none; }
 .issue-row {
-  display: grid; grid-template-columns: 11rem 1fr; gap: 0.35rem 2rem;
-  padding: 1.4rem 0; border-top: 1px solid var(--rule);
+  display: grid; grid-template-columns: 8ch 1fr; gap: 0.35rem 2.5rem;
+  padding: 2rem 0; border-top: 1px solid var(--rule);
 }
 .issue-row:last-child { border-bottom: 1px solid var(--rule); }
-.issue-meta { display: flex; flex-direction: column; gap: 0.3rem; }
 .issue-no {
-  font-family: var(--mono); font-weight: 500; font-size: 0.9rem;
-  color: var(--ink); letter-spacing: 0.04em;
+  font-family: var(--mono); font-weight: 500; font-size: 0.95rem;
+  color: var(--ink); letter-spacing: 0.04em; padding-top: 0.35rem;
 }
-.issue-cat {
-  font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase;
-  letter-spacing: 0.07em; color: var(--muted);
+.issue-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 1.45rem; line-height: 1.25; letter-spacing: -0.01em;
+  margin: 0 0 0.4rem;
 }
-.issue-title { font-family: var(--serif); font-weight: 600; font-size: 1.25rem; line-height: 1.3; margin: 0 0 0.35rem; }
 .issue-title a { color: var(--ink); text-decoration: none; }
 .issue-title a:hover { color: var(--slate); text-decoration: underline; }
+.issue-line {
+  font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase;
+  letter-spacing: 0.09em; color: var(--muted); margin-bottom: 0.6rem;
+}
 .issue-summary { color: var(--muted); max-width: var(--measure); }
-.issue-date { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); margin-top: 0.35rem; }
 
 /* ---------- home section cards ---------- */
 .section-cards {
@@ -199,9 +212,9 @@ h2 {
 }
 .section-card {
   background: var(--paper); border: 1px solid var(--rule);
-  padding: 1.5rem 1.5rem 1.6rem;
+  padding: 1.9rem 1.75rem 2rem;
 }
-.section-card h2 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+.section-card h2 { font-size: 1.35rem; margin-bottom: 0.6rem; }
 .section-card h2 a { color: var(--ink); text-decoration: none; }
 .section-card h2 a:hover { color: var(--slate); text-decoration: underline; }
 .section-card p { color: var(--muted); font-size: 0.95rem; }
@@ -210,15 +223,14 @@ h2 {
 .home-practice p + p { margin-top: 0.75rem; }
 
 .press-list { list-style: none; }
-.press-list li { padding: 0.5rem 0; border-top: 1px solid var(--rule); }
+.press-list li { padding: 0.75rem 0; border-top: 1px solid var(--rule); }
 
 /* ---------- prose (issue/analysis/page bodies) ---------- */
-.prose { background: transparent; }
 .prose > * + * { margin-top: 1.15rem; }
-.prose h2 { margin-top: 2.2rem; font-size: 1.35rem; }
+.prose h2 { margin-top: 2.5rem; font-size: 1.55rem; }
 .prose h3 { font-family: var(--sans); font-weight: 600; font-size: 1.05rem; margin-top: 1.8rem; }
 .prose blockquote {
-  border-left: 2px solid var(--ink);
+  border-left: 3px solid var(--ink);
   padding: 0.2rem 0 0.2rem 1.2rem;
   color: var(--muted);
 }
@@ -234,7 +246,7 @@ h2 {
   padding: 1rem 1.2rem; overflow-x: auto; font-size: 0.88rem;
 }
 .prose pre code { background: none; border: none; color: inherit; padding: 0; }
-.prose table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+.prose table { border-collapse: collapse; width: 100%; font-size: 0.95rem; background: var(--paper); }
 .prose th, .prose td {
   border: 1px solid var(--rule); padding: 0.45rem 0.7rem; text-align: left;
   vertical-align: top;
@@ -245,10 +257,10 @@ h2 {
 .table-scroll { overflow-x: auto; }
 
 /* ---------- issue footer / prev-next ---------- */
-.issue-foot { padding-top: 2.5rem; }
+.issue-foot { padding-top: 3rem; padding-bottom: 2rem; }
 .prevnext {
   display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
-  border-top: 1px solid var(--rule); padding-top: 1.25rem;
+  border-top: 1px solid var(--rule); padding-top: 1.5rem;
 }
 .prevnext a { font-size: 0.92rem; font-weight: 600; text-decoration: none; }
 .prevnext a:hover { text-decoration: underline; }
@@ -256,39 +268,54 @@ h2 {
 /* ---------- analysis methods block ---------- */
 .methods {
   border-top: 1px solid var(--rule);
-  margin-top: 2.5rem; padding-top: 1.5rem; padding-bottom: 2.5rem;
+  margin-top: 3rem; padding-top: 1.75rem; padding-bottom: 2.5rem;
 }
 .methods h2 {
-  font-family: var(--mono); font-size: 0.82rem; font-weight: 500;
-  text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
-  margin: 1.25rem 0 0.4rem;
+  font-family: var(--mono); font-size: 0.8rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted);
+  margin: 1.5rem 0 0.5rem;
 }
 .mono-note { font-family: var(--mono); font-size: 0.88rem; line-height: 1.6; }
 .source-list { list-style: none; }
 .source-list li { padding: 0.2rem 0; }
 
-/* ---------- research ---------- */
+/* ---------- research: bibliography ---------- */
 .research-list { list-style: none; }
-.research-item { padding: 1.4rem 0; border-top: 1px solid var(--rule); }
+.research-item {
+  display: grid; grid-template-columns: 6ch 1fr; gap: 0.35rem 2.5rem;
+  padding: 2rem 0; border-top: 1px solid var(--rule);
+}
 .research-item:last-child { border-bottom: 1px solid var(--rule); }
-.research-title { font-family: var(--serif); font-weight: 600; font-size: 1.15rem; line-height: 1.35; }
-.research-title a { color: var(--ink); }
-.research-venue { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); margin: 0.3rem 0 0.5rem; }
+.research-year {
+  font-family: var(--mono); font-weight: 500; font-size: 0.95rem;
+  letter-spacing: 0.04em; padding-top: 0.25rem;
+}
+.research-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.01em;
+  margin-bottom: 0.4rem;
+}
+.research-title a { color: var(--ink); text-decoration: none; }
+.research-title a:hover { color: var(--slate); text-decoration: underline; }
+.research-venue {
+  font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase;
+  letter-spacing: 0.09em; color: var(--muted); margin-bottom: 0.6rem;
+}
 .research-desc { color: var(--muted); max-width: var(--measure); }
 .mono { font-family: var(--mono); }
 
 /* ---------- contact ---------- */
-.contact-email { margin: 1.75rem 0 0; font-weight: 600; font-size: 1.15rem; }
+.contact-email { margin: 1.75rem 0 0; font-weight: 600; font-size: 1.25rem; }
 
 /* ---------- category filter (JS-injected) ---------- */
 .filter-bar {
-  display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem;
+  display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem;
 }
 .filter-bar button {
-  font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.05em;
+  font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.07em;
   text-transform: uppercase; color: var(--ink);
   background: var(--paper); border: 1px solid var(--rule); border-radius: 0;
-  padding: 0.35rem 0.9rem; cursor: pointer;
+  padding: 0.4rem 1rem; cursor: pointer;
 }
 .filter-bar button[aria-pressed="true"] {
   background: var(--ink); color: var(--paper); border-color: var(--ink);
@@ -296,24 +323,38 @@ h2 {
 .filter-bar button:hover { border-color: var(--ink); }
 .issue-row[hidden] { display: none; }
 
-/* ---------- footer ---------- */
-.site-footer { background: var(--paper); padding: 0 0 2.5rem; margin-top: 2rem; }
-.site-footer .step-rule { margin-bottom: 2rem; }
+/* ---------- footer: the heaviest block on the page ---------- */
+.site-footer {
+  background: var(--ink); color: var(--ink-tint);
+  padding: 4.5rem 0; margin-top: 5rem;
+}
+.site-footer .step-rule { margin: 0 0 3.5rem; }
 .footer-cols {
   display: flex; flex-wrap: wrap; justify-content: space-between;
-  gap: 1.5rem 3rem; margin-bottom: 1.75rem;
+  align-items: flex-start; gap: 2rem 3rem; margin-bottom: 3rem;
 }
-.footer-name { font-family: var(--serif); font-weight: 600; }
-.footer-sub { font-family: var(--mono); font-size: 0.8rem; font-weight: 400; color: var(--muted); }
-.footer-links { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem 1.75rem; }
-.footer-links a { font-size: 0.9rem; }
-.footer-fine { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); }
+.footer-name {
+  font-family: var(--serif); font-weight: 700; color: var(--paper);
+  font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.2; letter-spacing: -0.01em;
+}
+.footer-sub {
+  font-family: var(--mono); font-size: 0.78rem; font-weight: 400;
+  letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-tint);
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+.footer-links a { font-size: 0.95rem; color: var(--ink-tint); }
+.footer-links a:hover { color: var(--paper); }
+.footer-fine { font-family: var(--mono); font-size: 0.78rem; color: var(--ink-fine); }
 
 /* ---------- responsive ---------- */
 @media (max-width: 44rem) {
-  .issue-row { grid-template-columns: 1fr; gap: 0.4rem; }
-  .issue-meta { flex-direction: row; gap: 1rem; align-items: baseline; }
-  .hero, .page-head { padding-top: 2.5rem; padding-bottom: 2rem; }
+  .issue-row, .research-item { grid-template-columns: 1fr; gap: 0.3rem; }
+  .issue-no, .research-year { padding-top: 0; }
+  .hero { padding-top: 3.5rem; }
+  .page-head { padding-top: 3rem; }
+  .step-rule { margin: 2.75rem 0; }
+  .site-footer { padding: 3.5rem 0; margin-top: 3.5rem; }
+  .site-footer .step-rule { margin: 0 0 2.5rem; }
 }
 
 /* No animations are used anywhere; honor the preference regardless. */

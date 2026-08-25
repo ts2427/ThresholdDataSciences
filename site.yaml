@@ -13,10 +13,19 @@ series_description: >-
 
 author:
   name: "Timothy D. Spivey"
+  job_title: "Founder, Threshold Data Sciences"
+  # knowsAbout feeds the JSON-LD Person schema — topics tied to the published record.
+  knows_about:
+    - "Mandatory breach disclosure regulation"
+    - "Cybersecurity governance"
+    - "Shadow IT governance"
+    - "Security culture"
+    - "Business analytics"
+    - "Telecommunications operations"
   # sameAs identity links for JSON-LD Person schema.
   linkedin: "https://www.linkedin.com/in/tispivey/"
   scholar: "https://scholar.google.com/citations?user=S9sSV1EAAAAJ&hl=en"
-  orcid: ""            # TODO: add ORCID iD URL (https://orcid.org/XXXX-...) before launch
+  orcid: ""            # TODO: add ORCID iD URL (https://orcid.org/XXXX-...) — joins sameAs automatically when set
   personal_site: "https://timothydspivey.com"
 
 # THE site email. Single source of truth: the contact page, the About

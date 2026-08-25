@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- PLACEHOLDER favicon: step function on white. Replace alongside logo.svg. -->
+  <!-- The step-function mark on white, for browser tabs. -->
   <rect width="64" height="64" fill="#FFFFFF"/>
-  <path d="M6 44 H34" stroke="#0F2338" stroke-width="6" fill="none"/>
-  <path d="M34 44 V20" stroke="#C7621B" stroke-width="6" fill="none"/>
-  <path d="M34 20 H58" stroke="#0F2338" stroke-width="6" fill="none"/>
+  <path d="M4 45 H32" stroke="#0F2338" stroke-width="7" fill="none"/>
+  <path d="M32 45 V19" stroke="#C7621B" stroke-width="7" fill="none"/>
+  <path d="M32 19 H60" stroke="#0F2338" stroke-width="7" fill="none"/>
 </svg>

@@ -29,8 +29,8 @@ made under real pressure. That operational history is why the regulatory
 questions I study are the ones practitioners recognize, and why the analysis
 here reads differently from work done at a distance.
 
-I've published three articles in the ISACA Journal on security culture,
-shadow IT governance, and insider threat dynamics, and I hold an MBA in
+I've published two articles in the ISACA Journal, on security culture and
+shadow IT governance, and I hold an MBA in
 business analytics from the University of West Florida. My academic
 portfolio, teaching record, and CV live on my
 [personal site](https://timothydspivey.com); this site is the practice's.

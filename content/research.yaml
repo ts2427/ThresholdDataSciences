@@ -2,19 +2,14 @@
 # No dissertation findings, no unpublished results, nothing overlapping a
 # pending journal submission. One entry per publication; no page per entry.
 
-- title: "Navigating the Shadows — A Comprehensive Framework for Anticipating, Identifying, and Managing Shadow IT in Organizations"
+- title: "Navigating the Shadows: A Comprehensive Framework for Anticipating, Identifying, and Managing Shadow IT in Organizations"
   venue: "ISACA Journal, vol. 6"
   year: 2024
-  url: ""      # TODO: add the ISACA Journal article URL
-  description: "How and why employees adopt technology outside sanctioned IT channels, and a framework for governing it."
+  url: "https://www.isaca.org/resources/isaca-journal/issues/2024/volume-6/navigating-the-shadows"
+  description: "With T. R. McIlveene. How and why employees adopt technology outside sanctioned IT channels, and a framework for anticipating, identifying, and managing it."
 
 - title: "To Fear or Not to Fear: How to Create an Optimal Security Culture"
   venue: "ISACA Journal, vol. 6, pp. 34–37"
   year: 2023
-  url: ""      # TODO: add the ISACA Journal article URL
+  url: "https://www.isaca.org/resources/isaca-journal/issues/2023/volume-6/to-fear-or-not-to-fear-how-to-create-an-optimal-security-culture"
   description: "With J. H. Batchelor and T. McIlveene. What fear-based security messaging does to organizational security culture, and what works instead."
-
-# TODO: third ISACA Journal article (insider threat dynamics) — add exact
-# title, year, and URL from the published record before launch. Credential
-# precision rule: nothing goes here that isn't verifiable from a public
-# record. See README reconciliation notes.

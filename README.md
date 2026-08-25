@@ -66,19 +66,26 @@ marked `draft: true` so it never publishes.
 - `content/press.yaml` — press mentions. While empty, the homepage's
   "In the press" section is omitted entirely.
 
-## Swapping the logo and favicons
+## The logo
 
-The final logo replaces placeholder files; templates reference paths only.
+The step-function mark **is** the logo — it encodes the firm's name, doubles
+as the site's structural device (the section rules), and scales cleanly. It
+is not a placeholder awaiting a commissioned design.
 
-1. Replace `static/img/logo.svg` (1:1 viewBox; sized via CSS).
-2. Replace `static/img/favicon.svg`, `static/img/favicon-32.png`,
-   `static/img/apple-touch-icon.png` (180×180), `static/img/og-image.png`
-   (1200×630).
-3. `python build.py`. Nothing else.
+- `static/img/logo.svg` — the mark as shown on the Ink site header (white
+  segments, Signal riser). Sized via CSS, never inlined into templates.
+- `static/img/favicon.svg`, `favicon-32.png`, `apple-touch-icon.png` — the
+  mark on white for browser tabs.
+- `static/img/og-image.png` (1200×630) — Ink field, mark and wordmark
+  centered.
+- `python tools/make_placeholders.py` regenerates the three PNGs from the
+  mark's geometry (needs `pillow`, `fonttools`, `brotli` for the wordmark
+  type).
 
-The wordmark beside the mark is HTML text in the display face, so the lockup
-can become a single SVG later by editing only the `.brand` block in
-`templates/base.html`.
+The wordmark beside the mark is HTML text in the display face; if a single
+SVG lockup is ever wanted, only the `.brand` block in `templates/base.html`
+changes. To replace the mark entirely: swap the files, rerun the build,
+nothing else.
 
 ## Design system (for future edits)
 
@@ -216,11 +223,13 @@ Remaining:
       a `TODO` body). Add inline source links while pasting.
 - [ ] Issue No. 011 body is in place as published; its citations still need
       inline source links.
-- [ ] `content/research.yaml`: article URLs, and the third ISACA Journal
-      article (insider threat dynamics) — exact title, year, URL from the
-      published record.
 - [ ] ORCID iD in `site.yaml` for the Person schema `sameAs`.
-- [ ] Final logo + favicons (placeholders shipped; swap per above).
+
+Resolved in the design revision pass (2026-08-25): both ISACA Journal
+entries now link to their isaca.org pages; the publication record is two
+articles (security culture; shadow IT governance) — consistent across the
+About page, Research page, and the revised brief; the step-function mark is
+the final logo (see "The logo" above).
 
 Reconciliation with the personal site (from the build brief §11 — Tim's to
 action, listed here so they aren't lost):
@@ -232,9 +241,10 @@ action, listed here so they aren't lost):
 - [ ] **Email routing.** The personal site's contact form (including its
       "Consulting Engagement" topic) posts to a Pensacola State address via
       formsubmit.co. Move business inquiries to the Threshold address.
-- [ ] **Publication count.** Personal site hero counter says "2
-      Publications"; there are three ISACA Journal articles. Reconcile, then
-      remove the counter.
+- [ ] **Publication count.** Two ISACA Journal articles, both published —
+      the count is accurate on both sites, no discrepancy to fix. The
+      personal site's stat counter should still come off (a two-item counter
+      undersells rather than sells).
 - [ ] **Dissertation findings.** The personal site's About section states
       dissertation conclusions; this site deliberately states none. Decide
       whether the personal site should too.

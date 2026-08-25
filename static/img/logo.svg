@@ -1,7 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Threshold Data Sciences mark">
-  <!-- PLACEHOLDER mark: the step function. Replace this file with the final
-       logo; templates reference it only by path, nothing else changes. -->
-  <path d="M6 44 H34" stroke="#0F2338" stroke-width="4" fill="none"/>
-  <path d="M34 44 V20" stroke="#C7621B" stroke-width="4" fill="none"/>
-  <path d="M34 20 H58" stroke="#0F2338" stroke-width="4" fill="none"/>
+  <!-- The step-function mark. Displayed on the Ink site header, so the
+       neutral segments are white; the riser is Signal. Stroke weight is set
+       so the riser still reads at 24px. -->
+  <path d="M4 45 H32" stroke="#FFFFFF" stroke-width="6" fill="none"/>
+  <path d="M32 45 V19" stroke="#C7621B" stroke-width="6" fill="none"/>
+  <path d="M32 19 H60" stroke="#FFFFFF" stroke-width="6" fill="none"/>
 </svg>

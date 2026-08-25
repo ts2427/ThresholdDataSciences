@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Published research | {{ site.name }}{% endblock %}
 {% block meta_desc %}Peer-reviewed publications and completed working papers by Timothy D. Spivey, founder of Threshold Data Sciences.{% endblock %}
+{% block jsonld_extra %},
+      {
+        "@type": "CollectionPage",
+        "name": "Research",
+        "url": "{{ site.base_url }}/research/",
+        "description": "Peer-reviewed publications and completed working papers by Timothy D. Spivey.",
+        "isPartOf": {"@id": "{{ site.base_url }}/#organization"},
+        "author": {"@id": "{{ site.base_url }}/#person"}
+      }{% endblock %}
 
 {% block content %}
 <section class="page-head">
@@ -21,9 +30,12 @@
     <ul class="research-list">
       {% for r in research %}
       <li class="research-item">
-        <p class="research-title">{% if r.url %}<a href="{{ r.url }}">{{ r.title }}</a>{% else %}{{ r.title }}{% endif %}</p>
-        <p class="research-venue"><span class="mono">{{ r.year }}</span> · {{ r.venue }}</p>
-        <p class="research-desc">{{ r.description }}</p>
+        <span class="research-year"><time datetime="{{ r.year }}">{{ r.year }}</time></span>
+        <div>
+          <p class="research-title">{% if r.url %}<a href="{{ r.url }}">{{ r.title }}</a>{% else %}{{ r.title }}{% endif %}</p>
+          <p class="research-venue">{{ r.venue }}</p>
+          <p class="research-desc">{{ r.description }}</p>
+        </div>
       </li>
       {% endfor %}
     </ul>

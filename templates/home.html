@@ -24,14 +24,11 @@
     <ol class="issue-list" reversed>
       {% for i in issues %}
       <li class="issue-row">
-        <div class="issue-meta">
-          <span class="issue-no">{{ i.number_label }}</span>
-          {% if i.category %}<span class="issue-cat">{{ i.category }}</span>{% endif %}
-        </div>
+        <span class="issue-no">{{ i.number_label }}</span>
         <div>
           <h3 class="issue-title"><a href="{{ i.url }}">{{ i.title }}</a></h3>
+          <p class="issue-line">{% if i.category %}{{ i.category }} &middot; {% endif %}<time datetime="{{ i.iso_date }}">{{ i.display_date }}</time></p>
           <p class="issue-summary">{{ i.summary }}</p>
-          <p class="issue-date"><time datetime="{{ i.iso_date }}">{{ i.display_date }}</time></p>
         </div>
       </li>
       {% endfor %}

@@ -23,8 +23,7 @@
 <article class="issue">
   <header class="page-head">
     <div class="shell measure">
-      <p class="eyebrow"><span class="issue-no">{{ issue.number_label }}</span>
-        {% if issue.category %}<span class="issue-cat">{{ issue.category }}</span>{% endif %}</p>
+      <p class="eyebrow">{{ issue.number_label }}{% if issue.category %} &middot; {{ issue.category }}{% endif %}</p>
       <h1>{{ issue.title }}</h1>
       <p class="byline">By {{ site.author.name }} ·
         <time datetime="{{ issue.iso_date }}">{{ issue.display_date }}</time>
