@@ -385,7 +385,11 @@ h2 {
 .mono { font-family: var(--mono); }
 
 /* ---------- contact ---------- */
-.contact-email { margin: 1.75rem 0 0; font-weight: 600; font-size: 1.25rem; }
+.contact-email {
+  margin: 2rem 0 0; padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.95rem; color: var(--muted);
+}
 .contact-form { margin-top: 2.5rem; max-width: 36rem; }
 .form-field { margin-bottom: 1.2rem; }
 .form-field label {

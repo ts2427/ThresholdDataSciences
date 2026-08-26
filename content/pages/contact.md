@@ -3,10 +3,10 @@ title: "Contact"
 eyebrow: "Threshold Data Sciences"
 template: "contact.html"
 summary: "Contact Threshold Data Sciences about advisory engagements, commissioned analysis, or the published research."
-lede: "For advisory inquiries, questions about the published work, press, or reuse permissions — email is the channel."
+lede: "For advisory inquiries, questions about the published work, press, or reuse permissions."
 ---
 
-If you're writing about an engagement, the most useful message names the
-decision you're trying to make and the evidence you wish you had. The
-practice takes a small number of engagements, so not every inquiry becomes
-one — but every serious inquiry gets a serious answer.
+Threshold Data Sciences welcomes inquiries about advisory engagements,
+commissioned analysis, speaking, press, and the published research. For
+engagement inquiries, a brief description of the question you need answered
+is the most useful starting point.

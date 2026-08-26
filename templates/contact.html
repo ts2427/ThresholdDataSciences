@@ -19,12 +19,6 @@
       {{ page.body | safe }}
     </div>
 
-    {% if site.contact_email %}
-    <p class="contact-email">
-      <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a>
-    </p>
-    {% endif %}
-
     {% if site.contact_form_action %}
     <form class="contact-form" method="POST" action="{{ site.contact_form_action }}">
       <input type="hidden" name="_subject" value="Inquiry via thresholddatasciences.com">
@@ -49,6 +43,12 @@
       <p class="form-note">What you submit is used only to read and reply to
         your inquiry. See the <a href="/privacy/">privacy policy</a>.</p>
     </form>
+    {% endif %}
+
+    {% if site.contact_email %}
+    <p class="contact-email">Or email directly:
+      <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a>
+    </p>
     {% endif %}
   </div>
 </section>
