@@ -39,6 +39,9 @@
       <ul class="site-nav">
         <li><a href="/threshold-effects/"{% if page_url.startswith('/threshold-effects') %} aria-current="page"{% endif %}>Threshold Effects</a></li>
         <li><a href="/analysis/"{% if page_url.startswith('/analysis') %} aria-current="page"{% endif %}>Analysis</a></li>
+        {% if site.has_methods %}
+        <li><a href="/methods/"{% if page_url.startswith('/methods') %} aria-current="page"{% endif %}>Methods</a></li>
+        {% endif %}
         <li><a href="/research/"{% if page_url.startswith('/research') %} aria-current="page"{% endif %}>Research</a></li>
         <li><a href="/advisory/"{% if page_url.startswith('/advisory') %} aria-current="page"{% endif %}>Advisory</a></li>
         <li><a href="/about/"{% if page_url.startswith('/about') %} aria-current="page"{% endif %}>About</a></li>

@@ -228,7 +228,8 @@ h2 {
 
 /* ---------- prose (issue/analysis/page bodies) ---------- */
 .prose > * + * { margin-top: 1.15rem; }
-.prose h2 { margin-top: 2.5rem; font-size: 1.55rem; }
+.prose h2 { margin-top: 2.75rem; font-size: 1.35rem; }
+.prose h2 + * { margin-top: 0.6rem; }
 .prose h3 { font-family: var(--sans); font-weight: 600; font-size: 1.05rem; margin-top: 1.8rem; }
 .prose blockquote {
   border-left: 3px solid var(--ink);
@@ -256,6 +257,68 @@ h2 {
 .prose .footnote { font-size: 0.9rem; color: var(--muted); }
 .prose img { display: block; }
 .table-scroll { overflow-x: auto; }
+
+/* ---------- figures (build-time SVG charts) ---------- */
+.chart { margin: 2.5rem 0; }
+.chart-svg { display: block; width: 100%; height: auto; }
+.chart figcaption {
+  display: flex; flex-direction: column; gap: 0.25rem;
+  margin-top: 0.9rem;
+}
+.fig-title { font-family: var(--serif); font-weight: 600; font-size: 1.1rem; }
+.fig-caption { color: var(--muted); font-size: 0.92rem; }
+.fig-source {
+  font-family: var(--mono); font-size: 0.78rem; color: var(--muted);
+}
+.fig-data { margin-top: 0.9rem; border-top: 1px solid var(--rule); }
+.fig-data summary {
+  font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--muted);
+  padding: 0.6rem 0; cursor: pointer;
+}
+.fig-data summary:hover { color: var(--ink); }
+.fig-data table { border-collapse: collapse; width: 100%; font-size: 0.85rem; background: var(--paper); }
+.fig-data th, .fig-data td { border: 1px solid var(--rule); padding: 0.35rem 0.6rem; text-align: left; }
+.fig-data th { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.fig-download { margin-top: 0.6rem; font-family: var(--mono); font-size: 0.8rem; }
+
+/* ---------- corrections ---------- */
+.corrections {
+  margin-top: 3rem;
+  border-left: 3px solid var(--ink);
+  padding-left: 1.25rem;
+}
+.corrections h2 {
+  font-family: var(--mono); font-size: 0.78rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted);
+  margin-bottom: 0.6rem;
+}
+.correction { font-size: 0.95rem; margin-bottom: 0.5rem; }
+.correction-date { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); margin-right: 0.5rem; }
+
+/* ---------- sources block ---------- */
+.sources-block { margin-top: 3rem; }
+.sources-block h2 {
+  font-family: var(--mono); font-size: 0.78rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted);
+  border-top: 1px solid var(--rule); padding-top: 1.3rem; margin-bottom: 0.7rem;
+}
+.sources-list { list-style: none; }
+.sources-list li {
+  font-family: var(--mono); font-size: 0.85rem; line-height: 1.6;
+  padding: 0.3rem 0; color: var(--muted);
+}
+.sources-list a { color: var(--slate); }
+
+/* ---------- related issues ---------- */
+.related { margin-top: 2.5rem; }
+.related h2 {
+  font-family: var(--mono); font-size: 0.78rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted);
+  margin-bottom: 0.25rem;
+}
+.related .issue-row { padding: 1.1rem 0; }
+.related-title { font-size: 1.1rem; margin-bottom: 0.15rem; }
 
 /* ---------- citation block ---------- */
 .cite-block {

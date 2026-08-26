@@ -1,0 +1,5 @@
+group,mean_score,max_score,annotation,annotation_value,annotation_label
+Larger ISPs,5.8,10,,,
+Medium ISPs,5.4,10,,,
+Smaller ISPs,3.75,10,high,7.5,Sonic — tied for highest score in the study
+Smaller ISPs,3.75,10,zero,0,Three smaller ISPs scored zero

@@ -29,7 +29,7 @@
         <span class="issue-no">{{ i.number_label }}</span>
         <div>
           <h2 class="issue-title"><a href="{{ i.url }}">{{ i.title }}</a></h2>
-          <p class="issue-line">{% if i.category %}{{ i.category }} &middot; {% endif %}<time datetime="{{ i.iso_date }}">{{ i.display_date }}</time></p>
+          <p class="issue-line">{% if i.category %}<a href="{{ i.category_url }}">{{ i.category }}</a> &middot; {% endif %}<time datetime="{{ i.iso_date }}">{{ i.display_date }}</time></p>
           <p class="issue-summary">{{ i.summary }}</p>
         </div>
       </li>

@@ -24,6 +24,8 @@ import markdown
 import yaml
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+import figures as figlib
+
 HERE = Path(__file__).parent
 CONTENT = HERE / "content"
 TEMPLATES = HERE / "templates"
@@ -206,6 +208,37 @@ def _reject_placeholders(meta, path):
         )
 
 
+DATA_DIR = CONTENT / "data"
+_unverified_figures = []   # (file, fig id) on non-draft pages — fails build
+_figure_count = 0
+_public_csvs = set()       # data_public CSVs to copy into dist/static/data/
+
+
+def _process_figures(meta, body, path):
+    """Render each front-matter figure to inline SVG and place it in the
+    body — at its [figure:fig-id] marker if present, else appended.
+
+    Verification guard: figures carry a stronger claim than prose, so a
+    figure on a published (non-draft) page with verified: false FAILS the
+    build. Data may sit in content/data/ while it is checked against the
+    primary source; it cannot ship unverified by accident."""
+    global _figure_count
+    for fig in meta.get("figures", []) or []:
+        if not fig.get("verified"):
+            _unverified_figures.append(f"{path.name}: {fig.get('id', '?')}")
+            continue
+        html_block = figlib.render_figure(fig, DATA_DIR)
+        _figure_count += 1
+        if fig.get("data_public"):
+            _public_csvs.add(fig["data"])
+        marker = f'<p>[figure:{fig["id"]}]</p>'
+        if marker in body:
+            body = body.replace(marker, html_block)
+        else:
+            body += html_block
+    return body
+
+
 def _citation(meta, container):
     """APA-style citation string, generated from front matter only."""
     title = str(meta["title"]).rstrip()
@@ -230,7 +263,7 @@ def load_issues():
         meta["number_label"] = f"No. {n:03d}"
         meta["slug"] = f"no-{n:03d}"
         meta["url"] = f"/threshold-effects/{meta['slug']}/"
-        meta["body"] = body
+        meta["body"] = _process_figures(meta, body, path)
         meta["display_date"] = fmt_date(meta["date"])
         meta["iso_date"] = iso_date(meta["date"])
         if meta.get("updated") and iso_date(meta["updated"]) != meta["iso_date"]:
@@ -252,7 +285,7 @@ def load_analysis():
             continue
         meta["slug"] = path.stem
         meta["url"] = f"/analysis/{meta['slug']}/"
-        meta["body"] = body
+        meta["body"] = _process_figures(meta, body, path)
         meta["display_date"] = fmt_date(meta["date"])
         meta["iso_date"] = iso_date(meta["date"])
         if meta.get("updated") and iso_date(meta["updated"]) != meta["iso_date"]:
@@ -270,9 +303,19 @@ def load_pages():
         meta, body = parse_md(path)
         if meta.get("draft"):
             continue
+        if "TODO" in body:
+            sys.exit(
+                f"BUILD FAILED: pages/{path.name} is published (not "
+                "draft: true) but its body still contains TODO text. "
+                "Replace the TODO blocks or mark the page draft: true."
+            )
         meta["body"] = body
         pages[path.stem] = meta
     return pages
+
+
+def slugify(s):
+    return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 
 
 # ------------------------------------------------------------------ feeds ----
@@ -394,6 +437,9 @@ def _verify_drafts_excluded(draft_slugs):
         return
     haystacks = [DIST / "sitemap.xml", DIST / "threshold-effects" / "feed.xml",
                  DIST / "index.html", DIST / "threshold-effects" / "index.html"]
+    # Category pages and issue pages (related-issue blocks) are also surfaces
+    # a draft could leak into.
+    haystacks += list((DIST / "threshold-effects").rglob("index.html"))
     leaks = []
     for slug in draft_slugs:
         for hay in haystacks:
@@ -416,9 +462,28 @@ def main():
 
     issues, issue_drafts = load_issues()
     analysis, analysis_drafts = load_analysis()
+
+    # Figure verification guard (see _process_figures).
+    if _unverified_figures:
+        sys.exit(
+            "BUILD FAILED: figures with verified: false on published "
+            "(non-draft) pages:\n  " + "\n  ".join(_unverified_figures)
+            + "\nCheck each dataset against its primary source, then set "
+            "verified: true — or mark the page draft: true."
+        )
+    print(f"figure check: {_figure_count} verified figure(s) rendered, "
+          "0 unverified on published pages")
+
     pages = load_pages()
+    SITE["has_methods"] = "methods" in pages
     research = load_yaml(CONTENT / "research.yaml") or []
     press = load_yaml(CONTENT / "press.yaml") or []
+
+    # Category cross-links (from content, never hardcoded).
+    for i in issues:
+        if i.get("category"):
+            i["category_url"] = (f"/threshold-effects/category/"
+                                 f"{slugify(i['category'])}/")
 
     urls = ["/"]
 
@@ -438,11 +503,28 @@ def main():
     for idx, issue in enumerate(issues):
         newer = issues[idx - 1] if idx > 0 else None
         older = issues[idx + 1] if idx + 1 < len(issues) else None
+        related = [i for i in issues
+                   if i.get("category") == issue.get("category")
+                   and i["slug"] != issue["slug"]][:3] \
+            if issue.get("category") else []
         render("issue.html", f"threshold-effects/{issue['slug']}/index.html",
-               issue=issue, newer=newer, older=older, page_url=issue["url"],
+               issue=issue, newer=newer, older=older, related=related,
+               page_url=issue["url"],
                og_image=f"/static/img/og/{issue['slug']}.png",
                schema_extra=article_node(issue, in_series=True))
         urls.append(issue["url"])
+
+    # Category pages — only categories with published issues.
+    for cat in categories:
+        cat_issues = [i for i in issues if i.get("category") == cat]
+        cat_url = f"/threshold-effects/category/{slugify(cat)}/"
+        render("category.html",
+               f"threshold-effects/category/{slugify(cat)}/index.html",
+               category=cat, issues=cat_issues, page_url=cat_url,
+               schema_extra=collection_node(
+                   f"Threshold Effects — {cat}", cat_url,
+                   f"Threshold Effects issues in the {cat} category."))
+        urls.append(cat_url)
 
     # Analysis
     render("analysis_index.html", "analysis/index.html",
@@ -503,6 +585,12 @@ def main():
     # Per-issue share cards (after copytree so dist/static exists).
     for issue in issues:
         issue_card(issue)
+
+    # Public datasets: only CSVs behind a verified, data_public figure.
+    for name in sorted(_public_csvs):
+        (DIST / "static" / "data").mkdir(parents=True, exist_ok=True)
+        shutil.copy(DATA_DIR / name, DIST / "static" / "data" / name)
+        print("wrote static/data/" + name)
 
     _verify_drafts_excluded(issue_drafts + analysis_drafts)
 

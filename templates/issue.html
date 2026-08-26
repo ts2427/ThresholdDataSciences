@@ -7,7 +7,7 @@
 <article class="issue">
   <header class="page-head">
     <div class="shell measure">
-      <p class="eyebrow">{{ issue.number_label }}{% if issue.category %} &middot; {{ issue.category }}{% endif %}</p>
+      <p class="eyebrow">{{ issue.number_label }}{% if issue.category %} &middot; <a href="{{ issue.category_url }}">{{ issue.category }}</a>{% endif %}</p>
       <h1>{{ issue.title }}</h1>
       <p class="byline">By {{ site.author.name }} ·
         <time datetime="{{ issue.iso_date }}">{{ issue.display_date }}</time>
@@ -22,6 +22,26 @@
     {{ issue.body | safe }}
   </div>
 
+  {% if issue.corrections %}
+  <aside class="shell measure corrections" aria-label="Corrections">
+    <h2>Corrections</h2>
+    {% for c in issue.corrections %}
+    <p class="correction"><span class="correction-date">{{ c.date }}</span> {{ c.note }}</p>
+    {% endfor %}
+  </aside>
+  {% endif %}
+
+  {% if issue.sources %}
+  <aside class="shell measure sources-block" aria-label="Sources">
+    <h2>Sources</h2>
+    <ul class="sources-list">
+      {% for s in issue.sources %}
+      <li>{% if s.url %}<a href="{{ s.url }}">{{ s.name }}</a>{% else %}{{ s.name }}{% endif %}{% if s.publisher %} — {{ s.publisher }}{% endif %}{% if s.date %}, {{ s.date }}{% endif %}</li>
+      {% endfor %}
+    </ul>
+  </aside>
+  {% endif %}
+
   <aside class="shell measure cite-block" aria-label="Citation">
     <h2>Cite this issue</h2>
     <p class="cite-text">{{ issue.citation }}</p>
@@ -32,6 +52,22 @@
       {% if older %}<a class="prev" href="{{ older.url }}">&larr; {{ older.number_label }}: {{ older.title }}</a>{% else %}<span></span>{% endif %}
       {% if newer %}<a class="next" href="{{ newer.url }}">{{ newer.number_label }}: {{ newer.title }} &rarr;</a>{% endif %}
     </nav>
+    {% if related %}
+    <section class="related" aria-label="Related issues">
+      <h2>More in {{ issue.category }}</h2>
+      <ul class="issue-list">
+        {% for i in related %}
+        <li class="issue-row">
+          <span class="issue-no">{{ i.number_label }}</span>
+          <div>
+            <p class="issue-title related-title"><a href="{{ i.url }}">{{ i.title }}</a></p>
+            <p class="issue-line"><time datetime="{{ i.iso_date }}">{{ i.display_date }}</time></p>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
   </footer>
 </article>
 {% endblock %}

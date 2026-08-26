@@ -41,6 +41,26 @@
     {% endif %}
   </aside>
 
+  {% if piece.corrections %}
+  <aside class="shell measure corrections" aria-label="Corrections">
+    <h2>Corrections</h2>
+    {% for c in piece.corrections %}
+    <p class="correction"><span class="correction-date">{{ c.date }}</span> {{ c.note }}</p>
+    {% endfor %}
+  </aside>
+  {% endif %}
+
+  {% if piece.sources %}
+  <aside class="shell measure sources-block" aria-label="Sources">
+    <h2>Sources</h2>
+    <ul class="sources-list">
+      {% for s in piece.sources %}
+      <li>{% if s.url %}<a href="{{ s.url }}">{{ s.name }}</a>{% else %}{{ s.name }}{% endif %}{% if s.publisher %} — {{ s.publisher }}{% endif %}{% if s.date %}, {{ s.date }}{% endif %}</li>
+      {% endfor %}
+    </ul>
+  </aside>
+  {% endif %}
+
   <aside class="shell measure cite-block" aria-label="Citation">
     <h2>Cite this analysis</h2>
     <p class="cite-text">{{ piece.citation }}</p>

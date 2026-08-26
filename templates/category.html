@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ category }} — Threshold Effects | {{ site.name }}{% endblock %}
+{% block meta_desc %}Threshold Effects issues in the {{ category }} category.{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="shell">
+    <p class="eyebrow"><a href="/threshold-effects/">Threshold Effects</a> &middot; Category</p>
+    <h1>{{ category }}</h1>
+    <p class="page-lede">{{ issues | length }} issue{{ "s" if issues | length != 1 }} in this category, newest first.</p>
+  </div>
+</section>
+
+{% include "_step.html" %}
+
+<section class="archive">
+  <div class="shell">
+    <ol class="issue-list" reversed>
+      {% for i in issues %}
+      <li class="issue-row">
+        <span class="issue-no">{{ i.number_label }}</span>
+        <div>
+          <h2 class="issue-title"><a href="{{ i.url }}">{{ i.title }}</a></h2>
+          <p class="issue-line"><time datetime="{{ i.iso_date }}">{{ i.display_date }}</time></p>
+          <p class="issue-summary">{{ i.summary }}</p>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+{% endblock %}

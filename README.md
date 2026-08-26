@@ -69,6 +69,44 @@ download: "/static/data/<file>.csv"   # optional; put the CSV in static/data/
 `content/analysis/example-analysis.md` demonstrates the full shape and is
 marked `draft: true` so it never publishes.
 
+## Figures (build-time SVG charts)
+
+Charts are static SVG generated at build time by `figures.py` from CSVs in
+`content/data/` — no JavaScript, no plotting library, no external service.
+Types: `bar` (horizontal, optional `group` column), `column`, `line`, `dot`
+(group means + annotation rows from the data), `timeline` (dated milestones
+with the phase transition rendered as a step, riser in Signal).
+
+Declare figures in front matter (see the commented blocks in `no-003.md`,
+`no-007.md`, `no-011.md` for ready examples). Place a figure in the body
+with a `[figure:fig-1]` marker on its own line, or it is appended after the
+body. Every figure renders with a `<figcaption>` (title states the finding;
+caption and sourced/retrieval line below), a "View data table" `<details>`
+element, and — when `data_public: true` — a CSV download link; only CSVs
+behind a verified public figure are copied into `dist/static/data/`.
+
+**Verification guard: `verified: false` (the default) on any figure on a
+published page FAILS the build.** Data sits in `content/data/` while it is
+checked against the primary source; a figure ships only after `verified:
+true` is set deliberately. Signal (`#C7621B`) appears at most once per
+chart — named via `signal:` (annotation kind) or the timeline's transition
+riser — and only to mark the threshold or point the argument turns on.
+**No simulated data, ever**: an issue without a real dataset renders no
+figure.
+
+The three activation steps for a waiting figure: check the CSV against the
+primary source, set `verified: true`, uncomment the `figures:` block.
+
+## Methods page and corrections
+
+`content/pages/methods.md` is a `draft: true` skeleton — the nav link and
+page appear only when its TODO blocks are replaced with Tim's wording (the
+build fails if a published page still contains TODO text). Corrections are
+front-matter (`corrections:` list of `date` + `note`) rendered as a dated
+block above the Sources and citation blocks; never generate an example.
+Per-issue sources are front-matter (`sources:` list of `name`, `publisher`,
+`date`, `url`) rendered at the foot of the page; empty list = no section.
+
 ## Research and press
 
 - `content/research.yaml` — published, peer-reviewed work and completed
