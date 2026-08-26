@@ -42,7 +42,7 @@ author:
 contact_email: "timothy@thresholddatasciences.com"
 
 # Contact box delivery. The form posts to FormSubmit, which relays the
-# submission to the address in this URL. Interim target chosen by Tim
-# 2026-08-25: the PSC address, same as the personal site, until the
-# Threshold domain address exists — then swap this one line.
-contact_form_action: "https://formsubmit.co/tspivey@pensacolastate.edu"
+# submission to the address in this URL. NOTE: FormSubmit requires a
+# one-time activation — after the first submission, click the link in the
+# activation email that arrives in this inbox, or nothing is delivered.
+contact_form_action: "https://formsubmit.co/timothy@thresholddatasciences.com"

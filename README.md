@@ -199,11 +199,11 @@ GitHub Pages (185.199.108.153, .109.153, .110.153, .111.153) and, if wanted,
 forward.
 
 **Contact is a form** posting via FormSubmit (formsubmit.co) to the address
-in `site.yaml` `contact_form_action` — interim target is the PSC address
-(Tim's choice, 2026-08-25) until the new Threshold address is wired in;
-swapping is that one line plus FormSubmit's one-time activation click in the
-receiving inbox. `contact_email`, when set, also shows on the page and joins
-the JSON-LD Organization schema. The privacy policy describes the form and
+in `site.yaml` `contact_form_action` — timothy@thresholddatasciences.com as
+of 2026-08-25. **FormSubmit activation**: after the first submission, click
+the link in the activation email that arrives in that inbox, or nothing is
+delivered. `contact_email` (same address) shows on the page and joins the
+JSON-LD Organization schema. The privacy policy describes the form and
 FormSubmit; keep it in sync with any change here.
 
 Analytics: none, deliberately. If a counter is ever wanted, use a cookieless
