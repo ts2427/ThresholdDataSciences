@@ -37,10 +37,9 @@ author:
   orcid: ""            # TODO: add ORCID iD URL (https://orcid.org/XXXX-...) — joins sameAs automatically when set
   personal_site: "https://timothydspivey.com"
 
-# THE site email. Single source of truth: shown on the contact page when
-# set, and included in the JSON-LD Organization schema. TODO (see README):
-# set a Threshold Data Sciences domain address once it exists.
-contact_email: ""
+# THE site email. Single source of truth: shown on the contact page,
+# included in the JSON-LD Organization schema.
+contact_email: "timothy@thresholddatasciences.com"
 
 # Contact box delivery. The form posts to FormSubmit, which relays the
 # submission to the address in this URL. Interim target chosen by Tim
