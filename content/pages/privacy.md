@@ -8,7 +8,7 @@ lede: "This site is built to collect as little as possible. This page describes,
 ## What this site collects
 
 **The contact form.** If you use the [contact form](/contact/), the site
-collects what you type into it, and nothing else:
+collects what you type into it:
 
 - your name;
 - your email address;
@@ -17,9 +17,12 @@ collects what you type into it, and nothing else:
 - your description of the decision and the data; and
 - a budget range (optional).
 
-The submission is transmitted by FormSubmit (formsubmit.co), a
-form-relay service, which forwards it to Threshold Data Sciences by email.
-It is used for exactly one purpose — reading and replying to your inquiry.
+Form submissions are delivered to my email by FormSubmit, a third-party form
+service. The site is hosted on GitHub Pages, which may log basic technical
+data such as IP addresses; see
+[GitHub's privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+
+A submission is used for exactly one purpose — reading and replying to your inquiry.
 FormSubmit's own handling is described in its
 [privacy policy](https://formsubmit.co/privacy).
 
