@@ -3,7 +3,7 @@ r"""Build the public snapshot of this repository (no git history) and scan it.
     .venv\Scripts\python tools/export_public.py <output_dir>
 
 - Takes the files tracked at HEAD (git archive), then drops anything that
-  must not be public: hand-review files with labels (review/), raw and
+  must not be public: label files (review/), raw and
   interim data (never tracked, excluded again for safety), .env, and
   CLAUDE.md (local paths and assistant instructions).
 - Scans (a) every blob in the FULL git history and (b) the snapshot for the

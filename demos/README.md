@@ -30,7 +30,7 @@ results/         every reported number (<demo>.json) and the figure CSVs/PNGs
 
 Raw downloads are not included (they are large and are public at the URLs
 in `manifest/downloads.csv`); the scripts below re-download them, and the
-SHA-256 column lets you confirm you have the same files. Hand-review files
+SHA-256 column lets you confirm you have the same files. Label files
 used during the audit are not included; their outcomes are recorded in
 `docs/decisions.md` and `results/osha_audit.json`.
 
@@ -92,7 +92,7 @@ python -m osha_audit.src.step3d_estimate       # 3d: precision/recall (needs rev
 python -m osha_audit.src.headcounts            # 3e: headcount illustration (needs the 10-K filings in data/raw/filings/)
 ```
 
-Steps 3a, 3c and 3d use hand-review files that are not published (see
+Steps 3a, 3c and 3d use label files that are not published (see
 above); the decisions they encode are listed in `docs/decisions.md`.
 `osha_audit/src/ita_feasibility.py` is a one-year feasibility check for
 future work (`docs/paper_idea_ita_linkage.md`); it publishes no rates.
