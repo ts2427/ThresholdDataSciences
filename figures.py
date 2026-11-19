@@ -222,6 +222,137 @@ def line_chart(fig, rows):
     return "".join(p)
 
 
+# -------------------------------------------------------------- interval ----
+
+def interval_chart(fig, rows):
+    """Point estimates with vertical intervals on a shared scale that may
+    run below zero (e.g. an event study). Columns: x (category), y
+    (estimate), and fig['lo'] / fig['hi'] (interval bounds). A dashed zero
+    line in Rule; fig['signal_before'] names the x value before which a
+    vertical marker is drawn in Signal (the chart's single Signal
+    element, e.g. where a policy takes effect)."""
+    xcol, ycol, lo, hi = fig["x"], fig["y"], fig["lo"], fig["hi"]
+    vals = [_num(r[c]) for r in rows for c in (ycol, lo, hi)]
+    vmin, vmax = min(0.0, min(vals)), max(0.0, max(vals))
+    span = (vmax - vmin) or 1.0
+    W, H, LM, BOT, TOP = 720, 340, 56, 52, 24
+    plot_w, plot_h = W - LM - 20, H - BOT - TOP
+    n = len(rows)
+
+    def X(i):
+        return LM + plot_w * (i + 0.5) / n
+
+    def Y(v):
+        return TOP + plot_h * (vmax - v) / span
+
+    p = [_svg_open(W, H, fig["title"])]
+    step = 2 if span <= 16 else 5
+    t = step * (int(vmin // step))
+    while t <= vmax + 1e-9:
+        p.append(f'<line x1="{LM}" y1="{Y(t):g}" x2="{W - 20}" y2="{Y(t):g}" '
+                 f'stroke="{RULE}" stroke-width="1"/>')
+        p.append(_text(LM - 8, Y(t) + 4, _fmt(t), 11, "end", fill=MUTED))
+        t += step
+    p.append(f'<line x1="{LM}" y1="{Y(0):g}" x2="{W - 20}" y2="{Y(0):g}" '
+             f'stroke="{MUTED}" stroke-width="1.2"/>')
+    sb = fig.get("signal_before")
+    for i, r in enumerate(rows):
+        if sb is not None and str(r[xcol]) == str(sb):
+            x = X(i) - plot_w / n / 2
+            p.append(f'<line x1="{x:g}" y1="{TOP - 6}" x2="{x:g}" y2="{H - BOT}" '
+                     f'stroke="{SIGNAL}" stroke-width="2"/>')
+        x = X(i)
+        p.append(f'<line x1="{x:g}" y1="{Y(_num(r[lo])):g}" x2="{x:g}" '
+                 f'y2="{Y(_num(r[hi])):g}" stroke="{INK}" stroke-width="2"/>')
+        p.append(f'<circle cx="{x:g}" cy="{Y(_num(r[ycol])):g}" r="4.5" fill="{INK}"/>')
+        p.append(_text(x, H - BOT + 18, r[xcol], 11, "middle", fill=MUTED))
+    if fig.get("x_label"):
+        p.append(_text(LM + plot_w / 2, H - 10, fig["x_label"], 11, "middle", fill=MUTED))
+    p.append("</svg>")
+    return "".join(p)
+
+
+# ------------------------------------------------------------- waterfall ----
+
+def wrap_label(text, width=12):
+    """Greedy word wrap for axis labels: lines of at most `width`
+    characters (a single longer word stays on its own line)."""
+    lines, cur = [], ""
+    for w in str(text).split():
+        if cur and len(cur) + 1 + len(w) > width:
+            lines.append(cur)
+            cur = w
+        else:
+            cur = f"{cur} {w}".strip()
+    if cur:
+        lines.append(cur)
+    return lines
+
+
+def waterfall_rows(rows, xcol, ycol, kcol="kind"):
+    """Bar geometry for a bridge chart. Rows have kind 'start', 'step' or
+    'end'. 'start'/'end' values are levels; 'step' values are signed
+    changes. Returns [(label, bottom, top, value, kind)]. Raises if the end
+    level does not equal start + the sum of the steps."""
+    out, level = [], None
+    for r in rows:
+        kind, v = r[kcol], _num(r[ycol])
+        if kind == "start":
+            level = v
+            out.append((r[xcol], 0.0, v, v, kind))
+        elif kind == "step":
+            if level is None:
+                raise ValueError("waterfall: a step comes before the start bar")
+            new = level + v
+            out.append((r[xcol], min(level, new), max(level, new), v, kind))
+            level = new
+        elif kind == "end":
+            if level is None or abs(level - v) > 1e-6:
+                raise ValueError(f"waterfall: end {v} != start + steps {level}")
+            out.append((r[xcol], 0.0, v, v, kind))
+        else:
+            raise ValueError(f"waterfall: unknown kind {kind!r}")
+    return out
+
+
+def waterfall_chart(fig, rows):
+    """Bridge chart: a start bar, floating bars for each signed step, an end
+    bar. Levels in Ink, steps in Muted; every bar labeled with its value
+    (steps with their sign). No Signal element."""
+    bars = waterfall_rows(rows, fig["x"], fig["y"], fig.get("kind", "kind"))
+    top = max(b[2] for b in bars)
+    W, H, LM, BOT, TOP = 720, 340, 20, 64, 30
+    plot_w, plot_h = W - LM - 20, H - BOT - TOP
+    n = len(bars)
+    bw = min(70, plot_w / n * 0.62)
+
+    def Y(v):
+        return TOP + plot_h * (1 - v / top)
+
+    p = [_svg_open(W, H, fig["title"])]
+    p.append(f'<line x1="{LM}" y1="{Y(0):g}" x2="{W - 20}" y2="{Y(0):g}" '
+             f'stroke="{RULE}" stroke-width="1"/>')
+    prev_level_y = None
+    for i, (label, lo, hi, v, kind) in enumerate(bars):
+        cx = LM + plot_w * (i + 0.5) / n
+        h = max(Y(lo) - Y(hi), 1.5)          # keep tiny steps visible
+        color = INK if kind in ("start", "end") else MUTED
+        p.append(f'<rect x="{cx - bw / 2:g}" y="{Y(hi):g}" width="{bw:g}" '
+                 f'height="{h:g}" fill="{color}"/>')
+        text = (f"{v:+,.0f}".replace("-", "−") if kind == "step" else f"{v:,.0f}")
+        p.append(_text(cx, Y(hi) - 8, text, 12, "middle", weight="500"))
+        if prev_level_y is not None:
+            p.append(f'<line x1="{cx - plot_w / n + bw / 2:g}" y1="{prev_level_y:g}" '
+                     f'x2="{cx - bw / 2:g}" y2="{prev_level_y:g}" stroke="{MUTED}" '
+                     f'stroke-width="1" stroke-dasharray="3 3"/>')
+        level = hi if kind == "start" or (kind == "step" and v > 0) else lo
+        prev_level_y = Y(level) if kind != "end" else None
+        for k, line in enumerate(wrap_label(label)):
+            p.append(_text(cx, H - BOT + 18 + 14 * k, line, 11, "middle", fill=MUTED))
+    p.append("</svg>")
+    return "".join(p)
+
+
 # -------------------------------------------------------------- timeline ----
 
 def timeline_chart(fig, rows):
@@ -290,7 +421,8 @@ def timeline_chart(fig, rows):
 
 
 RENDERERS = {"dot": dot_chart, "bar": bar_chart, "column": column_chart,
-             "line": line_chart, "timeline": timeline_chart}
+             "line": line_chart, "timeline": timeline_chart, "interval": interval_chart,
+             "waterfall": waterfall_chart}
 
 
 # ------------------------------------------------------------- assembly -----

@@ -66,7 +66,17 @@ def parse_md(path):
             meta = yaml.safe_load(parts[1]) or {}
             body = parts[2]
     md = markdown.Markdown(extensions=MD_EXTENSIONS)
-    return meta, md.convert(body.strip())
+    html_body = md.convert(body.strip())
+    # Wide tables scroll inside their own focusable region on small screens
+    # instead of widening the page (no horizontal page scroll at 375px).
+    # Each region gets a unique accessible name (landmarks must be unique).
+    counter = iter(range(1, 10_000))
+    html_body = re.sub(
+        r"<table>", lambda _: '<div class="table-scroll" tabindex="0" role="region" '
+                              f'aria-label="Table {next(counter)} (scrolls horizontally)"><table>',
+        html_body)
+    html_body = html_body.replace("</table>", "</table></div>")
+    return meta, html_body
 
 
 def fmt_date(d):
@@ -371,7 +381,10 @@ def load_work(services, analysis):
             item["target_date"] = ""
         item["methods"] = item.get("methods") or []
         (live if status == "live" else in_progress).append(item)
+    listed = {w.get("url") for w in live + in_progress}
     for piece in analysis:
+        if piece["url"] in listed:      # already in work.yaml (with its question)
+            continue
         live.append({
             "title": piece["title"], "url": piece["url"],
             "question": piece.get("question", ""),

@@ -1,3 +1,6 @@
 __pycache__/
 *.pyc
 dist/
+
+# Demo source repo (its own git repo; kept out of the site repo)
+tds-demos/

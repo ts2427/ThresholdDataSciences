@@ -1,0 +1,7 @@
+step,value,kind,employers_by_name_after,employers_by_name_and_state_after
+Raw employer names,71454,start,71454,80196
+Duplicates removed,-10,step,71444,80185
+Names normalized,-14312,step,57132,67199
+Fuzzy matching,-1034,step,56098,66132
+National aliases,-15,step,56083,65923
+Employers (final),56083,end,56083,65923

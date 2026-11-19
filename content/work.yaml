@@ -28,3 +28,27 @@
   data_note: ""
   status: "in_progress"
   target_date: "TODO"
+
+- title: "Did Medicaid expansion reduce uninsurance among low-income adults?"
+  url: "/analysis/medicaid-expansion-uninsured/"
+  question: "Did it work?"
+  summary: "A staggered difference-in-differences analysis of state Medicaid expansions and the uninsured rate among adults under 138% of the poverty line, with a pre-registered plan, robustness checks and sensitivity bounds."
+  methods:
+    - "Difference-in-differences with staggered timing"
+    - "Callaway–Sant'Anna estimator"
+    - "HonestDiD sensitivity bounds"
+  data_note: "Public data: Census American Community Survey microdata and KFF expansion dates."
+  status: "live"
+  target_date: ""
+
+- title: "Who files the most severe-injury reports? It depends on how you count employers"
+  url: "/analysis/osha-severe-injury-reports-audit/"
+  question: "Can you trust the number?"
+  summary: "A step-by-step audit of OSHA's Severe Injury Reports: duplicates, name normalization and fuzzy entity resolution, with the matcher's precision and recall measured on a labeled sample."
+  methods:
+    - "Data-quality profiling"
+    - "Entity resolution and duplicate detection"
+    - "Precision and recall from a stratified labeled sample"
+  data_note: "Public data: OSHA Severe Injury Reports (federal-OSHA jurisdictions only) and company Form 10-K filings."
+  status: "live"
+  target_date: ""
