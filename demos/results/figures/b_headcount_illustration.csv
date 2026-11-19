@@ -1,0 +1,11 @@
+employer,headcount,scope,as_of,source,comparable,reports,federalstate0_reports,reports_excl_federalstate0
+U.S. Postal Service,639000,Total (substantially all U.S.),"Sept 30, 2024","U.S. Postal Service, FY2024 Form 10-K",True,1320,408,912
+Walmart,1600000,U.S. associates,"Jan 31, 2025","Walmart Inc., Form 10-K, fiscal 2025",True,866,0,866
+UPS,406000,U.S. employees (excl. temporary seasonal),FY2024,"United Parcel Service, Inc., Form 10-K, 2024",True,637,0,637
+"Lowe's Home Centers, LLC",270000,Total full- + part-time (mainly U.S.; no U.S. split),"Jan 31, 2025","Lowe's Companies, Inc., Form 10-K, fiscal 2024",True,241,1,240
+"Publix Super Markets, Inc.",255000,Total (stated as 'more than'),"Dec 28, 2024","Publix Super Markets, Inc., Form 10-K, 2024",True,214,0,214
+"Tyson Foods, Inc.",120000,U.S. team members (all Tyson entities),"Sept 28, 2024","Tyson Foods, Inc., Form 10-K, fiscal 2024",True,201,0,201
+Kroger,409000,Total (stated as 'over'),"Feb 1, 2025","The Kroger Co., Form 10-K, fiscal 2024",True,167,0,167
+Target Corporation,440000,Total incl. seasonal,"Feb 1, 2025","Target Corporation, Form 10-K, fiscal 2024",True,131,2,129
+"Walt Disney Parks and Resorts U.S., Inc.",171000,Disney company-wide U.S. — NO parks figure is published; not comparable,"Sept 28, 2024","The Walt Disney Company, Form 10-K, fiscal 2024",False,131,0,131
+American Airlines,133300,"Group total, full-time equivalents","Dec 31, 2024","American Airlines Group Inc., Form 10-K, 2024",True,129,0,129

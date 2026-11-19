@@ -1,0 +1,6 @@
+step,employers_by_name,employers_by_name_and_state,federalstate0_employers_by_name,federalstate0_employers_by_name_and_state,reports,federalstate0_reports
+Raw employer field,71454,80196,1552,1726,105996,2492
+3a: duplicates removed,71444,80185,1552,1726,105957,2491
+3b: names normalized,57132,67199,1367,1551,105957,2491
+3c: fuzzy matching,56098,66132,1328,1510,105957,2491
+3c: national aliases (final),56083,65923,1327,1505,105957,2491

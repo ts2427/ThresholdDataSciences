@@ -154,6 +154,13 @@ and how much of a workforce sits in federal-OSHA states, matter too.
   other counts.
 - **Unreported injuries.** The file holds what employers reported.
 
+## Reproduce it
+
+The audit code, the decision log (including every hand-review decision) and
+the results files are at
+[https://github.com/ts2427/ThresholdDataSciences/tree/main/demos/osha_audit](https://github.com/ts2427/ThresholdDataSciences/tree/main/demos/osha_audit); the run instructions are in the
+[demos README](https://github.com/ts2427/ThresholdDataSciences/tree/main/demos). The hand-review files themselves are not published.
+
 ## If this were your data
 
 Before a number like "reports per employer" drives a decision, I would find

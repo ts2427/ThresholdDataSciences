@@ -1,0 +1,2061 @@
+{
+  "step2_naive": {
+    "reports": 105996,
+    "distinct_raw_employer_names": 71454,
+    "top15": [
+      {
+        "rank": 1,
+        "employer": "U.S. Postal Service",
+        "reports": 548,
+        "share_pct": 0.5170006415336428
+      },
+      {
+        "rank": 2,
+        "employer": "United States Postal Service",
+        "reports": 290,
+        "share_pct": 0.2735952300086796
+      },
+      {
+        "rank": 3,
+        "employer": "UPS",
+        "reports": 245,
+        "share_pct": 0.23114079776595342
+      },
+      {
+        "rank": 4,
+        "employer": "U.S. POSTAL SERVICE",
+        "reports": 148,
+        "share_pct": 0.1396279104871882
+      },
+      {
+        "rank": 5,
+        "employer": "United Parcel Service",
+        "reports": 134,
+        "share_pct": 0.12641986490056228
+      },
+      {
+        "rank": 6,
+        "employer": "Walmart",
+        "reports": 126,
+        "share_pct": 0.11887241027963319
+      },
+      {
+        "rank": 7,
+        "employer": "USPS",
+        "reports": 112,
+        "share_pct": 0.10566436469300729
+      },
+      {
+        "rank": 8,
+        "employer": "United Parcel Service, Inc.",
+        "reports": 109,
+        "share_pct": 0.10283406921015888
+      },
+      {
+        "rank": 9,
+        "employer": "Walmart, Inc.",
+        "reports": 109,
+        "share_pct": 0.10283406921015888
+      },
+      {
+        "rank": 10,
+        "employer": "US Postal Service",
+        "reports": 87,
+        "share_pct": 0.08207856900260387
+      },
+      {
+        "rank": 11,
+        "employer": "Walmart Supercenter",
+        "reports": 83,
+        "share_pct": 0.07830484169213933
+      },
+      {
+        "rank": 12,
+        "employer": "Publix Super Markets, Inc.",
+        "reports": 82,
+        "share_pct": 0.0773614098645232
+      },
+      {
+        "rank": 13,
+        "employer": "Tyson Foods, Inc.",
+        "reports": 70,
+        "share_pct": 0.06604022793312955
+      },
+      {
+        "rank": 14,
+        "employer": "Lowe's Home Centers, LLC",
+        "reports": 69,
+        "share_pct": 0.06509679610551342
+      },
+      {
+        "rank": 15,
+        "employer": "DHL Supply Chain",
+        "reports": 65,
+        "share_pct": 0.06132306879504887
+      }
+    ],
+    "top15_share_of_reports_pct": 2.1481942714819424,
+    "names_with_one_report": 56901
+  },
+  "step3a_rule": {
+    "candidate_pairs": 542,
+    "sensitivity": {
+      "strict": {
+        "codes_min": 4,
+        "narrative_min": 90,
+        "employer_min": 70,
+        "same_employer_pairs": 16
+      },
+      "proposed": {
+        "codes_min": 3,
+        "narrative_min": 80,
+        "employer_min": 70,
+        "same_employer_pairs": 42
+      },
+      "loose": {
+        "codes_min": 2,
+        "narrative_min": 70,
+        "employer_min": 70,
+        "same_employer_pairs": 73
+      }
+    },
+    "same_employer_pairs": 42,
+    "cross_employer_same_incident_pairs": 30,
+    "status": "awaiting hand confirmation (review/b_dup_pairs.csv)"
+  },
+  "step3a_final": {
+    "pairs_reviewed": 42,
+    "pairs_confirmed": 39,
+    "pairs_rejected": 3,
+    "rejected_pairs": [
+      19,
+      26,
+      37
+    ],
+    "judgment_call_pairs": [
+      3,
+      17
+    ],
+    "rows_removed": 39,
+    "removed_upas": [
+      "1654387",
+      "1889718",
+      "1452286",
+      "1225097",
+      "1922517",
+      "1158137",
+      "1087520",
+      "1424132",
+      "1108587",
+      "1623156",
+      "1615368",
+      "1322155",
+      "1083901",
+      "1271046",
+      "1136268",
+      "1516705",
+      "1452780",
+      "1563108",
+      "993438",
+      "1052918",
+      "1118619",
+      "1051662",
+      "1046968",
+      "1944801",
+      "1873069",
+      "1756939",
+      "1745008",
+      "1178541",
+      "1445991",
+      "1718013",
+      "964863",
+      "1055358",
+      "1644572",
+      "1009667",
+      "1617467",
+      "1236643",
+      "1896222",
+      "1239322",
+      "1577368"
+    ],
+    "reports_before": 105996,
+    "reports_after": 105957,
+    "removed_pct_of_reports": 0.036793841277029324,
+    "distinct_raw_employers_before": 71454,
+    "distinct_raw_employers_after": 71444,
+    "federalstate0_before": 2492,
+    "federalstate0_after": 2491,
+    "top15_after": [
+      {
+        "rank": 1,
+        "employer": "U.S. Postal Service",
+        "reports": 548,
+        "share_pct": 0.5171909359457139
+      },
+      {
+        "rank": 2,
+        "employer": "United States Postal Service",
+        "reports": 290,
+        "share_pct": 0.27369593325594344
+      },
+      {
+        "rank": 3,
+        "employer": "UPS",
+        "reports": 245,
+        "share_pct": 0.23122587464726257
+      },
+      {
+        "rank": 4,
+        "employer": "U.S. POSTAL SERVICE",
+        "reports": 147,
+        "share_pct": 0.13873552478835754
+      },
+      {
+        "rank": 5,
+        "employer": "United Parcel Service",
+        "reports": 134,
+        "share_pct": 0.12646639674584972
+      },
+      {
+        "rank": 6,
+        "employer": "Walmart",
+        "reports": 126,
+        "share_pct": 0.11891616410430646
+      },
+      {
+        "rank": 7,
+        "employer": "USPS",
+        "reports": 112,
+        "share_pct": 0.10570325698160575
+      },
+      {
+        "rank": 8,
+        "employer": "United Parcel Service, Inc.",
+        "reports": 109,
+        "share_pct": 0.10287191974102702
+      },
+      {
+        "rank": 9,
+        "employer": "Walmart, Inc.",
+        "reports": 109,
+        "share_pct": 0.10287191974102702
+      },
+      {
+        "rank": 10,
+        "employer": "US Postal Service",
+        "reports": 87,
+        "share_pct": 0.08210877997678304
+      },
+      {
+        "rank": 11,
+        "employer": "Walmart Supercenter",
+        "reports": 83,
+        "share_pct": 0.0783336636560114
+      },
+      {
+        "rank": 12,
+        "employer": "Publix Super Markets, Inc.",
+        "reports": 82,
+        "share_pct": 0.0773898845758185
+      },
+      {
+        "rank": 13,
+        "employer": "Tyson Foods, Inc.",
+        "reports": 70,
+        "share_pct": 0.06606453561350359
+      },
+      {
+        "rank": 14,
+        "employer": "Lowe's Home Centers, LLC",
+        "reports": 69,
+        "share_pct": 0.06512075653331069
+      },
+      {
+        "rank": 15,
+        "employer": "DHL Supply Chain",
+        "reports": 65,
+        "share_pct": 0.06134564021253905
+      }
+    ],
+    "merge_rule": "keep lowest UPA; take max Hospitalized, Amputation, Loss of Eye in the cluster"
+  },
+  "step3b_preview": {
+    "distinct_raw_before": 71444,
+    "distinct_after_normalization": 55769,
+    "distinct_normalized_with_spaces": 56383,
+    "top15": [
+      {
+        "rank": 1,
+        "key": "uspostalservice",
+        "reports": 880,
+        "raw_variants": 21,
+        "label": "U.S. Postal Service",
+        "federalstate0_reports": 350,
+        "share_pct": 0.8305255905697594
+      },
+      {
+        "rank": 2,
+        "key": "walmart",
+        "reports": 512,
+        "raw_variants": 162,
+        "label": "Walmart",
+        "federalstate0_reports": 0,
+        "share_pct": 0.48321488905876914
+      },
+      {
+        "rank": 3,
+        "key": "unitedparcelservice",
+        "reports": 331,
+        "raw_variants": 22,
+        "label": "United Parcel Service",
+        "federalstate0_reports": 0,
+        "share_pct": 0.3123908755438527
+      },
+      {
+        "rank": 4,
+        "key": "unitedstatespostalservice",
+        "reports": 305,
+        "raw_variants": 5,
+        "label": "United States Postal Service",
+        "federalstate0_reports": 49,
+        "share_pct": 0.28785261945883706
+      },
+      {
+        "rank": 5,
+        "key": "ups",
+        "reports": 269,
+        "raw_variants": 9,
+        "label": "UPS",
+        "federalstate0_reports": 0,
+        "share_pct": 0.2538765725718924
+      },
+      {
+        "rank": 6,
+        "key": "publixsupermarkets",
+        "reports": 213,
+        "raw_variants": 32,
+        "label": "Publix Super Markets, Inc.",
+        "federalstate0_reports": 0,
+        "share_pct": 0.2010249440810895
+      },
+      {
+        "rank": 7,
+        "key": "tysonfoods",
+        "reports": 199,
+        "raw_variants": 15,
+        "label": "Tyson Foods, Inc.",
+        "federalstate0_reports": 0,
+        "share_pct": 0.18781203695838877
+      },
+      {
+        "rank": 8,
+        "key": "kroger",
+        "reports": 164,
+        "raw_variants": 47,
+        "label": "Kroger",
+        "federalstate0_reports": 0,
+        "share_pct": 0.154779769151637
+      },
+      {
+        "rank": 9,
+        "key": "walmartsupercenter",
+        "reports": 161,
+        "raw_variants": 70,
+        "label": "Walmart Supercenter",
+        "federalstate0_reports": 0,
+        "share_pct": 0.15194843191105825
+      },
+      {
+        "rank": 10,
+        "key": "loweshomecenters",
+        "reports": 132,
+        "raw_variants": 29,
+        "label": "Lowe's Home Centers, LLC",
+        "federalstate0_reports": 0,
+        "share_pct": 0.12457883858546391
+      },
+      {
+        "rank": 11,
+        "key": "target",
+        "reports": 131,
+        "raw_variants": 22,
+        "label": "Target Corporation",
+        "federalstate0_reports": 2,
+        "share_pct": 0.12363505950527101
+      },
+      {
+        "rank": 12,
+        "key": "americanairlines",
+        "reports": 127,
+        "raw_variants": 9,
+        "label": "American Airlines",
+        "federalstate0_reports": 0,
+        "share_pct": 0.11985994318449937
+      },
+      {
+        "rank": 13,
+        "key": "fedexfreight",
+        "reports": 124,
+        "raw_variants": 24,
+        "label": "FedEx Freight",
+        "federalstate0_reports": 0,
+        "share_pct": 0.11702860594392064
+      },
+      {
+        "rank": 14,
+        "key": "usps",
+        "reports": 118,
+        "raw_variants": 4,
+        "label": "USPS",
+        "federalstate0_reports": 9,
+        "share_pct": 0.11136593146276319
+      },
+      {
+        "rank": 15,
+        "key": "internationalpaper",
+        "reports": 112,
+        "raw_variants": 8,
+        "label": "International Paper Company",
+        "federalstate0_reports": 0,
+        "share_pct": 0.10570325698160575
+      }
+    ],
+    "largest_merges": [
+      {
+        "key": "walmart",
+        "raw_variants": 162,
+        "reports": 512,
+        "examples": [
+          "Walmart",
+          "Walmart, Inc.",
+          "Walmart Inc.",
+          "WALMART",
+          "Wal-Mart",
+          "Walmart, Inc"
+        ]
+      },
+      {
+        "key": "walmartsupercenter",
+        "raw_variants": 70,
+        "reports": 161,
+        "examples": [
+          "Walmart Supercenter",
+          "WALMART SUPERCENTER",
+          "Walmart Supercenter ",
+          "Wal-Mart Supercenter",
+          "Walmart Supercenter #1796",
+          "Walmart Super Center #2068"
+        ]
+      },
+      {
+        "key": "kroger",
+        "raw_variants": 47,
+        "reports": 164,
+        "examples": [
+          "Kroger",
+          "The Kroger Company",
+          "The Kroger Co.",
+          "THE KROGER CO.",
+          "Kroger ",
+          "KROGER"
+        ]
+      },
+      {
+        "key": "walmartstores",
+        "raw_variants": 32,
+        "reports": 102,
+        "examples": [
+          "Walmart Stores, Inc.",
+          "Wal-Mart Stores, Inc.",
+          "Walmart Stores Inc.",
+          "Walmart Stores, Inc. ",
+          "WAL-MART STORES, INC.",
+          "Walmart Stores Inc"
+        ]
+      },
+      {
+        "key": "publixsupermarkets",
+        "raw_variants": 32,
+        "reports": 213,
+        "examples": [
+          "Publix Super Markets, Inc.",
+          "PUBLIX SUPER MARKETS, INC.",
+          "Publix Supermarkets, Inc.",
+          "Publix Super Markets Inc.",
+          "Publix Supermarkets",
+          "Publix Super Markets, Inc"
+        ]
+      },
+      {
+        "key": "loweshomecenters",
+        "raw_variants": 29,
+        "reports": 132,
+        "examples": [
+          "Lowe's Home Centers, LLC",
+          "Lowes Home Centers, LLC",
+          "Lowe's Home Centers LLC",
+          "LOWES HOME CENTERS, LLC",
+          "Lowes Home Centers LLC",
+          "LOWE'S HOME CENTERS, INC."
+        ]
+      },
+      {
+        "key": "walmartdistributioncenter",
+        "raw_variants": 27,
+        "reports": 85,
+        "examples": [
+          "Walmart Distribution Center",
+          "WALMART DISTRIBUTION CENTER",
+          "Wal-Mart Distribution Center",
+          "Walmart Distribution Center # 6027",
+          "Walmart Distribution Center #6099",
+          "Walmart Distribution Center #7035"
+        ]
+      },
+      {
+        "key": "fedexfreight",
+        "raw_variants": 24,
+        "reports": 124,
+        "examples": [
+          "FedEx Freight",
+          "Fedex Freight, Inc.",
+          "FedEx Freight, Inc.",
+          "FEDEX FREIGHT",
+          "Fedex Freight",
+          "Fed Ex Freight"
+        ]
+      },
+      {
+        "key": "autozone",
+        "raw_variants": 23,
+        "reports": 49,
+        "examples": [
+          "Autozone",
+          "AutoZone",
+          "Auto Zone",
+          "AutoZone Inc.",
+          "AutoZone INC",
+          "Autozone, Inc."
+        ]
+      },
+      {
+        "key": "publixsupermarket",
+        "raw_variants": 22,
+        "reports": 40,
+        "examples": [
+          "Publix Supermarket",
+          "Publix Super Market, Inc.",
+          "Publix Super Market",
+          "Publix Supermarket Store #1398",
+          "Publix Super Market Inc.",
+          "Publix Supermarket Inc."
+        ]
+      }
+    ],
+    "federalstate0": {
+      "reports": 2491,
+      "distinct_raw": 1552,
+      "distinct_after": 1359
+    },
+    "status": "preview only; not applied"
+  },
+  "step3b_suffix_check": {
+    "suffix_only_pairs": 2319,
+    "suffix_omission_pairs": 4606,
+    "keys_with_suffix_only_merge": 1795,
+    "sample_size": 100,
+    "seed": 20261119,
+    "sample_pairs_sharing_a_state": 71,
+    "status": "awaiting Tim's Y/N in review/b_suffix_sample.csv"
+  },
+  "step3b_narrow_preview": {
+    "rule": "narrower suffix rule (see module docstring)",
+    "distinct_raw": {
+      "by_name": 71444,
+      "by_name_and_state": 80185
+    },
+    "original_rule": {
+      "by_name": 55769,
+      "by_name_and_state": 67199,
+      "federalstate0_by_name": 1359,
+      "federalstate0_by_name_and_state": 1551,
+      "federalstate0_reports": 2491
+    },
+    "narrow_rule": {
+      "by_name": 57132,
+      "by_name_and_state": 67199,
+      "federalstate0_by_name": 1367,
+      "federalstate0_by_name_and_state": 1551,
+      "federalstate0_reports": 2491
+    },
+    "cross_type_form_pairs_blocked": 1674,
+    "extra_employers_vs_original": 1363,
+    "top15": [
+      {
+        "rank": 1,
+        "label": "U.S. Postal Service",
+        "reports": 880,
+        "raw_variants": 21,
+        "states": 49,
+        "federalstate0_reports": 350,
+        "share_pct": 0.8305255905697594
+      },
+      {
+        "rank": 2,
+        "label": "Walmart",
+        "reports": 512,
+        "raw_variants": 162,
+        "states": 29,
+        "federalstate0_reports": 0,
+        "share_pct": 0.48321488905876914
+      },
+      {
+        "rank": 3,
+        "label": "United Parcel Service",
+        "reports": 331,
+        "raw_variants": 22,
+        "states": 27,
+        "federalstate0_reports": 0,
+        "share_pct": 0.3123908755438527
+      },
+      {
+        "rank": 4,
+        "label": "United States Postal Service",
+        "reports": 305,
+        "raw_variants": 5,
+        "states": 37,
+        "federalstate0_reports": 49,
+        "share_pct": 0.28785261945883706
+      },
+      {
+        "rank": 5,
+        "label": "UPS",
+        "reports": 269,
+        "raw_variants": 9,
+        "states": 24,
+        "federalstate0_reports": 0,
+        "share_pct": 0.2538765725718924
+      },
+      {
+        "rank": 6,
+        "label": "Publix Super Markets, Inc.",
+        "reports": 213,
+        "raw_variants": 32,
+        "states": 3,
+        "federalstate0_reports": 0,
+        "share_pct": 0.2010249440810895
+      },
+      {
+        "rank": 7,
+        "label": "Tyson Foods, Inc.",
+        "reports": 199,
+        "raw_variants": 15,
+        "states": 13,
+        "federalstate0_reports": 0,
+        "share_pct": 0.18781203695838877
+      },
+      {
+        "rank": 8,
+        "label": "Kroger",
+        "reports": 164,
+        "raw_variants": 47,
+        "states": 10,
+        "federalstate0_reports": 0,
+        "share_pct": 0.154779769151637
+      },
+      {
+        "rank": 9,
+        "label": "Walmart Supercenter",
+        "reports": 161,
+        "raw_variants": 70,
+        "states": 24,
+        "federalstate0_reports": 0,
+        "share_pct": 0.15194843191105825
+      },
+      {
+        "rank": 10,
+        "label": "Lowe's Home Centers, LLC",
+        "reports": 132,
+        "raw_variants": 29,
+        "states": 22,
+        "federalstate0_reports": 0,
+        "share_pct": 0.12457883858546391
+      },
+      {
+        "rank": 11,
+        "label": "Target Corporation",
+        "reports": 131,
+        "raw_variants": 22,
+        "states": 26,
+        "federalstate0_reports": 2,
+        "share_pct": 0.12363505950527101
+      },
+      {
+        "rank": 12,
+        "label": "American Airlines",
+        "reports": 127,
+        "raw_variants": 9,
+        "states": 11,
+        "federalstate0_reports": 0,
+        "share_pct": 0.11985994318449937
+      },
+      {
+        "rank": 13,
+        "label": "FedEx Freight",
+        "reports": 124,
+        "raw_variants": 24,
+        "states": 25,
+        "federalstate0_reports": 0,
+        "share_pct": 0.11702860594392064
+      },
+      {
+        "rank": 14,
+        "label": "USPS",
+        "reports": 118,
+        "raw_variants": 4,
+        "states": 25,
+        "federalstate0_reports": 9,
+        "share_pct": 0.11136593146276319
+      },
+      {
+        "rank": 15,
+        "label": "International Paper Company",
+        "reports": 112,
+        "raw_variants": 8,
+        "states": 16,
+        "federalstate0_reports": 0,
+        "share_pct": 0.10570325698160575
+      }
+    ],
+    "applied": false
+  },
+  "step3b_final": {
+    "rule": "narrower suffix rule (see module docstring)",
+    "distinct_raw": {
+      "by_name": 71444,
+      "by_name_and_state": 80185
+    },
+    "original_rule": {
+      "by_name": 55769,
+      "by_name_and_state": 67199,
+      "federalstate0_by_name": 1359,
+      "federalstate0_by_name_and_state": 1551,
+      "federalstate0_reports": 2491
+    },
+    "narrow_rule": {
+      "by_name": 57132,
+      "by_name_and_state": 67199,
+      "federalstate0_by_name": 1367,
+      "federalstate0_by_name_and_state": 1551,
+      "federalstate0_reports": 2491
+    },
+    "cross_type_form_pairs_blocked": 1674,
+    "extra_employers_vs_original": 1363,
+    "top15": [
+      {
+        "rank": 1,
+        "label": "U.S. Postal Service",
+        "reports": 880,
+        "raw_variants": 21,
+        "states": 49,
+        "federalstate0_reports": 350,
+        "share_pct": 0.8305255905697594
+      },
+      {
+        "rank": 2,
+        "label": "Walmart",
+        "reports": 512,
+        "raw_variants": 162,
+        "states": 29,
+        "federalstate0_reports": 0,
+        "share_pct": 0.48321488905876914
+      },
+      {
+        "rank": 3,
+        "label": "United Parcel Service",
+        "reports": 331,
+        "raw_variants": 22,
+        "states": 27,
+        "federalstate0_reports": 0,
+        "share_pct": 0.3123908755438527
+      },
+      {
+        "rank": 4,
+        "label": "United States Postal Service",
+        "reports": 305,
+        "raw_variants": 5,
+        "states": 37,
+        "federalstate0_reports": 49,
+        "share_pct": 0.28785261945883706
+      },
+      {
+        "rank": 5,
+        "label": "UPS",
+        "reports": 269,
+        "raw_variants": 9,
+        "states": 24,
+        "federalstate0_reports": 0,
+        "share_pct": 0.2538765725718924
+      },
+      {
+        "rank": 6,
+        "label": "Publix Super Markets, Inc.",
+        "reports": 213,
+        "raw_variants": 32,
+        "states": 3,
+        "federalstate0_reports": 0,
+        "share_pct": 0.2010249440810895
+      },
+      {
+        "rank": 7,
+        "label": "Tyson Foods, Inc.",
+        "reports": 199,
+        "raw_variants": 15,
+        "states": 13,
+        "federalstate0_reports": 0,
+        "share_pct": 0.18781203695838877
+      },
+      {
+        "rank": 8,
+        "label": "Kroger",
+        "reports": 164,
+        "raw_variants": 47,
+        "states": 10,
+        "federalstate0_reports": 0,
+        "share_pct": 0.154779769151637
+      },
+      {
+        "rank": 9,
+        "label": "Walmart Supercenter",
+        "reports": 161,
+        "raw_variants": 70,
+        "states": 24,
+        "federalstate0_reports": 0,
+        "share_pct": 0.15194843191105825
+      },
+      {
+        "rank": 10,
+        "label": "Lowe's Home Centers, LLC",
+        "reports": 132,
+        "raw_variants": 29,
+        "states": 22,
+        "federalstate0_reports": 0,
+        "share_pct": 0.12457883858546391
+      },
+      {
+        "rank": 11,
+        "label": "Target Corporation",
+        "reports": 131,
+        "raw_variants": 22,
+        "states": 26,
+        "federalstate0_reports": 2,
+        "share_pct": 0.12363505950527101
+      },
+      {
+        "rank": 12,
+        "label": "American Airlines",
+        "reports": 127,
+        "raw_variants": 9,
+        "states": 11,
+        "federalstate0_reports": 0,
+        "share_pct": 0.11985994318449937
+      },
+      {
+        "rank": 13,
+        "label": "FedEx Freight",
+        "reports": 124,
+        "raw_variants": 24,
+        "states": 25,
+        "federalstate0_reports": 0,
+        "share_pct": 0.11702860594392064
+      },
+      {
+        "rank": 14,
+        "label": "USPS",
+        "reports": 118,
+        "raw_variants": 4,
+        "states": 25,
+        "federalstate0_reports": 9,
+        "share_pct": 0.11136593146276319
+      },
+      {
+        "rank": 15,
+        "label": "International Paper Company",
+        "reports": 112,
+        "raw_variants": 8,
+        "states": 16,
+        "federalstate0_reports": 0,
+        "share_pct": 0.10570325698160575
+      }
+    ],
+    "applied": true
+  },
+  "step3c_preview": {
+    "parameters": {
+      "overall_min": 92,
+      "distinctive_min": 85,
+      "generic_token_min_names": 150,
+      "multi_state_min": 5,
+      "national_alias_min_states": 10
+    },
+    "generic_tokens": [
+      "a",
+      "advanced",
+      "air",
+      "all",
+      "america",
+      "american",
+      "and",
+      "associates",
+      "at",
+      "auto",
+      "automotive",
+      "b",
+      "brothers",
+      "builders",
+      "building",
+      "c",
+      "care",
+      "center",
+      "central",
+      "city",
+      "club",
+      "co",
+      "community",
+      "companies",
+      "company",
+      "concrete",
+      "construction",
+      "contracting",
+      "contractors",
+      "cooperative",
+      "country",
+      "county",
+      "custom",
+      "d",
+      "department",
+      "development",
+      "distribution",
+      "division",
+      "drilling",
+      "e",
+      "electric",
+      "electrical",
+      "energy",
+      "engineering",
+      "enterprises",
+      "environmental",
+      "equipment",
+      "express",
+      "farms",
+      "florida",
+      "food",
+      "foods",
+      "forest",
+      "general",
+      "glass",
+      "global",
+      "group",
+      "h",
+      "health",
+      "healthcare",
+      "holdings",
+      "home",
+      "hospital",
+      "inc",
+      "industrial",
+      "industries",
+      "international",
+      "j",
+      "l",
+      "logistics",
+      "lumber",
+      "m",
+      "machine",
+      "maintenance",
+      "management",
+      "manufacturing",
+      "marine",
+      "masonry",
+      "materials",
+      "mechanical",
+      "medical",
+      "metal",
+      "metals",
+      "mountain",
+      "national",
+      "new",
+      "north",
+      "of",
+      "ohio",
+      "oil",
+      "packaging",
+      "painting",
+      "park",
+      "partners",
+      "plant",
+      "plastics",
+      "plumbing",
+      "power",
+      "precision",
+      "products",
+      "quality",
+      "r",
+      "recycling",
+      "river",
+      "roofing",
+      "s",
+      "sales",
+      "service",
+      "services",
+      "solutions",
+      "sons",
+      "south",
+      "southern",
+      "specialty",
+      "st",
+      "staffing",
+      "steel",
+      "supply",
+      "system",
+      "systems",
+      "t",
+      "technologies",
+      "technology",
+      "texas",
+      "the",
+      "tire",
+      "transport",
+      "transportation",
+      "tree",
+      "truck",
+      "trucking",
+      "united",
+      "university",
+      "us",
+      "usa",
+      "valley",
+      "waste",
+      "well",
+      "west",
+      "wood",
+      "works"
+    ],
+    "n_generic_tokens": 141,
+    "multi_state_employers": 651,
+    "before": {
+      "by_name": 57132,
+      "by_name_and_state": 67199,
+      "federalstate0_by_name": 1367,
+      "federalstate0_by_name_and_state": 1551,
+      "federalstate0_reports": 2491
+    },
+    "after": {
+      "by_name": 56098,
+      "by_name_and_state": 66132,
+      "federalstate0_by_name": 1328,
+      "federalstate0_by_name_and_state": 1510,
+      "federalstate0_reports": 2491
+    },
+    "candidate_pairs": 1674,
+    "matched_pairs": 1072,
+    "matched_within_state": 961,
+    "matched_cross_state": 111,
+    "top15": [
+      {
+        "rank": 1,
+        "label": "U.S. Postal Service",
+        "reports": 1202,
+        "raw_variants": 31,
+        "states": 50,
+        "federalstate0_reports": 399,
+        "share_pct": 1.134422454391876
+      },
+      {
+        "rank": 2,
+        "label": "Walmart",
+        "reports": 515,
+        "raw_variants": 165,
+        "states": 29,
+        "federalstate0_reports": 0,
+        "share_pct": 0.48604622629934785
+      },
+      {
+        "rank": 3,
+        "label": "United Parcel Service",
+        "reports": 345,
+        "raw_variants": 25,
+        "states": 27,
+        "federalstate0_reports": 0,
+        "share_pct": 0.32560378266655343
+      },
+      {
+        "rank": 4,
+        "label": "UPS",
+        "reports": 269,
+        "raw_variants": 9,
+        "states": 24,
+        "federalstate0_reports": 0,
+        "share_pct": 0.2538765725718924
+      },
+      {
+        "rank": 5,
+        "label": "Publix Super Markets, Inc.",
+        "reports": 214,
+        "raw_variants": 33,
+        "states": 3,
+        "federalstate0_reports": 0,
+        "share_pct": 0.20196872316128242
+      },
+      {
+        "rank": 6,
+        "label": "Tyson Foods, Inc.",
+        "reports": 201,
+        "raw_variants": 17,
+        "states": 13,
+        "federalstate0_reports": 0,
+        "share_pct": 0.1896995951187746
+      },
+      {
+        "rank": 7,
+        "label": "Kroger",
+        "reports": 167,
+        "raw_variants": 48,
+        "states": 10,
+        "federalstate0_reports": 0,
+        "share_pct": 0.1576111063922157
+      },
+      {
+        "rank": 8,
+        "label": "Walmart Supercenter",
+        "reports": 161,
+        "raw_variants": 70,
+        "states": 24,
+        "federalstate0_reports": 0,
+        "share_pct": 0.15194843191105825
+      },
+      {
+        "rank": 9,
+        "label": "Lowe's Home Centers, LLC",
+        "reports": 132,
+        "raw_variants": 29,
+        "states": 22,
+        "federalstate0_reports": 0,
+        "share_pct": 0.12457883858546391
+      },
+      {
+        "rank": 10,
+        "label": "Target Corporation",
+        "reports": 131,
+        "raw_variants": 22,
+        "states": 26,
+        "federalstate0_reports": 2,
+        "share_pct": 0.12363505950527101
+      },
+      {
+        "rank": 11,
+        "label": "Walt Disney Parks and Resorts U.S., Inc.",
+        "reports": 131,
+        "raw_variants": 24,
+        "states": 1,
+        "federalstate0_reports": 0,
+        "share_pct": 0.12363505950527101
+      },
+      {
+        "rank": 12,
+        "label": "American Airlines",
+        "reports": 129,
+        "raw_variants": 11,
+        "states": 11,
+        "federalstate0_reports": 0,
+        "share_pct": 0.12174750134488518
+      },
+      {
+        "rank": 13,
+        "label": "FedEx Freight",
+        "reports": 127,
+        "raw_variants": 27,
+        "states": 25,
+        "federalstate0_reports": 0,
+        "share_pct": 0.11985994318449937
+      },
+      {
+        "rank": 14,
+        "label": "USPS",
+        "reports": 118,
+        "raw_variants": 4,
+        "states": 25,
+        "federalstate0_reports": 9,
+        "share_pct": 0.11136593146276319
+      },
+      {
+        "rank": 15,
+        "label": "Menard, Inc.",
+        "reports": 115,
+        "raw_variants": 14,
+        "states": 8,
+        "federalstate0_reports": 0,
+        "share_pct": 0.10853459422218448
+      }
+    ],
+    "alias_candidates": 23,
+    "status": "preview only; not applied"
+  },
+  "step3d_sample": {
+    "candidate_cutoff": 80,
+    "pool_size": 28050,
+    "stratum_sizes": {
+      "rejected 80-85": 21015,
+      "rejected 85-92": 5361,
+      "accepted": 1072,
+      "rejected 92+ (distinctive)": 602
+    },
+    "allocation": {
+      "accepted": 150,
+      "rejected 80-85": 50,
+      "rejected 85-92": 50,
+      "rejected 92+ (distinctive)": 50
+    },
+    "seed": 20261119,
+    "status": "awaiting labels in review/b_3d_pairs.csv"
+  },
+  "step3d_estimate": {
+    "method": {
+      "precision": "Wilson 95% interval",
+      "recall": "stratified bootstrap, 10000 draws, seed 20261119, weighted to pool sizes"
+    },
+    "pool_sizes": {
+      "rejected 80-85": 21015,
+      "rejected 85-92": 5361,
+      "accepted": 1072,
+      "rejected 92+ (distinctive)": 602
+    },
+    "main": {
+      "precision": 0.9666666666666667,
+      "precision_ci95_wilson": [
+        0.9243482038212211,
+        0.9856795681019074
+      ],
+      "precision_k_n": [
+        145,
+        150
+      ],
+      "recall": 0.4770834804013344,
+      "recall_ci95_stratified_bootstrap": [
+        0.38088933883653925,
+        0.6145997870523127
+      ],
+      "est_true_matches_by_stratum": {
+        "accepted": 1036.2666666666667,
+        "rejected 80-85": 0.0,
+        "rejected 85-92": 750.5400000000001,
+        "rejected 92+ (distinctive)": 385.28000000000003
+      },
+      "est_missed_matching_pairs": 1135.8200000000002,
+      "est_missed_ci95": [
+        646.74,
+        1683.9599999999998
+      ],
+      "est_false_merges": 35.73333333333333,
+      "y_counts": {
+        "accepted": [
+          145,
+          150
+        ],
+        "rejected 80-85": [
+          0,
+          50
+        ],
+        "rejected 85-92": [
+          7,
+          50
+        ],
+        "rejected 92+ (distinctive)": [
+          32,
+          50
+        ]
+      }
+    },
+    "sensitivity_judgment_calls_flipped": {
+      "n_flipped": 13,
+      "precision": 0.9666666666666667,
+      "precision_ci95_wilson": [
+        0.9243482038212211,
+        0.9856795681019074
+      ],
+      "precision_k_n": [
+        145,
+        150
+      ],
+      "recall": 0.501856455622639,
+      "recall_ci95_stratified_bootstrap": [
+        0.4021390152975296,
+        0.6425246775949918
+      ],
+      "est_true_matches_by_stratum": {
+        "accepted": 1036.2666666666667,
+        "rejected 80-85": 0.0,
+        "rejected 85-92": 643.3199999999999,
+        "rejected 92+ (distinctive)": 385.28000000000003
+      },
+      "est_missed_matching_pairs": 1028.6,
+      "est_missed_ci95": [
+        575.64,
+        1540.6200000000001
+      ],
+      "est_false_merges": 35.73333333333333,
+      "y_counts": {
+        "accepted": [
+          145,
+          150
+        ],
+        "rejected 80-85": [
+          0,
+          50
+        ],
+        "rejected 85-92": [
+          6,
+          50
+        ],
+        "rejected 92+ (distinctive)": [
+          32,
+          50
+        ]
+      }
+    },
+    "limitation_80_85": {
+      "y_k_n": [
+        0,
+        50
+      ],
+      "wilson_upper": 0.07134759913335872,
+      "recall_if_at_wilson_upper": 0.2822494770846254
+    },
+    "label_source_note": "labels supplied by Tim in review/b_3d_pairs.csv; the notes column is named claude_note, so labels may have been drafted by Claude \u2014 confirm review before calling this a hand check",
+    "overstatement": {
+      "final_employers_by_name": 56083,
+      "missed_pairs": 1135.8200000000002,
+      "missed_pairs_ci95": [
+        646.74,
+        1683.9599999999998
+      ],
+      "max_overstatement_pct": 2.025248292709021,
+      "max_overstatement_pct_ci95": [
+        1.1531836741971722,
+        3.0026211151329276
+      ],
+      "false_merges_understate_by": 35.73333333333333
+    }
+  },
+  "step3c_final": {
+    "candidate_pairs": 1674,
+    "matched_pairs": 1072,
+    "matched_within_state": 961,
+    "matched_cross_state": 111,
+    "alias_links_applied": 16,
+    "final_counts": {
+      "by_name": 56083,
+      "by_name_and_state": 65923,
+      "federalstate0_by_name": 1327,
+      "federalstate0_by_name_and_state": 1505,
+      "federalstate0_reports": 2491
+    },
+    "rule_tuned_on_3d_labels": false
+  },
+  "final_tables": {
+    "before_after": [
+      {
+        "rank": 1,
+        "naive_employer": "U.S. Postal Service",
+        "naive_reports": 548,
+        "resolved_employer": "U.S. Postal Service",
+        "resolved_reports": 1320,
+        "resolved_pct_of_reports": 1.2457883858546392,
+        "resolved_raw_variants": 35,
+        "resolved_states": 50,
+        "resolved_federalstate0_reports": 408
+      },
+      {
+        "rank": 2,
+        "naive_employer": "United States Postal Service",
+        "naive_reports": 290,
+        "resolved_employer": "Walmart",
+        "resolved_reports": 866,
+        "resolved_pct_of_reports": 0.8173126834470588,
+        "resolved_raw_variants": 296,
+        "resolved_states": 29,
+        "resolved_federalstate0_reports": 0
+      },
+      {
+        "rank": 3,
+        "naive_employer": "UPS",
+        "naive_reports": 245,
+        "resolved_employer": "UPS",
+        "resolved_reports": 637,
+        "resolved_pct_of_reports": 0.6011872740828826,
+        "resolved_raw_variants": 36,
+        "resolved_states": 28,
+        "resolved_federalstate0_reports": 0
+      },
+      {
+        "rank": 4,
+        "naive_employer": "U.S. POSTAL SERVICE",
+        "naive_reports": 148,
+        "resolved_employer": "Lowe's Home Centers, LLC",
+        "resolved_reports": 241,
+        "resolved_pct_of_reports": 0.22745075832649095,
+        "resolved_raw_variants": 74,
+        "resolved_states": 25,
+        "resolved_federalstate0_reports": 1
+      },
+      {
+        "rank": 5,
+        "naive_employer": "United Parcel Service",
+        "naive_reports": 134,
+        "resolved_employer": "Publix Super Markets, Inc.",
+        "resolved_reports": 214,
+        "resolved_pct_of_reports": 0.20196872316128242,
+        "resolved_raw_variants": 33,
+        "resolved_states": 3,
+        "resolved_federalstate0_reports": 0
+      },
+      {
+        "rank": 6,
+        "naive_employer": "Walmart",
+        "naive_reports": 126,
+        "resolved_employer": "Tyson Foods, Inc.",
+        "resolved_reports": 201,
+        "resolved_pct_of_reports": 0.1896995951187746,
+        "resolved_raw_variants": 17,
+        "resolved_states": 13,
+        "resolved_federalstate0_reports": 0
+      },
+      {
+        "rank": 7,
+        "naive_employer": "USPS",
+        "naive_reports": 112,
+        "resolved_employer": "Kroger",
+        "resolved_reports": 167,
+        "resolved_pct_of_reports": 0.1576111063922157,
+        "resolved_raw_variants": 48,
+        "resolved_states": 10,
+        "resolved_federalstate0_reports": 0
+      },
+      {
+        "rank": 8,
+        "naive_employer": "United Parcel Service, Inc.",
+        "naive_reports": 109,
+        "resolved_employer": "Target Corporation",
+        "resolved_reports": 131,
+        "resolved_pct_of_reports": 0.12363505950527101,
+        "resolved_raw_variants": 22,
+        "resolved_states": 26,
+        "resolved_federalstate0_reports": 2
+      },
+      {
+        "rank": 9,
+        "naive_employer": "Walmart, Inc.",
+        "naive_reports": 109,
+        "resolved_employer": "Walt Disney Parks and Resorts U.S., Inc.",
+        "resolved_reports": 131,
+        "resolved_pct_of_reports": 0.12363505950527101,
+        "resolved_raw_variants": 24,
+        "resolved_states": 1,
+        "resolved_federalstate0_reports": 0
+      },
+      {
+        "rank": 10,
+        "naive_employer": "US Postal Service",
+        "naive_reports": 87,
+        "resolved_employer": "American Airlines",
+        "resolved_reports": 129,
+        "resolved_pct_of_reports": 0.12174750134488518,
+        "resolved_raw_variants": 11,
+        "resolved_states": 11,
+        "resolved_federalstate0_reports": 0
+      },
+      {
+        "rank": 11,
+        "naive_employer": "Walmart Supercenter",
+        "naive_reports": 83,
+        "resolved_employer": "FedEx Freight",
+        "resolved_reports": 127,
+        "resolved_pct_of_reports": 0.11985994318449937,
+        "resolved_raw_variants": 27,
+        "resolved_states": 25,
+        "resolved_federalstate0_reports": 0
+      },
+      {
+        "rank": 12,
+        "naive_employer": "Publix Super Markets, Inc.",
+        "naive_reports": 82,
+        "resolved_employer": "Menard, Inc.",
+        "resolved_reports": 115,
+        "resolved_pct_of_reports": 0.10853459422218448,
+        "resolved_raw_variants": 14,
+        "resolved_states": 8,
+        "resolved_federalstate0_reports": 0
+      },
+      {
+        "rank": 13,
+        "naive_employer": "Tyson Foods, Inc.",
+        "naive_reports": 70,
+        "resolved_employer": "Home Depot",
+        "resolved_reports": 112,
+        "resolved_pct_of_reports": 0.10570325698160575,
+        "resolved_raw_variants": 32,
+        "resolved_states": 20,
+        "resolved_federalstate0_reports": 0
+      },
+      {
+        "rank": 14,
+        "naive_employer": "Lowe's Home Centers, LLC",
+        "naive_reports": 69,
+        "resolved_employer": "International Paper Company",
+        "resolved_reports": 112,
+        "resolved_pct_of_reports": 0.10570325698160575,
+        "resolved_raw_variants": 8,
+        "resolved_states": 16,
+        "resolved_federalstate0_reports": 0
+      },
+      {
+        "rank": 15,
+        "naive_employer": "DHL Supply Chain",
+        "naive_reports": 65,
+        "resolved_employer": "AT&T",
+        "resolved_reports": 110,
+        "resolved_pct_of_reports": 0.10381569882121992,
+        "resolved_raw_variants": 16,
+        "resolved_states": 15,
+        "resolved_federalstate0_reports": 1
+      }
+    ],
+    "federalstate0_line": {
+      "naive_federalstate0_reports": 2492,
+      "resolved_federalstate0_reports": 2491,
+      "resolved_federalstate0_employers": 1327
+    },
+    "waterfall": [
+      {
+        "step": "Raw employer field",
+        "employers_by_name": 71454,
+        "employers_by_name_and_state": 80196,
+        "federalstate0_employers_by_name": 1552,
+        "federalstate0_employers_by_name_and_state": 1726,
+        "reports": 105996,
+        "federalstate0_reports": 2492
+      },
+      {
+        "step": "3a: duplicates removed",
+        "employers_by_name": 71444,
+        "employers_by_name_and_state": 80185,
+        "federalstate0_employers_by_name": 1552,
+        "federalstate0_employers_by_name_and_state": 1726,
+        "reports": 105957,
+        "federalstate0_reports": 2491
+      },
+      {
+        "step": "3b: names normalized",
+        "employers_by_name": 57132,
+        "employers_by_name_and_state": 67199,
+        "federalstate0_employers_by_name": 1367,
+        "federalstate0_employers_by_name_and_state": 1551,
+        "reports": 105957,
+        "federalstate0_reports": 2491
+      },
+      {
+        "step": "3c: fuzzy matching",
+        "employers_by_name": 56098,
+        "employers_by_name_and_state": 66132,
+        "federalstate0_employers_by_name": 1328,
+        "federalstate0_employers_by_name_and_state": 1510,
+        "reports": 105957,
+        "federalstate0_reports": 2491
+      },
+      {
+        "step": "3c: national aliases (final)",
+        "employers_by_name": 56083,
+        "employers_by_name_and_state": 65923,
+        "federalstate0_employers_by_name": 1327,
+        "federalstate0_employers_by_name_and_state": 1505,
+        "reports": 105957,
+        "federalstate0_reports": 2491
+      }
+    ]
+  },
+  "ita_feasibility_2023": {
+    "year": 2023,
+    "ita_rows_total": null,
+    "full_plan_states": [
+      "AK",
+      "AZ",
+      "CA",
+      "HI",
+      "IA",
+      "IN",
+      "KY",
+      "MD",
+      "MI",
+      "MN",
+      "NC",
+      "NM",
+      "NV",
+      "OR",
+      "PR",
+      "SC",
+      "TN",
+      "UT",
+      "VA",
+      "VT",
+      "WA",
+      "WY"
+    ],
+    "public_only_plan_states": [
+      "CT",
+      "IL",
+      "MA",
+      "ME",
+      "NJ",
+      "NY",
+      "VI"
+    ],
+    "ita_rows_federal_private_jurisdiction": 221296,
+    "ein_blank_share": 0.10153369243004844,
+    "top_employers": [
+      {
+        "employer": "U.S. Postal Service",
+        "sir_reports_2015_2025": 1320,
+        "ita_establishments_linked": 5668,
+        "linked_by_name": 5668,
+        "added_by_ein": 0,
+        "distinct_eins": 1,
+        "ita_states": 33,
+        "linked": true
+      },
+      {
+        "employer": "Walmart",
+        "sir_reports_2015_2025": 866,
+        "ita_establishments_linked": 783,
+        "linked_by_name": 783,
+        "added_by_ein": 0,
+        "distinct_eins": 1,
+        "ita_states": 26,
+        "linked": true
+      },
+      {
+        "employer": "UPS",
+        "sir_reports_2015_2025": 637,
+        "ita_establishments_linked": 773,
+        "linked_by_name": 773,
+        "added_by_ein": 0,
+        "distinct_eins": 1,
+        "ita_states": 30,
+        "linked": true
+      },
+      {
+        "employer": "Lowe's Home Centers, LLC",
+        "sir_reports_2015_2025": 241,
+        "ita_establishments_linked": 0,
+        "linked_by_name": 0,
+        "added_by_ein": 0,
+        "distinct_eins": 0,
+        "ita_states": 0,
+        "linked": false
+      },
+      {
+        "employer": "Publix Super Markets, Inc.",
+        "sir_reports_2015_2025": 214,
+        "ita_establishments_linked": 1186,
+        "linked_by_name": 1186,
+        "added_by_ein": 0,
+        "distinct_eins": 1,
+        "ita_states": 3,
+        "linked": true
+      },
+      {
+        "employer": "Tyson Foods, Inc.",
+        "sir_reports_2015_2025": 201,
+        "ita_establishments_linked": 0,
+        "linked_by_name": 0,
+        "added_by_ein": 0,
+        "distinct_eins": 0,
+        "ita_states": 0,
+        "linked": false
+      },
+      {
+        "employer": "Kroger",
+        "sir_reports_2015_2025": 167,
+        "ita_establishments_linked": 299,
+        "linked_by_name": 2,
+        "added_by_ein": 297,
+        "distinct_eins": 1,
+        "ita_states": 7,
+        "linked": true
+      },
+      {
+        "employer": "Walt Disney Parks and Resorts U.S., Inc.",
+        "sir_reports_2015_2025": 131,
+        "ita_establishments_linked": 3,
+        "linked_by_name": 3,
+        "added_by_ein": 0,
+        "distinct_eins": 1,
+        "ita_states": 1,
+        "linked": true
+      },
+      {
+        "employer": "Target Corporation",
+        "sir_reports_2015_2025": 131,
+        "ita_establishments_linked": 1243,
+        "linked_by_name": 1243,
+        "added_by_ein": 0,
+        "distinct_eins": 1,
+        "ita_states": 30,
+        "linked": true
+      },
+      {
+        "employer": "American Airlines",
+        "sir_reports_2015_2025": 129,
+        "ita_establishments_linked": 0,
+        "linked_by_name": 0,
+        "added_by_ein": 0,
+        "distinct_eins": 0,
+        "ita_states": 0,
+        "linked": false
+      },
+      {
+        "employer": "FedEx Freight",
+        "sir_reports_2015_2025": 127,
+        "ita_establishments_linked": 312,
+        "linked_by_name": 312,
+        "added_by_ein": 0,
+        "distinct_eins": 1,
+        "ita_states": 28,
+        "linked": true
+      },
+      {
+        "employer": "Menard, Inc.",
+        "sir_reports_2015_2025": 115,
+        "ita_establishments_linked": 293,
+        "linked_by_name": 293,
+        "added_by_ein": 0,
+        "distinct_eins": 1,
+        "ita_states": 9,
+        "linked": true
+      },
+      {
+        "employer": "International Paper Company",
+        "sir_reports_2015_2025": 112,
+        "ita_establishments_linked": 103,
+        "linked_by_name": 94,
+        "added_by_ein": 9,
+        "distinct_eins": 2,
+        "ita_states": 20,
+        "linked": true
+      },
+      {
+        "employer": "Home Depot",
+        "sir_reports_2015_2025": 112,
+        "ita_establishments_linked": 1131,
+        "linked_by_name": 1131,
+        "added_by_ein": 0,
+        "distinct_eins": 1,
+        "ita_states": 32,
+        "linked": true
+      },
+      {
+        "employer": "AT&T",
+        "sir_reports_2015_2025": 110,
+        "ita_establishments_linked": 0,
+        "linked_by_name": 0,
+        "added_by_ein": 0,
+        "distinct_eins": 0,
+        "ita_states": 0,
+        "linked": false
+      },
+      {
+        "employer": "FedEx Ground",
+        "sir_reports_2015_2025": 109,
+        "ita_establishments_linked": 833,
+        "linked_by_name": 414,
+        "added_by_ein": 419,
+        "distinct_eins": 3,
+        "ita_states": 30,
+        "linked": true
+      },
+      {
+        "employer": "Pilgrim's Pride Corporation",
+        "sir_reports_2015_2025": 99,
+        "ita_establishments_linked": 47,
+        "linked_by_name": 26,
+        "added_by_ein": 21,
+        "distinct_eins": 3,
+        "ita_states": 4,
+        "linked": true
+      },
+      {
+        "employer": "Asplundh Tree Expert Company",
+        "sir_reports_2015_2025": 98,
+        "ita_establishments_linked": 33,
+        "linked_by_name": 23,
+        "added_by_ein": 10,
+        "distinct_eins": 1,
+        "ita_states": 23,
+        "linked": true
+      },
+      {
+        "employer": "Costco Wholesale",
+        "sir_reports_2015_2025": 86,
+        "ita_establishments_linked": 301,
+        "linked_by_name": 301,
+        "added_by_ein": 0,
+        "distinct_eins": 1,
+        "ita_states": 28,
+        "linked": true
+      },
+      {
+        "employer": "Walgreens",
+        "sir_reports_2015_2025": 85,
+        "ita_establishments_linked": 0,
+        "linked_by_name": 0,
+        "added_by_ein": 0,
+        "distinct_eins": 0,
+        "ita_states": 0,
+        "linked": false
+      },
+      {
+        "employer": "Capstone Logistics, LLC",
+        "sir_reports_2015_2025": 84,
+        "ita_establishments_linked": 172,
+        "linked_by_name": 107,
+        "added_by_ein": 65,
+        "distinct_eins": 1,
+        "ita_states": 23,
+        "linked": true
+      },
+      {
+        "employer": "Charter Communications",
+        "sir_reports_2015_2025": 83,
+        "ita_establishments_linked": 67,
+        "linked_by_name": 67,
+        "added_by_ein": 0,
+        "distinct_eins": 1,
+        "ita_states": 11,
+        "linked": true
+      },
+      {
+        "employer": "Frito Lay",
+        "sir_reports_2015_2025": 80,
+        "ita_establishments_linked": 119,
+        "linked_by_name": 119,
+        "added_by_ein": 0,
+        "distinct_eins": 1,
+        "ita_states": 23,
+        "linked": true
+      },
+      {
+        "employer": "Tyson Fresh Meats",
+        "sir_reports_2015_2025": 78,
+        "ita_establishments_linked": 31,
+        "linked_by_name": 31,
+        "added_by_ein": 0,
+        "distinct_eins": 1,
+        "ita_states": 4,
+        "linked": true
+      },
+      {
+        "employer": "XPO Logistics",
+        "sir_reports_2015_2025": 76,
+        "ita_establishments_linked": 0,
+        "linked_by_name": 0,
+        "added_by_ein": 0,
+        "distinct_eins": 0,
+        "ita_states": 0,
+        "linked": false
+      }
+    ],
+    "top_linked": 19,
+    "top_n": 25,
+    "postal_rows": 5678,
+    "postal_examples": [
+      {
+        "company_name": "Logistic Dissolution Services (LDS)",
+        "establishment_name": "Chicago Postal CHIPS (LDS)",
+        "state": "IL",
+        "establishment_type": "1"
+      },
+      {
+        "company_name": "Red River Science & Technology, LLC",
+        "establishment_name": "Altus AFB Postal",
+        "state": "OK",
+        "establishment_type": "1"
+      },
+      {
+        "company_name": "Logistic Dissolution Services (LDS)",
+        "establishment_name": "Orlando Postal MCOPS (LDS)",
+        "state": "FL",
+        "establishment_type": "1"
+      },
+      {
+        "company_name": "FEDEX EXPRESS",
+        "establishment_name": "FedEx 951 POSTAL ROAD",
+        "state": "PA",
+        "establishment_type": "1"
+      },
+      {
+        "company_name": "FEDEX EXPRESS",
+        "establishment_name": "FedEx 5701 POSTAL ROAD",
+        "state": "OH",
+        "establishment_type": "1"
+      },
+      {
+        "company_name": "US Postal Service",
+        "establishment_name": "SILVER LAKE_1444278",
+        "state": "TX",
+        "establishment_type": "2"
+      },
+      {
+        "company_name": "US Postal Service",
+        "establishment_name": "VINELAND_1386014",
+        "state": "NJ",
+        "establishment_type": "2"
+      },
+      {
+        "company_name": "US Postal Service",
+        "establishment_name": "SUWANEE_1384075",
+        "state": "GA",
+        "establishment_type": "2"
+      }
+    ]
+  },
+  "step3e_headcounts": {
+    "table": [
+      {
+        "employer": "U.S. Postal Service",
+        "headcount": 639000,
+        "scope": "Total (substantially all U.S.)",
+        "as_of": "Sept 30, 2024",
+        "source": "U.S. Postal Service, FY2024 Form 10-K",
+        "quote": "our workforce consisted of approximately 639,000 employees, substantially all of whom reside in the U.S.",
+        "comparable": true,
+        "reports": 1320,
+        "federalstate0_reports": 408,
+        "reports_excl_federalstate0": 912
+      },
+      {
+        "employer": "Walmart",
+        "headcount": 1600000,
+        "scope": "U.S. associates",
+        "as_of": "Jan 31, 2025",
+        "source": "Walmart Inc., Form 10-K, fiscal 2025",
+        "quote": "approximately 1.6 million associates in the U.S.",
+        "comparable": true,
+        "reports": 866,
+        "federalstate0_reports": 0,
+        "reports_excl_federalstate0": 866
+      },
+      {
+        "employer": "UPS",
+        "headcount": 406000,
+        "scope": "U.S. employees (excl. temporary seasonal)",
+        "as_of": "FY2024",
+        "source": "United Parcel Service, Inc., Form 10-K, 2024",
+        "quote": "of which 406,000 are in the U.S.",
+        "comparable": true,
+        "reports": 637,
+        "federalstate0_reports": 0,
+        "reports_excl_federalstate0": 637
+      },
+      {
+        "employer": "Lowe's Home Centers, LLC",
+        "headcount": 270000,
+        "scope": "Total full- + part-time (mainly U.S.; no U.S. split)",
+        "as_of": "Jan 31, 2025",
+        "source": "Lowe's Companies, Inc., Form 10-K, fiscal 2024",
+        "quote": "Lowe's employed approximately 161,000 full-time associates and 109,000 part-time associates, primarily in the United States and India.",
+        "comparable": true,
+        "reports": 241,
+        "federalstate0_reports": 1,
+        "reports_excl_federalstate0": 240
+      },
+      {
+        "employer": "Publix Super Markets, Inc.",
+        "headcount": 255000,
+        "scope": "Total (stated as 'more than')",
+        "as_of": "Dec 28, 2024",
+        "source": "Publix Super Markets, Inc., Form 10-K, 2024",
+        "quote": "more than 255,000 employees at the end of 2024",
+        "comparable": true,
+        "reports": 214,
+        "federalstate0_reports": 0,
+        "reports_excl_federalstate0": 214
+      },
+      {
+        "employer": "Tyson Foods, Inc.",
+        "headcount": 120000,
+        "scope": "U.S. team members (all Tyson entities)",
+        "as_of": "Sept 28, 2024",
+        "source": "Tyson Foods, Inc., Form 10-K, fiscal 2024",
+        "quote": "Approximately 120,000 team members were employed in the United States",
+        "comparable": true,
+        "reports": 201,
+        "federalstate0_reports": 0,
+        "reports_excl_federalstate0": 201
+      },
+      {
+        "employer": "Kroger",
+        "headcount": 409000,
+        "scope": "Total (stated as 'over')",
+        "as_of": "Feb 1, 2025",
+        "source": "The Kroger Co., Form 10-K, fiscal 2024",
+        "quote": "Kroger employed over 409,000 full- and part-time employees.",
+        "comparable": true,
+        "reports": 167,
+        "federalstate0_reports": 0,
+        "reports_excl_federalstate0": 167
+      },
+      {
+        "employer": "Target Corporation",
+        "headcount": 440000,
+        "scope": "Total incl. seasonal",
+        "as_of": "Feb 1, 2025",
+        "source": "Target Corporation, Form 10-K, fiscal 2024",
+        "quote": "we employed approximately 440,000 full-time, part-time, and seasonal team members.",
+        "comparable": true,
+        "reports": 131,
+        "federalstate0_reports": 2,
+        "reports_excl_federalstate0": 129
+      },
+      {
+        "employer": "Walt Disney Parks and Resorts U.S., Inc.",
+        "headcount": 171000,
+        "scope": "Disney company-wide U.S. \u2014 NO parks figure is published; not comparable",
+        "as_of": "Sept 28, 2024",
+        "source": "The Walt Disney Company, Form 10-K, fiscal 2024",
+        "quote": "approximately 171,000 were employed in the U.S.",
+        "comparable": false,
+        "reports": 131,
+        "federalstate0_reports": 0,
+        "reports_excl_federalstate0": 131
+      },
+      {
+        "employer": "American Airlines",
+        "headcount": 133300,
+        "scope": "Group total, full-time equivalents",
+        "as_of": "Dec 31, 2024",
+        "source": "American Airlines Group Inc., Form 10-K, 2024",
+        "quote": "we had approximately 133,300 active full-time equivalent employees",
+        "comparable": true,
+        "reports": 129,
+        "federalstate0_reports": 0,
+        "reports_excl_federalstate0": 129
+      }
+    ],
+    "caveats": [
+      "headcounts are national or company-wide; reports cover federal-OSHA jurisdictions only",
+      "headcount is one fiscal year (2024); reports span 2015-2025",
+      "not a rate comparison and not a safety ranking; no rates computed",
+      "Disney: no parks headcount is published; company-wide U.S. figure shown, not comparable",
+      "American Airlines figure is full-time equivalents; others are people"
+    ]
+  }
+}

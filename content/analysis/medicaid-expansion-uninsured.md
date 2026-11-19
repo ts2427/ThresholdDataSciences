@@ -159,6 +159,13 @@ context, not as the result.
   continuous enrollment, its unwinding, and Georgia's limited Pathways
   program (from July 2023).
 
+## Reproduce it
+
+The code, the analysis plan (committed before any estimate was run), the
+decision log and the results files are at
+[https://github.com/ts2427/ThresholdDataSciences/tree/main/demos/medicaid_did](https://github.com/ts2427/ThresholdDataSciences/tree/main/demos/medicaid_did); the run instructions are in the
+[demos README](https://github.com/ts2427/ThresholdDataSciences/tree/main/demos).
+
 ## If this were your data
 
 The same design answers "did our change work?" for a price, a policy or a
