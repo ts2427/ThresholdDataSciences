@@ -1,0 +1,92 @@
+# The three services, in the order they appear on /services/ and the home
+# page. Each renders as a section at /services/#<slug>. `card_line` (one
+# sentence) and `methods_line` are the short forms used on the home cards.
+
+services:
+  - slug: "impact-evaluation"
+    question: "Did it work?"
+    name: "Impact & Evaluation Analysis"
+    summary: >-
+      You changed something — a price, a policy, a process, a program. I
+      measure whether it made a difference, how much, and how sure you can be.
+    card_line: "I measure whether a change made a difference, how much, and how sure you can be."
+    methods_line: "Event studies · Difference-in-differences · Survival models · Equivalence testing"
+    methods:
+      - "Event studies"
+      - "Difference-in-differences with staggered timing and sensitivity checks"
+      - "Time-to-event (survival) models"
+      - "Equivalence testing"
+    deliverables:
+      - "An analysis plan written before results are seen"
+      - "The effect estimate, with its uncertainty"
+      - "A robustness section, including the checks that weaken the result"
+      - "A written report, the reproducible code and a data dictionary"
+    offer:
+      name: "Impact Assessment"
+      scope: "One intervention, one outcome, an analysis plan written before results are seen, and a robustness section."
+      timeline: "3–5 weeks"
+
+  - slug: "data-audit"
+    question: "Can you trust the number?"
+    name: "Data & Measurement Audit"
+    summary: >-
+      Before a number drives a decision, find out what it is actually
+      counting. Duplicates, definitions, joins and dates are where most bad
+      conclusions start.
+    card_line: "Before a number drives a decision, find out what it is actually counting."
+    methods_line: "Data profiling · Entity resolution · Metric definitions · Python and SQL"
+    methods:
+      - "Data-quality profiling"
+      - "Entity resolution and duplicate detection"
+      - "Metric-definition review"
+      - "Reproducible pipelines in Python and SQL"
+    deliverables:
+      - "A findings memo"
+      - "A cleaned dataset"
+      - "The code that produced it"
+    offer:
+      name: "Data Snapshot Audit"
+      scope: "One dataset or KPI family, a findings memo, a cleaned dataset and the code."
+      timeline: "2–3 weeks"
+
+  - slug: "predictive-retention"
+    question: "What happens next?"
+    name: "Predictive & Retention Models"
+    summary: >-
+      Who is likely to leave, what it is worth to act, and where effort pays
+      back — with models that are calibrated, checked for fairness and tied
+      to a decision rule.
+    card_line: "Who is likely to leave, what it is worth to act, and where effort pays back."
+    methods_line: "Calibrated classification · Lifetime value · Uplift · Forecasting"
+    methods:
+      - "Calibrated classification"
+      - "Customer lifetime value"
+      - "Profit-based targeting"
+      - "Uplift modeling"
+      - "Forecasting"
+      - "Interactive dashboards"
+    deliverables:
+      - "A calibrated model"
+      - "A value-at-risk estimate"
+      - "A targeting rule"
+      - "A dashboard"
+    offer:
+      name: "Retention Model Sprint"
+      scope: "Model, value-at-risk estimate, targeting rule and dashboard."
+      timeline: "4–6 weeks"
+
+# Ways in. `price` shows only when site.yaml show_prices is true.
+entry_offers:
+  - name: "Free fit call"
+    detail: "20 minutes to see whether the question is one I can help with. Comes before either offer below."
+    timeline: "20 minutes"
+    price: "Free"
+    always_show_price: true
+  - name: "Second-Opinion Method Review"
+    detail: "A written memo of up to 5 pages on an existing analysis, model or vendor claim, plus one 45-minute call."
+    timeline: "5 business days"
+    price: "$1,500"
+  - name: "Paid Scoping"
+    detail: "A one-week written analysis plan for projects where the question or the data is still unclear. The fee is credited in full toward a follow-on project."
+    timeline: "1 week"
+    price: "$1,250"

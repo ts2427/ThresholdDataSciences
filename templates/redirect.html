@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Moved to {{ label }} | {{ site.name }}</title>
+  <link rel="canonical" href="{{ site.base_url }}{{ target }}">
+  <meta http-equiv="refresh" content="0; url={{ target }}">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<main id="main">
+  <section class="page-head">
+    <div class="shell">
+      <h1>This page has moved</h1>
+      <p class="page-lede">It now lives at <a href="{{ target }}">{{ label }}</a>.</p>
+    </div>
+  </section>
+</main>
+</body>
+</html>

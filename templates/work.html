@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Work | {{ site.name }}{% endblock %}
+{% block meta_desc %}Worked examples from Threshold Data Sciences, built on public or fictional data. Demonstrations, not client work.{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="shell">
+    <p class="eyebrow">Work</p>
+    <h1>Worked examples</h1>
+    <p class="page-lede">Each example takes one of the three questions from
+      data to decision, on public or fictional data, so you can see the
+      method before you hire it. None of it is client work.</p>
+  </div>
+</section>
+
+{% include "_step.html" %}
+
+<section class="work" aria-labelledby="live-head">
+  <div class="shell">
+    <h2 id="live-head">Finished</h2>
+    {% if live %}
+    <ul class="work-list">
+      {% for w in live %}{% include "_work_item.html" %}{% endfor %}
+    </ul>
+    {% else %}
+    <p class="section-note">Nothing finished yet.</p>
+    {% endif %}
+  </div>
+</section>
+
+{% if in_progress %}
+{% include "_step.html" %}
+<section class="work" aria-labelledby="progress-head">
+  <div class="shell">
+    <h2 id="progress-head">In progress</h2>
+    <p class="section-note">Unfinished. Listed so you know what's coming;
+      nothing here is a result yet.</p>
+    <ul class="work-list">
+      {% for w in in_progress %}{% include "_work_item.html" %}{% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

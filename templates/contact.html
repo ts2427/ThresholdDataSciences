@@ -14,42 +14,71 @@
 {% include "_step.html" %}
 
 <section class="archive">
-  <div class="shell measure">
-    <div class="prose">
-      {{ page.body | safe }}
+  <div class="shell contact-grid">
+    <div>
+      <div class="prose">
+        {{ page.body | safe }}
+      </div>
+
+      {% if site.contact_form_action %}
+      <form class="contact-form" method="POST" action="{{ site.contact_form_action }}">
+        <input type="hidden" name="_subject" value="Inquiry via thresholddatasciences.com">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="{{ site.base_url }}/contact/thanks/">
+        <p class="visually-hidden" aria-hidden="true">
+          <label>Leave this field empty: <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
+        </p>
+        <div class="form-field">
+          <label for="cf-name">Name</label>
+          <input id="cf-name" name="name" type="text" required autocomplete="name">
+        </div>
+        <div class="form-field">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" name="email" type="email" required autocomplete="email">
+        </div>
+        <div class="form-field">
+          <label for="cf-org">Organization <span class="optional">(optional)</span></label>
+          <input id="cf-org" name="organization" type="text" autocomplete="organization">
+        </div>
+        <div class="form-field">
+          <label for="cf-question">Which question is closest?</label>
+          <select id="cf-question" name="question" required>
+            <option value="">Choose one</option>
+            <option>Did it work?</option>
+            <option>Can you trust the number?</option>
+            <option>What happens next?</option>
+            <option>Not sure</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="cf-message">The decision and the data, briefly</label>
+          <textarea id="cf-message" name="message" rows="6" required></textarea>
+        </div>
+        <div class="form-field">
+          <label for="cf-budget">Budget range <span class="optional">(optional)</span></label>
+          <select id="cf-budget" name="budget">
+            <option value="">Prefer not to say</option>
+            <option>Under $2,500</option>
+            <option>$2,500–$7,500</option>
+            <option>$7,500–$15,000</option>
+            <option>Over $15,000</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+        <p class="form-note">What you submit is used only to read and reply to
+          your inquiry. See the <a href="/privacy/">privacy policy</a>.</p>
+      </form>
+      {% endif %}
     </div>
 
-    {% if site.contact_form_action %}
-    <form class="contact-form" method="POST" action="{{ site.contact_form_action }}">
-      <input type="hidden" name="_subject" value="Inquiry via thresholddatasciences.com">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="{{ site.base_url }}/contact/thanks/">
-      <p class="visually-hidden" aria-hidden="true">
-        <label>Leave this field empty: <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
-      </p>
-      <div class="form-field">
-        <label for="cf-name">Name</label>
-        <input id="cf-name" name="name" type="text" required autocomplete="name">
-      </div>
-      <div class="form-field">
-        <label for="cf-email">Email</label>
-        <input id="cf-email" name="email" type="email" required autocomplete="email">
-      </div>
-      <div class="form-field">
-        <label for="cf-message">Message</label>
-        <textarea id="cf-message" name="message" rows="7" required></textarea>
-      </div>
-      <button type="submit">Send</button>
-      <p class="form-note">What you submit is used only to read and reply to
-        your inquiry. See the <a href="/privacy/">privacy policy</a>.</p>
-    </form>
-    {% endif %}
-
-    {% if site.contact_email %}
-    <p class="contact-email">Or email directly:
-      <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a>
-    </p>
-    {% endif %}
+    <aside class="contact-aside" aria-label="Response time and email">
+      <p class="contact-response">You'll hear back within {{ site.response_time }}.</p>
+      {% if site.contact_email %}
+      <p class="contact-email">Or email directly:<br>
+        <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a></p>
+      {% endif %}
+    </aside>
   </div>
 </section>
 {% endblock %}

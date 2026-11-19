@@ -1,26 +1,79 @@
 {% extends "base.html" %}
-{% block title %}{{ site.name }} — research and advisory on regulation, disclosure, and governance{% endblock %}
-{% block meta_desc %}{{ site.description }} Its running thesis: rules change what organizations are required to do, but rarely change what they are.{% endblock %}
+{% block title %}Threshold Data Sciences — analysis you can defend{% endblock %}
+{% block meta_desc %}{{ site.description }}{% endblock %}
 
 {% block content %}
 <section class="hero">
   <div class="shell">
     <p class="eyebrow">Threshold Data Sciences</p>
-    <h1>Rules change what organizations are required to&nbsp;do. They rarely change what they&nbsp;are.</h1>
-    <p class="hero-sub">An independent research and advisory practice studying the gap between
-      what rules require and what organizations actually do — and the
-      organizational capacity that decides outcomes.</p>
+    <h1>Analysis you can defend.</h1>
+    <p class="hero-sub">I help organizations answer three questions with
+      evidence: Did it work? Can you trust the number? What happens next?</p>
+    <p class="legal-line">{{ site.legal_line }}</p>
+    <p class="btn-row">
+      <a class="btn btn-primary" href="/contact/">Book a 20-minute fit call</a>
+      <a class="btn btn-secondary" href="/work/">See a worked example</a>
+    </p>
   </div>
 </section>
 
 {% include "_step.html" %}
 
-<section class="home-latest">
+<section class="home-questions" aria-labelledby="q-head">
   <div class="shell">
-    <h2>Latest from Threshold Effects</h2>
-    <p class="section-note">A numbered research series. Each issue examines one
-      rule, one organization, or one gap between the two, with sources linked
-      in the text.</p>
+    <h2 id="q-head" class="visually-hidden">Three questions</h2>
+    <ul class="question-cards">
+      {% for s in services %}
+      <li class="question-card">
+        <h3 class="question"><a href="{{ s.url }}">{{ s.question }}</a></h3>
+        <p class="question-name">{{ s.name }}</p>
+        <p>{{ s.card_line }}</p>
+        <p class="methods-line">{{ s.methods_line }}</p>
+        {% if s.question in questions_with_work %}
+        <p class="card-link"><a href="/work/">See a worked example<span class="visually-hidden"> for “{{ s.question }}”</span></a></p>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{% if featured %}
+{% include "_step.html" %}
+<section class="home-featured" aria-labelledby="featured-head">
+  <div class="shell">
+    <h2 id="featured-head">A worked example</h2>
+    <ul class="work-list">
+      {% with w = featured %}{% include "_work_item.html" %}{% endwith %}
+    </ul>
+    <p><a class="more-link" href="/work/">All work &rarr;</a></p>
+  </div>
+</section>
+{% endif %}
+
+{% include "_step.html" %}
+
+<section class="home-founder" aria-labelledby="founder-head">
+  <div class="shell">
+    <h2 id="founder-head">Who does the work</h2>
+    <p class="founder-note">I've spent nearly twenty years building reporting
+      pipelines, executive scorecards and workforce forecasts in telecom
+      operations. I have doctoral training in business analytics, an MBA in
+      business analytics, and two articles in the ISACA Journal.</p>
+    <p><a class="more-link" href="/about/">About me &rarr;</a></p>
+
+    <h2 class="process-head">How an engagement runs</h2>
+    <p class="process-strip"><a href="/how-i-work/">Scope <span aria-hidden="true">&rarr;</span> Data <span aria-hidden="true">&rarr;</span> Analysis <span aria-hidden="true">&rarr;</span> Review <span aria-hidden="true">&rarr;</span> Handover</a></p>
+  </div>
+</section>
+
+{% include "_standards.html" %}
+
+<section class="home-latest" aria-labelledby="writing-head">
+  <div class="shell">
+    <h2 id="writing-head">Latest writing</h2>
+    <p class="section-note">From Threshold Effects, a numbered series with
+      sources linked in the text.</p>
     <ol class="issue-list" reversed>
       {% for i in issues %}
       <li class="issue-row">
@@ -33,48 +86,26 @@
       </li>
       {% endfor %}
     </ol>
-    <p><a class="more-link" href="/threshold-effects/">Full archive, No. 001 onward &rarr;</a></p>
+    <p><a class="more-link" href="/threshold-effects/">All of Threshold Effects &rarr;</a></p>
   </div>
 </section>
 
 {% include "_step.html" %}
 
-<section class="home-sections">
+<section class="home-cta" aria-labelledby="cta-head">
   <div class="shell">
-    <div class="section-cards">
-      <div class="section-card">
-        <h2><a href="/advisory/">Advisory</a></h2>
-        <p>What the practice takes on and the shape an engagement takes:
-          fixed-scope assessments and commissioned analysis, a small number
-          at a time.</p>
-      </div>
-      <div class="section-card">
-        <h2><a href="/analysis/">Analysis</a></h2>
-        <p>Longer data work than the series carries — every piece names its
-          sources and shows its method.</p>
-      </div>
-      <div class="section-card">
-        <h2><a href="/research/">Research</a></h2>
-        <p>Peer-reviewed publications and completed working papers by the
-          practice's founder, Timothy D. Spivey.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-{% include "_step.html" %}
-
-<section class="home-practice">
-  <div class="shell">
-    <h2>The practice</h2>
-    <p>Threshold Data Sciences works by empirical method — study design,
-      causal inference, and measurement, with the data engineering
-      underneath. The published research demonstrates the method; the
-      advisory work points it at a client's question, currently in
-      regulation, disclosure, and governance.</p>
-    <p>The practice takes a small number of engagements: fixed-scope
-      assessments and commissioned analysis.</p>
-    <p><a class="more-link" href="/advisory/">What the practice takes on &rarr;</a></p>
+    <h2 id="cta-head">Two ways to start</h2>
+    <p>A <strong>Second-Opinion Method Review</strong> — a written memo on an
+      existing analysis, model or vendor claim — or <strong>Paid
+      Scoping</strong>, a one-week written analysis plan for a project that
+      isn't clear yet. Either starts with a free 20-minute fit call.</p>
+    <p class="btn-row">
+      <a class="btn btn-primary" href="/contact/">Book a 20-minute fit call</a>
+      <a class="btn btn-secondary" href="/services/#ways-in">See both offers</a>
+    </p>
+    {% if site.contact_email %}
+    <p class="cta-email">Or email <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a>.</p>
+    {% endif %}
   </div>
 </section>
 

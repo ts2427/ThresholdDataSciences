@@ -20,6 +20,5 @@ TODO: body of the analysis piece. Plain Markdown — tables, footnotes, and
 blockquotes are all styled. Charts are the only images allowed on the site,
 generated from real data, each with a text alternative or adjacent data table.
 
-Before publishing any piece that overlaps a pending journal submission, clear
-it against the target journal's prior-publication policy (Sherpa/Romeo
-aggregates these), then set `draft: false`.
+Published work only, no unpublished results. Set `draft: false` when the
+piece is finished.

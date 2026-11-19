@@ -8,8 +8,16 @@ lede: "This site is built to collect as little as possible. This page describes,
 ## What this site collects
 
 **The contact form.** If you use the [contact form](/contact/), the site
-collects what you type into it: your name, your email address, and your
-message. The submission is transmitted by FormSubmit (formsubmit.co), a
+collects what you type into it, and nothing else:
+
+- your name;
+- your email address;
+- your organization (optional);
+- which of the three questions is closest to yours;
+- your description of the decision and the data; and
+- a budget range (optional).
+
+The submission is transmitted by FormSubmit (formsubmit.co), a
 form-relay service, which forwards it to Threshold Data Sciences by email.
 It is used for exactly one purpose — reading and replying to your inquiry.
 FormSubmit's own handling is described in its

@@ -23,6 +23,7 @@
       <li class="issue-row">
         <span class="issue-no"><time datetime="{{ p.iso_date }}">{{ p.iso_date[:4] }}</time></span>
         <div>
+          {% include "_demo_tag.html" %}
           <h2 class="issue-title"><a href="{{ p.url }}">{{ p.title }}</a></h2>
           <p class="issue-line"><time datetime="{{ p.iso_date }}">{{ p.display_date }}</time></p>
           <p class="issue-summary">{{ p.summary }}</p>

@@ -3,9 +3,10 @@
 name: "Threshold Data Sciences"
 base_url: "https://thresholddatasciences.com"
 description: >-
-  Threshold Data Sciences is an independent research and advisory practice
-  studying the gap between what rules require and what organizations actually
-  do.
+  Threshold Data Sciences is the independent analytics practice of Timothy D.
+  Spivey. It answers three questions behind hard decisions — did it work, can
+  you trust the number, what happens next — with research-grade methods and
+  fixed-scope engagements.
 series_description: >-
   Threshold Effects — a numbered research series from Threshold Data Sciences
   on regulation, disclosure, governance, and the organizational capacity that
@@ -15,8 +16,7 @@ author:
   name: "Timothy D. Spivey"
   citation_name: "Spivey, T. D."   # used in the generated citation blocks
   job_title: "Founder, Threshold Data Sciences"
-  # knowsAbout feeds the JSON-LD Person schema. Method first (the practice's
-  # capability), then the domains it is currently pointed at.
+  # knowsAbout feeds the JSON-LD Person schema: methods only.
   knows_about:
     - "Event study methodology"
     - "Causal inference"
@@ -25,16 +25,16 @@ author:
     - "Measurement and validity"
     - "Data engineering"
     - "Panel data analysis"
-    - "Mandatory breach disclosure regulation"
-    - "Cybersecurity governance"
-    - "Shadow IT governance"
-    - "Security culture"
+    - "Survival analysis"
+    - "Predictive modeling"
+    - "Customer retention analytics"
+    - "Data quality auditing"
     - "Business analytics"
     - "Telecommunications operations"
   # sameAs identity links for JSON-LD Person schema.
   linkedin: "https://www.linkedin.com/in/tispivey/"
   scholar: "https://scholar.google.com/citations?user=S9sSV1EAAAAJ&hl=en"
-  orcid: ""            # TODO: add ORCID iD URL (https://orcid.org/XXXX-...) — joins sameAs automatically when set
+  orcid: "https://orcid.org/0009-0009-8990-4308"
   personal_site: "https://timothydspivey.com"
 
 # THE site email. Single source of truth: shown on the contact page,
@@ -46,3 +46,25 @@ contact_email: "timothy@thresholddatasciences.com"
 # one-time activation — after the first submission, click the link in the
 # activation email that arrives in this inbox, or nothing is delivered.
 contact_form_action: "https://formsubmit.co/timothy@thresholddatasciences.com"
+
+
+# ------------------------------------------------------------ the practice --
+
+# Prices. While show_prices is false, /services/ shows timelines and
+# "Priced in writing before work begins." The range line ("Most fixed-scope
+# projects fall between ...") additionally stays hidden while either value
+# is TODO.
+show_prices: false
+price_range_low: "TODO"
+price_range_high: "TODO"
+
+# Shown beside the contact form: "You'll hear back within {response_time}."
+response_time: "two business days"
+
+# Shown in the home hero, on /about/ and in the footer. Change to the
+# registered LLC name only once Sunbiz shows it active.
+legal_line: "Threshold Data Sciences is the independent practice of Timothy D. Spivey, Pensacola, Florida."
+
+# Path to a headshot (e.g. "/static/img/headshot.jpg"). Empty = no image.
+# The single exception to the no-photography rule: /about/ only.
+about_headshot: ""

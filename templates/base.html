@@ -35,18 +35,18 @@
       <img class="brand-mark" src="/static/img/logo.svg" alt="" aria-hidden="true">
       <span class="brand-word">Threshold Data&nbsp;Sciences</span>
     </a>
-    <nav aria-label="Site">
+    <nav aria-label="Site" class="nav-wrap">
       <ul class="site-nav">
-        <li><a href="/threshold-effects/"{% if page_url.startswith('/threshold-effects') %} aria-current="page"{% endif %}>Threshold Effects</a></li>
-        <li><a href="/analysis/"{% if page_url.startswith('/analysis') %} aria-current="page"{% endif %}>Analysis</a></li>
+        <li><a href="/services/"{% if page_url.startswith('/services') %} aria-current="page"{% endif %}>Services</a></li>
+        <li><a href="/work/"{% if page_url.startswith('/work') or page_url.startswith('/analysis') %} aria-current="page"{% endif %}>Work</a></li>
+        <li><a href="/how-i-work/"{% if page_url.startswith('/how-i-work') %} aria-current="page"{% endif %}>How I Work</a></li>
         {% if site.has_methods %}
         <li><a href="/methods/"{% if page_url.startswith('/methods') %} aria-current="page"{% endif %}>Methods</a></li>
         {% endif %}
-        <li><a href="/research/"{% if page_url.startswith('/research') %} aria-current="page"{% endif %}>Research</a></li>
-        <li><a href="/advisory/"{% if page_url.startswith('/advisory') %} aria-current="page"{% endif %}>Advisory</a></li>
+        <li><a href="/threshold-effects/"{% if page_url.startswith('/threshold-effects') %} aria-current="page"{% endif %}>Writing</a></li>
         <li><a href="/about/"{% if page_url.startswith('/about') %} aria-current="page"{% endif %}>About</a></li>
-        <li><a href="/contact/"{% if page_url.startswith('/contact') %} aria-current="page"{% endif %}>Contact</a></li>
       </ul>
+      <a class="btn btn-nav" href="/contact/"{% if page_url.startswith('/contact') %} aria-current="page"{% endif %}>Book a 20-minute fit call</a>
     </nav>
   </div>
 </header>
@@ -59,12 +59,21 @@
   <div class="shell">
     {% include "_step.html" %}
     <div class="footer-cols">
-      <p class="footer-name">Threshold Data Sciences<br>
-        <span class="footer-sub">Independent research &amp; advisory · Pensacola, Florida</span></p>
+      <div>
+        <p class="footer-name">Threshold Data Sciences<br>
+          <span class="footer-sub">Independent analytics · Pensacola, Florida</span></p>
+        <p class="footer-legal">{{ site.legal_line }}</p>
+      </div>
       <ul class="footer-links">
-        <li><a href="/threshold-effects/">Threshold Effects</a></li>
-        <li><a href="/threshold-effects/feed.xml">RSS feed</a></li>
+        <li><a href="/services/">Services</a></li>
+        <li><a href="/work/">Work</a></li>
+        <li><a href="/how-i-work/">How I Work</a></li>
+        <li><a href="/threshold-effects/">Writing</a></li>
+        <li><a href="/threshold-effects/feed.xml">RSS</a></li>
         <li><a href="/privacy/">Privacy</a></li>
+        <li><a href="/terms/">Terms</a></li>
+        <li><a href="/disclaimer/">Disclaimer</a></li>
+        <li><a href="/accessibility/">Accessibility</a></li>
         <li><a href="{{ site.author.personal_site }}">Founder's academic site</a></li>
       </ul>
     </div>

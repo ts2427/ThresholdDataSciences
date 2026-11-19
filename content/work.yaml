@@ -1,0 +1,30 @@
+# Worked examples for /work/. Every item renders with the tag
+# "DEMONSTRATION · PUBLIC DATA · NOT CLIENT WORK".
+#
+# status: live         — finished and published; may be featured on the home page
+# status: in_progress  — listed under "In progress", never presented as finished;
+#                        target_date is hidden while it is TODO
+# question must match a `question` in services.yaml exactly.
+# Any non-draft page in content/analysis/ joins /work/ automatically.
+
+- title: "Who Leaves, Who to Save, and What It Costs"
+  url: "https://timothydspivey.com/retention-playbook"
+  question: "What happens next?"
+  summary: "A retention playbook from churn analysis to the targeting decision: calibrated models, profit-based contact rules, uplift on a randomized experiment and a fairness audit."
+  methods:
+    - "Calibrated classification"
+    - "Profit-based targeting"
+    - "Uplift modeling"
+    - "Fairness audit"
+  data_note: "Public and fictional datasets; findings checked against operators' public disclosures."
+  status: "live"
+  target_date: ""
+
+- title: "When the Network Goes Dark"
+  url: ""
+  question: "Did it work?"
+  summary: "Gulf Coast cell-site outages and recovery in hurricanes, from FCC, EAGLE-I and NOAA public data."
+  methods: []
+  data_note: ""
+  status: "in_progress"
+  target_date: "TODO"

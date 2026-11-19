@@ -1,8 +1,8 @@
 # Threshold Data Sciences — site
 
 Static site for [thresholddatasciences.com](https://thresholddatasciences.com):
-the Threshold Effects research series, analysis, published research, and the
-advisory practice. Python generator, no CMS, no database, no JS framework.
+the independent analytics practice of Timothy D. Spivey — services, worked
+examples, the Threshold Effects series, and the practice's policies. Python generator, no CMS, no database, no JS framework.
 The site works fully with JavaScript disabled.
 
 ## Build
@@ -38,8 +38,8 @@ feed, and the sitemap all regenerate from the content directory — there is
 nothing else to edit.
 
 `draft: true` in any front matter excludes that file from all output (pages,
-feeds, sitemap). Use it for pieces awaiting a journal prior-publication check,
-and for backfill files whose metadata isn't verified yet.
+feeds, sitemap). Use it for unfinished pieces and for backfill files whose
+metadata isn't verified yet.
 
 **Content integrity rules.** This site's entire claim is a citable record,
 and issues cross-link to public posts anyone can verify:
@@ -51,6 +51,28 @@ and issues cross-link to public posts anyone can verify:
   `draft: true` until their verified values are supplied.
 - Tooling (including AI assistants) must never generate content for this
   site — structure, markup, and styling only.
+
+## Services, work and prices
+
+- `content/services.yaml` — the three services (one per buyer question:
+  "Did it work?", "Can you trust the number?", "What happens next?") and the
+  entry offers. Drives `/services/` and the home page question cards.
+- `content/work.yaml` — worked examples for `/work/`. `status: live` or
+  `in_progress`; in-progress items render under "In progress" and are never
+  presented as finished; a `TODO` target date is hidden. Every item (and
+  every published analysis page, which joins `/work/` automatically) carries
+  the tag "DEMONSTRATION · PUBLIC DATA · NOT CLIENT WORK". The first live
+  item is featured on the home page. The build fails on an unknown status, a
+  question that matches no service, a live item without a URL, or TODO text
+  in a rendered field.
+- `site.yaml` — `show_prices` (false hides every price and shows "Priced in
+  writing before work begins."); `price_range_low` / `price_range_high` (the
+  range line stays hidden while either is TODO); `response_time`;
+  `legal_line` (home hero, About, footer — switch to the registered LLC name
+  only once Sunbiz shows it active); `about_headshot` (empty = no image).
+
+Voice: first person singular. Never "we", "our team", "our clients",
+"trusted", "proven". No client logos, testimonials or implied engagements.
 
 ## Adding an analysis piece
 
@@ -99,6 +121,8 @@ primary source, set `verified: true`, uncomment the `figures:` block.
 
 ## Methods page and corrections
 
+`content/pages/how-i-work.md` is the published engagement page (process,
+deliverables, standards, data handling, AI use).
 `content/pages/methods.md` is a `draft: true` skeleton — the nav link and
 page appear only when its TODO blocks are replaced with Tim's wording (the
 build fails if a published page still contains TODO text). Corrections are
@@ -109,10 +133,9 @@ Per-issue sources are front-matter (`sources:` list of `name`, `publisher`,
 
 ## Research and press
 
-- `content/research.yaml` — published, peer-reviewed work and completed
-  working papers only. **Never** dissertation findings, unpublished results,
-  or anything overlapping a pending journal submission (check the target
-  journal's policy via Sherpa/Romeo first).
+- `content/research.yaml` — Published work only. No unpublished results.
+  Rendered in the Writing section of `/about/` (`[research-list]` marker in
+  `about.md`).
 - `content/press.yaml` — press mentions. While empty, the homepage's
   "In the press" section is omitted entirely.
 
@@ -157,8 +180,11 @@ number, canonical URL) — never hand-written.
 - Type, all self-hosted in `static/fonts/` (SIL OFL licensed): Source Serif 4
   (display), IBM Plex Sans (body), IBM Plex Mono (issue numbers, dates,
   methods notes). No font CDN, no third-party assets of any kind.
+- Buttons: primary = Ink field, white text; secondary = Ink outline, Ink
+  text; in the Ink header the button inverts (white field, Ink text).
 - Flat surfaces, square corners (2px max — currently 0), hairline rules, no
-  shadows, no gradients, no motion, no photography. The only images the site
+  shadows, no gradients, no motion, no photography (single exception: the
+  optional `about_headshot`, on `/about/` only). The only images the site
   admits are charts generated from real data, each needing a text alternative
   or adjacent data table.
 
@@ -176,8 +202,9 @@ Split, deliberately:
   states the same in plain language.
 
 **Do not apply a Creative Commons license to the content.** CC licenses are
-irrevocable, and there is a pending journal submission plus an unpublished
-dissertation whose publishers may require transferable rights.
+irrevocable, and future publishers may require transferable rights.
+`/terms/` states the same split in plain language (its source carries a
+"Have counsel review before taking paid work" comment).
 
 ## Deploy — GitHub Pages
 
@@ -247,7 +274,10 @@ a human verifies:
 
 Hosting is GitHub Pages, which has no server-side redirects, so **there is
 no redirects file here and the URLs in this repo are permanent — do not
-restructure `/threshold-effects/no-0XX/` after launch.**
+restructure `/threshold-effects/no-0XX/` after launch.** Retired URLs on
+this site get meta-refresh + canonical stubs generated by `build.py`
+(`templates/redirect.html`): `/advisory/` → `/services/`, `/research/` →
+`/about/#writing`. `/analysis/` still builds but is out of the nav.
 
 The `timothydspivey.com` → `thresholddatasciences.com` redirects — the old
 `/threshold/` page and the old blog post URLs — are configured wherever the
@@ -305,7 +335,6 @@ Remaining:
       (`contact_form_action`) + FormSubmit activation click in that inbox.
 - [ ] Inline source links in issue bodies (all 11 carry the published text;
       citations are not yet hyperlinked inline).
-- [ ] ORCID iD in `site.yaml` for the Person schema `sameAs`.
 - [ ] After DNS cutover: validate the live feed with the W3C Feed
       Validator; reconcile the personal site (consulting section shrinks to
       a pointer here, `/threshold/` redirects here, old blog posts get
@@ -337,9 +366,6 @@ action, listed here so they aren't lost):
       the count is accurate on both sites, no discrepancy to fix. The
       personal site's stat counter should still come off (a two-item counter
       undersells rather than sells).
-- [ ] **Dissertation findings.** The personal site's About section states
-      dissertation conclusions; this site deliberately states none. Decide
-      whether the personal site should too.
 - [ ] **Personal-site accessibility defects** (scanner-findable): gold
       `#b8970a` small text on white ≈ 2.7:1 (below 4.5:1), and
       `.nav-links { display:none }` under 768px removes all navigation on

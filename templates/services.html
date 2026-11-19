@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Services | {{ site.name }}{% endblock %}
+{% block meta_desc %}Three fixed-scope services from Threshold Data Sciences: Impact & Evaluation Analysis (did it work?), Data & Measurement Audit (can you trust the number?), and Predictive & Retention Models (what happens next?).{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="shell">
+    <p class="eyebrow">Services</p>
+    <h1>Three questions, three services</h1>
+    <p class="page-lede">Each service answers one question behind a hard
+      decision, as a fixed-scope engagement with a written plan, a stated
+      timeline and the code handed over at the end.</p>
+  </div>
+</section>
+
+{% include "_step.html" %}
+
+{% for s in services %}
+<section class="service" id="{{ s.slug }}" aria-labelledby="{{ s.slug }}-head">
+  <div class="shell">
+    <p class="service-question">{{ s.question }}</p>
+    <h2 id="{{ s.slug }}-head">{{ s.name }}</h2>
+    <p class="service-summary">{{ s.summary }}</p>
+    <div class="service-cols">
+      <div>
+        <h3 class="label-head">Methods</h3>
+        <ul class="plain-list mono-list">
+          {% for m in s.methods %}<li>{{ m }}</li>{% endfor %}
+        </ul>
+      </div>
+      <div>
+        <h3 class="label-head">Deliverables</h3>
+        <ul class="plain-list">
+          {% for d in s.deliverables %}<li>{{ d }}</li>{% endfor %}
+        </ul>
+      </div>
+      <div class="offer-box">
+        <h3 class="label-head">The offer</h3>
+        <p class="offer-name">{{ s.offer.name }}</p>
+        <p>{{ s.offer.scope }}</p>
+        <p class="offer-meta">{{ s.offer.timeline }}{% if not site.show_prices %} · Priced in writing before work begins{% endif %}</p>
+      </div>
+    </div>
+    {% if s.question in questions_with_work %}
+    <p class="card-link"><a href="/work/">See a worked example<span class="visually-hidden"> for “{{ s.question }}”</span></a></p>
+    {% endif %}
+  </div>
+</section>
+{% if not loop.last %}<hr class="section-rule">{% endif %}
+{% endfor %}
+
+{% include "_step.html" %}
+
+<section class="ways-in" id="ways-in" aria-labelledby="ways-head">
+  <div class="shell">
+    <h2 id="ways-head">Ways in</h2>
+    <p class="section-note">For a first look before committing to a full
+      project.</p>
+    <ul class="offer-cards">
+      {% for o in entry_offers %}
+      <li class="offer-card">
+        <h3 class="offer-name">{{ o.name }}</h3>
+        <p>{{ o.detail }}</p>
+        <p class="offer-meta">{{ o.timeline }}{% if o.price and (site.show_prices or o.always_show_price) %} · {{ o.price }}{% endif %}</p>
+      </li>
+      {% endfor %}
+    </ul>
+    {% if site.show_price_range %}
+    <p class="price-range">Most fixed-scope projects fall between {{ site.price_range_low }} and {{ site.price_range_high }}.</p>
+    {% elif not site.show_prices %}
+    <p class="price-range">Priced in writing before work begins.</p>
+    {% endif %}
+    <p class="btn-row">
+      <a class="btn btn-primary" href="/contact/">Book a 20-minute fit call</a>
+      <a class="btn btn-secondary" href="/how-i-work/">How an engagement runs</a>
+    </p>
+  </div>
+</section>
+{% endblock %}

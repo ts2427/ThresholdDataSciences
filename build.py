@@ -54,6 +54,11 @@ def parse_md(path):
     # utf-8-sig: a stray BOM (e.g. from a Windows editor) must not silently
     # disable front-matter parsing.
     text = Path(path).read_text(encoding="utf-8-sig")
+    # An author's note may sit above the front matter as a single HTML
+    # comment line (e.g. "<!-- Have counsel review ... -->"). It is a
+    # source-file note only and never reaches the output.
+    text = re.sub(r"\A\s*<!--.*?-->[ \t]*\r?\n", "", text, count=1,
+                  flags=re.S)
     meta, body = {}, text
     if text.startswith("---"):
         parts = text.split("---", 2)
@@ -177,6 +182,23 @@ if not SITE.get("contact_email") and not SITE.get("contact_form_action"):
     print("site.yaml — the contact page has no working contact channel.")
     print("DO NOT SHIP THIS BUILD.")
     print("=" * 70)
+
+
+def _is_placeholder(v):
+    return not str(v or "").strip() or "TODO" in str(v)
+
+
+# Prices: shown only when show_prices is true; the range line additionally
+# needs both ends filled in (never renders a TODO).
+SITE["show_prices"] = bool(SITE.get("show_prices"))
+SITE["show_price_range"] = (
+    SITE["show_prices"]
+    and not _is_placeholder(SITE.get("price_range_low"))
+    and not _is_placeholder(SITE.get("price_range_high")))
+
+DEMO_TAG = "Demonstration · Public data · Not client work"
+SITE["demo_tag"] = DEMO_TAG
+
 if "pensacolastate" in SITE.get("contact_form_action", ""):
     print("NOTE: contact box delivers to the PSC address (interim). Swap")
     print("site.yaml contact_form_action to the Threshold Data Sciences")
@@ -314,6 +336,53 @@ def load_pages():
     return pages
 
 
+def load_services():
+    data = load_yaml(CONTENT / "services.yaml")
+    services = data.get("services", [])
+    for svc in services:
+        svc["url"] = f"/services/#{svc['slug']}"
+    return services, data.get("entry_offers", [])
+
+
+def load_work(services, analysis):
+    """Worked examples from work.yaml plus every published analysis page.
+    in_progress items are kept apart and never presented as finished; a
+    TODO target date is simply not shown."""
+    by_question = {s["question"]: s for s in services}
+    live, in_progress = [], []
+    for item in load_yaml(CONTENT / "work.yaml") or []:
+        status = item.get("status")
+        if status not in ("live", "in_progress"):
+            sys.exit(f"BUILD FAILED: work.yaml item {item.get('title')!r} has "
+                     f"status {status!r}; use live or in_progress.")
+        q = item.get("question")
+        if q not in by_question:
+            sys.exit(f"BUILD FAILED: work.yaml item {item.get('title')!r} "
+                     f"question {q!r} matches no service in services.yaml.")
+        for field in ("title", "summary", "data_note", "url"):
+            if "TODO" in str(item.get(field) or ""):
+                sys.exit(f"BUILD FAILED: work.yaml item {item.get('title')!r} "
+                         f"has TODO in {field}.")
+        if status == "live" and not item.get("url"):
+            sys.exit(f"BUILD FAILED: live work item {item.get('title')!r} "
+                     "has no url.")
+        item["service"] = by_question[q]
+        if _is_placeholder(item.get("target_date")):
+            item["target_date"] = ""
+        item["methods"] = item.get("methods") or []
+        (live if status == "live" else in_progress).append(item)
+    for piece in analysis:
+        live.append({
+            "title": piece["title"], "url": piece["url"],
+            "question": piece.get("question", ""),
+            "service": by_question.get(piece.get("question")),
+            "summary": piece.get("summary", ""),
+            "methods": piece.get("methods_list", []) or [],
+            "data_note": "", "status": "live", "target_date": "",
+        })
+    return live, in_progress
+
+
 def slugify(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 
@@ -440,6 +509,7 @@ def _verify_drafts_excluded(draft_slugs):
     # Category pages and issue pages (related-issue blocks) are also surfaces
     # a draft could leak into.
     haystacks += list((DIST / "threshold-effects").rglob("index.html"))
+    haystacks += [DIST / "work" / "index.html", DIST / "analysis" / "index.html"]
     leaks = []
     for slug in draft_slugs:
         for hay in haystacks:
@@ -477,6 +547,14 @@ def main():
     pages = load_pages()
     SITE["has_methods"] = "methods" in pages
     research = load_yaml(CONTENT / "research.yaml") or []
+    research_html = env.get_template("_research_list.html").render(
+        research=research)
+    for page in pages.values():
+        page["body"] = page["body"].replace("<p>[research-list]</p>",
+                                            research_html)
+    services, entry_offers = load_services()
+    work_live, work_in_progress = load_work(services, analysis)
+    questions_with_work = {w["question"] for w in work_live}
     press = load_yaml(CONTENT / "press.yaml") or []
 
     # Category cross-links (from content, never hardcoded).
@@ -489,7 +567,28 @@ def main():
 
     # Home
     render("home.html", "index.html",
-           issues=issues[:3], press=press, page_url="/")
+           issues=issues[:2], press=press, services=services,
+           entry_offers=entry_offers,
+           featured=work_live[0] if work_live else None,
+           questions_with_work=questions_with_work, page_url="/")
+
+    # Services
+    render("services.html", "services/index.html",
+           services=services, entry_offers=entry_offers,
+           questions_with_work=questions_with_work, page_url="/services/",
+           schema_extra=collection_node(
+               "Services", "/services/",
+               "Impact & Evaluation Analysis, Data & Measurement Audit, and "
+               "Predictive & Retention Models from Threshold Data Sciences."))
+    urls.append("/services/")
+
+    # Work
+    render("work.html", "work/index.html",
+           live=work_live, in_progress=work_in_progress, page_url="/work/",
+           schema_extra=collection_node(
+               "Work", "/work/",
+               "Worked examples on public data from Threshold Data Sciences."))
+    urls.append("/work/")
 
     # Threshold Effects archive + issues
     categories = sorted({i["category"] for i in issues if i.get("category")})
@@ -540,14 +639,13 @@ def main():
                schema_extra=article_node(piece))
         urls.append(piece["url"])
 
-    # Research
-    render("research.html", "research/index.html",
-           research=research, page_url="/research/",
-           schema_extra=collection_node(
-               "Research", "/research/",
-               "Peer-reviewed publications and completed working papers "
-               "by Timothy D. Spivey."))
-    urls.append("/research/")
+    # Retired URLs: meta-refresh + canonical stubs (GitHub Pages has no
+    # server-side redirects). Not in the sitemap.
+    for old, new, label in (("/advisory/", "/services/", "Services"),
+                            ("/research/", "/about/#writing", "Writing")):
+        tpl = env.get_template("redirect.html")
+        write(old.strip("/") + "/index.html",
+              tpl.render(site=SITE, target=new, label=label))
 
     # Markdown-driven pages
     for slug, page in pages.items():

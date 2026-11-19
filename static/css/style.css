@@ -412,6 +412,176 @@ h2 {
 .contact-form button:hover { background: var(--slate); border-color: var(--slate); }
 .form-note { font-size: 0.88rem; color: var(--muted); margin-top: 1rem; }
 
+/* ---------- buttons ----------
+   Primary: Ink field, white text (~15.6:1). Secondary: Ink outline, Ink text.
+   Never Signal: it fails 4.5:1 for text on white (4.05:1). */
+.btn {
+  display: inline-block; font-family: var(--sans); font-weight: 600;
+  font-size: 1rem; line-height: 1.3; text-decoration: none; text-align: center;
+  padding: 0.75rem 1.4rem; border: 2px solid var(--ink); border-radius: 0;
+  cursor: pointer;
+}
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-primary:hover { background: var(--slate); border-color: var(--slate); color: var(--paper); }
+.btn-secondary { background: transparent; color: var(--ink); }
+.btn-secondary:hover { background: var(--paper); color: var(--ink); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem 1rem; margin-top: 2rem; }
+
+/* Header button sits on Ink: inverted (white field, Ink text). */
+.nav-wrap {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem 1.75rem;
+}
+.btn-nav {
+  background: var(--paper); color: var(--ink); border-color: var(--paper);
+  font-size: 0.92rem; padding: 0.5rem 1rem;
+}
+.btn-nav:hover { background: var(--field); color: var(--ink); text-decoration: underline; }
+.btn-nav[aria-current="page"] { outline: 2px solid var(--paper); outline-offset: 2px; }
+
+.legal-line { color: var(--muted); font-size: 0.95rem; margin-top: 1.25rem; max-width: 60ch; }
+
+/* ---------- demonstration tag ---------- */
+.demo-tag {
+  font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 0.6rem;
+}
+.page-head .demo-tag { margin-top: 0.9rem; }
+
+/* ---------- methods line ---------- */
+.methods-line {
+  font-family: var(--mono); font-size: 0.8rem; line-height: 1.55;
+  color: var(--muted); margin-top: 0.9rem;
+}
+
+/* ---------- question cards (home) ---------- */
+.question-cards {
+  list-style: none; display: grid; gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+.question-card {
+  background: var(--paper); border: 1px solid var(--rule);
+  padding: 1.9rem 1.75rem 2rem; display: flex; flex-direction: column;
+}
+.question-card .question {
+  font-family: var(--serif); font-weight: 700; font-size: 1.75rem;
+  line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 0.5rem;
+}
+.question-card .question a { color: var(--ink); text-decoration: none; }
+.question-card .question a:hover { color: var(--slate); text-decoration: underline; }
+.question-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem; }
+.question-card p { font-size: 0.98rem; }
+.question-card .methods-line { margin-top: auto; padding-top: 1rem; }
+.card-link { margin-top: 0.9rem; font-weight: 600; font-size: 0.95rem; }
+
+/* ---------- worked examples ---------- */
+.work-list { list-style: none; }
+.work-item {
+  background: var(--paper); border: 1px solid var(--rule);
+  padding: 1.75rem 1.75rem 1.9rem; max-width: 52rem;
+}
+.work-item + .work-item { margin-top: 1.25rem; }
+.work-question {
+  font-family: var(--serif); font-weight: 600; font-size: 1.05rem;
+  color: var(--muted); margin-bottom: 0.2rem;
+}
+.work-title {
+  font-family: var(--serif); font-weight: 700; font-size: 1.6rem;
+  line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 0.6rem;
+}
+.work-title a { color: var(--ink); }
+.work-title a:hover { color: var(--slate); }
+.work-summary { max-width: var(--measure); }
+.work-note { font-size: 0.9rem; color: var(--muted); margin-top: 0.6rem; }
+.work-status {
+  font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase;
+  letter-spacing: 0.09em; color: var(--ink); margin-top: 0.9rem;
+}
+
+/* ---------- home founder / process / standards / CTA ---------- */
+.founder-note { max-width: var(--measure); font-size: 1.15rem; margin-bottom: 0.9rem; }
+.process-head { margin-top: 3rem; }
+.process-strip { font-family: var(--mono); font-size: 1rem; letter-spacing: 0.04em; }
+.process-strip a { color: var(--ink); }
+.process-strip a:hover { color: var(--slate); }
+.standards-strip { padding: 0; }
+.standards-strip p {
+  font-family: var(--serif); font-weight: 600; text-align: center;
+  font-size: clamp(1.2rem, 2.6vw, 1.6rem); line-height: 1.35;
+}
+.home-cta p { max-width: var(--measure); }
+.cta-email { margin-top: 1.25rem; color: var(--muted); font-size: 0.95rem; }
+
+/* ---------- services ---------- */
+.service { scroll-margin-top: 1rem; }
+.service-question {
+  font-family: var(--serif); font-weight: 700; font-size: clamp(1.9rem, 4vw, 2.6rem);
+  line-height: 1.1; letter-spacing: -0.015em; margin-bottom: 0.5rem;
+}
+.service h2 {
+  font-family: var(--mono); font-size: 0.85rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted);
+}
+.service-summary { max-width: var(--measure); font-size: 1.15rem; }
+.service-cols {
+  display: grid; gap: 1.5rem 2.5rem; margin-top: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+.label-head {
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted);
+  margin-bottom: 0.6rem;
+}
+.plain-list { list-style: none; }
+.plain-list li { padding: 0.35rem 0; border-top: 1px solid var(--rule); font-size: 0.97rem; }
+.mono-list li { font-family: var(--mono); font-size: 0.85rem; }
+.offer-box { background: var(--paper); border: 1px solid var(--rule); padding: 1.25rem 1.4rem; }
+.offer-name { font-family: var(--serif); font-weight: 600; font-size: 1.25rem; margin-bottom: 0.4rem; }
+.offer-box p + p { margin-top: 0.5rem; }
+.offer-meta { font-family: var(--mono); font-size: 0.8rem; color: var(--ink); margin-top: 0.7rem; }
+.section-rule { border: none; border-top: 1px solid var(--rule); margin: 3rem auto; max-width: 73.5rem; }
+.offer-cards {
+  list-style: none; display: grid; gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+.offer-card { background: var(--paper); border: 1px solid var(--rule); padding: 1.6rem 1.6rem 1.75rem; }
+.offer-card p { font-size: 0.97rem; }
+.price-range { margin-top: 1.5rem; font-weight: 600; }
+
+/* ---------- series framing, notes, about ---------- */
+.series-thesis {
+  font-family: var(--serif); font-weight: 600;
+  font-size: clamp(1.5rem, 3.2vw, 2.1rem); line-height: 1.2;
+  letter-spacing: -0.01em; max-width: 30em; margin-bottom: 1rem;
+}
+.note-callout { margin-bottom: 2.25rem; }
+.note-callout p {
+  background: var(--paper); border: 1px solid var(--rule);
+  border-left: 3px solid var(--ink); padding: 1rem 1.25rem; font-size: 0.97rem;
+}
+.headshot { display: block; margin-top: 2rem; width: 240px; height: auto; }
+.prose .research-list { padding-left: 0; }
+.prose .research-list li + li { margin-top: 0; }
+.prose h2[id] { scroll-margin-top: 1rem; }
+
+/* ---------- contact layout ---------- */
+.contact-grid {
+  display: grid; gap: 2.5rem 4rem;
+  grid-template-columns: minmax(0, 36rem) minmax(0, 18rem);
+}
+.contact-aside { padding-top: 0.25rem; }
+.contact-aside .contact-email { margin-top: 1rem; }
+.contact-response { font-weight: 600; }
+.optional { font-weight: 400; color: var(--muted); }
+.form-field select {
+  width: 100%; padding: 0.65rem 0.8rem;
+  font-family: var(--sans); font-size: 1rem; color: var(--ink);
+  background: var(--paper); border: 1px solid var(--rule); border-radius: 0;
+}
+.form-field select:focus { outline: 2px solid var(--ink); outline-offset: 1px; border-color: var(--ink); }
+
+.footer-legal { margin-top: 1rem; font-size: 0.9rem; max-width: 40ch; color: var(--ink-tint); }
+
 /* ---------- category filter (JS-injected) ---------- */
 .filter-bar {
   display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem;
@@ -446,7 +616,10 @@ h2 {
   font-family: var(--mono); font-size: 0.78rem; font-weight: 400;
   letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-tint);
 }
-.footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+.footer-links {
+  list-style: none; display: grid; gap: 0.55rem 2.5rem;
+  grid-template-columns: repeat(2, auto);
+}
 .footer-links a { font-size: 0.95rem; color: var(--ink-tint); }
 .footer-links a:hover { color: var(--paper); }
 .footer-fine { font-family: var(--mono); font-size: 0.78rem; color: var(--ink-fine); }
@@ -460,6 +633,12 @@ h2 {
   .step-rule { margin: 2.75rem 0; }
   .site-footer { padding: 3.5rem 0; margin-top: 3.5rem; }
   .site-footer .step-rule { margin: 0 0 2.5rem; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .header-inner { gap: 0.9rem 1rem; padding-top: 1.1rem; padding-bottom: 1.1rem; }
+  .site-nav { gap: 0.25rem 1.1rem; }
+  .nav-wrap { gap: 0.75rem 1rem; }
+  .btn-row .btn { width: 100%; }
+  .section-rule { margin: 2.25rem 1.25rem; }
 }
 
 /* No animations are used anywhere; honor the preference regardless. */
@@ -473,7 +652,7 @@ h2 {
 
 /* ---------- print: issues get printed and saved as PDFs ---------- */
 @media print {
-  .site-nav, .footer-links, .step-rule, .skip-link, .filter-bar,
+  .site-nav, .footer-links, .step-rule, .skip-link, .filter-bar, .btn-nav, .btn-row,
   .prevnext, .brand-mark { display: none !important; }
   body { background: #fff !important; color: #000 !important;
          font-family: var(--serif); font-size: 11pt; }

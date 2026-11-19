@@ -18,6 +18,12 @@
 
   {% include "_step.html" %}
 
+  {% if issue.note %}
+  <aside class="shell measure note-callout" aria-label="Note">
+    <p>{{ issue.note }}</p>
+  </aside>
+  {% endif %}
+
   <div class="shell measure prose">
     {{ issue.body | safe }}
   </div>

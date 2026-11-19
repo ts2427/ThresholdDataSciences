@@ -1,12 +1,10 @@
 ---
 title: "Contact"
-eyebrow: "Threshold Data Sciences"
+eyebrow: "Book a 20-minute fit call"
 template: "contact.html"
-summary: "Contact Threshold Data Sciences about advisory engagements, commissioned analysis, or the published research."
-lede: "For advisory inquiries, questions about the published work, press, or reuse permissions."
+summary: "Book a free 20-minute fit call with Threshold Data Sciences, or ask about a Second-Opinion Method Review or Paid Scoping."
+lede: "Tell me the decision you're facing and the data behind it. The first step is a free 20-minute fit call."
 ---
 
-Threshold Data Sciences welcomes inquiries about advisory engagements,
-commissioned analysis, speaking, press, and the published research. For
-engagement inquiries, a brief description of the question you need answered
-is the most useful starting point.
+A few sentences are enough. If it's a question I can't answer well, I'll
+say so.
