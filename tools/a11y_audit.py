@@ -10,6 +10,7 @@ Python + Chrome but no Node.)
 import functools
 import http.server
 import json
+import re
 import sys
 import threading
 from pathlib import Path
@@ -21,18 +22,16 @@ HERE = Path(__file__).parent
 DIST = HERE.parent / "dist"
 PORT = 8799
 
-PAGES = [
-    "/",
-    "/threshold-effects/",
-    "/threshold-effects/no-011/",
-    "/analysis/",
-    "/research/",
-    "/advisory/",
-    "/about/",
-    "/contact/",
-    "/privacy/",
-    "/404.html",
-]
+
+def sitemap_pages():
+    """Every page in dist/sitemap.xml, as site-relative paths. Redirect stubs
+    (/advisory/, /research/) are not in the sitemap, so they are not audited."""
+    xml = (DIST / "sitemap.xml").read_text(encoding="utf-8")
+    locs = re.findall(r"<loc>(.*?)</loc>", xml)
+    return [re.sub(r"^https?://[^/]+", "", u) or "/" for u in locs]
+
+
+PAGES = sitemap_pages()
 
 
 def serve():

@@ -240,7 +240,7 @@ one (e.g. GoatCounter) and update `/privacy/` first.
 
 `python tools/a11y_audit.py` serves `dist/` locally and runs **axe-core
 4.10.2** (WCAG 2.0/2.1/2.2 A+AA + best-practice rulesets) in headless Chrome
-against 11 representative pages. (axe via Selenium is used because the build
+against every page in `dist/sitemap.xml` (redirect stubs are not in the sitemap). (axe via Selenium is used because the build
 machine has Python and Chrome but not Node; the ruleset is the same engine
 pa11y uses.)
 
