@@ -18,12 +18,12 @@ lede: "How an engagement runs, what you receive, and the standards the work is h
 5. **Handover** — a written report, the reproducible code and a data
    dictionary, a 60-minute readout, and 30 days of follow-up questions.
 
-## What you receive
+## What you receive {#what-you-receive}
 
 The report states the question, the method, the assumptions and the limits
 in plain language. The code and data dictionary are yours on final payment.
 
-## Standards
+## Standards {#standards}
 
 Analysis plans are written before results are seen. Every headline number
 comes with its uncertainty. Robustness checks are reported, including the
@@ -31,7 +31,7 @@ ones that weaken the result. A null result is a result. Findings are what
 the evidence supports; they are not negotiable, and no outcome is promised
 in advance.
 
-## Data handling
+## Data handling {#data-handling}
 
 Client data is used only for the engagement, stored encrypted, never used in
 public work, and deleted or returned at the end unless agreed otherwise in
