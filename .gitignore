@@ -4,3 +4,6 @@ dist/
 
 # Demo source repo (its own git repo; kept out of the site repo)
 tds-demos/
+
+# Hurricane resilience source repo (its own git repo; kept out of the site repo)
+/hurricane-resilience/
