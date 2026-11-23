@@ -2,6 +2,8 @@
 
 name: "Threshold Data Sciences"
 base_url: "https://thresholddatasciences.com"
+# Google Analytics 4 Measurement ID (templates/_analytics.html). Leave empty to omit the tag.
+ga4_measurement_id: "G-E94NHRG3TP"
 description: >-
   Threshold Data Sciences is the independent analytics practice of Timothy D.
   Spivey. It answers three questions behind hard decisions — did it work, can
