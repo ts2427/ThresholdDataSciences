@@ -34,6 +34,9 @@ MAP_JSON = SITE / "static" / "data" / "hurricane-map.json"               # v2-6:
 STUDY_FIPS = ("48", "22", "28", "01", "12", "13", "45", "37", "47", "51")
 MAP_TOLERANCE_DEG = 0.02
 TOPO_QUANT = 10_000
+MAP_SCALE = "cap50"  # pending Tim's choice between "cap50" and "steps" (2026-11-23)
+MAP_SCALE_TEXT = {"cap50": "the same fixed scale for every storm, from 0% to 50% and above",
+                  "steps": "fixed steps for every storm: 0%, under 5%, 5–15%, 15–30%, 30–50% and 50% or more"}
 DATE = "2026-11-22"
 UPDATED = "2026-11-23"
 DRAFT = False  # published 2026-11-23 (Tim's decision); the site build's guards apply to a published page
@@ -1129,12 +1132,13 @@ def map_section(data: dict) -> str:
     return f"""## Map: where cell sites were out, report by report
 
 Choose a storm and move through its FCC reports to see each county's share of cell sites out. Counties shaded darker had
-a larger share out; white counties were not in that day's report (not reported, not zero). Hover over or tap a county
+a larger share out ({MAP_SCALE_TEXT[MAP_SCALE]}); hatched light-grey counties were not in that day's report (not
+reported, not zero), and counties in the report with no sites out have a faint tint. Hover over or tap a county
 for its numbers, and the cause shares where the report gives them. The table under the map lists the same numbers for
 the chosen report. Drawn in your browser from the published data for all {n_s} storms, with county shapes from the
 Census Bureau; nothing is loaded from any other site. {data['note']}
 
-<div class="storm-map" data-src="/static/data/{MAP_JSON.name}" data-topo="/static/data/{MAP_TOPO.name}">
+<div class="storm-map" data-src="/static/data/{MAP_JSON.name}" data-topo="/static/data/{MAP_TOPO.name}" data-scale="{MAP_SCALE}">
 <div class="storm-map-controls">
 <div><label for="storm-map-storm">Storm</label>
 <select id="storm-map-storm" disabled><option>Loading…</option></select></div>

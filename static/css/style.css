@@ -717,4 +717,5 @@ h2 {
   font-size: 0.9rem; margin-top: 0.4rem; }
 .storm-map-legend > span { display: inline-flex; align-items: center; gap: 0.3rem; }
 .storm-map-swatch { display: inline-block; width: 1rem; height: 0.8rem; }
-.storm-map-swatch-none { background: var(--paper); border: 1px solid var(--rule); }
+.storm-map-swatch-none { background: repeating-linear-gradient(-45deg, #8A969F 0 1px, #F7F8F9 1px 3px);
+  border: 1px solid var(--rule); }

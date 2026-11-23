@@ -546,12 +546,13 @@ The plan's red flags (any one rules out the plan's "coincided with" wording for 
 ## Map: where cell sites were out, report by report
 
 Choose a storm and move through its FCC reports to see each county's share of cell sites out. Counties shaded darker had
-a larger share out; white counties were not in that day's report (not reported, not zero). Hover over or tap a county
+a larger share out (the same fixed scale for every storm, from 0% to 50% and above); hatched light-grey counties were not in that day's report (not
+reported, not zero), and counties in the report with no sites out have a faint tint. Hover over or tap a county
 for its numbers, and the cause shares where the report gives them. The table under the map lists the same numbers for
 the chosen report. Drawn in your browser from the published data for all 21 storms, with county shapes from the
 Census Bureau; nothing is loaded from any other site. Laura's report of 2020-08-25 (the combined Marco–Laura report) is not a step on Laura's slider.
 
-<div class="storm-map" data-src="/static/data/hurricane-map.json" data-topo="/static/data/hurricane-counties.topo.json">
+<div class="storm-map" data-src="/static/data/hurricane-map.json" data-topo="/static/data/hurricane-counties.topo.json" data-scale="cap50">
 <div class="storm-map-controls">
 <div><label for="storm-map-storm">Storm</label>
 <select id="storm-map-storm" disabled><option>Loading…</option></select></div>
