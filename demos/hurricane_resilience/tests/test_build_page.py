@@ -108,3 +108,19 @@ def test_opening_numbers_come_from_results():
     assert (n["n90_low"], n["n90_high"], n["n_storms_recovery"]) == (h4["min"], h4["max"], h4["n"])
     text = "\n".join(step11.opening_section(r))
     assert "[" not in text and "{: .page-lede}" in text
+
+
+
+def test_lookup_data_from_the_panel_leaves_flagged_reports_off_the_timeline():
+    r = {"chapter_3": {"storms": [{"storm_key": "K", "storm": "Laura", "rule_period": "P0",
+                                   "landfall_utc": "2020-08-26 14:00:00+00:00"}]},
+         "chapter_1": {"time_flagged_reports": [{"storm": "Laura", "report_date": "2020-08-25", "doc_id": "D0"}]}}
+    p = pd.DataFrame({"storm_key": "K", "doc_id": ["D0", "D1", "D1"], "fips": ["22001", "22001", "22003"],
+                      "county": ["ACADIA", "ACADIA", "ALLEN"], "state": "Louisiana",
+                      "as_of_utc": ["2020-08-25 16:00:00+00:00", "2020-08-27 14:00:00+00:00", "2020-08-27 14:00:00+00:00"],
+                      "report_date": ["2020-08-25", "2020-08-27", "2020-08-27"], "sites_served": [10, 10, 20],
+                      "sites_out": [5, 2, 0], "time_flag": ["pre_onset_likely_marco", "", ""]})
+    d = step11.lookup_data(r, p)
+    acadia = next(c for c in d["counties"] if c["fips"] == "22001")
+    assert acadia["series"]["K"] == [[1.0, 20.0, 2, 10, "2020-08-27"]]        # the flagged report is not on the line
+    assert d["storms"][0]["report_days"] == [1.0] and "left off Laura's line" in d["note"]

@@ -685,3 +685,13 @@ h2 {
   .prose pre { background: #fff !important; color: #000 !important;
                border: 1pt solid #000; }
 }
+
+/* ---------- county lookup ("When the Network Goes Dark", v2) ---------- */
+.county-lookup { margin: 1.5rem 0; }
+.county-lookup label { display: block; font-weight: 600; margin-bottom: 0.35rem; }
+.county-lookup select { font: inherit; padding: 0.4rem 0.5rem; max-width: 100%; border: 1px solid var(--muted);
+  border-radius: 4px; background: var(--paper); color: var(--ink); }
+.county-lookup-status { color: var(--muted); min-height: 1.5em; }
+.county-lookup-panels { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+.county-lookup-panel { margin: 0; }
+.county-lookup-panel figcaption { font-weight: 600; font-size: 0.95rem; }

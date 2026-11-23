@@ -543,6 +543,24 @@ The plan's red flags (any one rules out the plan's "coincided with" wording for 
 
 **What it means.** At least one of the plan's red flags is triggered, so this chapter makes no statement about whether recovery changed after the rules. It shows each storm and each period's median and range, and lists the flags. With few storms per period, this is association, not proof. Rule periods: MDRI from May 1, 2024; mandatory DIRS from February 20, 2025 (DA 25-74); FCC 26-34's changes from June 30, 2026 (Federal Register publication). Checked 2026-11-22.
 
+## Look up a county
+
+Choose any of the 814 counties in the FCC's reports to see each storm's share of the county's cell sites out, report
+by report, by days since the storm's 34-knot winds first reached a study-state county. Points are the FCC's reports;
+lines join only consecutive reports of that storm. Built in the browser from the published data, with nothing loaded
+from any other site. Laura's report of 2020-08-25 (the combined Marco–Laura report) is left off Laura's line.
+
+<div class="county-lookup" data-src="/static/data/hurricane-county-lookup.json">
+<label for="county-lookup-select">County</label>
+<select id="county-lookup-select" disabled><option value="">Loading counties…</option></select>
+<p class="county-lookup-status" role="status" aria-live="polite"></p>
+<div class="county-lookup-panels"></div>
+<details class="fig-data"><summary>View data table</summary><div class="table-scroll county-lookup-table"></div></details>
+<noscript><p>The lookup needs JavaScript. The same data is in the <a href="/static/data/hurricane-dirs-county-day.csv">county-report panel
+(CSV)</a>.</p></noscript>
+</div>
+<script src="/static/js/hurricane-county-lookup.js" defer></script>
+
 ## Methods, data and licenses
 
 **Reading the reports.** Each FCC report is read from its text file or, when that is incomplete, its PDF, and every county row is checked against a second reading of the PDF. County rows must sum to the report's printed totals; a report that fails after one round of parser fixes is excluded with its reason. Counties are mapped to FIPS codes with a checked exception list. The storm key is the NHC ID plus the DIRS activation date.
@@ -632,6 +650,7 @@ Each report's flags and reasons are in the snapshot's [`output/validation_dirs.c
 - *2026-11-23.* CORRECTION (time origin, second correction; made after seeing results): the 'closest approach' part of the earlier 2026-11-23 rule was ambiguous. 'closest approach' picks a single moment, which for Dorian is off North Carolina, after Florida had been affected. Day 0 is now the first time the storm's 34-kt wind radii reach any study-state county in its reports: the earliest first_34kt_utc from step 7 (best-track points interpolated to 15 minutes, quadrant radii, Census Gazetteer internal points). Fallback, for a storm with no 34-kt radii reaching a county: its first landfall in the study states (tropical storm or stronger). No storm uses the fallback (every storm has 34-kt radii at that time; no radii are missing near its counties before it). One report still falls before day 0: Laura's Aug 25, 2020 report, the combined Marco and Laura report keyed to Laura, 0.9 days before Laura's 34-kt winds reach a county. Chapters 1, 2, 3, 6 and 8 are rerun; chapter 8 also reports its model under both earlier rules, and the page gives one line on them. Page labels say 'days since 34-kt winds arrived'
 - *2026-11-23.* CORRECTION (Laura's Aug 25, 2020 report; made after seeing results): the report (DOC-366394A1) stays in the panel, flagged time_flag = 'pre_onset_likely_marco': it is the FCC's combined report for Marco and Laura, keyed to Laura, and falls 0.9 days before Laura's 34-kt winds reach a study-state county, so its outages are likely Marco's. It is left out of every time-based result: chapter 3 timing, chapter 4, chapter 8 and chapter 9 (those chapters run on the panel without flagged reports). Step 9 stops if any other report falls before day 0 without a flag. Laura's peak and recovery figures are checked to be unchanged
 - *2026-11-23.* CORRECTION (rule for time-flagged reports, refining the entry above): Laura's Aug 25, 2020 combined Marco-Laura report stays out of anything that places it on Laura's timeline, with one exception, the coverage heatmap, which shows it as a marked cell; it stays in wherever only same-time comparisons are made. So: out of chapter 3 timing, chapters 4, 8 and 9 (as before) and the chapter 6 power-overlay chart (its day -1 point is dropped); kept in the chapter 1 heatmap (the one exception) as a marked cell, labeled 'combined Marco-Laura report, before Laura's winds arrived'; kept in the chapter 6 power-cell correlations, with a footnote that same-time co-movement doesn't depend on which storm caused the outage. Laura's note in chapter 3 states the rule.
+- *2026-11-23.* CORRECTION (V2-1 page text; the median (9.0%) and the upper bound (16.9%) leave out only Nicole, whose share is 100% by construction (the chapter 4 rule), and keep Nicholas with its footnote: 20 storms
 
 **Seen before registration.** The analysis plan was committed before any recovery time was computed. It is not blind: some outcome figures had been seen, and they are listed below. From the plan:
 

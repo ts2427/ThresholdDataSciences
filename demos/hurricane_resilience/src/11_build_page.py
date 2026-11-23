@@ -28,6 +28,7 @@ SLUG = "when-the-network-goes-dark"
 PAGE = SITE / "content" / "analysis" / f"{SLUG}.md"
 FIG_DIR = SITE / "content" / "data"
 PANEL_PUBLIC = SITE / "static" / "data" / "hurricane-dirs-county-day.csv"
+LOOKUP_JSON = SITE / "static" / "data" / "hurricane-county-lookup.json"  # v2-4: generated from the published panel
 DATE = "2026-11-22"
 UPDATED = "2026-11-23"
 DRAFT = False  # published 2026-11-23 (Tim's decision); the site build's guards apply to a published page
@@ -980,6 +981,64 @@ def build_page(r: dict) -> str:
     return "\n".join(L)
 
 
+# ---------------------------------------------------------------- v2-4: county lookup --
+
+def lookup_data(r: dict, panel: pd.DataFrame) -> dict:
+    """The county lookup's data, from the published panel (dirs_county_day.csv) and each storm's day 0 in results.json.
+    Time-flagged reports are left off the storm's timeline (decision 2026-11-23)."""
+    st = {s["storm_key"]: s for s in r["chapter_3"]["storms"]}
+    p = panel[(panel.time_flag.fillna("") == "") & panel.storm_key.isin(st) & (panel.sites_served > 0)].copy()
+    day0 = p.storm_key.map({k: pd.Timestamp(v["landfall_utc"]) for k, v in st.items()})
+    p["day"] = ((pd.to_datetime(p.as_of_utc, utc=True) - day0).dt.total_seconds() / 86400).round(2)
+    p["pct"] = (100 * p.sites_out / p.sites_served).round(1)
+    storms = [{"key": k, "name": v["storm"], "period": v["rule_period"],
+               "report_days": sorted(p[p.storm_key == k].drop_duplicates("doc_id").day.tolist())}
+              for k, v in st.items()]
+    counties = []
+    for fips, g in p.sort_values(["state", "county", "day"]).groupby("fips", sort=False):
+        series = {k: [[float(x.day), float(x.pct), int(x.sites_out), int(x.sites_served), str(x.report_date)]
+                      for x in h.sort_values("day").itertuples()] for k, h in g.groupby("storm_key", sort=False)}
+        counties.append({"fips": fips, "county": str(g.county.iloc[0]).title(), "state": g.state.iloc[0],
+                         "abbr": abbr(g.state.iloc[0]), "series": series})
+    flagged = [x for x in r["chapter_1"].get("time_flagged_reports", [])]
+    return {"storms": storms, "counties": counties,
+            "note": " ".join(f"{x['storm']}'s report of {x['report_date']} (the combined Marco–Laura report) is left "
+                             f"off {x['storm']}'s line." for x in flagged),
+            "source": f"/static/data/{PANEL_PUBLIC.name}"}
+
+
+def write_lookup(data: dict, path: Path = LOOKUP_JSON) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8", newline="\n")
+
+
+def verify_lookup(r: dict, panel: pd.DataFrame, path: Path = LOOKUP_JSON) -> bool:
+    """Re-read the written file and compare every value with a fresh derivation from the panel."""
+    return json.loads(path.read_text(encoding="utf-8")) == json.loads(json.dumps(lookup_data(r, panel), ensure_ascii=False))
+
+
+def lookup_section(data: dict) -> str:
+    n_c = len(data["counties"])
+    return f"""## Look up a county
+
+Choose any of the {n_c} counties in the FCC's reports to see each storm's share of the county's cell sites out, report
+by report, by days since the storm's 34-knot winds first reached a study-state county. Points are the FCC's reports;
+lines join only consecutive reports of that storm. Built in the browser from the published data, with nothing loaded
+from any other site. {data['note']}
+
+<div class="county-lookup" data-src="/static/data/{LOOKUP_JSON.name}">
+<label for="county-lookup-select">County</label>
+<select id="county-lookup-select" disabled><option value="">Loading counties…</option></select>
+<p class="county-lookup-status" role="status" aria-live="polite"></p>
+<div class="county-lookup-panels"></div>
+<details class="fig-data"><summary>View data table</summary><div class="table-scroll county-lookup-table"></div></details>
+<noscript><p>The lookup needs JavaScript. The same data is in the <a href="{data['source']}">county-report panel
+(CSV)</a>.</p></noscript>
+</div>
+<script src="/static/js/hurricane-county-lookup.js" defer></script>
+"""
+
+
 def methods_section(r: dict, decisions: str, plan: str, validation: pd.DataFrame, excluded: pd.DataFrame) -> str:
     c7, c8 = r["chapter_7"], r["chapter_8"]
     bd = boundary_download()
@@ -1224,7 +1283,14 @@ def main():
     figs = figures_front_matter(verified, r)
     decisions = (ROOT / "docs" / "decisions.md").read_text(encoding="utf-8")
     plan = (ROOT / "docs" / "analysis_plan.md").read_text(encoding="utf-8")
-    body = build_page(r) + "\n" + methods_section(r, decisions, plan, pd.read_csv(OUTPUT / "validation_dirs.csv"),
+    panel_public = pd.read_csv(PROCESSED / "dirs_county_day.csv", dtype={"fips": str}, keep_default_na=False,
+                               na_values=[""])
+    panel_public["time_flag"] = panel_public.time_flag.fillna("")
+    lookup = lookup_data(r, panel_public)
+    write_lookup(lookup)
+    if not verify_lookup(r, panel_public):
+        raise SystemExit("county lookup data does not match the published panel")
+    body = build_page(r) + "\n" + lookup_section(lookup) + "\n" + methods_section(r, decisions, plan, pd.read_csv(OUTPUT / "validation_dirs.csv"),
                                                   pd.read_csv(OUTPUT / "excluded_reports.csv", keep_default_na=False))
     page = front_matter(r, figs) + "\n" + body + "\n"
     if "claude" in page.lower():
