@@ -26310,11 +26310,12 @@
       "collected_sentence": "The FCC printed sites operating on backup power for 11 of 21 storms: in every report for Ian, Nicole, Idalia, Beryl, Debby, Francine, Helene, Milton and Isaias, and in one report each for Laura and Delta. It did not print them for Harvey, Irma, Florence, Michael, Barry, Dorian, Sally, Zeta, Ida and Nicholas.",
       "footnotes": [
         "Laura: its one report with backup power prints it for 3 of 38 counties, so it is left out of comparisons.",
-        "Delta: its one report with backup power prints it for 19 of 110 counties.",
+        "Delta: its one report with backup power prints it for 19 of 110 counties, so it is left out of comparisons.",
         "Laura's report of 2020-08-25, kept off Laura's timeline (the combined Marco–Laura report), also prints backup power for 52 counties, with 0 sites on backup power."
       ],
       "left_out_of_comparisons": [
-        "Laura"
+        "Laura",
+        "Delta"
       ],
       "display_rules": [
         "counts first; any share is shown with its sites served beside it",
@@ -27543,7 +27544,7 @@
       "method": "storm bootstrap 95%, 2000 draws; lag = cell time minus power time, in days"
     },
     "page_text": {
-      "finding": "Where the order could be determined (351 of 499 counties, as defined), the share of cell sites out more often fell below 5% before, or in the same report as, the share of customers without power: cell first in 158, the same report in 127, and power first in 66. Where both fell below 5% (296 counties), the median gap is 0 days.",
+      "finding": "Where the order could be determined (351 of 499 counties, as defined), cell outages fell below 5% first in 158 counties and power outages first in 66; in 127 both fell below 5% in the same report. Where both fell below 5% (296 counties), the median gap is 0 days.",
       "undetermined": "For the other 148 counties (29.7%, 95% interval 16.6% to 47.6%), the order can't be determined because a county left the reports, or its power record ended, first.",
       "scale_caution": "The two thresholds are on different scales: cell's 5% is of sites served, and power's 5% is of EAGLE-I meters, so \"cell first\" doesn't mean phone service returned before household power.",
       "not_measured": "Factors this data doesn't measure, any of which could bear on the order: portable cell sites brought in after the storm, generators placed at cell sites, service carried by other networks (roaming), the order in which crews restore lines and repairs to the network connections that link sites (backhaul).",
@@ -29097,7 +29098,7 @@
     },
     "wording": "Association only: counties served by more mobile providers fell below 5% of sites out sooner / later / with no measurable difference; never that more providers produce faster recovery. Provider counts describe reported coverage, not which networks were out. Providers are never named.",
     "page_text": {
-      "finding": "In storms from 2022 on, counties served by more mobile providers did not show a consistent difference in how long cell outages took to fall below 5% of sites. One grouping suggests a faster fall for counties with four or more providers, but the association does not hold when the count is used directly, when flagged reports are left out, or with other coverage measures.",
+      "finding": "In storms from 2022 on, counties served by more mobile providers did not show a consistent difference in how long cell outages took to fall below 5% of sites. One grouping suggests a faster fall for counties with four or more providers, but that association does not hold when the count is used directly or when flagged reports are left out, and some other coverage measures point the other way.",
       "limits": "Provider counts describe reported coverage (mobile providers covering at least half the county's area, in the FCC's Broadband Data Collection release before the storm), not which networks were out. No provider is named.",
       "near_universal": "near-universal providers (likely satellite or national fixed-wireless; this file doesn't identify technology)"
     }

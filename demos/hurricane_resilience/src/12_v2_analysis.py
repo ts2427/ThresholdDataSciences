@@ -218,7 +218,7 @@ def v2_2(panel: pd.DataFrame, storms: pd.DataFrame) -> dict:
                     "by_report": rows})
     full = [r for r in per if r["all_reports_collected"]]
     few = [r for r in per if not r["all_reports_collected"]]
-    laura = [r for r in few if r["storm"] == "Laura"]
+    laura = [r for r in few if r["any_partial_report"] and r["n_reports_collected"] == 1]  # Laura's rule, Delta too
     page = {
         "collected_sentence": (f"The FCC printed sites operating on backup power for {len(per)} of "
                                f"{len(per) + len(not_collected)} storms: in every report for "
@@ -350,10 +350,9 @@ def v2_3_page_text(h: dict, periods: dict) -> dict:
     other = "customers without power" if more == "cell sites out" else "cell sites out"
     u = o["undetermined"]
     return {
-        "finding": (f"Where the order could be determined ({determined} of {h['n']} counties, as defined), the share of "
-                    f"{more} more often fell below 5% before, or in the same report as, the share of {other}: "
-                    f"cell first in {o['cell_first']['count']}, the same report in {o['same_report']['count']}, and "
-                    f"power first in {o['power_first']['count']}. "
+        "finding": (f"Where the order could be determined ({determined} of {h['n']} counties, as defined), cell outages "
+                    f"fell below 5% first in {o['cell_first']['count']} counties and power outages first in "
+                    f"{o['power_first']['count']}; in {o['same_report']['count']} both fell below 5% in the same report. "
                     f"Where both fell below 5% ({lag['n']} counties), the median gap is {lag['median']:.0f} days."),
         "undetermined": (f"For the other {u['count']} counties ({pct(u['share'])}, 95% interval {pct(u['ci_low'])} to "
                          f"{pct(u['ci_high'])}), the order can't be determined because a county left the reports, or "
@@ -653,9 +652,9 @@ def v2_5(panel: pd.DataFrame, results: dict) -> dict:
     out["page_text"] = {
         "finding": (f"In storms from {first_year} on, counties served by more mobile providers did not show a consistent "
                     "difference in how long cell outages took to fall below 5% of sites. One grouping suggests a faster "
-                    f"fall for counties with {words.get(top_n, top_n)} or more providers, but the association does not "
-                    "hold when the count is used directly, when flagged reports are left out, or with other coverage "
-                    "measures."),
+                    f"fall for counties with {words.get(top_n, top_n)} or more providers, but that association does not "
+                    "hold when the count is used directly or when flagged reports are left out, and some other coverage "
+                    "measures point the other way."),
         "limits": ("Provider counts describe reported coverage (mobile providers covering at least half the county's "
                    "area, in the FCC's Broadband Data Collection release before the storm), not which networks were "
                    "out. No provider is named."),

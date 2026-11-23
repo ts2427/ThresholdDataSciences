@@ -246,7 +246,7 @@ Exploratory: added after version 1 of this page was published. Chapters 10 to 13
 
 - In all 21 storms, the FCC's last public report still showed cell sites out: 1,883 in total. The median share of a storm's peak still out at its last report is 9.0% (20 storms).
 - The FCC printed sites operating on backup power for 11 of 21 storms; the most in one report was 1,990 sites, in Helene.
-- Where the order could be determined (351 of 499 counties), cell outages more often fell below 5% of sites before, or in the same report as, power outages fell below 5% of customers; the median gap is 0 days. The two are measured on different scales (cell sites served, electricity meters), so this is not the order in which people got service back.
+- Where the order could be determined (351 of 499 counties), cell outages fell below 5% of sites first in 158 counties and power outages fell below 5% of customers first in 66; in 127 both fell below 5% in the same report. The two are measured on different scales (cell sites served, electricity meters), so this is not the order in which people got service back.
 - In storms from 2022 on, counties served by more mobile providers did not show a consistent difference in how long cell outages took to fall below 5% of sites.
 
 ### How to read it
@@ -637,7 +637,6 @@ Note. Nicole: its last report is its peak, so the share still out is 100% by con
 
 | Storm | Reports with backup power | Most sites on backup power in one report | Report (days since 34-kt winds arrived) | Sites served in the counties reporting it | Share of those sites served |
 |---|---|---|---|---|---|
-| Delta | 1 of 5 | 82 | 2020-10-10 (day 1.1) | 5,463 | 1.5% |
 | Ian | 13 of 13 | 527 | 2022-09-29 (day 1.6) | 14,188 | 3.7% |
 | Nicole | 2 of 2 | 126 | 2022-11-10 (day 1.7) | 11,162 | 1.1% |
 | Idalia | 6 of 6 | 162 | 2023-08-31 (day 1.7) | 8,268 | 2.0% |
@@ -650,7 +649,7 @@ Note. Nicole: its last report is its peak, so the share still out is 100% by con
 
 Note. Laura: its one report with backup power prints it for 3 of 38 counties, so it is left out of comparisons.
 
-Note. Delta: its one report with backup power prints it for 19 of 110 counties.
+Note. Delta: its one report with backup power prints it for 19 of 110 counties, so it is left out of comparisons.
 
 Note. Laura's report of 2020-08-25, kept off Laura's timeline (the combined Marco–Laura report), also prints backup power for 52 counties, with 0 sites on backup power.
 
@@ -662,7 +661,7 @@ Note. Laura's report of 2020-08-25, kept off Laura's timeline (the combined Marc
 
 *Exploratory: added after version 1 of this page was published.*
 
-**Claim.** Where the order could be determined (351 of 499 counties, as defined), the share of cell sites out more often fell below 5% before, or in the same report as, the share of customers without power: cell first in 158, the same report in 127, and power first in 66. Where both fell below 5% (296 counties), the median gap is 0 days. For the other 148 counties (29.7%, 95% interval 16.6% to 47.6%), the order can't be determined because a county left the reports, or its power record ended, first.
+**Claim.** Where the order could be determined (351 of 499 counties, as defined), cell outages fell below 5% first in 158 counties and power outages first in 66; in 127 both fell below 5% in the same report. Where both fell below 5% (296 counties), the median gap is 0 days. For the other 148 counties (29.7%, 95% interval 16.6% to 47.6%), the order can't be determined because a county left the reports, or its power record ended, first.
 
 The two thresholds are on different scales: cell's 5% is of sites served, and power's 5% is of EAGLE-I meters, so "cell first" doesn't mean phone service returned before household power.
 
@@ -690,7 +689,7 @@ By rule period, shown and not compared: P0: 335 counties in 14 storms; power fir
 
 *Exploratory: added after version 1 of this page was published.*
 
-**Claim.** In storms from 2022 on, counties served by more mobile providers did not show a consistent difference in how long cell outages took to fall below 5% of sites. One grouping suggests a faster fall for counties with four or more providers, but the association does not hold when the count is used directly, when flagged reports are left out, or with other coverage measures.
+**Claim.** In storms from 2022 on, counties served by more mobile providers did not show a consistent difference in how long cell outages took to fall below 5% of sites. One grouping suggests a faster fall for counties with four or more providers, but that association does not hold when the count is used directly or when flagged reports are left out, and some other coverage measures point the other way.
 
 Provider counts describe reported coverage (mobile providers covering at least half the county's area, in the FCC's Broadband Data Collection release before the storm), not which networks were out. No provider is named.
 
@@ -827,6 +826,7 @@ Each report's flags and reasons are in the snapshot's [`output/validation_dirs.c
 - *2026-11-23.* CORRECTION (Laura's Aug 25, 2020 report; made after seeing results): the report (DOC-366394A1) stays in the panel, flagged time_flag = 'pre_onset_likely_marco': it is the FCC's combined report for Marco and Laura, keyed to Laura, and falls 0.9 days before Laura's 34-kt winds reach a study-state county, so its outages are likely Marco's. It is left out of every time-based result: chapter 3 timing, chapter 4, chapter 8 and chapter 9 (those chapters run on the panel without flagged reports). Step 9 stops if any other report falls before day 0 without a flag. Laura's peak and recovery figures are checked to be unchanged
 - *2026-11-23.* CORRECTION (rule for time-flagged reports, refining the entry above): Laura's Aug 25, 2020 combined Marco-Laura report stays out of anything that places it on Laura's timeline, with one exception, the coverage heatmap, which shows it as a marked cell; it stays in wherever only same-time comparisons are made. So: out of chapter 3 timing, chapters 4, 8 and 9 (as before) and the chapter 6 power-overlay chart (its day -1 point is dropped); kept in the chapter 1 heatmap (the one exception) as a marked cell, labeled 'combined Marco-Laura report, before Laura's winds arrived'; kept in the chapter 6 power-cell correlations, with a footnote that same-time co-movement doesn't depend on which storm caused the outage. Laura's note in chapter 3 states the rule.
 - *2026-11-23.* CORRECTION (V2-1 page text; made after seeing results): the headline covers every storm (21 storms and 1,883 sites still out; it had covered 19 storms and 1,679 sites, leaving out Nicholas and Nicole), and the median (9.0%) and the upper bound (16.9%) leave out only Nicole, whose share is 100% by construction (the chapter 4 rule), keeping Nicholas with its footnote: 20 storms (Second independent check, finding 8)
+- *2026-11-23.* CORRECTION (V2-3 wording in chapter 12 and the opening; made after seeing results): the earlier sentence ('the share of cell sites out more often fell below 5% before, or in the same report as, the share of customers without power') grouped the 127 same-report counties with 'cell first'; grouped the other way the claim reverses. Now count-based: cell first 158, power first 66, same report 127, of the 351 counties where the order could be determined; the median gap where both fell below 5% (296 counties) is 0 days (Final independent check, finding 4)
 
 **Seen before registration.** The analysis plan was committed before any recovery time was computed. It is not blind: some outcome figures had been seen, and they are listed below. From the plan:
 

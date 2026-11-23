@@ -760,10 +760,11 @@ def v2_opening(r: dict) -> list:
         f"- The FCC printed sites operating on backup power for {len(b['headlines']['storms_collected'])} of "
         f"{len(b['headlines']['storms_collected']) + len(b['headlines']['storms_not_collected'])} storms; the most in one "
         f"report was {n0(top['value'])} sites, in {top['storm']}.",
-        f"- Where the order could be determined ({det} of {o['n']} counties), cell outages more often fell below 5% of "
-        f"sites before, or in the same report as, power outages fell below 5% of customers; the median gap is "
-        f"{o['lag_days_where_both']['median']:.0f} days. The two are measured on different scales (cell sites served, "
-        f"electricity meters), so this is not the order in which people got service back.",
+        f"- Where the order could be determined ({det} of {o['n']} counties), cell outages fell below 5% of sites first "
+        f"in {o['orders']['cell_first']['count']} counties and power outages fell below 5% of customers first in "
+        f"{o['orders']['power_first']['count']}; in {o['orders']['same_report']['count']} both fell below 5% in the same "
+        f"report. The two are measured on different scales (cell sites served, electricity meters), so this is not the "
+        f"order in which people got service back.",
         f"- {n['page_text']['finding'].split('. ')[0]}.\n",
     ]
 
