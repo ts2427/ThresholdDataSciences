@@ -1487,8 +1487,10 @@ def methods_section(r: dict, decisions: str, plan: str, validation: pd.DataFrame
         f"(https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries), accessed {fema_access()}: {OPENFEMA_DISCLAIMER} "
         f"The published panel keeps a column for whether a county had a FEMA declaration for that storm, as context for "
         f"reuse; no result on this page uses it. poweroutage.us is not used. The Olukola et al. (2026) dataset is used "
-        f"only as a check and is not redistributed. FCC Broadband Data Collection public data are used for provider "
-        f"counts only. The map is drawn with D3 and topojson-client (ISC licence), served from this site. {AI_LINE} "
+        f"only as a check and is not redistributed. FCC Broadband Data Collection public data (National Broadband Map, "
+        f"[https://broadbandmap.fcc.gov/data-download](https://broadbandmap.fcc.gov/data-download)) were obtained through "
+        f"the FCC's Public Data API under the FCC API terms of service accepted for the account, and are used for "
+        f"provider counts only; no provider is named and the files are not redistributed. The map is drawn with D3 and topojson-client (ISC licence), served from this site. {AI_LINE} "
         f"{VIEWS_LINE}\n")
     add("## Sources\n")
     add("- Brelsford, C., et al. (2024). A dataset of recorded electricity outages by United States county 2014–2022. "
@@ -1517,7 +1519,16 @@ def work_summary(r: dict) -> str:
     return (f"Cell-site outages and recovery in {r['chapter_1']['headlines']['n_storms']['value']} Gulf and Southeast "
             f"hurricanes, 2017–2026: half the sites out at the peak were back within a median of {f1(t50['value'], 0)} "
             f"days, only {t90['value']} of {t90['n']} storms with a report after their peak reach 90% before the FCC's "
-            f"reports end, and outages track power.")
+            f"reports end, and cell outages tend to rise and fall with power outages." + v2_work_line(r))
+
+
+def v2_work_line(r: dict) -> str:
+    """The Work page's version 2 line, generated from results.json."""
+    if "v2_1_public_record_misses" not in r:
+        return ""
+    h = r["v2_1_public_record_misses"]["headlines"]
+    return (f" Version 2 adds that in all {h['n_storms']} storms the FCC's last public report still showed cell sites "
+            f"out: {h['sites_out_at_last_reports_headline']['value']:,.0f} in total.")
 
 
 def update_work_entry(r: dict, path: Path = WORK_YAML) -> None:
@@ -1554,7 +1565,8 @@ def front_matter(r: dict, figs: list) -> str:
         "draft": DRAFT, "title": "When the Network Goes Dark", "date": DATE, "updated": UPDATED,
         "summary": (f"Cell-site outages and recovery in {r['chapter_1']['headlines']['n_storms']['value']} Gulf and Southeast "
                     f"hurricanes, 2017–2026, from FCC reports: half the sites out at the peak were back within a median "
-                    f"of {f1(t50['value'], 0)} days, the reports often end before 90% is back, and outages track power."),
+                    f"of {f1(t50['value'], 0)} days, the reports often end before 90% is back, and cell outages tend to rise and fall "
+                    f"with power outages."),
         "method": ("County-level FCC DIRS cell-site tables, parsed, checked against their printed totals and a second "
                    "reading of each PDF, and joined to EAGLE-I power outages, NHC tracks and CDC/ATSDR SVI (OpenFEMA "
                    "declarations are kept in the published panel as context; no result uses them). Descriptive storm "
