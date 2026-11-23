@@ -34,7 +34,7 @@ MAP_JSON = SITE / "static" / "data" / "hurricane-map.json"               # v2-6:
 STUDY_FIPS = ("48", "22", "28", "01", "12", "13", "45", "37", "47", "51")
 MAP_TOLERANCE_DEG = 0.02
 TOPO_QUANT = 10_000
-MAP_SCALE = "cap50"  # pending Tim's choice between "cap50" and "steps" (2026-11-23)
+MAP_SCALE = "steps"  # Tim's choice, 2026-11-23 (option B), from the panel's overall distribution
 MAP_SCALE_TEXT = {"cap50": "the same fixed scale for every storm, from 0% to 50% and above",
                   "steps": "fixed steps for every storm: 0%, under 5%, 5–15%, 15–30%, 30–50% and 50% or more"}
 DATE = "2026-11-22"
@@ -706,6 +706,41 @@ def opening_numbers(r: dict) -> dict:
             "n90_low": t90["min"], "n90_high": t90["max"], "n_storms_recovery": t90["n"]}
 
 
+def pct1(x) -> str:
+    return f"{100 * x:.1f}%"
+
+
+V2_LABEL = "Exploratory: added after version 1 of this page was published."
+
+
+def v2_opening(r: dict) -> list:
+    """The opening's version 2 findings (V2-7), every number from results.json."""
+    if "v2_1_public_record_misses" not in r:
+        return []
+    a, b = r["v2_1_public_record_misses"], r["v2_2_backup_power"]
+    t, n = r["v2_3_power_cell_timing"], r["v2_5_network_redundancy"]
+    h = a["headlines"]
+    left = set(b["page_text"]["left_out_of_comparisons"])
+    top = max(({"storm": x["storm"], **x["most_sites_on_backup"]} for x in b["storms"] if x["storm"] not in left),
+              key=lambda x: x["value"])
+    o = t["headlines"]
+    det = o["n"] - o["orders"]["undetermined"]["count"]
+    return [
+        "### What version 2 adds\n",
+        f"{V2_LABEL} Chapters 10 to 13, the map and the county lookup are new.\n",
+        f"- {a['page_text']['headline']} The median share of a storm's peak still out at its last report is "
+        f"{pct1(h['median_share_of_peak_still_out']['value'])} ({h['n_storms_in_median']} storms).",
+        f"- The FCC printed sites operating on backup power for {len(b['headlines']['storms_collected'])} of "
+        f"{len(b['headlines']['storms_collected']) + len(b['headlines']['storms_not_collected'])} storms; the most in one "
+        f"report was {n0(top['value'])} sites, in {top['storm']}.",
+        f"- Where the order could be determined ({det} of {o['n']} counties), cell outages more often fell below 5% of "
+        f"sites before, or in the same report as, power outages fell below 5% of customers; the median gap is "
+        f"{o['lag_days_where_both']['median']:.0f} days. The two are measured on different scales (cell sites served, "
+        f"electricity meters), so this is not the order in which people got service back.",
+        f"- {n['page_text']['finding'].split('. ')[0]}.\n",
+    ]
+
+
 def opening_section(r: dict) -> list:
     """'Why this page exists' (Tim's text, 2026-11-23), with every number generated."""
     n = opening_numbers(r)
@@ -729,6 +764,7 @@ def opening_section(r: dict) -> list:
         f"- The FCC's reporting often ended before recovery could be confirmed: only {n['n90_low']} to {n['n90_high']} "
         f"of {n['n_storms_recovery']} storms reached 90% restored within the reports.",
         "\nEach finding's uncertainty and limits are given in its chapter.\n",
+        *v2_opening(r),
         "### How to read it\n",
         "Everything here is descriptive: it shows what happened together, not what caused what. The analysis plan was "
         "committed before any recovery time was computed and lists what had been seen before then, every number is "
@@ -1111,9 +1147,12 @@ def map_data(r: dict, panel: pd.DataFrame) -> dict:
             reports.append({"doc_id": doc, "date": str(h.report_date.iloc[0]), "day": float(h.day.iloc[0]),
                             "counties": cty})
         storms.append({"key": k, "name": v["storm"], "period": v["rule_period"], "reports": reports})
-    vmax = max(c[0] for s in storms for rep in s["reports"] for c in rep["counties"].values())
+    vals = [c[0] for s in storms for rep in s["reports"] for c in rep["counties"].values()]
+    vmax = max(vals)
+    dist = {"n_county_reports": len(vals), "share_zero": sum(v == 0 for v in vals) / len(vals),
+            "share_50_or_more": sum(v >= 50 for v in vals) / len(vals)}
     flagged = r["chapter_1"].get("time_flagged_reports", [])
-    return {"storms": storms, "value_max": vmax,
+    return {"storms": storms, "value_max": vmax, "distribution": dist,
             "note": " ".join(f"{x['storm']}'s report of {x['report_date']} (the combined Marco–Laura report) is not a "
                              f"step on {x['storm']}'s slider." for x in flagged)}
 
@@ -1138,6 +1177,9 @@ for its numbers, and the cause shares where the report gives them. The table und
 the chosen report. Drawn in your browser from the published data for all {n_s} storms, with county shapes from the
 Census Bureau; nothing is loaded from any other site. {data['note']}
 
+Across all {n0(data['distribution']['n_county_reports'])} county-reports, {100 * data['distribution']['share_zero']:.1f}%
+show 0% of sites out and {100 * data['distribution']['share_50_or_more']:.1f}% show 50% or more.
+
 <div class="storm-map" data-src="/static/data/{MAP_JSON.name}" data-topo="/static/data/{MAP_TOPO.name}" data-scale="{MAP_SCALE}">
 <div class="storm-map-controls">
 <div><label for="storm-map-storm">Storm</label>
@@ -1157,6 +1199,143 @@ panel (CSV)</a>.</p></noscript>
 <script src="/static/js/vendor/topojson-client-3.1.0.min.js" defer></script>
 <script src="/static/js/hurricane-map.js" defer></script>
 """
+
+
+def v2_sections(r: dict) -> str:
+    """Chapters 10 to 13 (V2-1, V2-2, V2-3, V2-5), from results.json and the approved page text."""
+    if "v2_1_public_record_misses" not in r:
+        return ""
+    L = []
+    add = L.append
+    # 10. V2-1
+    a = r["v2_1_public_record_misses"]
+    pt = a["page_text"]
+    add("## 10. What the public record misses\n")
+    add(f"*{V2_LABEL}*\n")
+    add(f"**Claim.** {pt['headline']}\n")
+    add(f"{pt['lead']}\n")
+    add("**Exhibit.**\n")
+    rows = [(x["storm"], x["last_report"]["report_date"], n0(x["sites_out_at_last_report"]["value"]),
+             n0(x["peak_sites_out"]), pct1(x["share_of_peak"]["value"]),
+             f"{len(x['counties_still_out'])} of {x['n_counties_in_last_report']}",
+             f"{n0(x['carried_forward']['sites_out']['value'])} ({pct1(x['carried_forward']['share_of_peak']['value'])})")
+            for x in a["storms"]]
+    add(table(["Storm", "Last report", "Sites still out", "Peak sites out", "Share of peak still out",
+               "Counties still out, of those listed",
+               "Upper bound: if every county that left the reports while still out had stayed out (share of peak)"], rows))
+    for fn in pt["footnotes"]:
+        add(f"\nNote. {fn}")
+    sens = a["sensitivity"]["without_serious_flag_reports"]
+    base = {x["storm"]: x["last_report"]["report_date"] for x in a["storms"]}
+    moved = [x for x in sens if "note" not in x and x["last_report_date"] != base[x["storm"]]]
+    none = [x["storm"] for x in sens if "note" in x]
+    parts = [f"{x['storm']}'s last report without a serious flag is {x['last_report_date']}, with "
+             f"{n0(x['sites_out_at_last_report'])} sites out ({pct1(x['share_of_peak'])} of its peak)" for x in moved]
+    add("\n**Sensitivity.** Without reports carrying a serious validation flag: " + "; ".join(parts) +
+        (f". {_and(none)} cannot be shown, because every one of their reports carries a serious flag." if none else ".") +
+        " Every other storm is unchanged.\n")
+    add("**What it means.** \"Still out in the FCC's last report\" counts sites at the moment the public reporting "
+        "stopped; it does not say how long they stayed out afterwards. The upper bound assumes every county that left the "
+        "reports while still out stayed out, which the reports cannot confirm.\n")
+
+    # 11. V2-2
+    b = r["v2_2_backup_power"]
+    pb = b["page_text"]
+    add("## 11. Sites on backup power\n")
+    add(f"*{V2_LABEL}*\n")
+    add(f"**Claim.** {pb['collected_sentence']}\n")
+    add("**Exhibit.**\n")
+    left = set(pb["left_out_of_comparisons"])
+    rows = [(x["storm"], f"{x['n_reports_collected']} of {x['n_reports']}", n0(x["most_sites_on_backup"]["value"]),
+             f"{x['most_sites_on_backup']['report_date']} (day {f1(x['most_sites_on_backup']['days_since_day0'])})",
+             n0(next(rr["sites_served_printed"] for rr in x["by_report"]
+                     if rr.get("report_date") == x["most_sites_on_backup"]["report_date"] and rr["collected"])),
+             pct1(x["most_sites_on_backup"]["share_of_sites_served"]))
+            for x in b["storms"] if x["storm"] not in left]
+    add(table(["Storm", "Reports with backup power", "Most sites on backup power in one report", "Report (days since "
+               "34-kt winds arrived)", "Sites served in the counties reporting it", "Share of those sites served"], rows))
+    for fn in pb["footnotes"]:
+        add(f"\nNote. {fn}")
+    add("\n**What it means.** These are sites operating on backup power as the FCC reports them; they say nothing about "
+        "how long backup lasts or what followed. Counts come first: a share can rise when the reporting area narrows "
+        "even as the count falls. The column was printed only for the storms named above, so the storms are not "
+        "compared across rule periods.\n")
+
+    # 12. V2-3
+    t = r["v2_3_power_cell_timing"]
+    p3 = t["page_text"]
+    o = t["headlines"]
+    add("## 12. Which comes back first: power or cell service?\n")
+    add(f"*{V2_LABEL}*\n")
+    add(f"**Claim.** {p3['finding']} {p3['undetermined']}\n")
+    add(f"{p3['scale_caution']}\n")
+    add("**Exhibit.**\n")
+    lab = {"power_first": "Power fell below 5% first", "same_report": "Same report",
+           "cell_first": "Cell fell below 5% first", "undetermined": "Undetermined (censoring)"}
+    add(table(["Order", "Counties", "Share (95% storm-bootstrap interval)"],
+              [(lab[k], v["count"], f"{pct1(v['share'])} ({pct1(v['ci_low'])} to {pct1(v['ci_high'])})")
+               for k, v in o["orders"].items()]))
+    sens = t["sensitivity"]
+    names = {"threshold_10pct": "Both thresholds at 10%", "first_crossing": "First crossing instead of staying below",
+             "without_low_or_unknown_coverage": "Without low- and unknown-coverage EAGLE-I counties",
+             "without_serious_flag_reports": "Without reports with a serious flag"}
+    add("\n" + table(["Sensitivity display", "Counties (storms)", "Power first", "Same report", "Cell first",
+                       "Undetermined"],
+                      [(names[k], f"{v['n']} ({v['n_storms']})", *(pct1(v["orders"][x]["share"]) for x in lab))
+                       for k, v in sens.items() if k in names]))
+    add("\nBy rule period, shown and not compared: " + "; ".join(p3["rule_periods_shown_not_compared"]) + ".\n")
+    add(f"**What it means.** {p3['not_measured']} Storms without EAGLE-I data "
+        f"({_and(t['storms_without_power_data'])}) are not included.\n")
+
+    # 13. V2-5
+    n = r["v2_5_network_redundancy"]
+    p5 = n["page_text"]
+    G = n["groups"]
+    add("## 13. Do counties with more mobile providers recover differently?\n")
+    add(f"*{V2_LABEL}*\n")
+    add(f"**Claim.** {p5['finding']}\n")
+    add(f"{p5['limits']}\n")
+    add("**Exhibit.**\n")
+    hr = n["model"].get("hazard_ratios", {})
+    rows = []
+    for i, lab5 in enumerate(G["labels"]):
+        v = n["raw_by_group"][lab5]["median_days"]
+        h = hr.get(f"group_{lab5}")
+        rows.append((lab5, n0(G["sizes"][lab5]), n0(n["at_risk_by_group"][lab5]),
+                     f"{fdays(v['value'])} ({ci(v, 1, 'days')})", n0(v["n_censored"]),
+                     "reference" if i == 0 else (f"{f1(h['value'], 2)} ({ci(h, 2)})" if h else "–")))
+    add(table(["Mobile providers covering at least half the county's area", "Storm-counties (all)",
+               "Storm-counties at risk", "Median days to stay below 5% (95% interval)", "Censored",
+               "Hazard ratio (95% interval; above 1 = sooner)"], rows))
+    se = n["sensitivity"]
+
+    def model_txt(m, key_prefix):
+        if "error" in m:
+            return "not estimable"
+        def name(k):
+            return "per provider" if k.startswith("per_provider_") else f"{k[len('group_'):]} providers"
+        return "; ".join(f"{name(k)}: {f1(v['value'], 2)} ({ci(v, 2)})" for k, v in m["hazard_ratios"].items()
+                         if k.startswith(("group_", "per_provider_")))
+    sens_rows = [
+        ("Provider count as a number", model_txt(se["provider_count_as_number"], "")),
+        ("Mobile, any coverage, count as a number", model_txt(se["mobile_any_coverage_count_as_number"], "")),
+        ("Including storms before 2022 (network data from after the storm)",
+         model_txt(se["including_storms_before_2022_network_data_from_after_the_storm"]["model"], "group_")),
+        ("Without reports with a serious flag", model_txt(se["without_serious_flag_reports"]["model"], "group_")),
+    ]
+    fx = se["fixed_broadband_secondary"]
+    for k, lab_ in (("fixed_any_excl_near_universal", "Fixed, any service, near-universal providers excluded"),
+                    ("fixed_any", "Fixed, any service"), ("fixed_half", "Fixed, at least half of locations")):
+        sens_rows.append((lab_, model_txt(fx[k]["model"], "group_")))
+    sens_rows.append(("Fixed, at least half of locations, near-universal providers excluded, count as a number",
+                      model_txt(fx["fixed_half_excl_near_universal_count_as_number"], "")))
+    add("\n" + table(["Sensitivity display", "Hazard ratios (95% interval)"], sens_rows))
+    add(f"\nGroups were fixed from the counts alone, before any recovery data was joined: whole values as close to "
+        f"thirds as ties allow, no group under 20% of storm-counties. Fixed broadband counts leave out "
+        f"{p5['near_universal']} and are shown only as sensitivity displays.\n")
+    add("**What it means.** Association only: these counts describe reported coverage before the storm, not which "
+        "networks were out or how they were restored.\n")
+    return "\n".join(L)
 
 
 def lookup_section(data: dict) -> str:
@@ -1439,8 +1618,9 @@ def main():
         raise SystemExit("map data does not match the published panel")
     if not MAP_TOPO.exists():  # geometry depends only on the boundary file; rebuilt when removed
         write_json(map_topology(), MAP_TOPO)
-    body = build_page(r) + "\n" + map_section(mdata) + "\n" + lookup_section(lookup) + "\n" + methods_section(r, decisions, plan, pd.read_csv(OUTPUT / "validation_dirs.csv"),
-                                                  pd.read_csv(OUTPUT / "excluded_reports.csv", keep_default_na=False))
+    body = (build_page(r) + "\n" + v2_sections(r) + "\n" + map_section(mdata) + "\n" + lookup_section(lookup) + "\n"
+            + methods_section(r, decisions, plan, pd.read_csv(OUTPUT / "validation_dirs.csv"),
+                                                  pd.read_csv(OUTPUT / "excluded_reports.csv", keep_default_na=False)))
     page = front_matter(r, figs) + "\n" + body + "\n"
     if "claude" in page.lower():
         raise SystemExit("the page names the coding assistant; reword it (see neutral())")
