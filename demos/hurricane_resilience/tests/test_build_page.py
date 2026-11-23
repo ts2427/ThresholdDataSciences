@@ -97,3 +97,14 @@ def test_neutral_keeps_the_reason_inside_an_attributing_parenthesis():
                        "addition; independent check, finding 15)")
     assert s == "Independent check, finding 15"
     assert step11.neutral("New exhibits (chosen by Tim from options proposed by Claude Code, 2026-11-22): a") == "New exhibits: a"
+
+
+
+def test_opening_numbers_come_from_results():
+    r = json.loads(RESULTS.read_text(encoding="utf-8"))
+    n = step11.opening_numbers(r)
+    h4 = r["chapter_4"]["headlines"]["n_storms_reaching_90pct_restored"]
+    assert n["n_reports"] == r["chapter_1"]["headlines"]["n_reports_used"]["value"]
+    assert (n["n90_low"], n["n90_high"], n["n_storms_recovery"]) == (h4["min"], h4["max"], h4["n"])
+    text = "\n".join(step11.opening_section(r))
+    assert "[" not in text and "{: .page-lede}" in text
