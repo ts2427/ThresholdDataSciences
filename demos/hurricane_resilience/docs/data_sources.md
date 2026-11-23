@@ -49,3 +49,7 @@ Documentation reads only; nothing downloaded into data/. Generic User-Agent (pub
 ## V2-6 libraries, 2026-11-23
 
 - D3 7.9.0 and topojson-client 3.1.0 (ISC): npm registry metadata and tarballs (https://registry.npmjs.org), dist files from jsDelivr (https://cdn.jsdelivr.net/npm/), each verified against the npm SHA-512 integrity; vendored into the site at static/js/vendor/ with their licences.
+
+## Phase C rule checks, 2026-11-23
+
+- Primary FCC texts read from docs.fcc.gov (URLs found by search, not guessed), saved to data/raw/rules/ and logged with SHA-256: FCC-26-34A1.txt (adopted May 20, 2026; paras. 26 and 41 on the final report); FCC-22-50A1_Rcd.pdf (adopted June 27, 2022); DA-24-380A1.pdf (fetched as the MDRI compliance notice, but it is an order extending comment dates; not cited).

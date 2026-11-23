@@ -38,3 +38,5 @@ VERIFIED = found in Nov 16, 2026 research. UNVERIFIED = check before citing.
 - VERIFIED — FCC 07-107 / 07-177 Katrina Panel backup-power rule (stayed Feb 2008; OMB disapproved Nov 2008)
 - VERIFIED — CPUC D.20-07-011 and D.21-02-029 (72-hour backup power, California)
 - VERIFIED — Census working paper SEHSD-WP2025-15, Understanding Disasters Through Federal Data
+
+- Checked 2026-11-23 (titles and dates, via search results and primary FCC texts): GAO-18-198 'Telecommunications: FCC Should Improve Monitoring of Industry Efforts to Strengthen Wireless Network Resiliency' (Dec 2017); GAO-21-297 'Telecommunications: FCC Assisted in Hurricane Maria Network Restoration, but a Clarified Disaster Response Role and Enhanced Communication Are Needed' (Apr 2021); CRS R48776, Peskin, Dec 22, 2025; CRS IF12779, Gallagher and Peskin, Oct 8, 2024; FCC 22-50 adopted June 27, 2022; FCC 26-34 adopted May 20, 2026, 91 FR 39516.

@@ -175,3 +175,28 @@ def test_v2_sections_wording_and_generated_numbers():
     a = r["v2_1_public_record_misses"]["headlines"]
     assert f"{a['n_storms']} storms" in text and f"{a['sites_out_at_last_reports_headline']['value']:,.0f}" in text
     assert "Exploratory: added after version 1" in text
+
+
+
+def test_plan_commit_on_the_page_is_in_the_history():
+    import subprocess
+    out = subprocess.run(["git", "-C", str(ROOT), "log", "--format=%h %ad %s", "--date=short", "--", "docs/analysis_plan.md"],
+                         capture_output=True, text=True).stdout
+    line = next((ln for ln in out.splitlines() if ln.startswith(step11.PLAN_COMMIT["hash"])), "")
+    assert line and "2026-11-22" in line and "before any recovery outcome" in line
+
+
+def test_fcc_caveat_is_quoted_verbatim_from_the_reports():
+    raw = ROOT / "data" / "raw" / "dirs"
+    if not raw.exists():
+        return
+    hits = [p for p in raw.glob("*.txt") if step11.FCC_CAVEAT in p.read_text(encoding="utf-8", errors="replace")]
+    assert len(hits) >= 1
+
+
+def test_no_priority_or_preregistration_wording_on_the_page():
+    r = json.loads(RESULTS.read_text(encoding="utf-8"))
+    text = step11.build_page(r).lower() + step11.v2_sections(r).lower()
+    for bad in ("pre-registered", "preregistered", "pre-registration", "for the first time", "the first to",
+                "first-ever", "first study of", "first analysis"):
+        assert bad not in text, bad
