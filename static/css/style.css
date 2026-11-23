@@ -704,9 +704,10 @@ h2 {
   border-radius: 4px; background: var(--paper); color: var(--ink); }
 .storm-map-slider { flex: 1 1 220px; }
 .storm-map-slider input { width: 100%; accent-color: var(--ink); }
-.storm-map-play { font: inherit; padding: 0.4rem 1rem; border: 1px solid var(--ink); border-radius: 4px;
-  background: var(--paper); color: var(--ink); cursor: pointer; }
-.storm-map-play[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.storm-map-play { font: inherit; font-weight: 600; font-size: 1.02rem; padding: 0.6rem 1.15rem;
+  border: 2px solid var(--ink); border-radius: 6px; background: var(--ink); color: var(--paper); cursor: pointer; }
+.storm-map-play:hover { background: var(--slate); border-color: var(--slate); }
+.storm-map-play[aria-pressed="true"] { background: var(--paper); color: var(--ink); }
 .storm-map-status { color: var(--muted); min-height: 3em; }
 .storm-map-figure { position: relative; margin: 0; }
 .storm-map-tip { position: absolute; max-width: 220px; padding: 0.4rem 0.55rem; background: var(--paper);

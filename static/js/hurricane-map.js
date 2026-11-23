@@ -124,15 +124,31 @@
     tip.hidden = false;
   }
 
+  var REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var DEFAULT_STORM = "Helene";  // opens on Helene; no autoplay
+
+  function setPlayLabel(playing) {  // the triangle is decorative; the words carry the meaning
+    play.textContent = "";
+    var icon = document.createElement("span");
+    icon.setAttribute("aria-hidden", "true");
+    icon.textContent = playing ? "❚❚ " : "▶ ";
+    play.appendChild(icon);
+    play.appendChild(document.createTextNode(playing ? "Pause" :
+      "Play: watch " + storm.name + "'s outages spread and clear"));
+  }
+
   function stop() {
     if (timer) clearInterval(timer);
-    timer = null; play.setAttribute("aria-pressed", "false"); play.textContent = "Play";
+    timer = null;
+    if (!REDUCED) play.setAttribute("aria-pressed", "false");  // a toggle only when it plays continuously
+    if (storm) setPlayLabel(false);
   }
 
   function chooseStorm() {
     stop();
     storm = data.storms.filter(function (s) { return s.key === stormSel.value; })[0];
     slider.max = storm.reports.length - 1; slider.value = 0;
+    setPlayLabel(false);  // the label names the chosen storm
     render();
   }
 
@@ -151,14 +167,22 @@
       stormSel.addEventListener("change", chooseStorm);
       slider.addEventListener("input", function () { stop(); render(); });
       play.addEventListener("click", function () {
+        if (REDUCED) {  // prefers-reduced-motion: one report per press, no timer
+          slider.value = +slider.value >= +slider.max ? 0 : +slider.value + 1;
+          render();
+          return;
+        }
         if (timer) { stop(); return; }
         if (+slider.value >= +slider.max) slider.value = 0;
-        play.setAttribute("aria-pressed", "true"); play.textContent = "Pause";
+        play.setAttribute("aria-pressed", "true"); setPlayLabel(true);
         timer = setInterval(function () {
           if (+slider.value >= +slider.max) { stop(); return; }
           slider.value = +slider.value + 1; render();
         }, 1200);
       });
+      var dflt = data.storms.filter(function (s) { return s.name === DEFAULT_STORM; })[0];
+      if (dflt) stormSel.value = dflt.key;
+      if (REDUCED) play.removeAttribute("aria-pressed");  // a step button, not a toggle
       chooseStorm();
     })
     .catch(function () {
