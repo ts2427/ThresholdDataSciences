@@ -29093,7 +29093,7 @@
           "Nicole": 4.3
         },
         "identical_to_main": true,
-        "note": "every main storm's release is within 12 months before its day 0, so this display equals the main one"
+        "note": "every main storm's release is within 12 months before its day 0, so the planned 'release within 12 months' display would equal the main analysis"
       }
     },
     "wording": "Association only: counties served by more mobile providers fell below 5% of sites out sooner / later / with no measurable difference; never that more providers produce faster recovery. Provider counts describe reported coverage, not which networks were out. Providers are never named.",

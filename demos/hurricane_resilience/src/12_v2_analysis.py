@@ -642,7 +642,7 @@ def v2_5(panel: pd.DataFrame, results: dict) -> dict:
     sens["release_within_12_months"] = {
         "months_from_release_to_day0": {k: round(v / 30.44, 1) for k, v in gaps.items()},
         "identical_to_main": all(v <= 365 for v in gaps.values()),
-        "note": "every main storm's release is within 12 months before its day 0, so this display equals the main one"}
+        "note": "every main storm's release is within 12 months before its day 0, so the planned 'release within 12 months' display would equal the main analysis"}
     out["sensitivity"] = sens
     out["wording"] = REDUNDANCY_WORDING
     first_year = min(int(v["release"][:4]) for v in gdef["storm_releases"].values() if v["role"] == "main")

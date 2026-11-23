@@ -560,7 +560,7 @@ PAGE_REWORDS = {  # rows whose neutral page wording is written out (the substitu
         "CORRECTION (V2-1 page text; made after seeing results): the headline covers every storm (21 storms and 1,883 "
         "sites still out; it had covered 19 storms and 1,679 sites, leaving out Nicholas and Nicole), and the median "
         "(9.0%) and the upper bound (16.9%) leave out only Nicole, whose share is 100% by construction (the chapter 4 "
-        "rule), keeping Nicholas with its footnote: 20 storms", "Second independent check, finding 8")}
+        "rule), keeping Nicholas with its footnote: 20 storms", "correction of an ambiguous instruction")}
 
 
 def neutral(text: str) -> str:
