@@ -53,3 +53,4 @@ Documentation reads only; nothing downloaded into data/. Generic User-Agent (pub
 ## Phase C rule checks, 2026-11-23
 
 - Primary FCC texts read from docs.fcc.gov (URLs found by search, not guessed), saved to data/raw/rules/ and logged with SHA-256: FCC-26-34A1.txt (adopted May 20, 2026; paras. 26 and 41 on the final report); FCC-22-50A1_Rcd.pdf (adopted June 27, 2022); DA-24-380A1.pdf (fetched as the MDRI compliance notice, but it is an order extending comment dates; not cited).
+- 2026-11-23: Creative Commons, CC BY 4.0 legal code, https://creativecommons.org/licenses/by/4.0/legalcode.txt (one request, generic User-Agent), saved to data/raw/licenses/ and logged in manifest/downloads.csv; used for LICENSE-DATA.md in the public data repository.

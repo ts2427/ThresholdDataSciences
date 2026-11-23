@@ -506,7 +506,16 @@ The third-party inputs in `data/input/` keep their own terms, listed with the ex
 United States; EAGLE-I files are CC BY 4.0 from ORNL/DOE.
 
 The code (`code/`, `run_all.py`) is under the MIT License in `LICENSE`.
-""")
+
+---
+
+The full legal code follows, unmodified, as published by Creative Commons at
+https://creativecommons.org/licenses/by/4.0/legalcode.txt (retrieved 2026-11-23; SHA-256 in
+`code/manifest/downloads.csv`).
+
+```text
+""" + (RAW / "licenses" / "cc-by-4.0-legalcode.txt").read_text(encoding="utf-8").replace("\r\n", "\n").rstrip("\n")
+          + "\n```\n")
 
 
 def ai_statement(T: Path) -> None:
