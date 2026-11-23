@@ -261,7 +261,7 @@ a larger share out (fixed steps for every storm: 0%, under 5%, 5–15%, 15–30%
 reported, not zero), and counties in the report with no sites out have a faint tint. Hover over or tap a county
 for its numbers, and the cause shares where the report gives them. The table under the map lists the same numbers for
 the chosen report. Drawn in your browser from the published data for all 21 storms, with county shapes from the
-Census Bureau; nothing is loaded from any other site. Laura's report of 2020-08-25 (the combined Marco–Laura report) is not a step on Laura's slider.
+Census Bureau; the map's code, shapes and data are all served from this site. Laura's report of 2020-08-25 (the combined Marco–Laura report) is not a step on Laura's slider.
 
 Across all 9,870 county-reports, 48.3%
 show 0% of sites out and 3.2% show 50% or more.
@@ -717,12 +717,73 @@ Groups were fixed from the counts alone, before any recovery data was joined: wh
 
 **What it means.** Association only: these counts describe reported coverage before the storm, not which networks were out or how they were restored.
 
+## 14. How complete are the FCC's public reports?
+
+*Exploratory: descriptive summary of validation results (added in version 2.1.0).*
+
+**Claim.** Across 178 reports for 22 storms, the FCC printed cause columns in 127 of 178 (71%) reports with county rows. Where it did, the causes fell short of sites out in at least one county in 89 of 127 (70%), and exceeded sites out in 38 of 127 (30%). The printed headline % out differed from the report's own county rows by more than 0.2 points in 13 of 177 reports with a headline; 1 printed no headline. 2 of 178 reports lack a state total, 36 of 178 list a county in the table but not in the report's own county list, and 16 of 178 include counties outside the storm's notice area. The backup-power column is printed in 68 of 167 reports in the panel, and 7 of 178 reports were excluded from the analysis.
+
+**Exhibit.** By year (the storm's DIRS activation year). Each cell is reports with the feature, of the reports it applies to, and the share.
+
+| Year | Storms | Reports | Cause columns | Causes short | Causes above | Headline mismatch | State total missing | Not in county list | Outside notice area | Backup column | Excluded |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2017 | 3 | 24 | 0 of 24 (0%) | n/a | n/a | 10 of 23 (43%) | 1 of 24 (4%) | 3 of 24 (13%) | 11 of 24 (46%) | 0 of 18 (0%) | 2 of 24 (8%) |
+| 2018 | 2 | 27 | 0 of 27 (0%) | n/a | n/a | 0 of 27 (0%) | 0 of 27 (0%) | 5 of 27 (19%) | 0 of 27 (0%) | 0 of 27 (0%) | 0 of 27 (0%) |
+| 2019 | 2 | 7 | 7 of 7 (100%) | 6 of 7 (86%) | 1 of 7 (14%) | 0 of 7 (0%) | 0 of 7 (0%) | 5 of 7 (71%) | 0 of 7 (0%) | 0 of 7 (0%) | 0 of 7 (0%) |
+| 2020 | 4 | 31 | 31 of 31 (100%) | 24 of 31 (77%) | 13 of 31 (42%) | 0 of 31 (0%) | 0 of 31 (0%) | 3 of 31 (10%) | 2 of 31 (6%) | 3 of 28 (11%) | 3 of 31 (10%) |
+| 2021 | 2 | 22 | 22 of 22 (100%) | 10 of 22 (45%) | 17 of 22 (77%) | 0 of 22 (0%) | 0 of 22 (0%) | 2 of 22 (9%) | 0 of 22 (0%) | 0 of 22 (0%) | 0 of 22 (0%) |
+| 2022 | 2 | 15 | 15 of 15 (100%) | 2 of 15 (13%) | 0 of 15 (0%) | 0 of 15 (0%) | 0 of 15 (0%) | 9 of 15 (60%) | 0 of 15 (0%) | 15 of 15 (100%) | 0 of 15 (0%) |
+| 2023 | 1 | 6 | 6 of 6 (100%) | 4 of 6 (67%) | 0 of 6 (0%) | 1 of 6 (17%) | 0 of 6 (0%) | 1 of 6 (17%) | 0 of 6 (0%) | 6 of 6 (100%) | 0 of 6 (0%) |
+| 2024 | 5 | 43 | 43 of 43 (100%) | 40 of 43 (93%) | 7 of 43 (16%) | 2 of 43 (5%) | 1 of 43 (2%) | 8 of 43 (19%) | 3 of 43 (7%) | 41 of 41 (100%) | 2 of 43 (5%) |
+| 2026 | 1 | 3 | 3 of 3 (100%) | 3 of 3 (100%) | 0 of 3 (0%) | 0 of 3 (0%) | 0 of 3 (0%) | 0 of 3 (0%) | 0 of 3 (0%) | 3 of 3 (100%) | 0 of 3 (0%) |
+
+- 2017: 3 storms, 24 reports (2 excluded). Cause columns in 0 of 24; causes short of sites out: not applicable (no cause columns); causes above sites out: not applicable (no cause columns); headline mismatch in 10 of 23; a state total missing in 1 of 24; table counties not in the county list in 3 of 24; counties outside the notice area in 11 of 24; backup-power column in 0 of 18.
+- 2018: 2 storms, 27 reports (0 excluded). Cause columns in 0 of 27; causes short of sites out: not applicable (no cause columns); causes above sites out: not applicable (no cause columns); headline mismatch in 0 of 27; a state total missing in 0 of 27; table counties not in the county list in 5 of 27; counties outside the notice area in 0 of 27; backup-power column in 0 of 27.
+- 2019: 2 storms, 7 reports (0 excluded). Cause columns in 7 of 7; causes short of sites out in 6 of 7; causes above sites out in 1 of 7; headline mismatch in 0 of 7; a state total missing in 0 of 7; table counties not in the county list in 5 of 7; counties outside the notice area in 0 of 7; backup-power column in 0 of 7.
+- 2020: 4 storms, 31 reports (3 excluded). Cause columns in 31 of 31; causes short of sites out in 24 of 31; causes above sites out in 13 of 31; headline mismatch in 0 of 31; a state total missing in 0 of 31; table counties not in the county list in 3 of 31; counties outside the notice area in 2 of 31; backup-power column in 3 of 28.
+- 2021: 2 storms, 22 reports (0 excluded). Cause columns in 22 of 22; causes short of sites out in 10 of 22; causes above sites out in 17 of 22; headline mismatch in 0 of 22; a state total missing in 0 of 22; table counties not in the county list in 2 of 22; counties outside the notice area in 0 of 22; backup-power column in 0 of 22.
+- 2022: 2 storms, 15 reports (0 excluded). Cause columns in 15 of 15; causes short of sites out in 2 of 15; causes above sites out in 0 of 15; headline mismatch in 0 of 15; a state total missing in 0 of 15; table counties not in the county list in 9 of 15; counties outside the notice area in 0 of 15; backup-power column in 15 of 15.
+- 2023: 1 storm, 6 reports (0 excluded). Cause columns in 6 of 6; causes short of sites out in 4 of 6; causes above sites out in 0 of 6; headline mismatch in 1 of 6; a state total missing in 0 of 6; table counties not in the county list in 1 of 6; counties outside the notice area in 0 of 6; backup-power column in 6 of 6.
+- 2024: 5 storms, 43 reports (2 excluded). Cause columns in 43 of 43; causes short of sites out in 40 of 43; causes above sites out in 7 of 43; headline mismatch in 2 of 43; a state total missing in 1 of 43; table counties not in the county list in 8 of 43; counties outside the notice area in 3 of 43; backup-power column in 41 of 41.
+- 2026: 1 storm, 3 reports (0 excluded). Cause columns in 3 of 3; causes short of sites out in 3 of 3; causes above sites out in 0 of 3; headline mismatch in 0 of 3; a state total missing in 0 of 3; table counties not in the county list in 0 of 3; counties outside the notice area in 0 of 3; backup-power column in 3 of 3.
+
+By storm (counts; the shares are in `results.json`):
+
+| Storm | Year | Reports | Cause columns | Causes short | Causes above | Headline mismatch | State total missing | Not in county list | Outside notice area | Backup column | Excluded |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Harvey | 2017 | 11 | 0 of 11 | n/a | n/a | 2 of 11 | 1 of 11 | 0 of 11 | 3 of 11 | 0 of 10 | 1 of 11 |
+| Irma | 2017 | 12 | 0 of 12 | n/a | n/a | 8 of 12 | 0 of 12 | 3 of 12 | 8 of 12 | 0 of 8 | 0 of 12 |
+| Nate | 2017 | 1 | 0 of 1 | n/a | n/a | n/a | 0 of 1 | 0 of 1 | 0 of 1 | n/a | 1 of 1 |
+| Florence | 2018 | 11 | 0 of 11 | n/a | n/a | 0 of 11 | 0 of 11 | 5 of 11 | 0 of 11 | 0 of 11 | 0 of 11 |
+| Michael | 2018 | 16 | 0 of 16 | n/a | n/a | 0 of 16 | 0 of 16 | 0 of 16 | 0 of 16 | 0 of 16 | 0 of 16 |
+| Barry | 2019 | 2 | 2 of 2 | 2 of 2 | 0 of 2 | 0 of 2 | 0 of 2 | 2 of 2 | 0 of 2 | 0 of 2 | 0 of 2 |
+| Dorian | 2019 | 5 | 5 of 5 | 4 of 5 | 1 of 5 | 0 of 5 | 0 of 5 | 3 of 5 | 0 of 5 | 0 of 5 | 0 of 5 |
+| Laura | 2020 | 15 | 15 of 15 | 13 of 15 | 6 of 15 | 0 of 15 | 0 of 15 | 2 of 15 | 1 of 15 | 2 of 12 | 3 of 15 |
+| Sally | 2020 | 7 | 7 of 7 | 5 of 7 | 2 of 7 | 0 of 7 | 0 of 7 | 0 of 7 | 0 of 7 | 0 of 7 | 0 of 7 |
+| Delta | 2020 | 5 | 5 of 5 | 3 of 5 | 2 of 5 | 0 of 5 | 0 of 5 | 1 of 5 | 0 of 5 | 1 of 5 | 0 of 5 |
+| Zeta | 2020 | 4 | 4 of 4 | 3 of 4 | 3 of 4 | 0 of 4 | 0 of 4 | 0 of 4 | 1 of 4 | 0 of 4 | 0 of 4 |
+| Ida | 2021 | 22 | 22 of 22 | 10 of 22 | 17 of 22 | 0 of 22 | 0 of 22 | 2 of 22 | 0 of 22 | 0 of 22 | 0 of 22 |
+| Nicholas | 2021 | 2 | 2 of 2 | 2 of 2 | 2 of 2 | 0 of 2 | 0 of 2 | 2 of 2 | 0 of 2 | 0 of 2 | 0 of 2 |
+| Ian | 2022 | 13 | 13 of 13 | 0 of 13 | 0 of 13 | 0 of 13 | 0 of 13 | 9 of 13 | 0 of 13 | 13 of 13 | 0 of 13 |
+| Nicole | 2022 | 2 | 2 of 2 | 2 of 2 | 0 of 2 | 0 of 2 | 0 of 2 | 0 of 2 | 0 of 2 | 2 of 2 | 0 of 2 |
+| Idalia | 2023 | 6 | 6 of 6 | 4 of 6 | 0 of 6 | 1 of 6 | 0 of 6 | 1 of 6 | 0 of 6 | 6 of 6 | 0 of 6 |
+| Beryl | 2024 | 6 | 6 of 6 | 6 of 6 | 0 of 6 | 0 of 6 | 0 of 6 | 0 of 6 | 0 of 6 | 6 of 6 | 0 of 6 |
+| Debby | 2024 | 5 | 5 of 5 | 5 of 5 | 2 of 5 | 0 of 5 | 0 of 5 | 3 of 5 | 0 of 5 | 5 of 5 | 0 of 5 |
+| Francine | 2024 | 3 | 3 of 3 | 3 of 3 | 0 of 3 | 0 of 3 | 0 of 3 | 0 of 3 | 3 of 3 | 3 of 3 | 0 of 3 |
+| Helene | 2024 | 24 | 24 of 24 | 21 of 24 | 5 of 24 | 2 of 24 | 1 of 24 | 5 of 24 | 0 of 24 | 22 of 22 | 2 of 24 |
+| Milton | 2024 | 5 | 5 of 5 | 5 of 5 | 0 of 5 | 0 of 5 | 0 of 5 | 0 of 5 | 0 of 5 | 5 of 5 | 0 of 5 |
+| Isaias | 2026 | 3 | 3 of 3 | 3 of 3 | 0 of 3 | 0 of 3 | 0 of 3 | 0 of 3 | 0 of 3 | 3 of 3 | 0 of 3 |
+
+Excluded reports: Harvey 2017-09-03 (DOC-346478A1): Texas rows broken across lines in both the .txt and the PDF (Matagorda, San Patricio not confirmed); no Texas total; Nate 2017-10-09 (DOC-347137A1): No headline percent printed (and no totals); Laura 2020-08-28 (DOC-366519A1): San Augustine, Texas row not confirmed by the second reading; Laura 2020-08-29 (DOC-366524A1): Maryland served does not reconcile (5,521 vs 6,522 printed); San Augustine not confirmed; names with backquotes not matched; Laura 2020-08-30 (DOC-366526A1): San Augustine, Texas row not confirmed by the second reading; Helene 2024-10-03 (DOC-406144A1): FCC inconsistency: Hamilton row prints transport 0, Florida total prints 1; Helene 2024-10-04 (DOC-406197A1): Washington County, Tennessee row not confirmed by the second reading.
+
+**What it means.** These are properties of the reports as the FCC published them, not of the networks or of the providers that filed. A shortfall in causes means some sites out have no cause given. An excess is consistent with sites counted under more than one cause; the FCC says this can happen in some of its other reports, but none of the reports with an excess says so. Each check is the one described in the methods (validation); the counts come from its outputs, with no new data. 2 reports are shared by two storms and count for both; 4 reports with county rows only outside the ten study states are counted in every check except the backup column, which covers reports in the panel.
+
 ## Look up a county
 
 Choose any of the 814 counties in the FCC's reports to see each storm's share of the county's cell sites out, report
 by report, by days since the storm's 34-knot winds first reached a study-state county. Points are the FCC's reports;
-lines join only consecutive reports of that storm at most 1.5 days apart, so a missing or excluded report leaves a gap. Built in the browser from the published data, with nothing loaded
-from any other site. Laura's report of 2020-08-25 (the combined Marco–Laura report) is left off Laura's line.
+lines join only consecutive reports of that storm at most 1.5 days apart, so a missing or excluded report leaves a gap. Built in the browser from the published data, with its code and data
+served from this site. Laura's report of 2020-08-25 (the combined Marco–Laura report) is left off Laura's line.
 
 <div class="county-lookup" data-src="/static/data/hurricane-county-lookup.json">
 <label for="county-lookup-select">County</label>
