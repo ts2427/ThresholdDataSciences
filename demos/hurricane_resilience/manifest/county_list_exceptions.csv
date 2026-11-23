@@ -1,0 +1,4 @@
+doc_id,page,state,county,sites_served,sites_out,pct_out,out_damage,out_transport,out_power,on_backup_power,checked_on
+DOC-387679A1,5,Florida,OKALOOSA,103,0,0,0,0,0,4,2026-11-22
+DOC-404487A1,3,Florida,Brevard,153,0,0,0,0,0,0,2026-11-22
+DOC-405943A1,5,Florida,Broward,367,0,0,0,0,0,0,2026-11-22

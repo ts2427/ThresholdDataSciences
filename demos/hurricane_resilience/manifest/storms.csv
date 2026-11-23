@@ -1,0 +1,23 @@
+storm_name,nhc_id,storm_page,dirs_activation_date,activation_doc,dirs_deactivation_date,deactivation_doc,deactivation_title,partial_deactivations,notes,area_changes
+Harvey,AL092017,harvey,2017-08-25,DA-17-806A1,2017-09-05,DA-17-844A1,FCC Deactivates Disaster Information Reporting for Hurricane Harvey,,,2017-08-31 DA-17-827A1; 2017-09-02 DA-17-839A1
+Irma,AL112017,irma,2017-09-06,DA-17-850A1,2017-09-18,DA-17-905A1,FCC Deactivates Hurricane Irma Disaster Information Reporting,2017-09-14 DA-17-899A1,,2017-09-07 DA-17-862A1; 2017-09-10 DA-17-869A1; 2017-09-11 DA-17-878A1
+Florence,AL062018,florence,2018-09-12,DA-18-943A1,2018-09-24,DA-18-981A1,FCC Deactivates Hurricane Florence Disaster Information Reporting,2018-09-19 DA-18-968A1,,
+Michael,AL142018,michael,2018-10-09,DA-18-1037A1,2018-10-26,DA-18-1105A1,FCC Deactivates Hurricane Michael Disaster Information Reporting,2018-10-18 DA-18-1073A1,,2018-10-11 DA-18-1045A1
+Laura,AL132020,marco-laura,2020-08-24,DA-20-933A1,2020-09-08,DA-20-1054A1,FCC Deactivates Disaster Information Reporting for Hurricane Laura,,reports cover Marco (AL142020) and Laura; keyed to Laura,2020-08-26 DA-20-962A1; 2020-08-28 DA-20-987A1; 2020-08-29 DA-20-988A1; 2020-08-30 DA-20-989A1; 2020-08-31 DA-20-1001A1; 2020-09-03 DA-20-1029A1; 2020-09-04 DA-20-1045A1
+Sally,AL192020,sally,2020-09-14,DA-20-1078A1,2020-09-21,DA-20-1114A1,FCC Deactivates Disaster Information Reporting for Hurricane Sally,,,2020-09-16 DA-20-1095A1; 2020-09-17 DA-20-1104A1
+Delta,AL262020,delta,2020-10-08,DA-20-1177A1,2020-10-14,DA-20-1219A1,FCC Deactivates Disaster Reporting for Hurricane Delta,,,2020-10-10 DA-20-1189A1; 2020-10-11 DA-20-1190A1; 2020-10-12 DA-20-1191A1
+Zeta,AL282020,zeta,2020-10-28,DA-20-1273A1,2020-11-01,DA-20-1296A1,FCC Deactivates Disaster Reporting for Hurricane Zeta,,,2020-10-29 DA-20-1286A1; 2020-10-30 DA-20-1293A1
+Ida,AL092021,ida,2021-08-29,DA-21-1070A1,2021-09-20,DA-21-1179A1,FCC Deactivates Disaster Reporting for Hurricanes Ida & Nicholas,,"reports from Sep 15, 2021 also cover Nicholas (AL142021); county rows follow the Nicholas rule in docs/decisions.md",2021-09-03 DA-21-1109A1; 2021-09-14 DA-21-1152A1; 2021-09-16 DA-21-1166A1
+Ian,AL092022,ian,2022-09-27,DA-22-1014A1,2022-10-10,DA-22-1074A1,FCC Deactivates Disaster Reporting for Hurricane Ian,,,2022-09-30 DA-22-1040A1; 2022-10-01 DA-22-1046A1; 2022-10-02 DA-22-1047A1; 2022-10-07 DA-22-1071A1
+Nicole,AL172022,nicole,2022-11-09,DA-22-1171A1,2022-11-11,DA-22-1193A1,FCC Deactivates Hurricane Nicole Disaster Information Reporting,,,
+Idalia,AL102023,idalia,2023-08-29,DA-23-776A1,2023-09-04,DA-23-806A1,FCC Deactivates Disaster Reporting in Florida for Hurricane Idalia,,,2023-08-30 DA-23-790A1; 2023-08-31 DA-23-816A1
+Beryl,AL022024,beryl,2024-07-08,DA-24-657A1,2024-07-14,DA-24-681A1,FCC Announces the Deactivation of Disaster Reporting for Hurricane Beryl,,,2024-07-13 DA-24-680A1
+Debby,AL042024,debby,2024-08-04,DA-24-761A1,2024-08-09,DA-24-795A1,FCC Deactivates DIRS and MDRI in the Carolinas for Hurricane Debby,,,2024-08-05 DA-24-772A1; 2024-08-07 DA-24-797A1
+Francine,AL062024,francine,2024-09-11,DA-24-919A1,2024-09-14,DOC-405503A1,FCC Deactivates DIRS and MDRI in Louisiana for Hurricane Francine,,,2024-09-11 DA-24-932A1; 2024-09-12 DOC-405452A1
+Helene,AL092024,helene,2024-09-25,DA-24-991A1,2024-10-19,DA-24-1085A1,FCC Deactivates Disaster Reporting for Hurricane Helene,2024-10-07 DA-24-1048A1,,2024-09-27 DA-24-1015A1; 2024-09-30 DA-24-1021A1; 2024-10-03 DA-24-1039A1; 2024-10-12 DA-24-1071A1
+Milton,AL142024,milton,2024-10-07,DA-24-1050A1,2024-10-14,DA-24-1072A1,FCC Deactivates Disaster Reporting and MDRI for Hurricane Milton,,,
+Isaias,AL092026,isaias,2026-10-08,DA-26-1090A1,2026-10-12,DA-26-1104A1,FCC Deactivates Disaster Reporting and the MDRI for Hurricane Isaias,,,2026-10-10 DA-26-1103A1
+Nate,AL162017,nate,2017-10-08,DA-17-989A1,2017-10-09,DA-17-990A1,FCC Deactivates Hurricane Nate Disaster Information Reporting,,,
+Barry,AL022019,barry,2019-07-12,DA-19-656A1,2019-07-15,DA-19-660A1,FCC Deactivates Disaster Information Reporting for Tropical Storm Barry,,hurricane at landfall per NHC; FCC titles say Tropical Storm,
+Dorian,AL052019,dorian,2019-08-27,DA-19-843A1,2019-09-07,DA-19-889A1,FCC Deactivates Hurricane Dorian Disaster Reporting,2019-08-29 DA-19-854A1; 2019-09-05 DA-19-882A1; 2019-09-06 DA-19-887A1,"first activation (Aug 27, 2019) covered Puerto Rico and the USVI; Florida from Sep 2",2019-08-28 DA-19-845A1; 2019-09-04 DA-19-876A1
+Nicholas,AL142021,ida,2021-09-14,DA-21-1152A1,2021-09-20,DA-21-1179A1,FCC Deactivates Disaster Reporting for Hurricanes Ida & Nicholas,,brought into the Ida activation by DA-21-1152A1; shares Ida's reports and deactivation,

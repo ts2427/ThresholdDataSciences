@@ -21,13 +21,17 @@
   target_date: ""
 
 - title: "When the Network Goes Dark"
-  url: ""
+  url: "/analysis/when-the-network-goes-dark/"
   question: "Did it work?"
-  summary: "Gulf Coast cell-site outages and recovery in hurricanes, from FCC, EAGLE-I and NOAA public data."
-  methods: []
-  data_note: ""
-  status: "in_progress"
-  target_date: "TODO"
+  summary: "Cell-site outages and recovery in 21 Gulf and Southeast hurricanes, 2017–2026: half the sites out at the peak were back within a median of 2 days, only 6 to 11 of 20 storms with a report after their peak reach 90% before the FCC's reports end, and outages track power."
+  methods:
+    - "Parsing and validating FCC DIRS reports"
+    - "County-bootstrap intervals"
+    - "Calibrated exposure model"
+    - "Discrete-time hazard with censoring"
+  data_note: "Public data: FCC DIRS reports, ORNL/DOE EAGLE-I, NOAA NHC, CDC/ATSDR SVI, OpenFEMA and Census."
+  status: "live"
+  target_date: ""
 
 - title: "Did Medicaid expansion reduce uninsurance among low-income adults?"
   url: "/analysis/medicaid-expansion-uninsured/"

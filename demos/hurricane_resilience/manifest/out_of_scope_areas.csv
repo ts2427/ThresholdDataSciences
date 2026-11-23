@@ -1,0 +1,16 @@
+nhc_id,storm_name,state,rows,reason
+AL112017,Irma,Puerto Rico,587,outside config.STUDY_STATES
+AL112017,Irma,U.S. Virgin Islands,36,outside config.STUDY_STATES
+AL132020,Laura,Arkansas,375,outside config.STUDY_STATES
+AL132020,Laura,Delaware,3,outside config.STUDY_STATES
+AL132020,Laura,District of Columbia,1,outside config.STUDY_STATES
+AL132020,Laura,Illinois,21,outside config.STUDY_STATES
+AL132020,Laura,Indiana,18,outside config.STUDY_STATES
+AL132020,Laura,Kentucky,240,outside config.STUDY_STATES
+AL132020,Laura,Maryland,21,outside config.STUDY_STATES
+AL132020,Laura,Missouri,68,outside config.STUDY_STATES
+AL132020,Laura,New Jersey,20,outside config.STUDY_STATES
+AL132020,Laura,New York,3,outside config.STUDY_STATES
+AL132020,Laura,Oklahoma,56,outside config.STUDY_STATES
+AL132020,Laura,Pennsylvania,2,outside config.STUDY_STATES
+AL132020,Laura,West Virginia,43,outside config.STUDY_STATES

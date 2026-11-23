@@ -1,0 +1,3 @@
+doc_id,page,state,county,sites_served,sites_out,pct_out,out_damage,out_transport,out_power,on_backup_power,checked_on
+DOC-406099A1,8,North Carolina,Transylvania,30,10,33.3,0,5,6,4,2026-11-22
+DOC-406099A1,9,South Carolina,Charleston,604,1,0.2,0,1,6,4,2026-11-22

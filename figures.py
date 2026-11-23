@@ -236,6 +236,10 @@ def interval_chart(fig, rows):
     vmin, vmax = min(0.0, min(vals)), max(0.0, max(vals))
     span = (vmax - vmin) or 1.0
     W, H, LM, BOT, TOP = 720, 340, 56, 52, 24
+    vertical = fig.get("vertical_labels")  # optional: names read downward (long category lists)
+    if vertical:
+        extra = 7 * max(len(str(r[xcol])) for r in rows)
+        H, BOT = H + extra, BOT + extra
     plot_w, plot_h = W - LM - 20, H - BOT - TOP
     n = len(rows)
 
@@ -265,7 +269,12 @@ def interval_chart(fig, rows):
         p.append(f'<line x1="{x:g}" y1="{Y(_num(r[lo])):g}" x2="{x:g}" '
                  f'y2="{Y(_num(r[hi])):g}" stroke="{INK}" stroke-width="2"/>')
         p.append(f'<circle cx="{x:g}" cy="{Y(_num(r[ycol])):g}" r="4.5" fill="{INK}"/>')
-        p.append(_text(x, H - BOT + 18, r[xcol], 11, "middle", fill=MUTED))
+        if vertical:
+            y0 = H - BOT + 10
+            p.append(_text(x, y0, r[xcol], 11, "start", fill=MUTED).replace(
+                "<text ", f'<text transform="rotate(90 {x:g} {y0:g})" ', 1))
+        else:
+            p.append(_text(x, H - BOT + 18, r[xcol], 11, "middle", fill=MUTED))
     if fig.get("x_label"):
         p.append(_text(LM + plot_w / 2, H - 10, fig["x_label"], 11, "middle", fill=MUTED))
     p.append("</svg>")
@@ -427,8 +436,8 @@ RENDERERS = {"dot": dot_chart, "bar": bar_chart, "column": column_chart,
 
 # ------------------------------------------------------------- assembly -----
 
-def data_table(rows):
-    heads = list(rows[0].keys())
+def data_table(rows, columns=None):
+    heads = columns or list(rows[0].keys())
     out = ['<div class="table-scroll"><table>', "<thead><tr>"]
     out += [f"<th>{esc(h)}</th>" for h in heads]
     out.append("</tr></thead><tbody>")
@@ -454,14 +463,333 @@ def render_figure(fig, data_dir):
              f'<span class="fig-title">{esc(fig["title"])}</span>']
     if fig.get("caption"):
         parts.append(f'<span class="fig-caption">{esc(fig["caption"])}</span>')
+    if fig.get("description"):   # optional text description (new chart types)
+        parts.append(f'<span class="fig-caption">{esc(fig["description"])}</span>')
     if src:
         parts.append(f'<span class="fig-source">Source: {src}</span>')
     parts.append("</figcaption>")
+    table_rows = rows
+    if fig.get("table_where"):   # optional: e.g. only the county rows of a map
+        col, val = fig["table_where"]
+        table_rows = [r for r in rows if r.get(col) == val]
     parts.append('<details class="fig-data"><summary>View data table'
-                 "</summary>" + data_table(rows) + "</details>")
+                 "</summary>" + data_table(table_rows, fig.get("table_columns"))
+                 + "</details>")
     if fig.get("data_public"):
         parts.append(f'<p class="fig-download"><a href="/static/data/'
                      f'{esc(fig["data"])}" download>Download the data '
                      "(CSV)</a></p>")
     parts.append("</figure>")
     return "".join(parts)
+
+
+
+# ======================================================================
+# Chart types added for "When the Network Goes Dark" (2026-11-22).
+# Appended only: nothing above this line changed, and every Medicaid and
+# OSHA figure is snapshot-tested (tests/test_existing_figures_unchanged.py).
+# Data in Ink and Slate; Signal only for highlights (rule-period markers,
+# a storm track). Each SVG carries <title> and <desc>; render_figure adds
+# the data table.
+# ======================================================================
+
+SLATE = "#2E5A88"
+PAPER = "#FFFFFF"
+
+
+def _svg_open_described(w, h, fig):
+    """Like _svg_open, plus <title> and <desc> referenced by aria-labelledby."""
+    fid = esc(fig["id"])
+    desc = fig.get("description") or fig.get("caption") or fig["title"]
+    return (f'<svg viewBox="0 0 {w} {h}" preserveAspectRatio="xMidYMid meet" role="img" '
+            f'aria-labelledby="{fid}-t {fid}-d" class="chart-svg">'
+            f'<title id="{fid}-t">{esc(fig["title"])}</title><desc id="{fid}-d">{esc(desc)}</desc>')
+
+
+def _ink_shade(v, vmax, floor=0.08):
+    """Sequential single-hue fill: Ink at an opacity that rises with the value."""
+    a = floor + (1 - floor) * max(0.0, min(1.0, v / vmax)) if vmax else floor
+    return f'fill="{INK}" fill-opacity="{a:.3f}"'
+
+
+def _legend_ticks(vmax, n=4):
+    """Ticks for a shade legend, ending at the maximum itself."""
+    t = _ticks(vmax, n)
+    return t if abs(t[-1] - vmax) < 1e-9 else t + [round(vmax, 1)]
+
+
+def _clip_segment(x0, y0, x1, y1, w, h):
+    """Liang-Barsky: the part of a segment inside [0, w] x [0, h], or None."""
+    t0, t1, dx, dy = 0.0, 1.0, x1 - x0, y1 - y0
+    for p, q in ((-dx, x0), (dx, w - x0), (-dy, y0), (dy, h - y0)):
+        if p == 0:
+            if q < 0:
+                return None
+            continue
+        r = q / p
+        if p < 0:
+            t0 = max(t0, r)
+        else:
+            t1 = min(t1, r)
+        if t0 > t1:
+            return None
+    return x0 + t0 * dx, y0 + t0 * dy, x0 + t1 * dx, y0 + t1 * dy
+
+
+def _ticks(vmax, n=4):
+    if vmax <= 0:
+        return [0]
+    raw = vmax / n
+    mag = 10 ** len(str(int(raw))) / 10 if raw >= 1 else 1
+    step = next(s * mag for s in (1, 2, 2.5, 5, 10) if s * mag >= raw)
+    out, t = [], 0.0
+    while t <= vmax + 1e-9:
+        out.append(round(t, 6))
+        t += step
+    return out
+
+
+# ------------------------------------------------------------- multiples ----
+
+def multiples_chart(fig, rows):
+    """Small multiples: one panel per value of fig['panel'], each with up to two
+    line series (fig['series'] column; the first listed in fig['series_order'] is
+    Ink and solid, the second Slate and dashed) and an optional band (fig['lo'],
+    fig['hi']) drawn for the first series. A Signal rule and label mark the first
+    panel of each new value of fig['group'] (e.g. a rule period)."""
+    pcol, xcol, ycol, scol = fig["panel"], fig["x"], fig["y"], fig["series"]
+    order = fig["series_order"]
+    lo, hi, gcol = fig.get("lo"), fig.get("hi"), fig.get("group")
+    panels = list(dict.fromkeys(r[pcol] for r in rows))
+    groups = {r[pcol]: r.get(gcol, "") for r in rows} if gcol else {}
+    xs = [_num(r[xcol]) for r in rows]
+    xmin, xmax = min(xs), max(xs)
+    ymax = float(fig.get("y_max") or max(_num(r[ycol]) for r in rows))
+    cols = int(fig.get("columns", 4))
+    W, PW, PH, GAP, TOP, LEG = 720, 0, 104, 46, 30, 30
+    PW = (W - 20 - (cols - 1) * 16) / cols
+    nrows = -(-len(panels) // cols)
+    H = TOP + LEG + nrows * (PH + GAP) + 20
+    p = [_svg_open_described(W, H, fig)]
+    # legend
+    lx = 10
+    for i, s in enumerate(order):
+        dash = ' stroke-dasharray="5 3"' if i == 1 else ""
+        colr = INK if i == 0 else SLATE
+        p.append(f'<line x1="{lx}" y1="{TOP - 12}" x2="{lx + 22}" y2="{TOP - 12}" stroke="{colr}" stroke-width="2.5"{dash}/>')
+        label = fig.get("series_labels", {}).get(s, s)
+        p.append(_text(lx + 28, TOP - 8, label, 11, fill=MUTED))
+        lx += 34 + 7 * len(label)
+    if lo and hi:
+        p.append(f'<rect x="{lx}" y="{TOP - 18}" width="22" height="10" fill="{INK}" fill-opacity="0.12"/>')
+        p.append(_text(lx + 28, TOP - 8, fig.get("band_label", "95% interval"), 11, fill=MUTED))
+    seen_group = None
+    for k, name in enumerate(panels):
+        cx = 10 + (k % cols) * (PW + 16)
+        cy = TOP + LEG + (k // cols) * (PH + GAP)
+
+        def X(v):
+            return cx + PW * ((v - xmin) / ((xmax - xmin) or 1))
+
+        def Y(v):
+            return cy + PH - PH * max(0.0, min(1.0, v / ymax))
+        g = groups.get(name, "")
+        if gcol and g != seen_group:
+            if seen_group is not None:
+                p.append(f'<line x1="{cx - 8:g}" y1="{cy - 22:g}" x2="{cx - 8:g}" y2="{cy + PH:g}" stroke="{SIGNAL}" stroke-width="2"/>')
+            p.append(_text(cx + PW, cy - 6, str(g), 10, "end", fill=SIGNAL, weight="600"))
+            seen_group = g
+        p.append(f'<rect x="{cx:g}" y="{cy:g}" width="{PW:g}" height="{PH}" fill="none" stroke="{RULE}" stroke-width="1"/>')
+        ticks = _ticks(ymax, 2)
+        for t in ticks:
+            p.append(f'<line x1="{cx:g}" y1="{Y(t):g}" x2="{cx + PW:g}" y2="{Y(t):g}" stroke="{RULE}" stroke-width="0.6"/>')
+            if t != ticks[-1] or Y(t) > cy + 12:  # keep the top label clear of the panel title
+                p.append(_text(cx + 2, Y(t) - 2, _fmt(t), 9, fill=MUTED))
+        p.append(_text(cx, cy - 6, name, 11, weight="500"))
+        pr = [r for r in rows if r[pcol] == name]
+        if lo and hi:
+            band = [r for r in pr if r[scol] == order[0] and r.get(lo, "") != "" and r.get(hi, "") != ""]
+            if len(band) > 1:
+                up = " ".join(f"{X(_num(r[xcol])):g},{Y(_num(r[hi])):g}" for r in band)
+                dn = " ".join(f"{X(_num(r[xcol])):g},{Y(_num(r[lo])):g}" for r in reversed(band))
+                p.append(f'<polygon points="{up} {dn}" fill="{INK}" fill-opacity="0.12" stroke="none"/>')
+        for i, s in enumerate(order):
+            pts = [r for r in pr if r[scol] == s and r[ycol] != ""]
+            if not pts:
+                continue
+            colr = INK if i == 0 else SLATE
+            dash = ' stroke-dasharray="5 3"' if i == 1 else ""
+            d = " ".join(f"{'M' if j == 0 else 'L'}{X(_num(r[xcol])):g} {Y(_num(r[ycol])):g}" for j, r in enumerate(pts))
+            p.append(f'<path d="{d}" fill="none" stroke="{colr}" stroke-width="2"{dash}/>')
+            for r in pts:
+                p.append(f'<circle cx="{X(_num(r[xcol])):g}" cy="{Y(_num(r[ycol])):g}" r="2" fill="{colr}"/>')
+        p.append(_text(cx, cy + PH + 12, str(int(round(xmin))), 9, fill=MUTED))
+        p.append(_text(cx + PW, cy + PH + 12, str(int(round(xmax))), 9, "end", fill=MUTED))
+    if fig.get("x_label"):
+        p.append(_text(W / 2, H - 6, fig["x_label"], 11, "middle", fill=MUTED))
+    p.append("</svg>")
+    return "".join(p)
+
+
+# --------------------------------------------------------------- heatmap ----
+
+def heatmap_chart(fig, rows):
+    """Rows (fig['row']) by columns (fig['col'], numeric), each cell shaded in Ink
+    by fig['value']; a missing cell is left blank (no report). A row whose value
+    is blank marks a report that exists but is not used: drawn with a cross and,
+    if fig['excluded_label'] is set, a legend entry. A row with a non-blank
+    fig['flag'] column is shaded as usual and outlined (dashed Ink), with a
+    second legend line, fig['flag_label']. A Signal rule and label mark
+    where fig['group'] changes between rows (e.g. a rule period)."""
+    rcol, ccol, vcol, gcol = fig["row"], fig["col"], fig["value"], fig.get("group")
+    names = list(dict.fromkeys(r[rcol] for r in rows))
+    cvals = sorted({int(_num(r[ccol])) for r in rows})
+    c0, c1 = min(cvals), max(cvals)
+    ncol = c1 - c0 + 1
+    vmax = float(fig.get("value_max") or max(_num(r[vcol]) for r in rows if r[vcol] != ""))
+    floor = 0.18  # lightest shade, kept clear of the blank (no report) cells
+    W, LM, TOP, RH = 720, 96, 40, 18
+    CW = (W - LM - 70) / ncol
+    H = TOP + RH * len(names) + 64
+    cell = {(r[rcol], int(_num(r[ccol]))): _num(r[vcol]) for r in rows if r[vcol] != ""}
+    marked = {(r[rcol], int(_num(r[ccol]))) for r in rows if r[vcol] == ""}
+    fcol = fig.get("flag")
+    flagged = {(r[rcol], int(_num(r[ccol]))) for r in rows if fcol and r.get(fcol, "") not in ("", None)}
+    if flagged:
+        H += 20
+    group = {r[rcol]: r.get(gcol, "") for r in rows} if gcol else {}
+    p = [_svg_open_described(W, H, fig)]
+    for c in range(c0, c1 + 1):
+        if (c - c0) % max(1, ncol // 12) == 0:
+            x = LM + (c - c0 + 0.5) * CW
+            p.append(_text(x, TOP - 8, str(c), 9, "middle", fill=MUTED))
+    prev = None
+    for i, name in enumerate(names):
+        y = TOP + i * RH
+        g = group.get(name, "")
+        if gcol and prev is not None and g != prev:
+            p.append(f'<line x1="4" y1="{y:g}" x2="{LM + ncol * CW + 4:g}" y2="{y:g}" stroke="{SIGNAL}" stroke-width="2"/>')
+            p.append(_text(LM + ncol * CW + 8, y + 12, str(g), 10, fill=SIGNAL, weight="600"))
+        if gcol and prev is None:
+            p.append(_text(LM + ncol * CW + 8, y + 12, str(g), 10, fill=SIGNAL, weight="600"))
+        prev = g
+        p.append(_text(LM - 6, y + RH * 0.7, name, 10, "end"))
+        for c in range(c0, c1 + 1):
+            x = LM + (c - c0) * CW
+            if (name, c) in cell:
+                p.append(f'<rect x="{x:g}" y="{y + 1:g}" width="{CW - 1:g}" height="{RH - 2}" '
+                         f'{_ink_shade(cell[(name, c)], vmax, floor)}/>')
+                if (name, c) in flagged:
+                    p.append(f'<rect x="{x + 0.8:g}" y="{y + 1.8:g}" width="{CW - 2.6:g}" height="{RH - 3.6:g}" '
+                             f'fill="none" stroke="{INK}" stroke-width="1.6" stroke-dasharray="2.5 1.5"/>')
+            elif (name, c) in marked:
+                p.append(f'<rect x="{x:g}" y="{y + 1:g}" width="{CW - 1:g}" height="{RH - 2}" fill="none" '
+                         f'stroke="{MUTED}" stroke-width="0.8"/>')
+                p.append(f'<path d="M{x + 2:g} {y + 3:g} L{x + CW - 3:g} {y + RH - 3:g} M{x + CW - 3:g} {y + 3:g} '
+                         f'L{x + 2:g} {y + RH - 3:g}" stroke="{MUTED}" stroke-width="0.8"/>')
+            else:
+                p.append(f'<rect x="{x:g}" y="{y + 1:g}" width="{CW - 1:g}" height="{RH - 2}" fill="none" '
+                         f'stroke="{RULE}" stroke-width="0.5"/>')
+    ly = TOP + RH * len(names) + 18
+    p.append(_text(LM, ly + 9, fig.get("legend_label", "value"), 10, fill=MUTED))
+    ticks = _legend_ticks(vmax, 4)
+    for k, t in enumerate(ticks):
+        x = LM + 150 + k * 52
+        p.append(f'<rect x="{x}" y="{ly}" width="18" height="12" {_ink_shade(t, vmax, floor)}/>')
+        p.append(_text(x + 22, ly + 10, _fmt(t), 10, fill=MUTED))
+    x = LM + 150 + len(ticks) * 52
+    p.append(f'<rect x="{x}" y="{ly}" width="18" height="12" fill="none" stroke="{RULE}" stroke-width="0.8"/>')
+    p.append(_text(x + 22, ly + 10, fig.get("blank_label", "no report"), 10, fill=MUTED))
+    if marked and fig.get("excluded_label"):
+        x += 90
+        p.append(f'<rect x="{x}" y="{ly}" width="18" height="12" fill="none" stroke="{MUTED}" stroke-width="0.8"/>')
+        p.append(f'<path d="M{x + 2} {ly + 2} L{x + 16} {ly + 10} M{x + 16} {ly + 2} L{x + 2} {ly + 10}" '
+                 f'stroke="{MUTED}" stroke-width="0.8"/>')
+        p.append(_text(x + 22, ly + 10, fig["excluded_label"], 10, fill=MUTED))
+    if flagged and fig.get("flag_label"):
+        x, y2 = LM + 150, ly + 20
+        p.append(f'<rect x="{x}" y="{y2}" width="18" height="12" {_ink_shade(vmax / 4, vmax, floor)}/>')
+        p.append(f'<rect x="{x + 0.8}" y="{y2 + 0.8}" width="16.4" height="10.4" fill="none" stroke="{INK}" '
+                 f'stroke-width="1.6" stroke-dasharray="2.5 1.5"/>')
+        p.append(_text(x + 22, y2 + 10, fig["flag_label"], 10, fill=MUTED))
+    if fig.get("x_label"):
+        p.append(_text(LM + ncol * CW / 2, H - 8, fig["x_label"], 11, "middle", fill=MUTED))
+    p.append("</svg>")
+    return "".join(p)
+
+
+# ----------------------------------------------------------- calibration ----
+
+def calibration_chart(fig, rows):
+    """Predicted (fig['x']) against observed (fig['y']) by bin, with the
+    45-degree line where they would be equal."""
+    xcol, ycol = fig["x"], fig["y"]
+    vmax = float(fig.get("axis_max") or max(max(_num(r[xcol]), _num(r[ycol])) for r in rows))
+    W, H, LM, BOT, TOP, RM = 720, 400, 60, 50, 20, 250
+    side = min(W - LM - RM, H - BOT - TOP)
+
+    def X(v):
+        return LM + side * v / vmax
+
+    def Y(v):
+        return TOP + side - side * v / vmax
+    p = [_svg_open_described(W, H, fig)]
+    for t in _ticks(vmax, 4):
+        p.append(f'<line x1="{LM}" y1="{Y(t):g}" x2="{LM + side}" y2="{Y(t):g}" stroke="{RULE}" stroke-width="1"/>')
+        p.append(_text(LM - 8, Y(t) + 4, _fmt(t), 11, "end", fill=MUTED))
+        p.append(_text(X(t), TOP + side + 16, _fmt(t), 11, "middle", fill=MUTED))
+    p.append(f'<line x1="{X(0):g}" y1="{Y(0):g}" x2="{X(vmax):g}" y2="{Y(vmax):g}" stroke="{MUTED}" '
+             f'stroke-width="1.2" stroke-dasharray="4 4"/>')
+    p.append(_text(X(vmax) + 6, Y(vmax) + 4, fig.get("diagonal_label", "predicted = observed"), 11, fill=MUTED))
+    for r in rows:
+        p.append(f'<circle cx="{X(_num(r[xcol])):g}" cy="{Y(_num(r[ycol])):g}" r="5" fill="{INK}"/>')
+    p.append(_text(LM + side / 2, H - 10, fig.get("x_label", xcol), 11, "middle", fill=MUTED))
+    p.append(_text(14, TOP + side / 2, fig.get("y_label", ycol), 11, "middle", fill=MUTED).replace(
+        "<text ", f'<text transform="rotate(-90 14 {TOP + side / 2:g})" ', 1))
+    p.append("</svg>")
+    return "".join(p)
+
+
+# ------------------------------------------------------------------- map ----
+
+def map_chart(fig, rows):
+    """A choropleth from pre-projected shapes: rows with kind 'area' carry an SVG
+    path (fig['path']) and an optional value (fig['value']; blank = no data,
+    drawn in Rule); rows with kind 'track' are points (fig['tx'], fig['ty'])
+    joined in order into a Signal line (e.g. a storm track), clipped to the map
+    frame; its label sits where the line enters the frame."""
+    W, H = int(fig.get("width", 720)), int(fig.get("height", 460))
+    vmax = float(fig.get("value_max") or max(_num(r[fig["value"]]) for r in rows
+                                             if r.get("kind") == "area" and r[fig["value"]] != ""))
+    p = [_svg_open_described(W, H + 40, fig)]
+    for r in rows:
+        if r.get("kind") != "area":
+            continue
+        v = r[fig["value"]]
+        if v != "":
+            p.append(f'<path d="{r[fig["path"]]}" {_ink_shade(_num(v), vmax)} stroke="{PAPER}" stroke-width="0.6"/>')
+        else:  # not in the data: white with a Rule outline, distinct from the lightest shade
+            p.append(f'<path d="{r[fig["path"]]}" fill="{PAPER}" stroke="{RULE}" stroke-width="0.6"/>')
+    track = [(_num(r[fig["tx"]]), _num(r[fig["ty"]])) for r in rows if r.get("kind") == "track"]
+    segs = [s for s in (_clip_segment(*a, *b, W, H) for a, b in zip(track, track[1:])) if s]
+    if segs:
+        d = " ".join(f"M{x0:.1f} {y0:.1f} L{x1:.1f} {y1:.1f}" for x0, y0, x1, y1 in segs)
+        p.append(f'<path d="{d}" fill="none" stroke="{SIGNAL}" stroke-width="2.5" stroke-linecap="round"/>')
+        ex, ey = segs[0][0], segs[0][1]
+        p.append(_text(ex + 8, min(ey, H) - 8, fig.get("track_label", "track"), 11, fill=SIGNAL, weight="600"))
+    ly = H + 12
+    p.append(_text(10, ly + 10, fig.get("legend_label", "value"), 10, fill=MUTED))
+    ticks = _legend_ticks(vmax, 4)
+    for k, t in enumerate(ticks):
+        x = 190 + k * 58
+        p.append(f'<rect x="{x}" y="{ly}" width="18" height="12" {_ink_shade(t, vmax)}/>')
+        p.append(_text(x + 22, ly + 10, _fmt(t), 10, fill=MUTED))
+    x = 190 + len(ticks) * 58
+    p.append(f'<rect x="{x}" y="{ly}" width="18" height="12" fill="{PAPER}" stroke="{RULE}" stroke-width="1"/>')
+    p.append(_text(x + 22, ly + 10, fig.get("no_data_label", "not reported"), 10, fill=MUTED))
+    p.append("</svg>")
+    return "".join(p)
+
+
+RENDERERS.update({"multiples": multiples_chart, "heatmap": heatmap_chart,
+                  "calibration": calibration_chart, "map": map_chart})

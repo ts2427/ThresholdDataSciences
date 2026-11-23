@@ -1,0 +1,8 @@
+doc_id,storm_name,report_date,reason,decided_on,status,failures
+DOC-346478A1,Harvey,2017-09-03,"Texas rows broken across lines in both the .txt and the PDF (Matagorda, San Patricio not confirmed); no Texas total",2026-11-22,excluded,"missing state total: Texas; not confirmed by second reading of the PDF: Texas/MATAGORD A, Texas/SAN PATRICIO; overall % out 3.57 vs stated 2.40"
+DOC-347137A1,Nate,2017-10-09,No headline percent printed (and no totals),2026-11-22,excluded,stated % out not found
+DOC-366519A1,Laura,2020-08-28,"San Augustine, Texas row not confirmed by the second reading",2026-11-22,excluded,not confirmed by second reading of the PDF: Texas/SAN AUGUSTINE
+DOC-366524A1,Laura,2020-08-29,"Maryland served does not reconcile (5,521 vs 6,522 printed); San Augustine not confirmed; names with backquotes not matched",2026-11-22,excluded,"Maryland sites_served 5521 vs printed total 6522; not confirmed by second reading of the PDF: Texas/SAN AUGUSTINE; county names differ from the report's list (in list, not in table: Maryland/Prince George`s, Maryland/Queen Anne`s, Maryland/St. Mary`s, North Carolina/27 Guilford, Virginia/Galax City)"
+DOC-366526A1,Laura,2020-08-30,"San Augustine, Texas row not confirmed by the second reading",2026-11-22,excluded,not confirmed by second reading of the PDF: Texas/SAN AUGUSTINE
+DOC-406144A1,Helene,2024-10-03,"FCC inconsistency: Hamilton row prints transport 0, Florida total prints 1",2026-11-22,excluded,Florida out_transport 0 vs printed total 1
+DOC-406197A1,Helene,2024-10-04,"Washington County, Tennessee row not confirmed by the second reading",2026-11-22,excluded,not confirmed by second reading of the PDF: Tennessee/Washington County
