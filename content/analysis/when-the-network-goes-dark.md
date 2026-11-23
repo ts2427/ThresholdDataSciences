@@ -261,7 +261,7 @@ a larger share out (fixed steps for every storm: 0%, under 5%, 5–15%, 15–30%
 reported, not zero), and counties in the report with no sites out have a faint tint. Hover over or tap a county
 for its numbers, and the cause shares where the report gives them. The table under the map lists the same numbers for
 the chosen report. Drawn in your browser from the published data for all 21 storms, with county shapes from the
-Census Bureau; nothing is loaded from any other site. Laura's report of 2020-08-25 (the combined Marco–Laura report) is not a step on Laura's slider.
+Census Bureau; the map's code, shapes and data are all served from this site. Laura's report of 2020-08-25 (the combined Marco–Laura report) is not a step on Laura's slider.
 
 Across all 9,870 county-reports, 48.3%
 show 0% of sites out and 3.2% show 50% or more.
@@ -782,8 +782,8 @@ Excluded reports: Harvey 2017-09-03 (DOC-346478A1): Texas rows broken across lin
 
 Choose any of the 814 counties in the FCC's reports to see each storm's share of the county's cell sites out, report
 by report, by days since the storm's 34-knot winds first reached a study-state county. Points are the FCC's reports;
-lines join only consecutive reports of that storm at most 1.5 days apart, so a missing or excluded report leaves a gap. Built in the browser from the published data, with nothing loaded
-from any other site. Laura's report of 2020-08-25 (the combined Marco–Laura report) is left off Laura's line.
+lines join only consecutive reports of that storm at most 1.5 days apart, so a missing or excluded report leaves a gap. Built in the browser from the published data, with its code and data
+served from this site. Laura's report of 2020-08-25 (the combined Marco–Laura report) is left off Laura's line.
 
 <div class="county-lookup" data-src="/static/data/hurricane-county-lookup.json">
 <label for="county-lookup-select">County</label>
