@@ -136,7 +136,7 @@ def jsonld_graph(extra=None):
     }
     graph = [org, person]
     if extra:
-        graph.append(extra)
+        graph.extend(extra if isinstance(extra, list) else [extra])
     return json.dumps({"@context": "https://schema.org", "@graph": graph},
                       indent=2)
 
@@ -161,6 +161,41 @@ def article_node(view, in_series=False):
             "url": f"{base}/threshold-effects/",
         }
     return node
+
+
+def dataset_node(view):
+    """schema.org Dataset for a page whose front matter has a `dataset` block (data archived with a DOI)."""
+    base, d = SITE["base_url"], view["dataset"]
+    orcid = SITE["author"].get("orcid")
+    return {
+        "@type": "Dataset",
+        "@id": f"{base}{view['url']}#dataset",
+        "name": d["name"],
+        "description": d["description"],
+        "keywords": d["keywords"],
+        "url": f"https://doi.org/{d['concept_doi']}",
+        "sameAs": [f"https://doi.org/{d['version_doi']}", d["repository"]],
+        "identifier": [
+            {"@type": "PropertyValue", "propertyID": "DOI", "value": d["version_doi"],
+             "url": f"https://doi.org/{d['version_doi']}", "description": f"version {d['version']}"},
+            {"@type": "PropertyValue", "propertyID": "DOI", "value": d["concept_doi"],
+             "url": f"https://doi.org/{d['concept_doi']}", "description": "all versions"},
+        ],
+        "version": d["version"],
+        "license": d["license"],
+        "isAccessibleForFree": True,
+        "creator": {"@type": "Person", "@id": f"{base}/#person", "name": SITE["author"]["name"],
+                    **({"sameAs": orcid, "identifier": orcid} if orcid else {})},
+        "temporalCoverage": d["temporal_coverage"],
+        "spatialCoverage": [{"@type": "Place", "name": f"{s}, United States"} for s in d["spatial_coverage"]],
+        "variableMeasured": [{"@type": "PropertyValue", "name": v["name"], "description": v["description"],
+                              **({"unitText": v["unit"]} if v["unit"] else {})} for v in d["variables"]],
+        "distribution": [{"@type": "DataDownload", "encodingFormat": d["distribution"]["format"],
+                          "contentUrl": d["distribution"]["url"],
+                          "contentSize": f"{d['distribution']['bytes']} bytes"}],
+        "includedInDataCatalog": {"@type": "DataCatalog", "name": "Zenodo", "url": "https://zenodo.org"},
+        "subjectOf": {"@id": f"{base}{view['url']}#article"},
+    }
 
 
 def collection_node(name, path, description):
@@ -647,9 +682,13 @@ def main():
                "sources and visible methods notes."))
     urls.append("/analysis/")
     for piece in analysis:
+        extra = article_node(piece)
+        if piece.get("dataset"):
+            extra = [{**extra, "@id": f"{SITE['base_url']}{piece['url']}#article",
+                      "isBasedOn": {"@id": f"{SITE['base_url']}{piece['url']}#dataset"}}, dataset_node(piece)]
         render("analysis.html", f"analysis/{piece['slug']}/index.html",
                piece=piece, page_url=piece["url"],
-               schema_extra=article_node(piece))
+               schema_extra=extra)
         urls.append(piece["url"])
 
     # Retired URLs: meta-refresh + canonical stubs (GitHub Pages has no
