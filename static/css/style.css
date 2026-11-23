@@ -695,3 +695,26 @@ h2 {
 .county-lookup-panels { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
 .county-lookup-panel { margin: 0; }
 .county-lookup-panel figcaption { font-weight: 600; font-size: 0.95rem; }
+
+/* ---------- storm map ("When the Network Goes Dark", v2) ---------- */
+.storm-map { margin: 1.5rem 0; }
+.storm-map-controls { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; align-items: flex-end; }
+.storm-map-controls label { display: block; font-weight: 600; margin-bottom: 0.3rem; }
+.storm-map-controls select { font: inherit; padding: 0.4rem 0.5rem; max-width: 100%; border: 1px solid var(--muted);
+  border-radius: 4px; background: var(--paper); color: var(--ink); }
+.storm-map-slider { flex: 1 1 220px; }
+.storm-map-slider input { width: 100%; accent-color: var(--ink); }
+.storm-map-play { font: inherit; padding: 0.4rem 1rem; border: 1px solid var(--ink); border-radius: 4px;
+  background: var(--paper); color: var(--ink); cursor: pointer; }
+.storm-map-play[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.storm-map-status { color: var(--muted); min-height: 3em; }
+.storm-map-figure { position: relative; margin: 0; }
+.storm-map-tip { position: absolute; max-width: 220px; padding: 0.4rem 0.55rem; background: var(--paper);
+  border: 1px solid var(--rule); border-radius: 4px; font-size: 0.85rem; color: var(--ink); pointer-events: none;
+  box-shadow: 0 2px 6px rgba(15, 35, 56, 0.15); }
+.storm-map-tip[hidden] { display: none; }
+.storm-map-legend { display: flex; flex-wrap: wrap; gap: 0.35rem 0.9rem; align-items: center; color: var(--muted);
+  font-size: 0.9rem; margin-top: 0.4rem; }
+.storm-map-legend > span { display: inline-flex; align-items: center; gap: 0.3rem; }
+.storm-map-swatch { display: inline-block; width: 1rem; height: 0.8rem; }
+.storm-map-swatch-none { background: var(--paper); border: 1px solid var(--rule); }

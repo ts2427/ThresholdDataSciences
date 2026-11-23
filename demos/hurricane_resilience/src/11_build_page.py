@@ -29,6 +29,11 @@ PAGE = SITE / "content" / "analysis" / f"{SLUG}.md"
 FIG_DIR = SITE / "content" / "data"
 PANEL_PUBLIC = SITE / "static" / "data" / "hurricane-dirs-county-day.csv"
 LOOKUP_JSON = SITE / "static" / "data" / "hurricane-county-lookup.json"  # v2-4: generated from the published panel
+MAP_TOPO = SITE / "static" / "data" / "hurricane-counties.topo.json"     # v2-6: county shapes (TopoJSON)
+MAP_JSON = SITE / "static" / "data" / "hurricane-map.json"               # v2-6: generated from the published panel
+STUDY_FIPS = ("48", "22", "28", "01", "12", "13", "45", "37", "47", "51")
+MAP_TOLERANCE_DEG = 0.02
+TOPO_QUANT = 10_000
 DATE = "2026-11-22"
 UPDATED = "2026-11-23"
 DRAFT = False  # published 2026-11-23 (Tim's decision); the site build's guards apply to a published page
@@ -1019,6 +1024,137 @@ def verify_lookup(r: dict, panel: pd.DataFrame, path: Path = LOOKUP_JSON) -> boo
     return json.loads(path.read_text(encoding="utf-8")) == json.loads(json.dumps(lookup_data(r, panel), ensure_ascii=False))
 
 
+# ---------------------------------------------------------------- v2-6: interactive map --
+
+def _encode_ring(coords, x0, y0, kx, ky) -> list:
+    q = [(int(round((x - x0) / kx)), int(round((y - y0) / ky))) for x, y in coords]
+    out, px, py = [], 0, 0
+    for i, (x, y) in enumerate(q):
+        if i and (x, y) == (px, py):
+            continue
+        out.append([x - px, y - py])
+        px, py = x, y
+    return out
+
+
+def map_topology() -> dict:
+    """TopoJSON (one arc per ring, quantized, delta-encoded) of the study states' counties and their state outlines,
+    from the Census 2022 cartographic boundary file, simplified as a coverage so shared borders stay identical."""
+    import geopandas as gpd
+    import shapely
+    g = gpd.read_file(f"zip://{BOUNDARIES.as_posix()}")
+    g = g[g.STATEFP.isin(STUDY_FIPS)].sort_values("GEOID").reset_index(drop=True)
+    simp = shapely.coverage_simplify(g.geometry.values, MAP_TOLERANCE_DEG)
+    states = gpd.GeoDataFrame({"STATEFP": g.STATEFP}, geometry=simp, crs=g.crs).dissolve("STATEFP")
+    # d3-geo reads polygons on the sphere: exterior rings clockwise, holes counter-clockwise (the reverse of GeoJSON's
+    # right-hand rule), or a county becomes "the whole globe minus the county"
+    simp = shapely.orient_polygons(simp, exterior_cw=True)
+    states = states.assign(geometry=shapely.orient_polygons(states.geometry.values, exterior_cw=True))
+    x0, y0, x1, y1 = g.total_bounds
+    kx, ky = (x1 - x0) / (TOPO_QUANT - 1), (y1 - y0) / (TOPO_QUANT - 1)
+    arcs = []
+
+    def polys(geom):
+        return [geom] if geom.geom_type == "Polygon" else list(geom.geoms)
+
+    def encode(geom):
+        out = []
+        for pl in polys(geom):
+            rings = []
+            for ring in [pl.exterior, *pl.interiors]:
+                arcs.append(_encode_ring(ring.coords, x0, y0, kx, ky))
+                rings.append([len(arcs) - 1])
+            out.append(rings)
+        return {"type": "MultiPolygon", "arcs": out}
+    counties = [{**encode(geom), "id": r.GEOID, "properties": {"name": r.NAME, "state": r.STUSPS}}
+                for r, geom in zip(g.itertuples(), simp)]
+    st = [{**encode(geom), "id": fp} for fp, geom in zip(states.index, states.geometry)]
+    return {"type": "Topology", "transform": {"scale": [kx, ky], "translate": [x0, y0]}, "arcs": arcs,
+            "objects": {"counties": {"type": "GeometryCollection", "geometries": counties},
+                        "states": {"type": "GeometryCollection", "geometries": st}}}
+
+
+def decode_arc(arc, transform) -> list:
+    """Inverse of _encode_ring (for the round-trip test)."""
+    (kx, ky), (x0, y0) = transform["scale"], transform["translate"]
+    x = y = 0
+    out = []
+    for dx, dy in arc:
+        x, y = x + dx, y + dy
+        out.append((x0 + x * kx, y0 + y * ky))
+    return out
+
+
+def map_data(r: dict, panel: pd.DataFrame) -> dict:
+    """Every storm's used reports (time-flagged reports left off the timeline) with each listed county's % of sites
+    out, sites out and served, and cause shares of sites out where the report prints causes."""
+    st = {s["storm_key"]: s for s in r["chapter_3"]["storms"]}
+    p = panel[(panel.time_flag.fillna("") == "") & panel.storm_key.isin(st) & (panel.sites_served > 0)].copy()
+    day0 = p.storm_key.map({k: pd.Timestamp(v["landfall_utc"]) for k, v in st.items()})
+    p["day"] = ((pd.to_datetime(p.as_of_utc, utc=True) - day0).dt.total_seconds() / 86400).round(2)
+    storms = []
+    for k, v in st.items():
+        q = p[p.storm_key == k]
+        reports = []
+        for doc, h in sorted(q.groupby("doc_id"), key=lambda kv: (kv[1].day.iloc[0], kv[0])):
+            cty = {}
+            for x in h.itertuples():
+                causes = None
+                if x.sites_out > 0 and not any(pd.isna(getattr(x, c)) for c in ("out_damage", "out_transport", "out_power")):
+                    causes = [round(100 * float(getattr(x, c)) / float(x.sites_out), 1)
+                              for c in ("out_damage", "out_transport", "out_power")]
+                cty[x.fips] = [round(100 * float(x.sites_out) / float(x.sites_served), 1), int(x.sites_out),
+                               int(x.sites_served), causes]
+            reports.append({"doc_id": doc, "date": str(h.report_date.iloc[0]), "day": float(h.day.iloc[0]),
+                            "counties": cty})
+        storms.append({"key": k, "name": v["storm"], "period": v["rule_period"], "reports": reports})
+    vmax = max(c[0] for s in storms for rep in s["reports"] for c in rep["counties"].values())
+    flagged = r["chapter_1"].get("time_flagged_reports", [])
+    return {"storms": storms, "value_max": vmax,
+            "note": " ".join(f"{x['storm']}'s report of {x['report_date']} (the combined Marco–Laura report) is not a "
+                             f"step on {x['storm']}'s slider." for x in flagged)}
+
+
+def write_json(data: dict, path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8", newline="\n")
+
+
+def verify_map(r: dict, panel: pd.DataFrame, path: Path = MAP_JSON) -> bool:
+    return json.loads(path.read_text(encoding="utf-8")) == json.loads(json.dumps(map_data(r, panel), ensure_ascii=False))
+
+
+def map_section(data: dict) -> str:
+    n_s = len(data["storms"])
+    return f"""## Map: where cell sites were out, report by report
+
+Choose a storm and move through its FCC reports to see each county's share of cell sites out. Counties shaded darker had
+a larger share out; white counties were not in that day's report (not reported, not zero). Hover over or tap a county
+for its numbers, and the cause shares where the report gives them. The table under the map lists the same numbers for
+the chosen report. Drawn in your browser from the published data for all {n_s} storms, with county shapes from the
+Census Bureau; nothing is loaded from any other site. {data['note']}
+
+<div class="storm-map" data-src="/static/data/{MAP_JSON.name}" data-topo="/static/data/{MAP_TOPO.name}">
+<div class="storm-map-controls">
+<div><label for="storm-map-storm">Storm</label>
+<select id="storm-map-storm" disabled><option>Loading…</option></select></div>
+<div class="storm-map-slider"><label for="storm-map-day">Report</label>
+<input id="storm-map-day" type="range" min="0" max="0" step="1" value="0" disabled></div>
+<button type="button" class="storm-map-play" aria-pressed="false" disabled>Play</button>
+</div>
+<p class="storm-map-status" role="status" aria-live="polite"></p>
+<figure class="storm-map-figure"><div class="storm-map-svg"></div>
+<div class="storm-map-tip" aria-hidden="true" hidden></div></figure>
+<details class="fig-data"><summary>View data table for this report</summary><div class="table-scroll storm-map-table"></div></details>
+<noscript><p>The map needs JavaScript. The same data is in the <a href="/static/data/{PANEL_PUBLIC.name}">county-report
+panel (CSV)</a>.</p></noscript>
+</div>
+<script src="/static/js/vendor/d3-7.9.0.min.js" defer></script>
+<script src="/static/js/vendor/topojson-client-3.1.0.min.js" defer></script>
+<script src="/static/js/hurricane-map.js" defer></script>
+"""
+
+
 def lookup_section(data: dict) -> str:
     n_c = len(data["counties"])
     return f"""## Look up a county
@@ -1293,7 +1429,13 @@ def main():
     write_lookup(lookup)
     if not verify_lookup(r, panel_public):
         raise SystemExit("county lookup data does not match the published panel")
-    body = build_page(r) + "\n" + lookup_section(lookup) + "\n" + methods_section(r, decisions, plan, pd.read_csv(OUTPUT / "validation_dirs.csv"),
+    mdata = map_data(r, panel_public)
+    write_json(mdata, MAP_JSON)
+    if not verify_map(r, panel_public):
+        raise SystemExit("map data does not match the published panel")
+    if not MAP_TOPO.exists():  # geometry depends only on the boundary file; rebuilt when removed
+        write_json(map_topology(), MAP_TOPO)
+    body = build_page(r) + "\n" + map_section(mdata) + "\n" + lookup_section(lookup) + "\n" + methods_section(r, decisions, plan, pd.read_csv(OUTPUT / "validation_dirs.csv"),
                                                   pd.read_csv(OUTPUT / "excluded_reports.csv", keep_default_na=False))
     page = front_matter(r, figs) + "\n" + body + "\n"
     if "claude" in page.lower():

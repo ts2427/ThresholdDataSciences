@@ -2,7 +2,14 @@
 
 Version 1's code (step 10) and its chapter_* keys are not changed; tests/test_v1_results_unchanged.py checks that.
 
-    python src/12_v2_analysis.py [items]      items: v2_1, v2_2, v2_3 (default: all built so far)
+    python src/12_v2_analysis.py [items]      items: v2_1, v2_2, v2_3, v2_5_groups, v2_5 (default: all built)
+
+V2-5, network redundancy: per storm-county, the number of mobile providers covering at least half the county's area
+(main measure) in the latest BDC release on or before the storm's day 0, grouped on whole values as close to thirds as
+ties allow (no group under 20%), fixed from counts only before any recovery data is joined. Recovery: chapter 8's
+waiting time to stay below 5% of sites out. Main analysis: storms from 2022 on; earlier storms (earliest release,
+"network data from after the storm") only as a sensitivity display. Fixed broadband counts (near-universal providers
+excluded) are sensitivity displays only. Providers are never named; IDs are used only for counting.
 
 V2-3, power vs. cell timing: per storm-county at risk on both measures, the report time (days since day 0, rebound
 rule) at which the share of electricity customers without power falls below its threshold and at which the share of
@@ -376,6 +383,264 @@ def v2_3(panel: pd.DataFrame) -> dict:
     }
 
 
+# ---- V2-5: network redundancy ----
+
+BDC = None  # loaded on demand
+NEAR_UNIVERSAL_SHARE = 0.95
+NEAR_UNIVERSAL_LABEL = ("near-universal providers (likely satellite or national fixed-wireless; this file doesn't "
+                        "identify technology)")
+MIN_GROUP_SHARE = 0.20
+MEASURES = {  # name: (data_type, threshold on the coverage share, exclude near-universal providers)
+    "mobile_half": ("Mobile Broadband", 0.5, False),      # main measure (Tim's decision, 2026-11-23)
+    "mobile_any": ("Mobile Broadband", 0.0, False),
+    "fixed_any_excl_near_universal": ("Fixed Broadband", 0.0, True),
+    "fixed_any": ("Fixed Broadband", 0.0, False),
+    "fixed_half": ("Fixed Broadband", 0.5, False),
+    "fixed_half_excl_near_universal": ("Fixed Broadband", 0.5, True),
+}
+MAIN_MEASURE = "mobile_half"
+
+
+def near_universal(b: pd.DataFrame) -> set:
+    """Fixed providers reporting service in at least 95% of the study-state counties of some release."""
+    n_cty = b.groupby("release").geoid.nunique()
+    fx = b[(b.data_type == "Fixed Broadband") & (b.res_st_pct > 0)].groupby(["release", "provider_id"]).geoid.nunique()
+    return {p for (r, p), n in fx.items() if n >= NEAR_UNIVERSAL_SHARE * n_cty[r]}
+
+
+def provider_counts(b: pd.DataFrame, measure: str, universal: set) -> pd.Series:
+    data_type, thr, excl = MEASURES[measure]
+    q = b[(b.data_type == data_type) & ((b.res_st_pct > 0) if thr == 0 else (b.res_st_pct >= thr))]
+    if excl:
+        q = q[~q.provider_id.isin(universal)]
+    return q.groupby(["release", "geoid"]).provider_id.nunique()
+
+
+def whole_value_groups(values: pd.Series, min_share: float = MIN_GROUP_SHARE) -> dict:
+    """Three groups on whole values (<= a, a < x <= b, > b), as close to thirds as ties allow, none under min_share.
+    Chosen from the counts alone."""
+    v = values.astype(int)
+    vals = sorted(v.unique())
+    n = len(v)
+    best = None
+    for i, a in enumerate(vals):
+        for b in vals[i + 1:]:
+            sizes = [(v <= a).sum(), ((v > a) & (v <= b)).sum(), (v > b).sum()]
+            if min(sizes) < min_share * n:
+                continue
+            score = sum((sz / n - 1 / 3) ** 2 for sz in sizes)
+            if best is None or score < best[0]:
+                best = (score, a, b, sizes)
+    if best is None:
+        return {"groups": None, "note": f"no three groups with each at least {min_share:.0%}"}
+    _, a, b, sizes = best
+    lo, mid, hi = (f"{a} or fewer", f"{a + 1}" if b == a + 1 else f"{a + 1} to {b}", f"{b + 1} or more")
+    return {"cut_low": int(a), "cut_high": int(b), "labels": [lo, mid, hi],
+            "sizes": {lo: int(sizes[0]), mid: int(sizes[1]), hi: int(sizes[2])}, "n": int(n),
+            "rule": "whole values, as close to thirds as ties allow, no group under 20% of storm-counties"}
+
+
+def assign_group(x: float, g: dict) -> str | None:
+    if g.get("labels") is None:
+        return None
+    return g["labels"][0] if x <= g["cut_low"] else (g["labels"][1] if x <= g["cut_high"] else g["labels"][2])
+
+
+def storm_county_counts(panel: pd.DataFrame, b: pd.DataFrame, releases: dict) -> pd.DataFrame:
+    """Every storm-county in the panel with each measure's provider count in the storm's release (0 if none)."""
+    universal = near_universal(b)
+    sc = panel.drop_duplicates(["storm_key", "fips"])[["storm_key", "storm", "fips"]].copy()
+    sc["release"] = sc.storm.map(lambda x: releases[x]["release"])
+    sc["role"] = sc.storm.map(lambda x: releases[x]["role"].split(":")[0])
+    for m in MEASURES:
+        c = provider_counts(b, m, universal).rename(m).reset_index().rename(columns={"geoid": "fips"})
+        sc = sc.merge(c, on=["release", "fips"], how="left")
+        sc[m] = sc[m].fillna(0).astype(int)
+    sc.attrs["n_near_universal"] = len(universal)
+    return sc
+
+
+def v2_5_groups(panel: pd.DataFrame) -> dict:
+    """Counts only: groups for every measure, from the main-analysis storm-counties (2022 on). No recovery data."""
+    from config import INTERIM, RAW
+    b = pd.read_parquet(INTERIM / "bdc_provider_county.parquet")
+    releases = json.loads((RAW / "bdc" / "listings" / "storm_releases.json").read_text(encoding="utf-8"))
+    sc = storm_county_counts(step10.timed(panel), b, releases)
+    main = sc[sc.role == "main"]
+    return {"label": "Exploratory: added after the version 1 results were published (docs/analysis_plan_addendum_v2.md).",
+            "fixed_from_counts_only": True, "main_measure": MAIN_MEASURE,
+            "near_universal_label": NEAR_UNIVERSAL_LABEL, "n_near_universal_providers": sc.attrs["n_near_universal"],
+            "storm_releases": releases, "n_storm_counties_main": int(len(main)),
+            "groups": {m: whole_value_groups(main[m]) for m in MEASURES},
+            "distributions": {m: {str(k): int(v) for k, v in main[m].value_counts().sort_index().items()}
+                              for m in MEASURES}}
+
+
+REDUNDANCY_WORDING = ("Association only: counties served by more mobile providers fell below 5% of sites out sooner / "
+                      "later / with no measurable difference; never that more providers produce faster recovery. "
+                      "Provider counts describe reported coverage, not which networks were out. Providers are never "
+                      "named.")
+
+
+def km_by_group(recs: pd.DataFrame, col: str, labels: list, seed: int) -> dict:
+    """Kaplan-Meier median wait (days since day 0) by group, county bootstrap 95%, as in chapter 8's raw table."""
+    out, rng = {}, np.random.default_rng(seed)
+    for lab in labels:
+        g = recs[recs[col] == lab]
+        if g.empty:
+            out[lab] = {"n": 0}
+            continue
+        t, e = g.time.to_numpy(float), g.event.to_numpy(bool)
+        boot = []
+        for _ in range(step10.BOOTSTRAP_DRAWS):
+            j = rng.integers(0, len(g), len(g))
+            m = step10.km_median(step10.kaplan_meier(t[j], e[j]))
+            boot.append(np.inf if m is None else m)
+        lo, hi = step10._time_ci(np.array(boot))
+        km = step10.kaplan_meier(t, e)
+        out[lab] = {"median_days": step10.num(step10.km_median(km), lo, hi, n=len(g), unit="days since day 0",
+                                              method="Kaplan-Meier median; county bootstrap 95%",
+                                              n_censored=int((~e).sum())),
+                    **{f"share_below_5pct_by_day_{d}": step10._plain(step10.km_share_by(km, d)) for d in (3, 7, 14)},
+                    "n_storms": int(g.storm_key.nunique())}
+    return out
+
+
+def _pp_with(recs: pd.DataFrame, extra: list) -> pd.DataFrame:
+    rows = []
+    for r in recs.itertuples():
+        w = r._asdict()
+        for p in step10.person_periods(w):
+            rows.append({"storm_key": r.storm_key, "fips": r.fips, "svi_q": r.svi_q, "zone": r.zone,
+                         "min_dist_km": r.min_dist_km, "wind_kt_at_closest": r.wind_kt_at_closest,
+                         **{c: w[c] for c in extra}, **p})
+    return pd.DataFrame(rows)
+
+
+def fit_hazard_with(pp: pd.DataFrame, group_col: str | None = None, levels: list | None = None,
+                    numeric_col: str | None = None) -> tuple:
+    """Chapter 8's discrete-time cloglog hazard (same design, storm fixed effects, county-clustered intervals, same
+    convergence rule) with the redundancy group (reference: the first level) or a count added."""
+    import statsmodels.api as sm
+    ev = pp.groupby("storm_key").event.agg(["sum"])
+    n_cty = pp.groupby("storm_key").fips.nunique()
+    county_events = pp.groupby(["storm_key", "fips"]).event.max().groupby("storm_key").sum()
+    keep = ev.index[(ev["sum"] > 0) & (county_events < n_cty)]
+    q = pp[pp.storm_key.isin(keep)].copy()
+    q["bin"] = q.t1.map(step10._baseline_bin)
+    X = pd.DataFrame({"const": 1.0}, index=q.index)
+    for col, prefix, lv in (("bin", "base", [b[2] for b in step10.BASELINE_BINS][1:]),
+                            ("svi_q", "svi", step10.SVI_LABELS[1:]), ("zone", "zone", step10.ZONES[:-1])):
+        for v in lv:
+            X[f"{prefix}_{v}"] = (q[col] == v).astype(float)
+    if group_col:
+        for v in levels[1:]:
+            X[f"group_{v}"] = (q[group_col] == v).astype(float)
+    if numeric_col:
+        X[f"per_provider_{numeric_col}"] = q[numeric_col].astype(float)
+    X["log1p_dist_km"] = np.log1p(q.min_dist_km.astype(float))
+    X["wind_per_10kt"] = q.wind_kt_at_closest.astype(float) / 10
+    for k in sorted(keep)[1:]:
+        X[f"storm_{k}"] = (q.storm_key == k).astype(float)
+    X = X.loc[:, (X.std() > 0) | (X.columns == "const")]
+    offset = np.log(np.clip((q.t1 - q.t0).astype(float), step10.MIN_INTERVAL_DAYS, None))
+    model = sm.GLM(q.event.astype(float), X, family=sm.families.Binomial(link=sm.families.links.CLogLog()),
+                   offset=offset)
+    groups = {"groups": pd.factorize(q.fips)[0]}
+    fit, optimizer = model.fit(cov_type="cluster", cov_kwds=groups), "IRLS"
+    if not step10.irls_ok(fit):
+        fit = model.fit(method="newton", start_params=np.zeros(X.shape[1]), maxiter=300, disp=0, cov_type="cluster",
+                        cov_kwds=groups)
+        grad = float(np.abs(model.score(fit.params)).max())
+        if not (fit.mle_retvals.get("converged") and grad < step10.MAX_SCORE):
+            raise step10.NotEstimable(f"no reachable finite maximum (gradient {grad:.1e})")
+        optimizer = "Newton's method (IRLS did not converge)"
+    ci = fit.conf_int()
+    hr = {k: step10.num(float(np.exp(fit.params[k])), float(np.exp(ci.loc[k, 0])), float(np.exp(ci.loc[k, 1])),
+                        n=int(fit.nobs), unit="hazard ratio (above 1 = reaches below 5% sooner)",
+                        method="discrete-time cloglog; storm fixed effects; county-clustered 95%")
+          for k in fit.params.index if k.startswith(("group_", "per_provider_", "svi_"))}
+    return hr, {"storms_in_model": sorted(keep), "n_intervals": int(len(q)), "n_events": int(q.event.sum()),
+                "n_counties": int(q.fips.nunique()), "optimizer": optimizer}
+
+
+def _model(recs, extra, **kw) -> dict:
+    try:
+        hr, info = fit_hazard_with(_pp_with(recs, extra), **kw)
+        return {"hazard_ratios": hr, **info}
+    except Exception as err:  # reported, not hidden
+        return {"error": f"{type(err).__name__}: {err}", "error_reason": str(err)}
+
+
+def v2_5(panel: pd.DataFrame, results: dict) -> dict:
+    from config import INTERIM
+    gdef = results["v2_5_groups"]
+    b = pd.read_parquet(INTERIM / "bdc_provider_county.parquet")
+    tp = step10.timed(panel)
+    sc = storm_county_counts(tp, b, gdef["storm_releases"])
+    cuts = results["chapter_8"]["headlines"]["svi_quartile_cut_points"]  # v1's SVI quartiles, unchanged
+
+    def prepared(p: pd.DataFrame) -> pd.DataFrame:
+        r = step10.waiting_records(p)
+        r["svi_q"] = pd.cut(r.svi, [-np.inf, *cuts, np.inf], labels=step10.SVI_LABELS, right=True).astype(str)
+        r = r.merge(sc, on=["storm_key", "storm", "fips"], how="left", validate="many_to_one")
+        for m, g in gdef["groups"].items():
+            if g.get("labels"):
+                r[f"grp_{m}"] = r[m].map(lambda x, g=g: assign_group(x, g))
+        return r
+
+    recs = prepared(tp)
+    main = recs[recs.role == "main"]
+    G = gdef["groups"][MAIN_MEASURE]
+    col = f"grp_{MAIN_MEASURE}"
+    out = {
+        "label": gdef["label"], "main_measure": MAIN_MEASURE, "groups": G,
+        "storms_main": sorted(main.storm.unique()),
+        "n_at_risk_storm_counties_main": int(len(main)),
+        "at_risk_by_group": {k: int((main[col] == k).sum()) for k in G["labels"]},
+        "raw_by_group": km_by_group(main, col, G["labels"], step10.SEED + 700),
+        "model": _model(main, [col], group_col=col, levels=G["labels"]),
+    }
+    sens = {"provider_count_as_number": _model(main, [MAIN_MEASURE], numeric_col=MAIN_MEASURE),
+            "mobile_any_coverage_count_as_number": _model(main, ["mobile_any"], numeric_col="mobile_any")}
+    allst = recs  # all storms: pre-2022 storms with the earliest release ("network data from after the storm")
+    sens["including_storms_before_2022_network_data_from_after_the_storm"] = {
+        "storms_added": sorted(recs[recs.role != "main"].storm.unique()),
+        "raw_by_group": km_by_group(allst, col, G["labels"], step10.SEED + 710),
+        "model": _model(allst, [col], group_col=col, levels=G["labels"])}
+    uns = prepared(step10.without_serious(tp))
+    uns = uns[uns.role == "main"]
+    sens["without_serious_flag_reports"] = {"raw_by_group": km_by_group(uns, col, G["labels"], step10.SEED + 720),
+                                            "model": _model(uns, [col], group_col=col, levels=G["labels"])}
+    fixed = {}
+    for i, m in enumerate(["fixed_any_excl_near_universal", "fixed_any", "fixed_half"]):
+        g = gdef["groups"][m]
+        fixed[m] = {"groups": g, "raw_by_group": km_by_group(main, f"grp_{m}", g["labels"], step10.SEED + 730 + i),
+                    "model": _model(main, [f"grp_{m}"], group_col=f"grp_{m}", levels=g["labels"])}
+    fixed["fixed_half_excl_near_universal_count_as_number"] = _model(
+        main, ["fixed_half_excl_near_universal"], numeric_col="fixed_half_excl_near_universal")
+    sens["fixed_broadband_secondary"] = {"note": "sensitivity displays only, never a headline; " + NEAR_UNIVERSAL_LABEL
+                                                 + " excluded where marked", **fixed}
+    out["sensitivity"] = sens
+    out["wording"] = REDUNDANCY_WORDING
+    first_year = min(int(v["release"][:4]) for v in gdef["storm_releases"].values() if v["role"] == "main")
+    top = G["labels"][-1]
+    words = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six"}
+    top_n = int(top.split()[0])
+    out["page_text"] = {
+        "finding": (f"In storms from {first_year} on, counties served by more mobile providers did not show a consistent "
+                    "difference in how long cell outages took to fall below 5% of sites. One grouping suggests a faster "
+                    f"fall for counties with {words.get(top_n, top_n)} or more providers, but the association does not "
+                    "hold when the count is used directly, when flagged reports are left out, or with other coverage "
+                    "measures."),
+        "limits": ("Provider counts describe reported coverage (mobile providers covering at least half the county's "
+                   "area, in the FCC's Broadband Data Collection release before the storm), not which networks were "
+                   "out. No provider is named."),
+        "near_universal": NEAR_UNIVERSAL_LABEL,
+    }
+    return out
+
+
 def main():
     panel = pd.read_parquet(PROCESSED / "panel.parquet")
     storms = pd.read_parquet(PROCESSED / "storms.parquet")
@@ -387,6 +652,11 @@ def main():
         step10.write_chapter(RESULTS, "v2_2_backup_power", v2_2(panel, storms))
     if "v2_3" in items:
         step10.write_chapter(RESULTS, "v2_3_power_cell_timing", v2_3(panel))
+    if "v2_5_groups" in items:  # counts only; must run (and be logged) before "v2_5"
+        step10.write_chapter(RESULTS, "v2_5_groups", v2_5_groups(panel))
+    if "v2_5" in items:
+        step10.write_chapter(RESULTS, "v2_5_network_redundancy",
+                             v2_5(panel, json.loads(RESULTS.read_text(encoding="utf-8"))))
     print("written:", ", ".join(items))
 
 

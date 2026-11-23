@@ -38,3 +38,14 @@ Documentation reads only; nothing downloaded into data/. Generic User-Agent (pub
 - 2026-11-23 ~14:57 UTC, https://help.bdc.fcc.gov/robots.txt: 200 (no general disallow on help articles).
 - 2026-11-23 ~14:57 UTC, https://help.bdc.fcc.gov/hc/en-us/articles/6789299021723-Key-Reference-Documents: 200. Lists the Public Data API Specifications (https://us-fcc.box.com/v/bdc-public-data-api-spec) and Swagger (https://us-fcc.box.com/v/bdc-public-data-api-swagger), both hosted on box.com.
 - 2026-11-23 14:57 UTC, https://www.fcc.gov/general/api-terms-service: 403. Stopped here, as the download terms require; not retried and no header changed. The box.com specification documents were not requested.
+
+- 2026-11-23 15:13 UTC, https://us-fcc.box.com/robots.txt: 200 (general agents: everything disallowed except listed paths, including /v/ and /shared/).
+- 2026-11-23 15:13 UTC, the two shared-link pages (/v/bdc-public-data-api-spec, /v/bdc-public-data-api-swagger): 200.
+- 2026-11-23 15:13 UTC, the two documents through box's allowed /shared/static/ links (not the disallowed index.php route), saved to data/raw/bdc/docs/ and logged in manifest/downloads.csv with SHA-256: bdc-public-data-api-specifications.pdf (24 pages, dated June 8, 2026, revision 1.7) and bdc-public-data-api-swagger.yaml (version 1.2.0). Approved by Tim, 2026-11-23.
+- What they say: every call needs the headers username and hash_value (an API token generated in a FCC User Registration account, which requires accepting the FCC API terms of service); every endpoint is limited to 10 calls per minute; tokens can be revoked by the FCC at any time. Host: https://bdc.fcc.gov.
+- 2026-11-23, https://bdc.fcc.gov/api/public/map/listAsOfDates: 401 (unauthorized). Stopped; no retry.
+- 2026-11-23, bdc.fcc.gov listing calls (listAsOfDates; listAvailabilityData for 2022-06-30, 2022-12-31, 2023-06-30, 2024-06-30, 2024-12-31, 2026-06-30): 200; responses in data/raw/bdc/listings/ with SHA-256 in manifest/downloads.csv. No data file downloaded.
+
+## V2-6 libraries, 2026-11-23
+
+- D3 7.9.0 and topojson-client 3.1.0 (ISC): npm registry metadata and tarballs (https://registry.npmjs.org), dist files from jsDelivr (https://cdn.jsdelivr.net/npm/), each verified against the npm SHA-512 integrity; vendored into the site at static/js/vendor/ with their licences.

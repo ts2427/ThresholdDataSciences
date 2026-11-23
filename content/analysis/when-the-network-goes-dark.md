@@ -543,6 +543,33 @@ The plan's red flags (any one rules out the plan's "coincided with" wording for 
 
 **What it means.** At least one of the plan's red flags is triggered, so this chapter makes no statement about whether recovery changed after the rules. It shows each storm and each period's median and range, and lists the flags. With few storms per period, this is association, not proof. Rule periods: MDRI from May 1, 2024; mandatory DIRS from February 20, 2025 (DA 25-74); FCC 26-34's changes from June 30, 2026 (Federal Register publication). Checked 2026-11-22.
 
+## Map: where cell sites were out, report by report
+
+Choose a storm and move through its FCC reports to see each county's share of cell sites out. Counties shaded darker had
+a larger share out; white counties were not in that day's report (not reported, not zero). Hover over or tap a county
+for its numbers, and the cause shares where the report gives them. The table under the map lists the same numbers for
+the chosen report. Drawn in your browser from the published data for all 21 storms, with county shapes from the
+Census Bureau; nothing is loaded from any other site. Laura's report of 2020-08-25 (the combined Marco–Laura report) is not a step on Laura's slider.
+
+<div class="storm-map" data-src="/static/data/hurricane-map.json" data-topo="/static/data/hurricane-counties.topo.json">
+<div class="storm-map-controls">
+<div><label for="storm-map-storm">Storm</label>
+<select id="storm-map-storm" disabled><option>Loading…</option></select></div>
+<div class="storm-map-slider"><label for="storm-map-day">Report</label>
+<input id="storm-map-day" type="range" min="0" max="0" step="1" value="0" disabled></div>
+<button type="button" class="storm-map-play" aria-pressed="false" disabled>Play</button>
+</div>
+<p class="storm-map-status" role="status" aria-live="polite"></p>
+<figure class="storm-map-figure"><div class="storm-map-svg"></div>
+<div class="storm-map-tip" aria-hidden="true" hidden></div></figure>
+<details class="fig-data"><summary>View data table for this report</summary><div class="table-scroll storm-map-table"></div></details>
+<noscript><p>The map needs JavaScript. The same data is in the <a href="/static/data/hurricane-dirs-county-day.csv">county-report
+panel (CSV)</a>.</p></noscript>
+</div>
+<script src="/static/js/vendor/d3-7.9.0.min.js" defer></script>
+<script src="/static/js/vendor/topojson-client-3.1.0.min.js" defer></script>
+<script src="/static/js/hurricane-map.js" defer></script>
+
 ## Look up a county
 
 Choose any of the 814 counties in the FCC's reports to see each storm's share of the county's cell sites out, report

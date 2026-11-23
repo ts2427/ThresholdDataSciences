@@ -20,3 +20,12 @@ def test_order_under_censoring():
     assert v2.order(E(1), C(4)) == "power_first"     # cell still out at day 4, after power fell below at day 1
     assert v2.order(E(5), C(4)) == "undetermined"    # cell censored before power fell below
     assert v2.order(C(4), C(4)) == "undetermined"
+
+
+def test_whole_value_groups_close_to_thirds_with_minimum_share():
+    import pandas as pd
+    v = pd.Series([0] * 19 + [1] * 49 + [2] * 160 + [3] * 386 + [4] * 151 + [5] * 22 + [6] * 1)
+    g = v2.whole_value_groups(v)
+    assert g["labels"] == ["2 or fewer", "3", "4 or more"] and list(g["sizes"].values()) == [228, 386, 174]
+    flat = pd.Series([3] * 130 + [4] * 409 + [5] * 228 + [6] * 19 + [7] * 2)
+    assert g is not None and v2.whole_value_groups(flat)["groups"] is None   # 3 alone is under 20%

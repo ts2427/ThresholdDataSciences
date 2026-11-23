@@ -124,3 +124,40 @@ def test_lookup_data_from_the_panel_leaves_flagged_reports_off_the_timeline():
     acadia = next(c for c in d["counties"] if c["fips"] == "22001")
     assert acadia["series"]["K"] == [[1.0, 20.0, 2, 10, "2020-08-27"]]        # the flagged report is not on the line
     assert d["storms"][0]["report_days"] == [1.0] and "left off Laura's line" in d["note"]
+
+
+
+def test_map_topology_round_trip_matches_the_simplified_shapes():
+    import shapely
+    from shapely.geometry import Polygon
+    ring = [(-90.0, 30.0), (-89.5, 30.0), (-89.5, 30.4), (-90.0, 30.4), (-90.0, 30.0)]
+    x0, y0, kx, ky = -91.0, 29.0, 0.001, 0.001
+    arc = step11._encode_ring(ring, x0, y0, kx, ky)
+    back = step11.decode_arc(arc, {"scale": [kx, ky], "translate": [x0, y0]})
+    assert max(abs(a - c) + abs(b - d) for (a, b), (c, d) in zip(ring, back)) < 2 * kx
+    assert Polygon(back).equals_exact(Polygon(ring), tolerance=kx)
+
+
+def test_map_data_leaves_flagged_reports_off_the_slider_and_keeps_causes_blank_when_not_printed():
+    r = {"chapter_3": {"storms": [{"storm_key": "K", "storm": "Laura", "rule_period": "P0",
+                                   "landfall_utc": "2020-08-26 14:00:00+00:00"}]},
+         "chapter_1": {"time_flagged_reports": [{"storm": "Laura", "report_date": "2020-08-25", "doc_id": "D0"}]}}
+    p = pd.DataFrame({"storm_key": "K", "doc_id": ["D0", "D1"], "fips": ["22001", "22001"],
+                      "as_of_utc": ["2020-08-25 16:00:00+00:00", "2020-08-27 14:00:00+00:00"],
+                      "report_date": ["2020-08-25", "2020-08-27"], "sites_served": [10, 10], "sites_out": [5, 4],
+                      "out_damage": [None, None], "out_transport": [None, None], "out_power": [None, None],
+                      "time_flag": ["pre_onset_likely_marco", ""]})
+    d = step11.map_data(r, p)
+    reps = d["storms"][0]["reports"]
+    assert [x["doc_id"] for x in reps] == ["D1"] and reps[0]["counties"]["22001"] == [40.0, 4, 10, None]
+
+
+
+def test_map_topology_rings_wind_clockwise_for_d3():
+    import json
+    import shapely
+    from shapely.geometry import LinearRing
+    topo = json.loads(step11.MAP_TOPO.read_text(encoding="utf-8")) if step11.MAP_TOPO.exists() else step11.map_topology()
+    tr = topo["transform"]
+    first_rings = [g["arcs"][0][0][0] for g in topo["objects"]["counties"]["geometries"][:50]]
+    assert all(not LinearRing(step11.decode_arc(topo["arcs"][i], tr)).is_ccw for i in first_rings)
