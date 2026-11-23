@@ -459,26 +459,39 @@ def assign_group(x: float, g: dict) -> str | None:
     return g["labels"][0] if x <= g["cut_low"] else (g["labels"][1] if x <= g["cut_high"] else g["labels"][2])
 
 
-def storm_county_counts(panel: pd.DataFrame, b: pd.DataFrame, releases: dict) -> pd.DataFrame:
-    """Every storm-county in the panel with each measure's provider count in the storm's release (0 if none)."""
+def county_counts(b: pd.DataFrame) -> tuple:
+    """Each measure's provider count by release and county, and the number of near-universal providers. Only counts
+    leave this function: no provider ID is kept (step 6f writes the result)."""
     universal = near_universal(b)
+    c = pd.concat([provider_counts(b, m, universal).rename(m) for m in MEASURES], axis=1).fillna(0).astype(int)
+    c = c.rename_axis(["release", "fips"]).reset_index().sort_values(["release", "fips"], ignore_index=True)
+    return c, len(universal)
+
+
+def load_counts() -> tuple:
+    from config import BDC_COUNTS, BDC_COUNTS_META
+    c = pd.read_csv(BDC_COUNTS, dtype={"release": str, "fips": str})
+    return c, int(json.loads(BDC_COUNTS_META.read_text(encoding="utf-8"))["n_near_universal_providers"])
+
+
+def storm_county_counts(panel: pd.DataFrame, counts: pd.DataFrame, releases: dict, n_universal: int) -> pd.DataFrame:
+    """Every storm-county in the panel with each measure's provider count in the storm's release (0 if none)."""
     sc = panel.drop_duplicates(["storm_key", "fips"])[["storm_key", "storm", "fips"]].copy()
     sc["release"] = sc.storm.map(lambda x: releases[x]["release"])
     sc["role"] = sc.storm.map(lambda x: releases[x]["role"].split(":")[0])
+    sc = sc.merge(counts[["release", "fips", *MEASURES]], on=["release", "fips"], how="left", validate="many_to_one")
     for m in MEASURES:
-        c = provider_counts(b, m, universal).rename(m).reset_index().rename(columns={"geoid": "fips"})
-        sc = sc.merge(c, on=["release", "fips"], how="left")
         sc[m] = sc[m].fillna(0).astype(int)
-    sc.attrs["n_near_universal"] = len(universal)
+    sc.attrs["n_near_universal"] = n_universal
     return sc
 
 
 def v2_5_groups(panel: pd.DataFrame) -> dict:
     """Counts only: groups for every measure, from the main-analysis storm-counties (2022 on). No recovery data."""
-    from config import INTERIM, RAW
-    b = pd.read_parquet(INTERIM / "bdc_provider_county.parquet")
+    from config import RAW
     releases = json.loads((RAW / "bdc" / "listings" / "storm_releases.json").read_text(encoding="utf-8"))
-    sc = storm_county_counts(step10.timed(panel), b, releases)
+    counts, n_universal = load_counts()
+    sc = storm_county_counts(step10.timed(panel), counts, releases, n_universal)
     main = sc[sc.role == "main"]
     return {"label": "Exploratory: added after the version 1 results were published (docs/analysis_plan_addendum_v2.md).",
             "fixed_from_counts_only": True, "main_measure": MAIN_MEASURE,
@@ -586,11 +599,10 @@ def _model(recs, extra, **kw) -> dict:
 
 
 def v2_5(panel: pd.DataFrame, results: dict) -> dict:
-    from config import INTERIM
     gdef = results["v2_5_groups"]
-    b = pd.read_parquet(INTERIM / "bdc_provider_county.parquet")
+    counts, n_universal = load_counts()
     tp = step10.timed(panel)
-    sc = storm_county_counts(tp, b, gdef["storm_releases"])
+    sc = storm_county_counts(tp, counts, gdef["storm_releases"], n_universal)
     cuts = results["chapter_8"]["headlines"]["svi_quartile_cut_points"]  # v1's SVI quartiles, unchanged
 
     def prepared(p: pd.DataFrame) -> pd.DataFrame:

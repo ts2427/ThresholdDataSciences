@@ -29,7 +29,7 @@ import numpy as np
 import pandas as pd
 
 from carried import require_carried
-from config import EAGLEI_RAW_DIR, INTERIM, ROOT
+from config import EAGLEI_EXTRACT, EAGLEI_RAW_DIR, INTERIM, ROOT
 
 STORMS = ROOT / "manifest" / "storms.csv"
 WINDOW_DAYS = 21
@@ -162,7 +162,7 @@ def main():
     rows = pd.read_parquet(INTERIM / "dirs_county_rows_fips.parquet")
     reports = pd.read_parquet(INTERIM / "dirs_reports.parquet", columns=["doc_id", "as_of_utc"])
     storms = pd.read_csv(STORMS)
-    extract_path = INTERIM / "eaglei_extract.parquet"
+    extract_path = EAGLEI_EXTRACT
     if extract_path.exists():
         e = pd.read_parquet(extract_path)
     else:

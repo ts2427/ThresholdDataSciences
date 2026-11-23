@@ -4987,7 +4987,7 @@
           {
             "doc_id": "DOC-358472A1",
             "report_date": "2019-07-14",
-            "days_since_landfall": 1.0208333333333333,
+            "days_since_landfall": 2.0520833333333335,
             "sites_out": 90.0,
             "damage": 1.1111111111111112,
             "transport": 26.666666666666668,
@@ -5001,7 +5001,7 @@
           {
             "doc_id": "DOC-358495A1",
             "report_date": "2019-07-15",
-            "days_since_landfall": 2.0208333333333335,
+            "days_since_landfall": 3.0520833333333335,
             "sites_out": 25.0,
             "damage": 0.0,
             "transport": 20.0,
@@ -5120,7 +5120,7 @@
           {
             "doc_id": "DOC-359432A1",
             "report_date": "2019-09-03",
-            "days_since_landfall": -2.7395833333333335,
+            "days_since_landfall": 0.7604166666666666,
             "sites_out": 16.0,
             "damage": 12.5,
             "transport": 50.0,
@@ -5134,7 +5134,7 @@
           {
             "doc_id": "DOC-359471A1",
             "report_date": "2019-09-04",
-            "days_since_landfall": -1.7395833333333333,
+            "days_since_landfall": 1.7604166666666667,
             "sites_out": 13.0,
             "damage": 23.076923076923077,
             "transport": 69.23076923076923,
@@ -5148,7 +5148,7 @@
           {
             "doc_id": "DOC-359498A1",
             "report_date": "2019-09-05",
-            "days_since_landfall": -0.7395833333333334,
+            "days_since_landfall": 2.7604166666666665,
             "sites_out": 196.0,
             "damage": 6.122448979591836,
             "transport": 27.551020408163264,
@@ -5162,7 +5162,7 @@
           {
             "doc_id": "DOC-359533A1",
             "report_date": "2019-09-06",
-            "days_since_landfall": 0.2604166666666667,
+            "days_since_landfall": 3.7604166666666665,
             "sites_out": 281.0,
             "damage": 3.202846975088968,
             "transport": 27.04626334519573,
@@ -5176,7 +5176,7 @@
           {
             "doc_id": "DOC-359539A1",
             "report_date": "2019-09-07",
-            "days_since_landfall": 1.2604166666666667,
+            "days_since_landfall": 4.760416666666667,
             "sites_out": 91.0,
             "damage": 8.791208791208792,
             "transport": 36.26373626373626,
@@ -5295,7 +5295,7 @@
           {
             "doc_id": "DOC-366394A1",
             "report_date": "2020-08-25",
-            "days_since_landfall": -1.5833333333333333,
+            "days_since_landfall": -0.9166666666666666,
             "sites_out": 68.0,
             "damage": 10.294117647058824,
             "transport": 70.58823529411765,
@@ -5309,7 +5309,7 @@
           {
             "doc_id": "DOC-366433A1",
             "report_date": "2020-08-26",
-            "days_since_landfall": -0.5833333333333334,
+            "days_since_landfall": 0.08333333333333333,
             "sites_out": 71.0,
             "damage": 4.225352112676056,
             "transport": 80.28169014084507,
@@ -5323,7 +5323,7 @@
           {
             "doc_id": "DOC-366480A1",
             "report_date": "2020-08-27",
-            "days_since_landfall": 0.4166666666666667,
+            "days_since_landfall": 1.0833333333333333,
             "sites_out": 513.0,
             "damage": 7.017543859649122,
             "transport": 38.59649122807018,
@@ -5337,7 +5337,7 @@
           {
             "doc_id": "DOC-366550A1",
             "report_date": "2020-08-31",
-            "days_since_landfall": 4.416666666666667,
+            "days_since_landfall": 5.083333333333333,
             "sites_out": 262.0,
             "damage": 3.053435114503817,
             "transport": 61.06870229007634,
@@ -5351,7 +5351,7 @@
           {
             "doc_id": "DOC-366601A1",
             "report_date": "2020-09-01",
-            "days_since_landfall": 5.416666666666667,
+            "days_since_landfall": 6.083333333333333,
             "sites_out": 199.0,
             "damage": 4.0201005025125625,
             "transport": 59.2964824120603,
@@ -5365,7 +5365,7 @@
           {
             "doc_id": "DOC-366633A1",
             "report_date": "2020-09-02",
-            "days_since_landfall": 6.416666666666667,
+            "days_since_landfall": 7.083333333333333,
             "sites_out": 171.0,
             "damage": 5.847953216374269,
             "transport": 60.23391812865497,
@@ -5379,7 +5379,7 @@
           {
             "doc_id": "DOC-366670A1",
             "report_date": "2020-09-03",
-            "days_since_landfall": 7.416666666666667,
+            "days_since_landfall": 8.083333333333334,
             "sites_out": 105.0,
             "damage": 8.571428571428571,
             "transport": 57.142857142857146,
@@ -5393,7 +5393,7 @@
           {
             "doc_id": "DOC-366712A1",
             "report_date": "2020-09-04",
-            "days_since_landfall": 8.416666666666666,
+            "days_since_landfall": 9.083333333333334,
             "sites_out": 135.0,
             "damage": 6.666666666666667,
             "transport": 58.51851851851852,
@@ -5407,7 +5407,7 @@
           {
             "doc_id": "DOC-366717A1",
             "report_date": "2020-09-05",
-            "days_since_landfall": 9.416666666666666,
+            "days_since_landfall": 10.083333333333334,
             "sites_out": 105.0,
             "damage": 10.476190476190476,
             "transport": 53.333333333333336,
@@ -5421,7 +5421,7 @@
           {
             "doc_id": "DOC-366718A1",
             "report_date": "2020-09-06",
-            "days_since_landfall": 10.416666666666666,
+            "days_since_landfall": 11.083333333333334,
             "sites_out": 98.0,
             "damage": 10.204081632653061,
             "transport": 56.12244897959184,
@@ -5435,7 +5435,7 @@
           {
             "doc_id": "DOC-366724A1",
             "report_date": "2020-09-07",
-            "days_since_landfall": 11.416666666666666,
+            "days_since_landfall": 12.083333333333334,
             "sites_out": 80.0,
             "damage": 12.5,
             "transport": 51.25,
@@ -5449,7 +5449,7 @@
           {
             "doc_id": "DOC-366749A1",
             "report_date": "2020-09-08",
-            "days_since_landfall": 12.416666666666666,
+            "days_since_landfall": 13.083333333333334,
             "sites_out": 91.0,
             "damage": 8.791208791208792,
             "transport": 50.54945054945055,
@@ -5568,7 +5568,7 @@
           {
             "doc_id": "DOC-366908A1",
             "report_date": "2020-09-15",
-            "days_since_landfall": -0.7395833333333334,
+            "days_since_landfall": 0.4791666666666667,
             "sites_out": 18.0,
             "damage": 5.555555555555555,
             "transport": 77.77777777777777,
@@ -5582,7 +5582,7 @@
           {
             "doc_id": "DOC-366946A1",
             "report_date": "2020-09-16",
-            "days_since_landfall": 0.2604166666666667,
+            "days_since_landfall": 1.4791666666666667,
             "sites_out": 272.0,
             "damage": 2.2058823529411766,
             "transport": 43.01470588235294,
@@ -5596,7 +5596,7 @@
           {
             "doc_id": "DOC-366977A1",
             "report_date": "2020-09-17",
-            "days_since_landfall": 1.2604166666666667,
+            "days_since_landfall": 2.4791666666666665,
             "sites_out": 454.0,
             "damage": 3.7444933920704844,
             "transport": 29.515418502202643,
@@ -5610,7 +5610,7 @@
           {
             "doc_id": "DOC-367015A1",
             "report_date": "2020-09-18",
-            "days_since_landfall": 2.2604166666666665,
+            "days_since_landfall": 3.4791666666666665,
             "sites_out": 137.0,
             "damage": 7.299270072992701,
             "transport": 42.33576642335766,
@@ -5624,7 +5624,7 @@
           {
             "doc_id": "DOC-367020A1",
             "report_date": "2020-09-19",
-            "days_since_landfall": 3.2604166666666665,
+            "days_since_landfall": 4.479166666666667,
             "sites_out": 64.0,
             "damage": 7.8125,
             "transport": 43.75,
@@ -5638,7 +5638,7 @@
           {
             "doc_id": "DOC-367021A1",
             "report_date": "2020-09-20",
-            "days_since_landfall": 4.260416666666667,
+            "days_since_landfall": 5.479166666666667,
             "sites_out": 35.0,
             "damage": 8.571428571428571,
             "transport": 51.42857142857143,
@@ -5652,7 +5652,7 @@
           {
             "doc_id": "DOC-367032A1",
             "report_date": "2020-09-21",
-            "days_since_landfall": 5.260416666666667,
+            "days_since_landfall": 6.479166666666667,
             "sites_out": 21.0,
             "damage": 14.285714285714286,
             "transport": 42.857142857142854,
@@ -5771,7 +5771,7 @@
           {
             "doc_id": "DOC-367454A1",
             "report_date": "2020-10-10",
-            "days_since_landfall": 0.7083333333333334,
+            "days_since_landfall": 1.1354166666666667,
             "sites_out": 674.0,
             "damage": 35.01483679525222,
             "transport": 17.062314540059347,
@@ -5785,7 +5785,7 @@
           {
             "doc_id": "DOC-367456A1",
             "report_date": "2020-10-11",
-            "days_since_landfall": 1.7083333333333333,
+            "days_since_landfall": 2.1354166666666665,
             "sites_out": 268.0,
             "damage": 33.208955223880594,
             "transport": 9.701492537313433,
@@ -5799,7 +5799,7 @@
           {
             "doc_id": "DOC-367465A1",
             "report_date": "2020-10-12",
-            "days_since_landfall": 2.7083333333333335,
+            "days_since_landfall": 3.1354166666666665,
             "sites_out": 85.0,
             "damage": 47.05882352941177,
             "transport": 9.411764705882353,
@@ -5813,7 +5813,7 @@
           {
             "doc_id": "DOC-367488A1",
             "report_date": "2020-10-13",
-            "days_since_landfall": 3.7083333333333335,
+            "days_since_landfall": 4.135416666666667,
             "sites_out": 47.0,
             "damage": 70.2127659574468,
             "transport": 2.127659574468085,
@@ -5827,7 +5827,7 @@
           {
             "doc_id": "DOC-367541A1",
             "report_date": "2020-10-14",
-            "days_since_landfall": 4.708333333333333,
+            "days_since_landfall": 5.135416666666667,
             "sites_out": 28.0,
             "damage": 64.28571428571429,
             "transport": 7.142857142857143,
@@ -5946,7 +5946,7 @@
           {
             "doc_id": "DOC-367859A1",
             "report_date": "2020-10-29",
-            "days_since_landfall": 0.7916666666666666,
+            "days_since_landfall": 1.0,
             "sites_out": 1555.0,
             "damage": 31.768488745980708,
             "transport": 20.257234726688104,
@@ -5960,7 +5960,7 @@
           {
             "doc_id": "DOC-367882A1",
             "report_date": "2020-10-30",
-            "days_since_landfall": 1.7916666666666667,
+            "days_since_landfall": 2.0,
             "sites_out": 1023.0,
             "damage": 34.3108504398827,
             "transport": 16.81329423264907,
@@ -5974,7 +5974,7 @@
           {
             "doc_id": "DOC-367895A1",
             "report_date": "2020-10-31",
-            "days_since_landfall": 2.7916666666666665,
+            "days_since_landfall": 3.0,
             "sites_out": 122.0,
             "damage": 49.18032786885246,
             "transport": 8.19672131147541,
@@ -5988,7 +5988,7 @@
           {
             "doc_id": "DOC-367896A1",
             "report_date": "2020-11-01",
-            "days_since_landfall": 3.8333333333333335,
+            "days_since_landfall": 4.041666666666667,
             "sites_out": 68.0,
             "damage": 48.529411764705884,
             "transport": 22.058823529411764,
@@ -6107,7 +6107,7 @@
           {
             "doc_id": "DOC-375318A1",
             "report_date": "2021-08-30",
-            "days_since_landfall": 0.9201388888888888,
+            "days_since_landfall": 1.3645833333333333,
             "sites_out": 1824.0,
             "damage": 8.05921052631579,
             "transport": 39.08991228070175,
@@ -6121,7 +6121,7 @@
           {
             "doc_id": "DOC-375367A1",
             "report_date": "2021-08-31",
-            "days_since_landfall": 1.9201388888888888,
+            "days_since_landfall": 2.3645833333333335,
             "sites_out": 1110.0,
             "damage": 12.252252252252251,
             "transport": 22.34234234234234,
@@ -6135,7 +6135,7 @@
           {
             "doc_id": "DOC-375403A1",
             "report_date": "2021-09-01",
-            "days_since_landfall": 2.920138888888889,
+            "days_since_landfall": 3.3645833333333335,
             "sites_out": 823.0,
             "damage": 16.038882138517618,
             "transport": 21.2636695018226,
@@ -6149,7 +6149,7 @@
           {
             "doc_id": "DOC-375442A1",
             "report_date": "2021-09-02",
-            "days_since_landfall": 3.920138888888889,
+            "days_since_landfall": 4.364583333333333,
             "sites_out": 765.0,
             "damage": 15.032679738562091,
             "transport": 27.84313725490196,
@@ -6163,7 +6163,7 @@
           {
             "doc_id": "DOC-375487A1",
             "report_date": "2021-09-03",
-            "days_since_landfall": 4.920138888888889,
+            "days_since_landfall": 5.364583333333333,
             "sites_out": 610.0,
             "damage": 17.540983606557376,
             "transport": 31.311475409836067,
@@ -6177,7 +6177,7 @@
           {
             "doc_id": "DOC-375489A1",
             "report_date": "2021-09-04",
-            "days_since_landfall": 5.920138888888889,
+            "days_since_landfall": 6.364583333333333,
             "sites_out": 382.0,
             "damage": 24.607329842931936,
             "transport": 22.25130890052356,
@@ -6191,7 +6191,7 @@
           {
             "doc_id": "DOC-375490A1",
             "report_date": "2021-09-05",
-            "days_since_landfall": 6.920138888888889,
+            "days_since_landfall": 7.364583333333333,
             "sites_out": 299.0,
             "damage": 14.046822742474916,
             "transport": 48.49498327759197,
@@ -6205,7 +6205,7 @@
           {
             "doc_id": "DOC-375504A1",
             "report_date": "2021-09-06",
-            "days_since_landfall": 7.920138888888889,
+            "days_since_landfall": 8.364583333333334,
             "sites_out": 241.0,
             "damage": 17.842323651452283,
             "transport": 52.28215767634855,
@@ -6219,7 +6219,7 @@
           {
             "doc_id": "DOC-375534A1",
             "report_date": "2021-09-07",
-            "days_since_landfall": 8.92013888888889,
+            "days_since_landfall": 9.364583333333334,
             "sites_out": 127.0,
             "damage": 21.25984251968504,
             "transport": 41.732283464566926,
@@ -6233,7 +6233,7 @@
           {
             "doc_id": "DOC-375568A1",
             "report_date": "2021-09-08",
-            "days_since_landfall": 9.92013888888889,
+            "days_since_landfall": 10.364583333333334,
             "sites_out": 101.0,
             "damage": 20.792079207920793,
             "transport": 45.54455445544554,
@@ -6247,7 +6247,7 @@
           {
             "doc_id": "DOC-375605A1",
             "report_date": "2021-09-09",
-            "days_since_landfall": 10.92013888888889,
+            "days_since_landfall": 11.364583333333334,
             "sites_out": 108.0,
             "damage": 18.51851851851852,
             "transport": 36.111111111111114,
@@ -6261,7 +6261,7 @@
           {
             "doc_id": "DOC-375667A1",
             "report_date": "2021-09-10",
-            "days_since_landfall": 11.92013888888889,
+            "days_since_landfall": 12.364583333333334,
             "sites_out": 87.0,
             "damage": 24.137931034482758,
             "transport": 33.333333333333336,
@@ -6275,7 +6275,7 @@
           {
             "doc_id": "DOC-375678A1",
             "report_date": "2021-09-11",
-            "days_since_landfall": 12.92013888888889,
+            "days_since_landfall": 13.364583333333334,
             "sites_out": 72.0,
             "damage": 26.38888888888889,
             "transport": 31.944444444444443,
@@ -6289,7 +6289,7 @@
           {
             "doc_id": "DOC-375679A1",
             "report_date": "2021-09-12",
-            "days_since_landfall": 13.92013888888889,
+            "days_since_landfall": 14.364583333333334,
             "sites_out": 58.0,
             "damage": 27.586206896551722,
             "transport": 39.6551724137931,
@@ -6303,7 +6303,7 @@
           {
             "doc_id": "DOC-375697A1",
             "report_date": "2021-09-13",
-            "days_since_landfall": 14.92013888888889,
+            "days_since_landfall": 15.364583333333334,
             "sites_out": 51.0,
             "damage": 31.372549019607842,
             "transport": 47.05882352941177,
@@ -6317,7 +6317,7 @@
           {
             "doc_id": "DOC-375741A1",
             "report_date": "2021-09-14",
-            "days_since_landfall": 15.92013888888889,
+            "days_since_landfall": 16.364583333333332,
             "sites_out": 55.0,
             "damage": 30.90909090909091,
             "transport": 41.81818181818182,
@@ -6331,7 +6331,7 @@
           {
             "doc_id": "DOC-375778A1",
             "report_date": "2021-09-15",
-            "days_since_landfall": 16.92013888888889,
+            "days_since_landfall": 17.364583333333332,
             "sites_out": 82.0,
             "damage": 21.951219512195124,
             "transport": 39.02439024390244,
@@ -6345,7 +6345,7 @@
           {
             "doc_id": "DOC-375808A1",
             "report_date": "2021-09-16",
-            "days_since_landfall": 17.92013888888889,
+            "days_since_landfall": 18.364583333333332,
             "sites_out": 71.0,
             "damage": 21.12676056338028,
             "transport": 42.25352112676056,
@@ -6359,7 +6359,7 @@
           {
             "doc_id": "DOC-375845A1",
             "report_date": "2021-09-17",
-            "days_since_landfall": 18.92013888888889,
+            "days_since_landfall": 19.364583333333332,
             "sites_out": 46.0,
             "damage": 30.434782608695652,
             "transport": 41.30434782608695,
@@ -6373,7 +6373,7 @@
           {
             "doc_id": "DOC-375855A1",
             "report_date": "2021-09-18",
-            "days_since_landfall": 19.92013888888889,
+            "days_since_landfall": 20.364583333333332,
             "sites_out": 45.0,
             "damage": 31.11111111111111,
             "transport": 42.22222222222222,
@@ -6387,7 +6387,7 @@
           {
             "doc_id": "DOC-375856A1",
             "report_date": "2021-09-19",
-            "days_since_landfall": 20.92013888888889,
+            "days_since_landfall": 21.364583333333332,
             "sites_out": 15.0,
             "damage": 0.0,
             "transport": 33.333333333333336,
@@ -6401,7 +6401,7 @@
           {
             "doc_id": "DOC-375878A1",
             "report_date": "2021-09-20",
-            "days_since_landfall": 21.92013888888889,
+            "days_since_landfall": 22.364583333333332,
             "sites_out": 16.0,
             "damage": 6.25,
             "transport": 25.0,
@@ -6520,7 +6520,7 @@
           {
             "doc_id": "DOC-375778A1",
             "report_date": "2021-09-15",
-            "days_since_landfall": 1.3958333333333333,
+            "days_since_landfall": 1.8229166666666667,
             "sites_out": 128.0,
             "damage": 21.09375,
             "transport": 38.28125,
@@ -6534,7 +6534,7 @@
           {
             "doc_id": "DOC-375808A1",
             "report_date": "2021-09-16",
-            "days_since_landfall": 2.3958333333333335,
+            "days_since_landfall": 2.8229166666666665,
             "sites_out": 101.0,
             "damage": 35.64356435643565,
             "transport": 32.67326732673267,
@@ -6653,7 +6653,7 @@
           {
             "doc_id": "DOC-387679A1",
             "report_date": "2022-09-28",
-            "days_since_landfall": 0.5833333333333334,
+            "days_since_landfall": 0.59375,
             "sites_out": 188.0,
             "damage": 4.25531914893617,
             "transport": 88.82978723404256,
@@ -6667,7 +6667,7 @@
           {
             "doc_id": "DOC-387727A1",
             "report_date": "2022-09-29",
-            "days_since_landfall": 1.5833333333333333,
+            "days_since_landfall": 1.59375,
             "sites_out": 1552.0,
             "damage": 11.597938144329897,
             "transport": 37.17783505154639,
@@ -6681,7 +6681,7 @@
           {
             "doc_id": "DOC-387791A1",
             "report_date": "2022-09-30",
-            "days_since_landfall": 2.5833333333333335,
+            "days_since_landfall": 2.59375,
             "sites_out": 1096.0,
             "damage": 2.281021897810219,
             "transport": 29.197080291970803,
@@ -6695,7 +6695,7 @@
           {
             "doc_id": "DOC-387810A1",
             "report_date": "2022-10-01",
-            "days_since_landfall": 3.5833333333333335,
+            "days_since_landfall": 3.59375,
             "sites_out": 794.0,
             "damage": 1.63727959697733,
             "transport": 34.5088161209068,
@@ -6709,7 +6709,7 @@
           {
             "doc_id": "DOC-387813A1",
             "report_date": "2022-10-02",
-            "days_since_landfall": 4.583333333333333,
+            "days_since_landfall": 4.59375,
             "sites_out": 449.0,
             "damage": 2.4498886414253898,
             "transport": 39.42093541202673,
@@ -6723,7 +6723,7 @@
           {
             "doc_id": "DOC-387842A1",
             "report_date": "2022-10-03",
-            "days_since_landfall": 5.583333333333333,
+            "days_since_landfall": 5.59375,
             "sites_out": 305.0,
             "damage": 3.278688524590164,
             "transport": 41.967213114754095,
@@ -6737,7 +6737,7 @@
           {
             "doc_id": "DOC-387891A1",
             "report_date": "2022-10-04",
-            "days_since_landfall": 6.583333333333333,
+            "days_since_landfall": 6.59375,
             "sites_out": 249.0,
             "damage": 2.8112449799196786,
             "transport": 37.75100401606426,
@@ -6751,7 +6751,7 @@
           {
             "doc_id": "DOC-387932A1",
             "report_date": "2022-10-05",
-            "days_since_landfall": 7.583333333333333,
+            "days_since_landfall": 7.59375,
             "sites_out": 153.0,
             "damage": 7.8431372549019605,
             "transport": 33.98692810457516,
@@ -6765,7 +6765,7 @@
           {
             "doc_id": "DOC-387977A1",
             "report_date": "2022-10-06",
-            "days_since_landfall": 8.583333333333334,
+            "days_since_landfall": 8.59375,
             "sites_out": 122.0,
             "damage": 12.295081967213115,
             "transport": 23.770491803278688,
@@ -6779,7 +6779,7 @@
           {
             "doc_id": "DOC-388021A1",
             "report_date": "2022-10-07",
-            "days_since_landfall": 9.583333333333334,
+            "days_since_landfall": 9.59375,
             "sites_out": 103.0,
             "damage": 11.650485436893204,
             "transport": 19.41747572815534,
@@ -6793,7 +6793,7 @@
           {
             "doc_id": "DOC-388037A1",
             "report_date": "2022-10-08",
-            "days_since_landfall": 10.583333333333334,
+            "days_since_landfall": 10.59375,
             "sites_out": 26.0,
             "damage": 19.23076923076923,
             "transport": 46.15384615384615,
@@ -6807,7 +6807,7 @@
           {
             "doc_id": "DOC-388038A1",
             "report_date": "2022-10-09",
-            "days_since_landfall": 11.583333333333334,
+            "days_since_landfall": 11.59375,
             "sites_out": 20.0,
             "damage": 10.0,
             "transport": 55.0,
@@ -6821,7 +6821,7 @@
           {
             "doc_id": "DOC-388051A1",
             "report_date": "2022-10-10",
-            "days_since_landfall": 12.583333333333334,
+            "days_since_landfall": 12.59375,
             "sites_out": 21.0,
             "damage": 4.761904761904762,
             "transport": 61.904761904761905,
@@ -6940,7 +6940,7 @@
           {
             "doc_id": "DOC-389077A1",
             "report_date": "2022-11-10",
-            "days_since_landfall": 0.3854166666666667,
+            "days_since_landfall": 1.71875,
             "sites_out": 100.0,
             "damage": 12.0,
             "transport": 22.0,
@@ -6954,7 +6954,7 @@
           {
             "doc_id": "DOC-389105A1",
             "report_date": "2022-11-11",
-            "days_since_landfall": 1.3854166666666667,
+            "days_since_landfall": 2.71875,
             "sites_out": 103.0,
             "damage": 9.70873786407767,
             "transport": 32.03883495145631,
@@ -7073,7 +7073,7 @@
           {
             "doc_id": "DOC-396514A1",
             "report_date": "2023-08-30",
-            "days_since_landfall": 0.17708333333333334,
+            "days_since_landfall": 0.6666666666666666,
             "sites_out": 76.0,
             "damage": 3.9473684210526314,
             "transport": 22.36842105263158,
@@ -7087,7 +7087,7 @@
           {
             "doc_id": "DOC-396566A1",
             "report_date": "2023-08-31",
-            "days_since_landfall": 1.1770833333333333,
+            "days_since_landfall": 1.6666666666666667,
             "sites_out": 157.0,
             "damage": 8.280254777070065,
             "transport": 20.38216560509554,
@@ -7101,7 +7101,7 @@
           {
             "doc_id": "DOC-396609A1",
             "report_date": "2023-09-01",
-            "days_since_landfall": 2.1770833333333335,
+            "days_since_landfall": 2.6666666666666665,
             "sites_out": 30.0,
             "damage": 6.666666666666667,
             "transport": 20.0,
@@ -7115,7 +7115,7 @@
           {
             "doc_id": "DOC-396613A1",
             "report_date": "2023-09-02",
-            "days_since_landfall": 3.1770833333333335,
+            "days_since_landfall": 3.6666666666666665,
             "sites_out": 23.0,
             "damage": 13.043478260869565,
             "transport": 43.47826086956522,
@@ -7129,7 +7129,7 @@
           {
             "doc_id": "DOC-396617A1",
             "report_date": "2023-09-03",
-            "days_since_landfall": 4.177083333333333,
+            "days_since_landfall": 4.666666666666667,
             "sites_out": 12.0,
             "damage": 16.666666666666668,
             "transport": 8.333333333333334,
@@ -7143,7 +7143,7 @@
           {
             "doc_id": "DOC-396621A1",
             "report_date": "2023-09-04",
-            "days_since_landfall": 5.177083333333333,
+            "days_since_landfall": 5.666666666666667,
             "sites_out": 8.0,
             "damage": 12.5,
             "transport": 37.5,
@@ -7269,7 +7269,7 @@
           {
             "doc_id": "DOC-403805A1",
             "report_date": "2024-07-09",
-            "days_since_landfall": 1.2222222222222223,
+            "days_since_landfall": 1.5,
             "sites_out": 1335.0,
             "damage": 0.599250936329588,
             "transport": 4.119850187265918,
@@ -7283,7 +7283,7 @@
           {
             "doc_id": "DOC-403846A1",
             "report_date": "2024-07-10",
-            "days_since_landfall": 2.2222222222222223,
+            "days_since_landfall": 2.5,
             "sites_out": 913.0,
             "damage": 0.547645125958379,
             "transport": 4.271631982475356,
@@ -7297,7 +7297,7 @@
           {
             "doc_id": "DOC-403893A1",
             "report_date": "2024-07-11",
-            "days_since_landfall": 3.2222222222222223,
+            "days_since_landfall": 3.5,
             "sites_out": 669.0,
             "damage": 0.7473841554559043,
             "transport": 4.484304932735426,
@@ -7311,7 +7311,7 @@
           {
             "doc_id": "DOC-403926A1",
             "report_date": "2024-07-12",
-            "days_since_landfall": 4.222222222222222,
+            "days_since_landfall": 4.5,
             "sites_out": 492.0,
             "damage": 1.016260162601626,
             "transport": 7.1138211382113825,
@@ -7325,7 +7325,7 @@
           {
             "doc_id": "DOC-403935A1",
             "report_date": "2024-07-13",
-            "days_since_landfall": 5.222222222222222,
+            "days_since_landfall": 5.5,
             "sites_out": 291.0,
             "damage": 1.7182130584192439,
             "transport": 9.621993127147766,
@@ -7339,7 +7339,7 @@
           {
             "doc_id": "DOC-403941A1",
             "report_date": "2024-07-14",
-            "days_since_landfall": 6.222222222222222,
+            "days_since_landfall": 6.5,
             "sites_out": 207.0,
             "damage": 0.966183574879227,
             "transport": 5.797101449275362,
@@ -7464,7 +7464,7 @@
           {
             "doc_id": "DOC-404487A1",
             "report_date": "2024-08-05",
-            "days_since_landfall": 0.125,
+            "days_since_landfall": 1.03125,
             "sites_out": 99.0,
             "damage": 5.05050505050505,
             "transport": 8.080808080808081,
@@ -7478,7 +7478,7 @@
           {
             "doc_id": "DOC-404525A1",
             "report_date": "2024-08-06",
-            "days_since_landfall": 1.125,
+            "days_since_landfall": 2.03125,
             "sites_out": 119.0,
             "damage": 10.92436974789916,
             "transport": 13.445378151260504,
@@ -7492,7 +7492,7 @@
           {
             "doc_id": "DOC-404555A1",
             "report_date": "2024-08-07",
-            "days_since_landfall": 2.125,
+            "days_since_landfall": 3.03125,
             "sites_out": 50.0,
             "damage": 2.0,
             "transport": 14.0,
@@ -7506,7 +7506,7 @@
           {
             "doc_id": "DOC-404595A1",
             "report_date": "2024-08-08",
-            "days_since_landfall": 3.125,
+            "days_since_landfall": 4.03125,
             "sites_out": 56.0,
             "damage": 3.5714285714285716,
             "transport": 12.5,
@@ -7520,7 +7520,7 @@
           {
             "doc_id": "DOC-404643A1",
             "report_date": "2024-08-09",
-            "days_since_landfall": 4.125,
+            "days_since_landfall": 5.03125,
             "sites_out": 37.0,
             "damage": 5.405405405405405,
             "transport": 32.432432432432435,
@@ -7639,7 +7639,7 @@
           {
             "doc_id": "DOC-405443A1",
             "report_date": "2024-09-12",
-            "days_since_landfall": 0.6666666666666666,
+            "days_since_landfall": 0.90625,
             "sites_out": 255.0,
             "damage": 1.5686274509803921,
             "transport": 5.490196078431373,
@@ -7653,7 +7653,7 @@
           {
             "doc_id": "DOC-405482A1",
             "report_date": "2024-09-13",
-            "days_since_landfall": 1.6666666666666667,
+            "days_since_landfall": 1.90625,
             "sites_out": 34.0,
             "damage": 2.9411764705882355,
             "transport": 14.705882352941176,
@@ -7667,7 +7667,7 @@
           {
             "doc_id": "DOC-405502A1",
             "report_date": "2024-09-14",
-            "days_since_landfall": 2.6666666666666665,
+            "days_since_landfall": 2.90625,
             "sites_out": 18.0,
             "damage": 5.555555555555555,
             "transport": 16.666666666666668,
@@ -7786,7 +7786,7 @@
           {
             "doc_id": "DOC-405827A1",
             "report_date": "2024-09-26",
-            "days_since_landfall": -0.5902777777777778,
+            "days_since_landfall": 0.59375,
             "sites_out": 50.0,
             "damage": 10.0,
             "transport": 72.0,
@@ -7800,7 +7800,7 @@
           {
             "doc_id": "DOC-405876A1",
             "report_date": "2024-09-27",
-            "days_since_landfall": 0.4097222222222222,
+            "days_since_landfall": 1.59375,
             "sites_out": 1734.0,
             "damage": 2.0761245674740483,
             "transport": 12.168396770472896,
@@ -7814,7 +7814,7 @@
           {
             "doc_id": "DOC-405893A1",
             "report_date": "2024-09-28",
-            "days_since_landfall": 1.4097222222222223,
+            "days_since_landfall": 2.59375,
             "sites_out": 4562.0,
             "damage": 0.8329679964927663,
             "transport": 21.722928540113983,
@@ -7828,7 +7828,7 @@
           {
             "doc_id": "DOC-405897A1",
             "report_date": "2024-09-29",
-            "days_since_landfall": 2.4097222222222223,
+            "days_since_landfall": 3.59375,
             "sites_out": 3432.0,
             "damage": 0.844988344988345,
             "transport": 30.477855477855478,
@@ -7842,7 +7842,7 @@
           {
             "doc_id": "DOC-405943A1",
             "report_date": "2024-09-30",
-            "days_since_landfall": 3.4097222222222223,
+            "days_since_landfall": 4.59375,
             "sites_out": 2516.0,
             "damage": 0.9936406995230525,
             "transport": 34.65818759936407,
@@ -7856,7 +7856,7 @@
           {
             "doc_id": "DOC-406055A1",
             "report_date": "2024-10-01",
-            "days_since_landfall": 4.409722222222222,
+            "days_since_landfall": 5.59375,
             "sites_out": 1889.0,
             "damage": 1.1116993118051879,
             "transport": 33.1921651667549,
@@ -7870,7 +7870,7 @@
           {
             "doc_id": "DOC-406099A1",
             "report_date": "2024-10-02",
-            "days_since_landfall": 5.409722222222222,
+            "days_since_landfall": 6.59375,
             "sites_out": 1497.0,
             "damage": 1.2692050768203074,
             "transport": 37.875751503006015,
@@ -7884,7 +7884,7 @@
           {
             "doc_id": "DOC-406202A1",
             "report_date": "2024-10-05",
-            "days_since_landfall": 8.409722222222221,
+            "days_since_landfall": 9.59375,
             "sites_out": 595.0,
             "damage": 1.0084033613445378,
             "transport": 37.81512605042017,
@@ -7898,7 +7898,7 @@
           {
             "doc_id": "DOC-406206A1",
             "report_date": "2024-10-06",
-            "days_since_landfall": 9.409722222222221,
+            "days_since_landfall": 10.59375,
             "sites_out": 512.0,
             "damage": 1.3671875,
             "transport": 45.3125,
@@ -7912,7 +7912,7 @@
           {
             "doc_id": "DOC-406257A1",
             "report_date": "2024-10-07",
-            "days_since_landfall": 10.409722222222221,
+            "days_since_landfall": 11.59375,
             "sites_out": 434.0,
             "damage": 0.9216589861751152,
             "transport": 44.47004608294931,
@@ -7926,7 +7926,7 @@
           {
             "doc_id": "DOC-406312A1",
             "report_date": "2024-10-08",
-            "days_since_landfall": 11.409722222222221,
+            "days_since_landfall": 12.59375,
             "sites_out": 235.0,
             "damage": 0.425531914893617,
             "transport": 54.46808510638298,
@@ -7940,7 +7940,7 @@
           {
             "doc_id": "DOC-406403A1",
             "report_date": "2024-10-09",
-            "days_since_landfall": 12.409722222222221,
+            "days_since_landfall": 13.59375,
             "sites_out": 206.0,
             "damage": 0.0,
             "transport": 66.01941747572816,
@@ -7954,7 +7954,7 @@
           {
             "doc_id": "DOC-406461A1",
             "report_date": "2024-10-10",
-            "days_since_landfall": 13.409722222222221,
+            "days_since_landfall": 14.59375,
             "sites_out": 176.0,
             "damage": 0.0,
             "transport": 69.88636363636364,
@@ -7968,7 +7968,7 @@
           {
             "doc_id": "DOC-406495A1",
             "report_date": "2024-10-11",
-            "days_since_landfall": 14.409722222222221,
+            "days_since_landfall": 15.59375,
             "sites_out": 133.0,
             "damage": 0.0,
             "transport": 70.67669172932331,
@@ -7982,7 +7982,7 @@
           {
             "doc_id": "DOC-406511A1",
             "report_date": "2024-10-12",
-            "days_since_landfall": 15.409722222222221,
+            "days_since_landfall": 16.59375,
             "sites_out": 112.0,
             "damage": 0.0,
             "transport": 66.96428571428571,
@@ -7996,7 +7996,7 @@
           {
             "doc_id": "DOC-406521A1",
             "report_date": "2024-10-13",
-            "days_since_landfall": 16.40972222222222,
+            "days_since_landfall": 17.59375,
             "sites_out": 68.0,
             "damage": 0.0,
             "transport": 66.17647058823529,
@@ -8010,7 +8010,7 @@
           {
             "doc_id": "DOC-406529A1",
             "report_date": "2024-10-14",
-            "days_since_landfall": 17.40972222222222,
+            "days_since_landfall": 18.59375,
             "sites_out": 96.0,
             "damage": 0.0,
             "transport": 85.41666666666667,
@@ -8024,7 +8024,7 @@
           {
             "doc_id": "DOC-406585A1",
             "report_date": "2024-10-15",
-            "days_since_landfall": 18.40972222222222,
+            "days_since_landfall": 19.59375,
             "sites_out": 140.0,
             "damage": 0.0,
             "transport": 93.57142857142857,
@@ -8038,7 +8038,7 @@
           {
             "doc_id": "DOC-406641A1",
             "report_date": "2024-10-16",
-            "days_since_landfall": 19.40972222222222,
+            "days_since_landfall": 20.59375,
             "sites_out": 76.0,
             "damage": 0.0,
             "transport": 75.0,
@@ -8052,7 +8052,7 @@
           {
             "doc_id": "DOC-406692A1",
             "report_date": "2024-10-17",
-            "days_since_landfall": 20.40972222222222,
+            "days_since_landfall": 21.59375,
             "sites_out": 51.0,
             "damage": 1.9607843137254901,
             "transport": 86.27450980392157,
@@ -8066,7 +8066,7 @@
           {
             "doc_id": "DOC-406759A1",
             "report_date": "2024-10-18",
-            "days_since_landfall": 21.40972222222222,
+            "days_since_landfall": 22.59375,
             "sites_out": 40.0,
             "damage": 2.5,
             "transport": 92.5,
@@ -8080,7 +8080,7 @@
           {
             "doc_id": "DOC-406771A1",
             "report_date": "2024-10-19",
-            "days_since_landfall": 22.40972222222222,
+            "days_since_landfall": 23.59375,
             "sites_out": 23.0,
             "damage": 0.0,
             "transport": 86.95652173913044,
@@ -8199,7 +8199,7 @@
           {
             "doc_id": "DOC-406468A1",
             "report_date": "2024-10-10",
-            "days_since_landfall": 0.5208333333333334,
+            "days_since_landfall": 0.9479166666666666,
             "sites_out": 1953.0,
             "damage": 0.819252432155658,
             "transport": 28.776241679467486,
@@ -8213,7 +8213,7 @@
           {
             "doc_id": "DOC-406503A1",
             "report_date": "2024-10-11",
-            "days_since_landfall": 1.5208333333333333,
+            "days_since_landfall": 1.9479166666666667,
             "sites_out": 1922.0,
             "damage": 1.09261186264308,
             "transport": 24.45369406867846,
@@ -8227,7 +8227,7 @@
           {
             "doc_id": "DOC-406515A1",
             "report_date": "2024-10-12",
-            "days_since_landfall": 2.5208333333333335,
+            "days_since_landfall": 2.9479166666666665,
             "sites_out": 1012.0,
             "damage": 1.1857707509881423,
             "transport": 21.83794466403162,
@@ -8241,7 +8241,7 @@
           {
             "doc_id": "DOC-406525A1",
             "report_date": "2024-10-13",
-            "days_since_landfall": 3.5208333333333335,
+            "days_since_landfall": 3.9479166666666665,
             "sites_out": 690.0,
             "damage": 1.7391304347826086,
             "transport": 16.231884057971016,
@@ -8255,7 +8255,7 @@
           {
             "doc_id": "DOC-406535A1",
             "report_date": "2024-10-14",
-            "days_since_landfall": 4.520833333333333,
+            "days_since_landfall": 4.947916666666667,
             "sites_out": 341.0,
             "damage": 2.346041055718475,
             "transport": 15.249266862170089,
@@ -8374,7 +8374,7 @@
           {
             "doc_id": "DOC-425790A1",
             "report_date": "2026-10-10",
-            "days_since_landfall": 0.5,
+            "days_since_landfall": 0.9895833333333334,
             "sites_out": 627.0,
             "damage": 2.2328548644338118,
             "transport": 31.57894736842105,
@@ -8388,7 +8388,7 @@
           {
             "doc_id": "DOC-425794A1",
             "report_date": "2026-10-11",
-            "days_since_landfall": 1.4583333333333333,
+            "days_since_landfall": 1.9479166666666667,
             "sites_out": 402.0,
             "damage": 0.24875621890547264,
             "transport": 46.766169154228855,
@@ -8402,7 +8402,7 @@
           {
             "doc_id": "DOC-425795A1",
             "report_date": "2026-10-12",
-            "days_since_landfall": 2.4583333333333335,
+            "days_since_landfall": 2.9479166666666665,
             "sites_out": 75.0,
             "damage": 6.666666666666667,
             "transport": 33.333333333333336,

@@ -12,6 +12,11 @@ DOWNLOADS_LOG = ROOT / "manifest" / "downloads.csv"
 
 # Raw EAGLE-I year files (~9 GB) live outside the cloud-synced project folder; only filtered extracts go in data/.
 EAGLEI_RAW_DIR = Path(os.environ.get("EAGLEI_RAW_DIR", str(Path.home() / "data" / "eaglei")))
+# Step 6's filtered extract (study counties and storm windows only); built from the year files if missing.
+EAGLEI_EXTRACT = INTERIM / "eaglei_extract.parquet"
+# Step 6f's county provider counts (no provider IDs or names) and the one count of near-universal providers.
+BDC_COUNTS = PROCESSED / "bdc_county_provider_counts.csv"
+BDC_COUNTS_META = PROCESSED / "bdc_county_provider_counts_meta.json"
 
 
 def census_api_key(env_file: Path = ROOT / ".env") -> str:
