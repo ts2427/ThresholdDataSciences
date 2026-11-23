@@ -1,4 +1,4 @@
-{% if site.ga4_measurement_id %}
+{% if site.production and site.ga4_measurement_id %}
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4_measurement_id }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];

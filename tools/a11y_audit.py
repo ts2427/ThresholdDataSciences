@@ -42,6 +42,10 @@ def serve():
     return httpd
 
 
+GOOGLE_HOSTS = ["www.googletagmanager.com", "*.googletagmanager.com", "www.google-analytics.com",
+                "*.google-analytics.com", "*.analytics.google.com", "www.google.com", "google.com"]
+
+
 def main():
     axe_src = (HERE / "axe.min.js").read_text(encoding="utf-8")
     httpd = serve()
@@ -49,6 +53,8 @@ def main():
     opts = Options()
     opts.add_argument("--headless=new")
     opts.add_argument("--window-size=1280,900")
+    # Second safeguard after the production-only tag: Google's analytics hosts never resolve in tests.
+    opts.add_argument("--host-resolver-rules=" + ", ".join(f"MAP {h} 0.0.0.0" for h in GOOGLE_HOSTS))
     driver = webdriver.Chrome(options=opts)
 
     total = 0

@@ -237,7 +237,14 @@ FormSubmit; keep it in sync with any change here.
 Analytics: Google Analytics 4 (added 2026-11-23). The Measurement ID is
 `ga4_measurement_id` in `site.yaml`; `templates/_analytics.html` adds the tag
 to every page through `base.html` and `redirect.html` (empty the ID to remove
-it). It sets the `_ga` and `_ga_<ID>` cookies; data retention is 2 months;
+it). **Production builds only:** the tag is included only when `SITE_ENV=production`,
+which the deploy workflow sets on its build step. A plain `python build.py`
+(local builds, previews, the audit and the tests) leaves it out, and the build
+prints which it did. `tests/test_analytics_tag.py` checks that a default build
+has no tag and a production build has it exactly once, in `<head>`, on every
+page. As a second safeguard, `tools/a11y_audit.py` resolves Google's analytics
+hosts to nowhere, so a test browser can never send a hit. To check the
+production output locally: `SITE_ENV=production python build.py`. It sets the `_ga` and `_ga_<ID>` cookies; data retention is 2 months;
 Google signals and ads personalization are off and no Google Ads account is
 linked. There is no consent banner, by the author's decision, to revisit if
 EU/UK traffic becomes meaningful. `/privacy/` describes all of this: change

@@ -24,6 +24,8 @@ jobs:
           python-version: "3.12"
       - run: pip install -r requirements.txt
       - run: python build.py
+        env:
+          SITE_ENV: production  # the only build that includes the Google Analytics tag
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

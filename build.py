@@ -13,6 +13,7 @@ attr_list, toc enabled). `draft: true` excludes a file from all output.
 
 import html
 import json
+import os
 import re
 import shutil
 import sys
@@ -220,6 +221,9 @@ def render(template, relpath, schema_extra=None, **ctx):
 
 SITE = load_yaml(HERE / "site.yaml")
 SITE["year"] = date.today().year
+# Production only: the deploy workflow sets SITE_ENV=production. Local builds, previews, audits and tests leave
+# the Google Analytics tag out (templates/_analytics.html), so they never send hits to the live property.
+SITE["production"] = os.environ.get("SITE_ENV") == "production"
 
 if not SITE.get("contact_email") and not SITE.get("contact_form_action"):
     print("=" * 70)
@@ -744,6 +748,8 @@ def main():
 
     _verify_drafts_excluded(issue_drafts + analysis_drafts)
 
+    print("Google Analytics tag: " + ("included (SITE_ENV=production)" if SITE["production"]
+                                      else "left out (not a production build)"))
     print(f"\nBuilt {len(urls)} pages, {len(issues)} issues, "
           f"{len(analysis)} analysis pieces -> dist/")
 
