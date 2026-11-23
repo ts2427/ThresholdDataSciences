@@ -21,18 +21,25 @@
     return e;
   }
   function fmt(x, d) { return Number(x).toFixed(d); }
+  function peakText(v) { return (v < 10 ? fmt(v, 1) : fmt(v, 0)) + "%"; }  // one decimal below 10%, so 0.4% is not "0%"
+  function endsEarly(storm, pts) {  // the county is absent from the storm's later reports
+    var days = storm.report_days;
+    return pts[pts.length - 1][0] < days[days.length - 1];
+  }
 
   function chart(storm, pts, ymax) {
-    var W = 300, H = 150, L = 34, R = 10, T = 12, B = 26;
+    var W = 300, H = 160, L = 34, R = 10, T = 24, B = 26;
     var days = storm.report_days;
     var x0 = Math.min(0, days[0]), x1 = Math.max(days[days.length - 1], x0 + 1);
     function X(v) { return L + (W - L - R) * (v - x0) / (x1 - x0); }
     function Y(v) { return T + (H - T - B) * (1 - v / ymax); }
     var peak = pts.reduce(function (a, p) { return p[1] > a[1] ? p : a; }, pts[0]);
     var last = pts[pts.length - 1];
-    var label = storm.name + ": " + pts.length + " report" + (pts.length > 1 ? "s" : "") + "; highest " +
-      fmt(peak[1], 1) + "% of sites out on day " + fmt(peak[0], 1) + "; last report day " + fmt(last[0], 1) +
-      ", " + fmt(last[1], 1) + "% out.";
+    var early = endsEarly(storm, pts);
+    var label = storm.name + ": " + pts.length + " report" + (pts.length > 1 ? "s" : "") + "; peak " +
+      peakText(peak[1]) + " of sites out on day " + fmt(peak[0], 1) + "; last report including this county day " +
+      fmt(last[0], 1) + ", " + fmt(last[1], 1) + "% out" +
+      (early ? "; not in later reports (nothing is known about this county after day " + fmt(last[0], 1) + ")" : "") + ".";
     var svg = el("svg", {viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": label, "class": "chart-svg"});
     [0, ymax / 2, ymax].forEach(function (t) {
       svg.appendChild(el("line", {x1: L, x2: W - R, y1: Y(t), y2: Y(t), stroke: "#C9D1D8", "stroke-width": 1}));
@@ -53,6 +60,16 @@
     pts.forEach(function (p) {
       svg.appendChild(el("circle", {cx: X(p[0]), cy: Y(p[1]), r: 3, fill: "#0F2338"}));
     });
+    svg.appendChild(el("text", {x: W - R, y: 12, "text-anchor": "end", "font-size": 11, fill: "#0F2338",
+                                "font-weight": 600}, "peak: " + peakText(peak[1])));
+    if (early) {  // an open marker on the county's last point; nothing is drawn after it
+      var lx = X(last[0]), ly = Y(last[1]);
+      svg.appendChild(el("circle", {cx: lx, cy: ly, r: 6, fill: "none", stroke: "#0F2338", "stroke-width": 1.5}));
+      var right = lx < (W - R) - 110;
+      svg.appendChild(el("text", {x: right ? lx + 9 : lx - 9, y: Math.max(T + 22, ly - 9),
+                                  "text-anchor": right ? "start" : "end", "font-size": 10, fill: "#51626F"},
+                         "not in later reports"));
+    }
     return svg;
   }
 
@@ -73,14 +90,16 @@
       panels.appendChild(fig);
     });
     var t = document.createElement("table");
-    var head = ["Storm", "Report date", "Days since 34-kt winds arrived", "Sites out", "Sites served", "% out"];
+    var head = ["Storm", "Report date", "Days since 34-kt winds arrived", "Sites out", "Sites served", "% out", "Note"];
     var thead = t.createTHead().insertRow();
     head.forEach(function (h) { var th = document.createElement("th"); th.scope = "col"; th.textContent = h; thead.appendChild(th); });
     var tb = t.createTBody();
     storms.forEach(function (s) {
-      c.series[s.key].forEach(function (p) {
+      var pts = c.series[s.key], early = endsEarly(s, pts);
+      pts.forEach(function (p, i) {
         var row = tb.insertRow();
-        [s.name, p[4], fmt(p[0], 1), p[2], p[3], fmt(p[1], 1)].forEach(function (v) { row.insertCell().textContent = v; });
+        var note = (early && i === pts.length - 1) ? "not in later reports" : "";
+        [s.name, p[4], fmt(p[0], 1), p[2], p[3], fmt(p[1], 1), note].forEach(function (v) { row.insertCell().textContent = v; });
       });
     });
     tableBox.appendChild(t);
