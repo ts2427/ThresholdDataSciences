@@ -10,7 +10,8 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 step11 = importlib.import_module("11_build_page")
-RESULTS = ROOT / "output" / "results.json"
+from config import DOCS, OUTPUT, RAW  # noqa: E402  (same layout in the private project and the public repository)
+RESULTS = OUTPUT / "results.json"
 needs_results = pytest.mark.skipif(not RESULTS.exists() or "chapter_9" not in RESULTS.read_text(encoding="utf-8"),
                                    reason="needs output/results.json from step 10 (not committed)")
 
@@ -56,10 +57,10 @@ def test_page_wording_and_required_items():
 def test_every_figure_marker_has_a_figure():
     r = json.loads(RESULTS.read_text(encoding="utf-8"))
     body = step11.build_page(r) + step11.methods_section(
-        r, (ROOT / "docs" / "decisions.md").read_text(encoding="utf-8"),
-        (ROOT / "docs" / "analysis_plan.md").read_text(encoding="utf-8"),
-        pd.read_csv(ROOT / "output" / "validation_dirs.csv"),
-        pd.read_csv(ROOT / "output" / "excluded_reports.csv", keep_default_na=False))
+        r, (DOCS / "decisions.md").read_text(encoding="utf-8"),
+        (DOCS / "analysis_plan.md").read_text(encoding="utf-8"),
+        pd.read_csv(OUTPUT / "validation_dirs.csv"),
+        pd.read_csv(OUTPUT / "excluded_reports.csv", keep_default_na=False))
     ids = {f["id"] for f in step11.figures_front_matter({k: True for k in step11.figure_rows(r)}, r)}
     import re
     assert set(re.findall(r"\[figure:([a-z0-9-]+)\]", body)) == ids
@@ -182,12 +183,15 @@ def test_plan_commit_on_the_page_is_in_the_history():
     import subprocess
     out = subprocess.run(["git", "-C", str(ROOT), "log", "--format=%h %ad %s", "--date=short", "--", "docs/analysis_plan.md"],
                          capture_output=True, text=True).stdout
+    if not out:  # the public repository has no private history; it checks the plan file's SHA-256 instead
+        import pytest
+        pytest.skip("the plan's commit is in the private repository's history")
     line = next((ln for ln in out.splitlines() if ln.startswith(step11.PLAN_COMMIT["hash"])), "")
     assert line and "2026-11-22" in line and "before any recovery outcome" in line
 
 
 def test_fcc_caveat_is_quoted_verbatim_from_the_reports():
-    raw = ROOT / "data" / "raw" / "dirs"
+    raw = RAW / "dirs"
     if not raw.exists():
         return
     hits = [p for p in raw.glob("*.txt") if step11.FCC_CAVEAT in p.read_text(encoding="utf-8", errors="replace")]

@@ -7,6 +7,7 @@ RAW = ROOT / "data" / "raw"
 INTERIM = ROOT / "data" / "interim"
 PROCESSED = ROOT / "data" / "processed"
 OUTPUT = ROOT / "output"
+DOCS = ROOT / "docs"
 MANIFEST = ROOT / "manifest" / "dirs_reports.csv"
 DOWNLOADS_LOG = ROOT / "manifest" / "downloads.csv"
 

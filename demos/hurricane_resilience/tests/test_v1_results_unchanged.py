@@ -4,7 +4,10 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-RESULTS = ROOT / "output" / "results.json"
+import sys  # noqa: E402
+sys.path.insert(0, str(ROOT / "src"))
+from config import OUTPUT  # noqa: E402
+RESULTS = OUTPUT / "results.json"
 SNAP = ROOT / "tests" / "snapshots" / "v1_results_sha256.json"
 
 

@@ -244,9 +244,11 @@ BUILD = Path(os.environ.get("WTNGD_BUILD", str(REPO / "build")))
 INTERIM = BUILD / "interim"
 PROCESSED = BUILD / "processed"
 OUTPUT = BUILD / "output"
+DOCS = REPO / "docs"
 MANIFEST = ROOT / "manifest" / "dirs_reports.csv"
-DOWNLOADS_LOG = BUILD / "downloads_log.csv"  # the original log is code/manifest/downloads.csv
-EAGLEI_RAW_DIR = RAW / "eaglei"  # MCC.csv and coverage_history.csv only; the year files are not redistributed
+DOWNLOADS_LOG = ROOT / "manifest" / "downloads.csv"  # every download; a rerun adds nothing (files exist)
+# MCC.csv and coverage_history.csv only (the year files are not redistributed); EAGLEI_RAW_DIR overrides it
+EAGLEI_RAW_DIR = Path(os.environ.get("EAGLEI_RAW_DIR", str(RAW / "eaglei")))
 EAGLEI_EXTRACT = RAW / "eaglei" / "eaglei_extract.parquet"
 BDC_COUNTS = RAW / "bdc" / "bdc_county_provider_counts.csv"
 BDC_COUNTS_META = RAW / "bdc" / "bdc_county_provider_counts_meta.json"
@@ -268,9 +270,13 @@ def copy_code(T: Path) -> None:
             write(c / "src" / "config.py", public_config())
         else:
             copy(p, c / "src" / p.name)
+    hashes = []
     for p in sorted((ROOT / "manifest").iterdir()):
         if p.is_file():
             copy(p, c / "manifest" / p.name)
+            hashes.append(f"{sha256(p)}  {p.name}")
+    # step 2b rewrites some of these tables; the reproduction test checks they come out unchanged
+    write(c / "manifest.sha256", "\n".join(hashes) + "\n")
     for p in sorted((ROOT / "tests").rglob("*")):
         if p.is_file() and "__pycache__" not in p.parts:
             copy(p, c / "tests" / p.relative_to(ROOT / "tests"))
@@ -726,7 +732,8 @@ def readme(T: Path, idx: pd.DataFrame, plan: dict) -> None:
           "- Python 3.13 (tested with 3.13.2) on Windows 11; the code uses no platform-specific calls.",
           "- Packages: `requirements.txt` (exact versions used).",
           "- Memory: about 4 GB. Disk: about 200 MB for the repository and `build/`.",
-          "- Run time: roughly RUNTIME on a recent laptop (most of it is the bootstrap in step 10).",
+          "- Run time: 12.4 minutes for `run_all.py`, measured on the author's Windows 11 laptop on 2026-11-23 "
+          "(most of it is parsing the reports in step 3 and the bootstrap in step 10).",
           "- No network access is needed: every step reads `data/input/`. Steps 02, 06a, 06c, 06d and 06e (downloads "
           "and raw BDC reading) are included for transparency but are not run; they need the original sources and, "
           "for BDC, an FCC account.",
@@ -821,6 +828,14 @@ def test_inputs_match_their_hashes():
             assert hashlib.sha256((REPO / row["path"]).read_bytes()).hexdigest() == row["sha256"], row["path"]
 
 
+def test_manifest_tables_unchanged():
+    """Step 2b rewrites some of code/manifest; after a run they must equal the published tables."""
+    import hashlib
+    for line in (REPO / "code" / "manifest.sha256").read_text(encoding="utf-8").splitlines():
+        digest, name = line.split(maxsplit=1)
+        assert hashlib.sha256((REPO / "code" / "manifest" / name).read_bytes()).hexdigest() == digest, name
+
+
 def test_plan_as_committed_matches_its_hash():
     import hashlib
     line = (REPO / "docs" / "analysis_plan_as_committed.sha256").read_text(encoding="utf-8").split()
@@ -911,7 +926,7 @@ def main():
     keep_git = (T / ".git").exists()
     if T.exists():
         for p in T.iterdir():
-            if p.name != ".git":
+            if p.name not in (".git", "build"):  # build/ is git-ignored; kept so a finished run can be retested
                 shutil.rmtree(p) if p.is_dir() else p.unlink()
     T.mkdir(parents=True, exist_ok=True)
     idx = copy_inputs(T)

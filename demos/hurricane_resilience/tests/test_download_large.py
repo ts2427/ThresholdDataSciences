@@ -109,7 +109,7 @@ def test_eaglei_dir_comes_from_the_environment(monkeypatch, tmp_path):
     monkeypatch.setenv("EAGLEI_RAW_DIR", str(tmp_path))
     assert importlib.reload(config).EAGLEI_RAW_DIR == tmp_path
     monkeypatch.delenv("EAGLEI_RAW_DIR")
-    assert importlib.reload(config).EAGLEI_RAW_DIR.as_posix().endswith("/data/eaglei")
+    assert importlib.reload(config).EAGLEI_RAW_DIR.as_posix().endswith(("/data/eaglei", "/data/input/eaglei"))
 
 
 def test_census_key_is_read_from_dotenv_and_not_shown(tmp_path, monkeypatch):

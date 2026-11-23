@@ -20,7 +20,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from config import DOWNLOADS_LOG, OPENFEMA_DISCLAIMER, OUTPUT, PROCESSED, ROOT
+from config import DOWNLOADS_LOG, OPENFEMA_DISCLAIMER, OUTPUT, PROCESSED, RAW, ROOT
 
 SITE = ROOT.parent
 SNAPSHOT = SITE / "demos" / "hurricane_resilience"
@@ -295,7 +295,7 @@ def overlay_notes(r: dict) -> dict:
     return {"narrow": narrow, "missing": missing}
 
 
-BOUNDARIES = ROOT / "data" / "raw" / "census" / "cb_2022_us_county_500k.zip"  # Census cartographic boundary, 2022
+BOUNDARIES = RAW / "census" / "cb_2022_us_county_500k.zip"  # Census cartographic boundary, 2022
 MAP_STATES = ("01", "12", "13", "28")  # AL, FL, GA, MS
 MAP_MARGIN_DEG = 0.4
 MAP_WIDTH = 720
@@ -612,8 +612,8 @@ def neutral_plan(text: str) -> str:
 
 def bdc_methods_line() -> str:
     """The FCC Broadband Data Collection files used in chapter 13, from the logged file list."""
-    files = pd.read_csv(ROOT / "data" / "raw" / "bdc" / "listings" / "provider_summary_files.csv", dtype=str)
-    rel = json.loads((ROOT / "data" / "raw" / "bdc" / "listings" / "storm_releases.json").read_text(encoding="utf-8"))
+    files = pd.read_csv(RAW / "bdc" / "listings" / "provider_summary_files.csv", dtype=str)
+    rel = json.loads((RAW / "bdc" / "listings" / "storm_releases.json").read_text(encoding="utf-8"))
     used = sorted({v["release"] for v in rel.values()})
     files = files[files.release.isin(used)].sort_values("release")
     from datetime import datetime as _dt
