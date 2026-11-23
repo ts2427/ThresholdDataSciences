@@ -14,6 +14,11 @@
         <time datetime="{{ piece.iso_date }}">{{ piece.display_date }}</time>
         {% if piece.display_updated %} · Updated
         <time datetime="{{ piece.iso_updated }}">{{ piece.display_updated }}</time>{% endif %}</p>
+      {% if piece.dataset %}
+      <p class="data-line">Data and code:
+        <a href="https://doi.org/{{ piece.dataset.concept_doi }}">doi:{{ piece.dataset.concept_doi }}</a> ·
+        <a href="#how-to-cite">How to cite <span aria-hidden="true">↓</span></a></p>
+      {% endif %}
     </div>
   </header>
 
@@ -64,7 +69,7 @@
 
   <aside class="shell measure cite-block" aria-label="Citation">
     {% if piece.dataset %}
-    <h2>How to cite</h2>
+    <h2 id="how-to-cite">How to cite</h2>
     <p class="cite-label">This analysis</p>
     <p class="cite-text">{{ piece.citation }}</p>
     <p class="cite-label">The data and code, in general (all versions)</p>

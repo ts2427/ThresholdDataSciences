@@ -168,6 +168,8 @@ a:hover { color: var(--ink); }
 .page-note { max-width: 60ch; color: var(--muted); font-size: 0.95rem; margin-top: 1rem; }
 
 .byline { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); margin-top: 1.25rem; }
+.data-line { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); margin-top: 0.4rem; }
+#how-to-cite { scroll-margin-top: 1.5rem; }
 
 /* ---------- sections ---------- */
 section { padding: 1rem 0; }
