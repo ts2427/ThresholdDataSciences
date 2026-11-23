@@ -179,7 +179,8 @@ number, canonical URL) — never hand-written.
   buttons, labels, or hover states.
 - Type, all self-hosted in `static/fonts/` (SIL OFL licensed): Source Serif 4
   (display), IBM Plex Sans (body), IBM Plex Mono (issue numbers, dates,
-  methods notes). No font CDN, no third-party assets of any kind.
+  methods notes). No font CDN. The only third-party asset is the Google
+  Analytics 4 script (see Analytics below).
 - Buttons: primary = Ink field, white text; secondary = Ink outline, Ink
   text; in the Ink header the button inverts (white field, Ink text).
 - Flat surfaces, square corners (2px max — currently 0), hairline rules, no
@@ -233,8 +234,14 @@ delivered. `contact_email` (same address) shows on the page and joins the
 JSON-LD Organization schema. The privacy policy describes the form and
 FormSubmit; keep it in sync with any change here.
 
-Analytics: none, deliberately. If a counter is ever wanted, use a cookieless
-one (e.g. GoatCounter) and update `/privacy/` first.
+Analytics: Google Analytics 4 (added 2026-11-23). The Measurement ID is
+`ga4_measurement_id` in `site.yaml`; `templates/_analytics.html` adds the tag
+to every page through `base.html` and `redirect.html` (empty the ID to remove
+it). It sets the `_ga` and `_ga_<ID>` cookies; data retention is 2 months;
+Google signals and ads personalization are off and no Google Ads account is
+linked. There is no consent banner, by the author's decision, to revisit if
+EU/UK traffic becomes meaningful. `/privacy/` describes all of this: change
+it in the same commit as any change to the analytics setup.
 
 ## Accessibility audit
 
