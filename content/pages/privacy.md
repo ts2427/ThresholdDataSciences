@@ -33,9 +33,33 @@ described in [GitHub's privacy statement](https://docs.github.com/en/site-policy
 Threshold Data Sciences does not receive or use those logs to identify
 visitors.
 
-**Nothing else.** This site sets no cookies, runs no analytics, and loads no
-scripts, fonts, or other resources from third-party servers. There is
-nothing to consent to, which is why there is no consent banner.
+## Analytics
+
+This site uses **Google Analytics 4**, a service of Google, to count visits
+and see which pages are read. When you load a page, your browser downloads
+Google's analytics script from `www.googletagmanager.com` and sends Google:
+
+- the page address and the page you came from;
+- your browser, device type and screen size; and
+- your approximate location (country and city), which Google derives from
+  your IP address. Google Analytics 4 does not log or store IP addresses.
+
+It sets two first-party cookies, `_ga` and `_ga_E94NHRG3TP`, which tell
+repeat visits apart. They expire after up to two years. Google keeps this
+data for 2 months. Google signals and ads personalization are turned off,
+and no Google Ads account is linked. Threshold Data Sciences sees only
+aggregate reports and does not use the data to identify anyone. Google's use
+of the data is described in
+[How Google uses information from sites that use its services](https://policies.google.com/technologies/partner-sites).
+
+**To opt out**, install Google's
+[opt-out browser add-on](https://tools.google.com/dlpage/gaoptout), or block
+cookies or scripts from Google in your browser. The site works the same
+without them.
+
+Apart from Google Analytics and the contact form, the site loads nothing from
+third-party servers. Its fonts, scripts and data, including the charting
+library used by the hurricane map, are served from this site.
 
 ## Retention
 
@@ -51,5 +75,5 @@ requests are honored.
 
 ## Changes
 
-If the site's data practices ever change — for example, if a privacy-
-respecting page counter is added — this page will be updated first.
+If the site's data practices change, this page will be updated at the same
+time.
