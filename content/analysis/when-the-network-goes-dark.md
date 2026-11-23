@@ -591,6 +591,8 @@ from any other site. Laura's report of 2020-08-25 (the combined Marco–Laura re
 
 **EAGLE-I denominators.** EAGLE-I's modeled customer count is below EAGLE-I's own recorded outages in 230 of 2,106 storm-counties (for example, Henderson County, North Carolina: 24 modeled customers, 131,460 customers out, 49,494 households). Those storm-counties are left out of every % of customers result; using households as the denominator instead is shown as a sensitivity.
 
+**Not added.** Provider counts per county (network redundancy) were planned but not added, because programmatic access to the FCC's broadband data could not be confirmed.
+
 **Validation.** Every in-scope report was checked against its own printed totals: 134 flagged, 36 ok, 7 excluded, 1 known FCC inconsistency. Flags on the reports used, by type (a report can carry several):
 
 | Flag | Kind | Reports |

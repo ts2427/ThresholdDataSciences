@@ -29,3 +29,12 @@ Status: VERIFIED = confirmed in research (Nov 16, 2026); CHECK = confirm on firs
 | 2026-11-22 | CDC/ATSDR SVI 2022 | download page only | the page has no direct file link (interactive tool); no file URL constructed. Waiting for the author |
 | 2026-11-22 (20:14 EST; 2026-11-23 01:14:00-01:14:43 UTC) | OpenFEMA Disaster Declarations Summaries v2, https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries | 12 pages of declarations since 2017-08-01 (data/raw/fema/declarations_000-011.json) | Through the documented API (author's decision). Required attribution, as worded on FEMA's terms page (fema.gov/about/openfema/terms-conditions), checked by the author on 2026-11-22 so fema.gov was not fetched: "This product uses the Federal Emergency Management Agency's OpenFEMA API, but is not endorsed by FEMA. The Federal Government or FEMA cannot vouch for the data or analyses derived from these data after the data have been retrieved from the Agency's website(s)." |
 | 2026-11-22 | U.S. Census Bureau cartographic boundary file, counties, 2022, 1:500,000 (https://www2.census.gov/geo/tiger/GENZ2022/shp/cb_2022_us_county_500k.zip) | data/raw/census/cb_2022_us_county_500k.zip (11.7 MB) | One download approved by the author for the Isaias county map; same terms (robots.txt allows; generic User-Agent; SHA-256 in manifest/downloads.csv) |
+
+
+## V2-5 access check (FCC Broadband Data Collection public data API), 2026-11-23
+
+Documentation reads only; nothing downloaded into data/. Generic User-Agent (public-records-archiver/1.0), at least 3 seconds between requests, stopped at the first refusal.
+
+- 2026-11-23 ~14:57 UTC, https://help.bdc.fcc.gov/robots.txt: 200 (no general disallow on help articles).
+- 2026-11-23 ~14:57 UTC, https://help.bdc.fcc.gov/hc/en-us/articles/6789299021723-Key-Reference-Documents: 200. Lists the Public Data API Specifications (https://us-fcc.box.com/v/bdc-public-data-api-spec) and Swagger (https://us-fcc.box.com/v/bdc-public-data-api-swagger), both hosted on box.com.
+- 2026-11-23 14:57 UTC, https://www.fcc.gov/general/api-terms-service: 403. Stopped here, as the download terms require; not retried and no header changed. The box.com specification documents were not requested.
