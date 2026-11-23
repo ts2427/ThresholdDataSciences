@@ -26309,7 +26309,9 @@
     "page_text": {
       "collected_sentence": "The FCC printed sites operating on backup power for 11 of 21 storms: in every report for Ian, Nicole, Idalia, Beryl, Debby, Francine, Helene, Milton and Isaias, and in one report each for Laura and Delta. It did not print them for Harvey, Irma, Florence, Michael, Barry, Dorian, Sally, Zeta, Ida and Nicholas.",
       "footnotes": [
-        "Laura: its one report with backup power prints it for 3 of 38 counties, so it is left out of comparisons."
+        "Laura: its one report with backup power prints it for 3 of 38 counties, so it is left out of comparisons.",
+        "Delta: its one report with backup power prints it for 19 of 110 counties.",
+        "Laura's report of 2020-08-25, kept off Laura's timeline (the combined Marco–Laura report), also prints backup power for 52 counties, with 0 sites on backup power."
       ],
       "left_out_of_comparisons": [
         "Laura"
@@ -27552,6 +27554,9 @@
     },
     "storms_without_power_data": [
       "Isaias"
+    ],
+    "storms_without_counties_at_risk": [
+      "Nicholas"
     ],
     "by_storm": {
       "Barry": {
@@ -29073,6 +29078,21 @@
           "n_counties": 262,
           "optimizer": "IRLS"
         }
+      },
+      "release_within_12_months": {
+        "months_from_release_to_day0": {
+          "Beryl": 0.2,
+          "Debby": 1.1,
+          "Francine": 2.4,
+          "Helene": 2.9,
+          "Ian": 2.9,
+          "Idalia": 2.0,
+          "Isaias": 3.3,
+          "Milton": 3.3,
+          "Nicole": 4.3
+        },
+        "identical_to_main": true,
+        "note": "every main storm's release is within 12 months before its day 0, so this display equals the main one"
       }
     },
     "wording": "Association only: counties served by more mobile providers fell below 5% of sites out sooner / later / with no measurable difference; never that more providers produce faster recovery. Provider counts describe reported coverage, not which networks were out. Providers are never named.",

@@ -161,3 +161,17 @@ def test_map_topology_rings_wind_clockwise_for_d3():
     tr = topo["transform"]
     first_rings = [g["arcs"][0][0][0] for g in topo["objects"]["counties"]["geometries"][:50]]
     assert all(not LinearRing(step11.decode_arc(topo["arcs"][i], tr)).is_ccw for i in first_rings)
+
+
+def test_v2_sections_wording_and_generated_numbers():
+    r = json.loads(RESULTS.read_text(encoding="utf-8"))
+    if "v2_5_network_redundancy" not in r:
+        return
+    text = step11.v2_sections(r) + "\n".join(step11.v2_opening(r))
+    low = text.lower()
+    for bad in ("because of vulnerab", "neglect", "prioritiz", "caused by", "leads to", "drives", "predicted fail",
+                "about to fail", "never restored", "abandon", "claude"):
+        assert bad not in low, bad
+    a = r["v2_1_public_record_misses"]["headlines"]
+    assert f"{a['n_storms']} storms" in text and f"{a['sites_out_at_last_reports_headline']['value']:,.0f}" in text
+    assert "Exploratory: added after version 1" in text

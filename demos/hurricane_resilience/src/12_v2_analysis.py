@@ -188,6 +188,16 @@ def backup_by_report(p: pd.DataFrame) -> list:
     return sorted(out, key=lambda r: (r["days_since_day0"], r["doc_id"]))
 
 
+def flagged_backup(panel: pd.DataFrame) -> list:
+    """Time-flagged reports (off the timeline) that print the backup-power column, for a footnote."""
+    if "time_flag" not in panel:
+        return []
+    f = panel[(panel.time_flag.fillna("") != "") & panel.on_backup_power.notna()]
+    return [{"storm": g.storm.iloc[0], "report_date": str(g.report_date.iloc[0]), "doc_id": d,
+             "n_counties_printed": int(g.fips.nunique()), "sites_on_backup": float(g.on_backup_power.sum())}
+            for d, g in f.groupby("doc_id")]
+
+
 def v2_2(panel: pd.DataFrame, storms: pd.DataFrame) -> dict:
     tp = step10.timed(panel)
     per, not_collected = [], []
@@ -218,7 +228,10 @@ def v2_2(panel: pd.DataFrame, storms: pd.DataFrame) -> dict:
         "footnotes": [f"{r['storm']}: its one report with backup power prints it for "
                       f"{r['by_report'][[x['collected'] for x in r['by_report']].index(True)]['n_counties_printed']} of "
                       f"{r['by_report'][[x['collected'] for x in r['by_report']].index(True)]['n_counties_listed']} "
-                      f"counties, so it is left out of comparisons." for r in laura],
+                      f"counties" + (", so it is left out of comparisons." if r in laura else ".") for r in few]
+                     + [f"{x['storm']}'s report of {x['report_date']}, kept off {x['storm']}'s timeline (the combined "
+                        f"Marco–Laura report), also prints backup power for {x['n_counties_printed']} counties, with "
+                        f"{x['sites_on_backup']:.0f} sites on backup power." for x in flagged_backup(panel)],
         "left_out_of_comparisons": [r["storm"] for r in laura],
         "display_rules": ["counts first; any share is shown with its sites served beside it",
                           "no comparison across rule periods; only which storms the column was printed for"],
@@ -377,6 +390,7 @@ def v2_3(panel: pd.DataFrame) -> dict:
         "headlines": (head := order_summary(main, step10.SEED + 600)),
         "page_text": v2_3_page_text(head, sens["by_rule_period_shown_not_compared"]),
         "storms_without_power_data": sorted(set(tp.storm) - set(step10.power_frame(tp).storm)),
+        "storms_without_counties_at_risk": sorted(set(step10.power_frame(tp).storm) - set(main.storm)),
         "by_storm": by_storm,
         "sensitivity": sens,
         "wording": TIMING_WORDING,
@@ -621,6 +635,15 @@ def v2_5(panel: pd.DataFrame, results: dict) -> dict:
         main, ["fixed_half_excl_near_universal"], numeric_col="fixed_half_excl_near_universal")
     sens["fixed_broadband_secondary"] = {"note": "sensitivity displays only, never a headline; " + NEAR_UNIVERSAL_LABEL
                                                  + " excluded where marked", **fixed}
+    from datetime import date
+    gaps = {}
+    for st in sorted(main.storm.unique()):
+        d0 = pd.Timestamp(panel[panel.storm == st].landfall_utc.iloc[0]).tz_convert("America/New_York").date()
+        gaps[st] = (d0 - date.fromisoformat(gdef["storm_releases"][st]["release"])).days
+    sens["release_within_12_months"] = {
+        "months_from_release_to_day0": {k: round(v / 30.44, 1) for k, v in gaps.items()},
+        "identical_to_main": all(v <= 365 for v in gaps.values()),
+        "note": "every main storm's release is within 12 months before its day 0, so this display equals the main one"}
     out["sensitivity"] = sens
     out["wording"] = REDUNDANCY_WORDING
     first_year = min(int(v["release"][:4]) for v in gdef["storm_releases"].values() if v["role"] == "main")

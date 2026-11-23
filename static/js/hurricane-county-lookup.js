@@ -2,7 +2,7 @@
    Reads /static/data/hurricane-county-lookup.json (generated from the published county-report panel) from this
    site only; no other server is contacted. One small chart per storm: % of the county's cell sites out in each FCC
    report, by days since the storm's 34-knot winds first reached a study-state county. Points are reports; a line joins
-   two points only when no report of that storm falls between them. */
+   two points only when no report of that storm falls between them and they are at most 1.5 days apart. */
 (function () {
   "use strict";
   var root = document.querySelector(".county-lookup");
@@ -13,6 +13,7 @@
   var panels = root.querySelector(".county-lookup-panels");
   var tableBox = root.querySelector(".county-lookup-table");
   var data = null;
+  var MAX_GAP_DAYS = 1.5;  // gaps longer than about a day (an excluded or missing report) are not bridged
 
   function el(name, attrs, text) {
     var e = document.createElementNS(NS, name);
@@ -54,7 +55,7 @@
     for (var i = 1; i < pts.length; i++) {
       var a = pts[i - 1][0], b = pts[i][0];
       var between = days.some(function (d) { return d > a && d < b; });
-      if (!between) svg.appendChild(el("line", {x1: X(a), y1: Y(pts[i - 1][1]), x2: X(b), y2: Y(pts[i][1]),
+      if (!between && b - a <= MAX_GAP_DAYS) svg.appendChild(el("line", {x1: X(a), y1: Y(pts[i - 1][1]), x2: X(b), y2: Y(pts[i][1]),
                                                  stroke: "#0F2338", "stroke-width": 2}));
     }
     pts.forEach(function (p) {

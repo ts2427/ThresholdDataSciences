@@ -2,8 +2,8 @@
    Uses D3 7.9.0 and topojson-client 3.1.0 served from this site (static/js/vendor/), and two data files from this
    site: county shapes (hurricane-counties.topo.json, Census 2022 cartographic boundaries) and each storm's reports
    (hurricane-map.json, generated from the published county-report panel). No other server is contacted.
-   Counties are shaded by % of cell sites out in the chosen report; counties not in that report are white ("not
-   reported", never zero). Controls: storm select, report slider, optional play button. The table under the map is
+   Counties are shaded by % of cell sites out in the chosen report; counties not in that report are hatched light grey
+   ("not reported", never zero), and 0% has a faint tint. Controls: storm select, report slider, optional play button. The table under the map is
    the keyboard and screen-reader alternative to hovering. */
 (function () {
   "use strict";
