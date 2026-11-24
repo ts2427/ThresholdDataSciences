@@ -15,9 +15,11 @@ Harvey,P0,7.14,sites,2.0,28
 Harvey,P0,7.14,power,0.3,28
 Harvey,P0,8.14,sites,1.8,24
 Harvey,P0,8.14,power,0.5,24
-Harvey,P0,10.14,sites,1.8,4
+Harvey,P0,9.14,sites,1.8,4
+Harvey,P0,9.14,power,0.4,4
+Harvey,P0,10.14,sites,1.1,4
 Harvey,P0,10.14,power,0.3,4
-Harvey,P0,11.14,sites,2.1,2
+Harvey,P0,11.14,sites,3.1,2
 Harvey,P0,11.14,power,2.3,2
 Irma,P0,2.03,sites,18.8,43
 Irma,P0,2.03,power,30.3,43
@@ -35,6 +37,8 @@ Irma,P0,8.03,sites,2.3,38
 Irma,P0,8.03,power,4.8,38
 Irma,P0,9.03,sites,1.5,38
 Irma,P0,9.03,power,2.9,38
+Nate,P0,1.71,sites,0.1,7
+Nate,P0,1.71,power,0.1,7
 Florence,P0,1.17,sites,2.8,55
 Florence,P0,1.17,power,7.0,55
 Florence,P0,2.17,sites,9.8,45
