@@ -193,7 +193,11 @@ def dataset_node(view):
                               **({"unitText": v["unit"]} if v["unit"] else {})} for v in d["variables"]],
         "distribution": [{"@type": "DataDownload", "encodingFormat": d["distribution"]["format"],
                           "contentUrl": d["distribution"]["url"],
-                          "contentSize": f"{d['distribution']['bytes']} bytes"}],
+                          "contentSize": f"{d['distribution']['bytes']} bytes"}]
+                        + ([{"@type": "DataDownload", "name": d["panel_csv"]["name"],
+                             "encodingFormat": d["panel_csv"]["format"],
+                             "contentUrl": f"{base}{d['panel_csv']['path']}",
+                             "contentSize": f"{d['panel_csv']['bytes']} bytes"}] if d.get("panel_csv") else []),
         "includedInDataCatalog": {"@type": "DataCatalog", "name": "Zenodo", "url": "https://zenodo.org"},
         "subjectOf": {"@id": f"{base}{view['url']}#article"},
     }
