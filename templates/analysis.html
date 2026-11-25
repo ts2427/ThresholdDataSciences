@@ -4,7 +4,15 @@
 {% block og_type %}article{% endblock %}
 
 {% block content %}
-<article class="issue">
+{% macro toc_list(entries) %}
+<ul class="toc-list">
+  {% for e in entries %}
+  <li><a href="#{{ e.id }}">{{ e.text }}</a>{% if e.children %}
+    <ul>{% for c in e.children %}<li><a href="#{{ c.id }}">{{ c.text }}</a></li>{% endfor %}</ul>{% endif %}</li>
+  {% endfor %}
+</ul>
+{% endmacro %}
+<article class="issue{% if piece.toc %} has-toc{% endif %}">
   <header class="page-head">
     <div class="shell measure">
       <p class="eyebrow"><a href="/work/">Work</a> &middot; Analysis</p>
@@ -23,6 +31,18 @@
   </header>
 
   {% include "_step.html" %}
+
+  {% if piece.toc %}
+  {# Wide screens: a list that stays at the side. Phones: a closed menu at the top. Only one is shown at a time. #}
+  <nav class="page-toc" aria-label="On this page">
+    <p class="page-toc-title">On this page</p>
+    {{ toc_list(piece.toc) }}
+  </nav>
+  <details class="toc-mobile shell measure">
+    <summary>On this page</summary>
+    <nav aria-label="On this page">{{ toc_list(piece.toc) }}</nav>
+  </details>
+  {% endif %}
 
   {% set parts = piece.body.split('<!-- how-to-cite -->') if piece.cite_inline else [piece.body] %}
   <div class="shell measure prose">
@@ -91,4 +111,5 @@
   </div>
   {% endif %}
 </article>
+{% if piece.toc %}<script src="/static/js/page-sections.js" defer></script>{% endif %}
 {% endblock %}

@@ -350,6 +350,23 @@ def load_issues():
     return issues, draft_slugs
 
 
+TOC_CHAPTER = re.compile(r"\d+\.\s")  # numbered chapters ("1. Anatomy of a storm") are listed under their part
+
+
+def page_toc(body: str) -> list:
+    """"On this page" entries for a page with `toc: true`: every h2, with the numbered h3 chapters under it, and How to
+    cite where the template places it (the cite_inline marker). Built from the rendered headings, so it can't drift."""
+    body = body.replace("<!-- how-to-cite -->", '<h2 id="how-to-cite">How to cite</h2>')
+    toc = []
+    for level, hid, inner in re.findall(r'<h([23]) id="([^"]+)">(.*?)</h\1>', body, flags=re.S):
+        text = html.unescape(re.sub(r"<[^>]+>", "", inner)).strip()
+        if level == "2":
+            toc.append({"id": hid, "text": text, "children": []})
+        elif TOC_CHAPTER.match(text) and toc:
+            toc[-1]["children"].append({"id": hid, "text": text})
+    return toc
+
+
 def load_analysis():
     pieces, draft_slugs = [], []
     for path in sorted((CONTENT / "analysis").glob("*.md")):
@@ -360,6 +377,8 @@ def load_analysis():
         meta["slug"] = path.stem
         meta["url"] = f"/analysis/{meta['slug']}/"
         meta["body"] = _process_figures(meta, body, path)
+        if meta.get("toc"):
+            meta["toc"] = page_toc(meta["body"])
         meta["display_date"] = fmt_date(meta["date"])
         meta["iso_date"] = iso_date(meta["date"])
         if meta.get("updated") and iso_date(meta["updated"]) != meta["iso_date"]:

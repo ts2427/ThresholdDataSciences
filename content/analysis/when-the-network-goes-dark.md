@@ -5,6 +5,7 @@ date: "2026-11-22"
 updated: "2026-11-25"
 summary: "Cell-site outages and recovery in 22 Gulf and Southeast hurricanes, 2017–2026, from FCC reports: half the sites out at the peak were back within a median of 2 days, the reports often end before 90% is back, and cell outages tend to rise and fall with power outages."
 cite_inline: true
+toc: true
 dataset: {"name": "When the Network Goes Dark: Gulf Coast cell-site outages in hurricanes, 2017-2026 (data and code)", "description": "County-by-report panel of FCC Disaster Information Reporting System (DIRS) cell-site outages for 22 Atlantic storms in ten Gulf and Southeast states, 2017-2026, each report checked against its printed totals, with the public inputs and the code that rebuild the panel and every number on the page. Cell sites as reported to the FCC; not a count of people without service.", "keywords": ["hurricanes", "cell sites", "telecommunications outages", "FCC DIRS", "disaster resilience", "power outages", "Gulf Coast"], "version": "3.2.0", "concept_doi": "10.5281/zenodo.24477809", "version_doi": "10.5281/zenodo.24542647", "repository": "https://github.com/ts2427/when-the-network-goes-dark-data", "license": "https://creativecommons.org/licenses/by/4.0/", "temporal_coverage": "2017-08-26/2026-10-12", "spatial_coverage": ["Alabama", "Florida", "Georgia", "Louisiana", "Mississippi", "North Carolina", "South Carolina", "Tennessee", "Texas", "Virginia"], "variables": [{"name": "storm_key", "description": "Storm key: NHC ID and DIRS activation date, joined by an underscore.", "unit": ""}, {"name": "nhc_id", "description": "National Hurricane Center storm ID (basin, number, year).", "unit": ""}, {"name": "storm", "description": "Storm name.", "unit": ""}, {"name": "dirs_activation_date", "description": "Date the FCC activated DIRS for the storm.", "unit": ""}, {"name": "rule_period", "description": "FCC rule period by activation date. P0: Voluntary DIRS, voluntary Framework (2016-01-01 to 2024-04-30); P1: MDRI in force, DIRS voluntary (2024-05-01 to 2025-02-19); P2: MDRI + mandatory DIRS (2025-02-20 to 2026-06-29); P3: After FCC 26-34 took effect (2026-06-30); its DIRS amendment (47 CFR 4.18) delayed indefinitely (2026-06-30 to present).", "unit": ""}, {"name": "doc_id", "description": "FCC EDOCS document number of the report.", "unit": ""}, {"name": "report_date", "description": "Date of the report.", "unit": ""}, {"name": "as_of_utc", "description": "The report's stated as-of time, in UTC.", "unit": "UTC"}, {"name": "as_of_imputed", "description": "True when as_of_utc was set to 12:00 Eastern because the report prints no time.", "unit": ""}, {"name": "report_status", "description": "Validation status of the report (step 4): ok, flagged (a check raised a note) or known_fcc_inconsistency (a stated total the FCC's own rows do not sum to, listed in code/manifest/known_fcc_inconsistencies.csv).", "unit": ""}, {"name": "state", "description": "State, as printed.", "unit": ""}, {"name": "county", "description": "County as printed by the FCC (upper case).", "unit": ""}, {"name": "fips", "description": "Five-digit county FIPS code (with leading zero).", "unit": ""}, {"name": "sites_served", "description": "Cell sites served in the county, as reported.", "unit": "sites"}, {"name": "sites_out", "description": "Cell sites out of service in the county, as reported.", "unit": "sites"}, {"name": "pct_out", "description": "Percent of sites out, as printed (computed from the two counts where not printed).", "unit": "percent"}, {"name": "pct_printed", "description": "True when the report printed the percent column.", "unit": ""}, {"name": "out_damage", "description": "Sites out due to damage, as reported.", "unit": "sites"}, {"name": "out_transport", "description": "Sites out due to transport (backhaul), as reported.", "unit": "sites"}, {"name": "out_power", "description": "Sites out due to power, as reported.", "unit": "sites"}, {"name": "on_backup_power", "description": "Sites operating on backup power, as reported.", "unit": "sites"}, {"name": "out_unattributed", "description": "Sites out with no cause given: sites_out minus the three causes, never below 0.", "unit": "sites"}, {"name": "out_overattributed", "description": "Causes in excess of sites out (sites counted under more than one cause).", "unit": "sites"}, {"name": "area_status", "description": "Whether the county is in the FCC's notice area on the report date: inside, inside_spelling_variant, outside_notice_area or table_not_in_list.", "unit": ""}, {"name": "fema_declared", "description": "True if OpenFEMA lists a declaration for the storm covering the county.", "unit": ""}, {"name": "time_flag", "description": "Blank, or pre_onset_likely_marco for Laura's Aug 25, 2020 report (the FCC's combined Marco and Laura report), which is kept but left out of every time-based result.", "unit": ""}], "distribution": {"url": "https://zenodo.org/api/records/24542647/files/ts2427/when-the-network-goes-dark-data-v3.2.0.zip/content", "bytes": 128607855, "format": "application/zip"}, "citations": {"general": "Spivey, T. D. (2026). When the Network Goes Dark: Gulf Coast cell-site outages in hurricanes, 2017-2026 (data and code) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.24477809", "version": "Spivey, T. D. (2026). When the Network Goes Dark: Gulf Coast cell-site outages in hurricanes, 2017-2026 (data and code) (Version 3.2.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.24542647"}}
 figures:
   - id: "fig-isaias"
@@ -808,11 +809,24 @@ served from this site. Laura's report of 2020-08-25 (the combined Marco–Laura 
 
 ## Methods {#methods-data-and-licenses}
 
-**Reading the reports.** Each FCC report is read from its text file or, when that is incomplete, its PDF, and every county row is checked against a second reading of the PDF. County rows must sum to the report's printed totals; a report that fails after one round of parser fixes is excluded with its reason. Counties are mapped to FIPS codes with a checked exception list. The storm key is the NHC ID plus the DIRS activation date.
+<details class="method-detail" markdown="1">
+<summary>Reading the reports.</summary>
 
-**Times and censoring.** A county or storm reaches a threshold at the first report from which it stays past it in every later report that includes it; the true time lies after the report before. A county that leaves the reports while still out is censored, not recovered. Days count from day 0: the first time the storm's 34-knot (tropical-storm-force) winds reach any study-state county in its reports, from the NHC best-track wind radii. Every storm has 34-knot radii at that time, so none uses the fallback (its first landfall in the study states).
+Each FCC report is read from its text file or, when that is incomplete, its PDF, and every county row is checked against a second reading of the PDF. County rows must sum to the report's printed totals; a report that fails after one round of parser fixes is excluded with its reason. Counties are mapped to FIPS codes with a checked exception list. The storm key is the NHC ID plus the DIRS activation date.
 
-**Exposure model (chapter 7), checked for calibration.** A binomial model of each county's peak share of sites out on wind zone, distance to the track and the storm's intensity at the nearest track point, with storm-clustered intervals. Odds ratios: inside 64-knot winds 48.4 (20.9 to 111.9), 50-64 knots 23.2 (11.8 to 45.6), 34-50 knots 7.5 (4.4 to 12.8), log distance 0.88 (0.69 to 1.12), per 10 knots 1.07 (0.90 to 1.28). Calibration on storms held out of the fit one at a time: slope 0.87 (0.48 to 1.26; 1 is ideal), calibration-in-the-large −0.01 (−0.35 to 0.33; 0 is ideal), mean absolute error 9.2 percentage points.
+</details>
+
+<details class="method-detail" markdown="1">
+<summary>Times and censoring.</summary>
+
+A county or storm reaches a threshold at the first report from which it stays past it in every later report that includes it; the true time lies after the report before. A county that leaves the reports while still out is censored, not recovered. Days count from day 0: the first time the storm's 34-knot (tropical-storm-force) winds reach any study-state county in its reports, from the NHC best-track wind radii. Every storm has 34-knot radii at that time, so none uses the fallback (its first landfall in the study states).
+
+</details>
+
+<details class="method-detail" markdown="1">
+<summary>Exposure model (chapter 7), checked for calibration.</summary>
+
+A binomial model of each county's peak share of sites out on wind zone, distance to the track and the storm's intensity at the nearest track point, with storm-clustered intervals. Odds ratios: inside 64-knot winds 48.4 (20.9 to 111.9), 50-64 knots 23.2 (11.8 to 45.6), 34-50 knots 7.5 (4.4 to 12.8), log distance 0.88 (0.69 to 1.12), per 10 knots 1.07 (0.90 to 1.28). Calibration on storms held out of the fit one at a time: slope 0.87 (0.48 to 1.26; 1 is ideal), calibration-in-the-large −0.01 (−0.35 to 0.33; 0 is ideal), mean absolute error 9.2 percentage points.
 
 | Decile of predicted share | Storm-counties | Mean predicted % | Observed % |
 |---|---|---|---|
@@ -829,20 +843,54 @@ served from this site. Laura's report of 2020-08-25 (the combined Marco–Laura 
 
 [figure:fig-calibration]
 
+</details>
 
-**Waiting-time model (chapter 8).** A discrete-time hazard with a complementary log-log link over the intervals between a county's reports (interval censoring), with exposure, storm fixed effects and county-clustered intervals: 2,765 intervals, 605 events, 465 counties, 18 storms (two storms whose fixed effect cannot be estimated stay in the raw tables). The worst-case sensitivity display is fitted by Newton's method because the default fitter (IRLS) did not converge; the model and its likelihood are the same. SVI quartiles are of the at-risk storm-counties' national percentiles; on the national cut points only 19 storm-counties fall in the lowest quartile.
+<details class="method-detail" markdown="1">
+<summary>Waiting-time model (chapter 8).</summary>
 
-**Sensitivity displays.** Each chapter's results in `results.json` include the plan's sensitivity displays: dropping one storm at a time; holding each county's sites served at its peak value; best and worst cases for censored counties; with and without low-coverage EAGLE-I counties; with and without flagged reports, and without reports with a serious flag; without the report kept by the state_total_missing rule; and EAGLE-I with a missing record treated as zero.
+A discrete-time hazard with a complementary log-log link over the intervals between a county's reports (interval censoring), with exposure, storm fixed effects and county-clustered intervals: 2,765 intervals, 605 events, 465 counties, 18 storms (two storms whose fixed effect cannot be estimated stay in the raw tables). The worst-case sensitivity display is fitted by Newton's method because the default fitter (IRLS) did not converge; the model and its likelihood are the same. SVI quartiles are of the at-risk storm-counties' national percentiles; on the national cut points only 19 storm-counties fall in the lowest quartile.
 
-**Intervals.** The county bootstrap (chapters 2 to 5 within each storm; chapters 8 and 9 across storm-counties) resamples counties as if they were independent. Counties hit by the same storm share its wind, flooding, power grid and networks, so their outcomes are correlated, and these intervals may be somewhat narrow. The storm bootstrap (medians and pooled shares across storms, chapter 7's zone shares, chapter 5's power-or-cell order) resamples whole storms, and the models in chapters 7, 8 and 9 use storm- or county-clustered intervals. This is a note on the method, not a change to any result.
+</details>
 
-**What the FCC's numbers measure.** Each FCC report carries this caveat: "The number of cell site outages in a specific area does not necessarily correspond to the availability of wireless service to consumers in that area." So the counts here describe the network, not how many people lost service.
+<details class="method-detail" markdown="1">
+<summary>Sensitivity displays.</summary>
 
-**EAGLE-I denominators.** EAGLE-I's modeled customer count is below EAGLE-I's own recorded outages in 230 of 2,114 storm-counties (for example, Henderson County, North Carolina: 24 modeled customers, 131,460 customers out, 49,494 households). Those storm-counties are left out of every % of customers result; using households as the denominator instead is shown as a sensitivity.
+Each chapter's results in `results.json` include the plan's sensitivity displays: dropping one storm at a time; holding each county's sites served at its peak value; best and worst cases for censored counties; with and without low-coverage EAGLE-I counties; with and without flagged reports, and without reports with a serious flag; without the report kept by the state_total_missing rule; and EAGLE-I with a missing record treated as zero.
 
-**Mobile and fixed providers (chapter 9).** Provider counts come from the FCC's Broadband Data Collection public data (National Broadband Map, "Provider Summary by Geography Type"), downloaded through the FCC's Public Data API with an account and token, at most one call every 6.5 seconds (the API allows 10 per minute). Each storm uses the latest release on or before its day 0. The files are the FCC's current revisions of those releases (the 2022-06-30 release revised May 10, 2024; the 2023-06-30 release revised December 24, 2025; the 2024-06-30 release revised July 27, 2026; the 2026-06-30 release revised November 10, 2026), so the counts include the FCC's later corrections. Only counts are kept: no provider is named or identified.
+</details>
 
-**Validation.** Every in-scope report was checked against its own printed totals: 126 flagged, 44 ok, 5 excluded, 3 known FCC inconsistencies. Flags on the reports used, by type (a report can carry several):
+<details class="method-detail" markdown="1">
+<summary>Intervals.</summary>
+
+The county bootstrap (chapters 2 to 5 within each storm; chapters 8 and 9 across storm-counties) resamples counties as if they were independent. Counties hit by the same storm share its wind, flooding, power grid and networks, so their outcomes are correlated, and these intervals may be somewhat narrow. The storm bootstrap (medians and pooled shares across storms, chapter 7's zone shares, chapter 5's power-or-cell order) resamples whole storms, and the models in chapters 7, 8 and 9 use storm- or county-clustered intervals. This is a note on the method, not a change to any result.
+
+</details>
+
+<details class="method-detail" markdown="1">
+<summary>What the FCC's numbers measure.</summary>
+
+Each FCC report carries this caveat: "The number of cell site outages in a specific area does not necessarily correspond to the availability of wireless service to consumers in that area." So the counts here describe the network, not how many people lost service.
+
+</details>
+
+<details class="method-detail" markdown="1">
+<summary>EAGLE-I denominators.</summary>
+
+EAGLE-I's modeled customer count is below EAGLE-I's own recorded outages in 230 of 2,114 storm-counties (for example, Henderson County, North Carolina: 24 modeled customers, 131,460 customers out, 49,494 households). Those storm-counties are left out of every % of customers result; using households as the denominator instead is shown as a sensitivity.
+
+</details>
+
+<details class="method-detail" markdown="1">
+<summary>Mobile and fixed providers (chapter 9).</summary>
+
+Provider counts come from the FCC's Broadband Data Collection public data (National Broadband Map, "Provider Summary by Geography Type"), downloaded through the FCC's Public Data API with an account and token, at most one call every 6.5 seconds (the API allows 10 per minute). Each storm uses the latest release on or before its day 0. The files are the FCC's current revisions of those releases (the 2022-06-30 release revised May 10, 2024; the 2023-06-30 release revised December 24, 2025; the 2024-06-30 release revised July 27, 2026; the 2026-06-30 release revised November 10, 2026), so the counts include the FCC's later corrections. Only counts are kept: no provider is named or identified.
+
+</details>
+
+<details class="method-detail" markdown="1">
+<summary>Validation.</summary>
+
+Every in-scope report was checked against its own printed totals: 126 flagged, 44 ok, 5 excluded, 3 known FCC inconsistencies. Flags on the reports used, by type (a report can carry several):
 
 | Flag | Kind | Reports |
 |---|---|---|
@@ -869,7 +917,12 @@ The known FCC inconsistencies, each checked against the PDF:
 
 - Harvey, 2017-09-05 (DOC-346499A1): the printed Texas total of sites served is 4,200, while its county rows, each confirmed in the PDF, add up to 4,199; the rows are used.
 
-<span id="external-check"></span>**External check against the FCC's 2017 season report.** The FCC's 2017 Atlantic Hurricane Season Impact on Communications report (DOC-353805A1, August 2018) gives 80 county or state figures for Harvey and Irma; 70 can be set against the daily reports. 60 agree, 4 of them once the season report's dropped decimals are allowed for. In the other 10, the season report differs from the daily reports themselves ("Ours" is computed from the daily report's county rows); no data were changed because of the check. Every figure, with its page: [`docs/external_validation.md`](https://github.com/ts2427/when-the-network-goes-dark-data/blob/v3.2.0/docs/external_validation.md).
+</details>
+
+<details class="method-detail" markdown="1">
+<summary><span id="external-check"></span>External check against the FCC's 2017 season report.</summary>
+
+The FCC's 2017 Atlantic Hurricane Season Impact on Communications report (DOC-353805A1, August 2018) gives 80 county or state figures for Harvey and Irma; 70 can be set against the daily reports. 60 agree, 4 of them once the season report's dropped decimals are allowed for. In the other 10, the season report differs from the daily reports themselves ("Ours" is computed from the daily report's county rows); no data were changed because of the check. Every figure, with its page: [`docs/external_validation.md`](https://github.com/ts2427/when-the-network-goes-dark-data/blob/v3.2.0/docs/external_validation.md).
 
 | # | Season report figure | Report | Season report | Ours | Explanation |
 |---|---|---|---|---|---|
@@ -884,12 +937,21 @@ The known FCC inconsistencies, each checked against the PDF:
 | I39 | p. 14 chart: Percent of Cell Sites Out Per Day in Florida: 9/11 | 2017-09-11 | 27.1 | 27.40 | Not explained, as I37. |
 | I45 | p. 14 chart: Florida 9/17 | 2017-09-17 | 4.3 | 3.96 | Possibly Florida and the USVI together: the Sep 17 report prints 4.0% for Florida (584 of 14,730 sites), while Florida and the USVI together give 4.29% (637 of 14,836). That reading is not confirmed: the chart's other Florida points are Florida alone. |
 
-*Exploratory.* **External checks added later: Michael, Helene, Irma and Ida.** The FCC's report on Hurricane Michael (DOC-357387A1, May 2019) gives 12 figures in its text. 8 can be tested against the daily reports: 7 match or are consistent, and 1 differs. The other 4 are statements with no number to test ("little change", "within 48 hours"), shown beside our series. Olukola et al. (2026) extracted Helene from the same reports independently: their peak (4,562 sites out, 28 September 2024) and the sites in the reporting area (37,717, 12.1% out) match ours exactly. Their Irma peak (4,370 sites out, 11 September 2017) matches our report's rows, counting Puerto Rico and the U.S. Virgin Islands, which are outside the panel. FCC 21-99 cites Ida's report of August 31, 2021 for 699 sites out for power against 354 for damage and transport: those are the report's Louisiana totals, and our county rows sum to the same. Every figure: [`docs/external_validation.md`](https://github.com/ts2427/when-the-network-goes-dark-data/blob/v3.2.0/docs/external_validation.md).
+</details>
+
+<details class="method-detail" markdown="1">
+<summary><em>Exploratory.</em> External checks added later: Michael, Helene, Irma and Ida.</summary>
+
+The FCC's report on Hurricane Michael (DOC-357387A1, May 2019) gives 12 figures in its text. 8 can be tested against the daily reports: 7 match or are consistent, and 1 differs. The other 4 are statements with no number to test ("little change", "within 48 hours"), shown beside our series. Olukola et al. (2026) extracted Helene from the same reports independently: their peak (4,562 sites out, 28 September 2024) and the sites in the reporting area (37,717, 12.1% out) match ours exactly. Their Irma peak (4,370 sites out, 11 September 2017) matches our report's rows, counting Puerto Rico and the U.S. Virgin Islands, which are outside the panel. FCC 21-99 cites Ida's report of August 31, 2021 for 699 sites out for power against 354 for damage and transport: those are the report's Louisiana totals, and our county rows sum to the same. Every figure: [`docs/external_validation.md`](https://github.com/ts2427/when-the-network-goes-dark-data/blob/v3.2.0/docs/external_validation.md).
 
 | # | Michael report figure | Report | Michael report | Ours | Explanation |
 |---|---|---|---|---|---|
 | M5a | p. 13 para. 28 (Figure 2): wireless service in Alabama was fully restored by October 15 | 2018-10-15 | 0 | 3 of 759 sites out (0.40%) | Our Oct 15 report has 3 of Alabama's 759 sites out (0.40%, 99.6% in service); Alabama's last site out is reported through Oct 18 (1 site), and Alabama leaves the reports from Oct 19. At the scale of the FCC's chart (Figure 2, an image) 99.6% would read as fully restored; the panel is not changed. |
 
+</details>
+
+<details class="method-detail" markdown="1">
+<summary>Excluded reports</summary>
 
 Each report's flags and reasons are in the snapshot's [`data/analysis/validation/validation_dirs.csv`](https://github.com/ts2427/when-the-network-goes-dark-data/blob/v3.2.0/data/analysis/validation/validation_dirs.csv). Excluded reports:
 
@@ -901,16 +963,22 @@ Each report's flags and reasons are in the snapshot's [`data/analysis/validation
 | DOC-406144A1 | Helene | 2024-10-03 | FCC inconsistency: Hamilton row prints transport 0, Florida total prints 1 |
 | DOC-406197A1 | Helene | 2024-10-04 | Washington County, Tennessee row not confirmed by the second reading |
 
+</details>
+
 **Data and licenses.** The cleaned county-report panel (DIRS fields only, with `out_unattributed` and `out_overattributed` kept apart) is published under CC BY 4.0: [download the CSV](/static/data/hurricane-dirs-county-day.csv). The code is MIT-licensed. FCC DIRS reports and NHC tracks are public. EAGLE-I is CC BY 4.0 ([doi:10.1038/s41597-024-03095-5](https://doi.org/10.1038/s41597-024-03095-5); dataset [doi:10.6084/m9.figshare.24237376](https://doi.org/10.6084/m9.figshare.24237376); 2025 release [doi:10.13139/ORNLNCCS/3012826](https://doi.org/10.13139/ORNLNCCS/3012826)); its "customers" are electricity meters. CDC/ATSDR SVI 2022, Census ACS 2022 and the Census 2022 cartographic boundary file (map only; [https://www2.census.gov/geo/tiger/GENZ2022/shp/cb_2022_us_county_500k.zip](https://www2.census.gov/geo/tiger/GENZ2022/shp/cb_2022_us_county_500k.zip), downloaded 2026-11-23) are public with attribution. FEMA OpenFEMA Disaster Declarations Summaries v2 (https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries), accessed 2026-11-23 01:14:00–01:14:43 UTC (November 22, 2026, 8:14 p.m. Eastern): This product uses the Federal Emergency Management Agency's OpenFEMA API, but is not endorsed by FEMA. The Federal Government or FEMA cannot vouch for the data or analyses derived from these data after the data have been retrieved from the Agency's website(s). The published panel keeps a column for whether a county had a FEMA declaration for that storm, as context for reuse; no result on this page uses it. poweroutage.us is not used. The Olukola et al. (2026) dataset is used only as a check and is not redistributed. FCC Broadband Data Collection public data (National Broadband Map, [https://broadbandmap.fcc.gov/data-download](https://broadbandmap.fcc.gov/data-download)) were obtained through the FCC's Public Data API under the FCC API terms of service accepted for the account, and are used for provider counts only; no provider is named and the files are not redistributed. The map is drawn with D3 and topojson-client (ISC licence), served from this site. Code was written with the help of an AI coding assistant; every number on this page is generated by that code from public data and was checked independently against its sources. Independent analysis using public data. Views are my own and not those of any employer.
 
 **Reproduce it.** The inputs, code and outputs are in the data repository [ts2427/when-the-network-goes-dark-data](https://github.com/ts2427/when-the-network-goes-dark-data), archived on Zenodo. Version 3.2.0, which produced every number on this page, is [doi:10.5281/zenodo.24542647](https://doi.org/10.5281/zenodo.24542647) ([files at tag v3.2.0](https://github.com/ts2427/when-the-network-goes-dark-data/tree/v3.2.0)); [doi:10.5281/zenodo.24477809](https://doi.org/10.5281/zenodo.24477809) always resolves to the latest version. `python run_all.py` rebuilds the panel and `results.json` from the archived inputs, and a test checks the rebuilt files against the published ones byte for byte.
 
-*Exploratory.* **Context tables.** The data repository (from version 3.2.0) adds three descriptive tables under a written addendum committed before their sources were downloaded: cable and wireline subscribers out as each report prints them (178 reports, by area or state, with each printed previous-day figure checked against the previous report); FEMA Individual Assistance by storm and county (537 storm-counties with assistance declared; OpenFEMA, used under its terms: This product uses the Federal Emergency Management Agency's OpenFEMA API, but is not endorsed by FEMA. The Federal Government or FEMA cannot vouch for the data or analyses derived from these data after the data have been retrieved from the Agency's website(s).); and NOAA NCEI Storm Events surge, flood and wind flags and damage by storm and county (the NCEI files themselves are not redistributed). No result on this page uses them, and none has been set against the cell-site outages. [`data/analysis/context/`](https://github.com/ts2427/when-the-network-goes-dark-data/tree/v3.2.0/data/analysis/context).
+<details class="method-detail" markdown="1">
+<summary><em>Exploratory.</em> Context tables.</summary>
+
+The data repository (from version 3.2.0) adds three descriptive tables under a written addendum committed before their sources were downloaded: cable and wireline subscribers out as each report prints them (178 reports, by area or state, with each printed previous-day figure checked against the previous report); FEMA Individual Assistance by storm and county (537 storm-counties with assistance declared; OpenFEMA, used under its terms: This product uses the Federal Emergency Management Agency's OpenFEMA API, but is not endorsed by FEMA. The Federal Government or FEMA cannot vouch for the data or analyses derived from these data after the data have been retrieved from the Agency's website(s).); and NOAA NCEI Storm Events surge, flood and wind flags and damage by storm and county (the NCEI files themselves are not redistributed). No result on this page uses them, and none has been set against the cell-site outages. [`data/analysis/context/`](https://github.com/ts2427/when-the-network-goes-dark-data/tree/v3.2.0/data/analysis/context).
+
+</details>
 
 **Datasheet.** What the data can and cannot be used for, its known limitations and how it is maintained: [`DATASHEET.md`](https://github.com/ts2427/when-the-network-goes-dark-data/blob/v3.2.0/DATASHEET.md) in the data repository.
 
 **Disclosure.** The author works in the telecommunications industry. This analysis was done independently, on personal time, using only publicly available government data. It uses no employer data or confidential information, and the views are the author's alone. The author has no financial interest in any FCC proceeding.
-
 
 ### Audit trail {#audit-trail}
 
@@ -985,6 +1053,9 @@ Every deviation from the analysis plan, every decision on the exhibits, every co
 
 ## Related work
 
+<details class="section-collapse" markdown="1">
+<summary>Show related work</summary>
+
 - Olukola, O., Addeh, O. D., Konan, E. A., & Rahimi, N. (2026). The towers were standing: A cause decomposition of cellular outages during Hurricane Helene. arXiv:2609.10944. Helene only, from the same FCC reports; the preprint gives no link to its dataset, which is not yet deposited. This page uses it as a check (chapter 4 and the methods).
 - Du (2024). Data-driven telecommunication outage prediction during hurricane events. ASCE-ASME Journal of Risk and Uncertainty in Engineering Systems, Part A. doi:10.1061/AJRUA6.RUENG-1285. A model that predicts outages; this work is a checked record of the outages the FCC reported, not a prediction.
 - Anonymous. grid-to-lifeline-site: interactive companion site, cross-infrastructure dependency and resilience across nine Florida hurricanes. GitHub repository ac5907846/grid-to-lifeline-site, accessed November 25, 2026. Florida only, the companion to a manuscript under review, with no licence stated; this work covers ten states under CC BY 4.0.
@@ -997,7 +1068,12 @@ Every deviation from the analysis plan, every decision on the exhibits, every co
 - Federal Communications Commission. FCC 21-99 (Resilient Networks, notice of proposed rulemaking, 2021); FCC 24-5 (mandatory DIRS, in force February 20, 2025, Federal Register 2025-00495); FCC 26-34 (Federal Register 2026-13155, 91 FR 39516, June 30, 2026). The rules behind the reports; chapter 12 describes the periods they define.
 - Federal Communications Commission, Public Safety and Homeland Security Bureau (2018). 2017 Atlantic Hurricane Season Impact on Communications: Report and Recommendations (DOC-353805A1); and (2019). October 2018 Hurricane Michael's Impact on Communications (DOC-357387A1). The FCC's own summaries of three storms, used here as external checks.
 
+</details>
+
 ## Sources
+
+<details class="section-collapse" markdown="1">
+<summary>Show sources</summary>
 
 - Brelsford, C., et al. (2024). A dataset of recorded electricity outages by United States county 2014–2022. *Scientific Data*, 11, 271. [https://doi.org/10.1038/s41597-024-03095-5](https://doi.org/10.1038/s41597-024-03095-5). Data: ORNL/DOE EAGLE-I recorded electricity outages, 2014–2025 (figshare v4), [https://doi.org/10.6084/m9.figshare.24237376](https://doi.org/10.6084/m9.figshare.24237376).
 - Olukola, O., Addeh, O. D., Konan, E. A., & Rahimi, N. (2026). The towers were standing: A cause decomposition of cellular outages during Hurricane Helene. arXiv:2609.10944. [https://doi.org/10.48550/arXiv.2609.10944](https://doi.org/10.48550/arXiv.2609.10944)
@@ -1009,6 +1085,8 @@ Every deviation from the analysis plan, every decision on the exhibits, every co
 - FEMA. OpenFEMA Disaster Declarations Summaries v2, [https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries](https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries); Registration Intake and Individuals Household Program v2, [https://www.fema.gov/api/open/v2/RegistrationIntakeIndividualsHouseholdPrograms](https://www.fema.gov/api/open/v2/RegistrationIntakeIndividualsHouseholdPrograms), and Housing Assistance Program Data - Renters v2, [https://www.fema.gov/api/open/v2/HousingAssistanceRenters](https://www.fema.gov/api/open/v2/HousingAssistanceRenters) (context tables).
 - NOAA National Centers for Environmental Information. Storm Events Database, bulk details files 2017–2026 (context tables), [https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/](https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/); NWS zone-county correlation file, [https://www.weather.gov/gis/ZoneCounty](https://www.weather.gov/gis/ZoneCounty).
 - Federal Communications Commission, Public Safety and Homeland Security Bureau (2019). October 2018 Hurricane Michael's Impact on Communications: Preparation, Effect, and Recovery. PS Docket No. 18-339 (external check), [https://docs.fcc.gov/public/attachments/DOC-357387A1.pdf](https://docs.fcc.gov/public/attachments/DOC-357387A1.pdf).
+
+</details>
 
 <!-- how-to-cite -->
 ## Download the data
