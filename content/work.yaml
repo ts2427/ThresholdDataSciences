@@ -14,7 +14,7 @@
 - title: "Who Leaves, Who to Save, and What It Costs"
   url: "https://timothydspivey.com/retention-playbook"
   question: "What happens next?"
-  what: "Long-form playbook: nine chapters on four public datasets, from who is likely to leave to whom it pays to contact."
+  what: "Long-form playbook: nine chapters on four datasets, public and fictional, from who is likely to leave to whom it pays to contact."
   summary: "A retention playbook from churn analysis to the targeting decision: calibrated models, profit-based contact rules, uplift on a randomized experiment and a fairness audit."
   methods:
     - "Calibrated classification"
@@ -67,7 +67,8 @@
 - title: "Who files the most severe-injury reports? It depends on how you count employers"
   url: "/analysis/osha-severe-injury-reports-audit/"
   question: "Can you trust the number?"
-  what: "Data audit: one federal file, 71,454 employer names reduced step by step to about 56,083 employers, with the matcher's accuracy measured on 300 labeled pairs."
+  what: "Data audit: one federal file, {raw_names} employer names reduced step by step to {final_employers} employers, with the matcher's accuracy measured on {labeled_pairs} labeled pairs."
+  what_numbers: "demos/results/osha_audit.json"  # filled in by build.py from the audit's output
   summary: "A step-by-step audit of OSHA's Severe Injury Reports: duplicates, name normalization and fuzzy entity resolution, with the matcher's precision and recall measured on a labeled sample."
   methods:
     - "Data-quality profiling"

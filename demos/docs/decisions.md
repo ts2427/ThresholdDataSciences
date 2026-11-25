@@ -153,7 +153,8 @@ Dated log. Each entry: what was decided, and why.
   Run by `r/demo_a_posthoc.R` with the same settings as the main script.
 - **2026-11-19 — Robustness row added after seeing results: drop the 2014
   adopters.** The original brief's step 3 asked for it, but it was left out
-  of the pre-registered plan; added now and labeled the same way.
+  of the committed analysis plan (committed locally before the first
+  estimate; not publicly registered); added now and labeled the same way.
 - **2026-11-19 — Write-up requirements recorded** in
   `docs/writeup_requirements_demo_a.md` (both pre-tests with the condition-
   number explanation; the plain HonestDiD sentence; benchmarks are from
@@ -386,3 +387,10 @@ Dated log. Each entry: what was decided, and why.
   `site_pages/verify_figures.py` before it is marked `verified: true` (all
   three matched); "Reproduce it" hidden until the code is published; pages
   published (`draft: false`) and both work items live.
+- **2026-11-25 — Wording corrected.** The 2026-11-19 entry on dropping the
+  2014 adopters called the analysis plan "pre-registered". The plan was
+  committed locally (2026-11-19 12:46, a repository with no remote) before
+  the first estimate (13:08) and was not publicly registered (no OSF or
+  AsPredicted entry; it became public with the code at 15:01, after the
+  results). The entry now says "committed analysis plan (committed locally
+  before the first estimate; not publicly registered)". No result changes.

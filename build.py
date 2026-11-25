@@ -396,6 +396,24 @@ def load_services():
     return services, data.get("entry_offers", [])
 
 
+def audit_numbers(path):
+    """The OSHA audit's own output (demos/results/osha_audit.json): the counts its Work card states."""
+    d = json.loads(Path(path).read_text(encoding="utf-8"))
+    strata = d["step3d_estimate"]["main"]["y_counts"].values()
+    return {"raw_names": d["step2_naive"]["distinct_raw_employer_names"],
+            "final_employers": d["step3c_final"]["final_counts"]["by_name"],
+            "labeled_pairs": sum(n for _, n in strata)}
+
+
+def fill_what(text, path):
+    """A Work card's "what it is" line with its numbers taken from the example's output file, never typed."""
+    nums = {k: f"{v:,}" for k, v in audit_numbers(path).items()}
+    out = text.format(**nums)
+    if "{" in out or "}" in out:
+        sys.exit(f"BUILD FAILED: unfilled number in work.yaml what line: {out!r}")
+    return out
+
+
 def load_work(services, analysis):
     """Worked examples from work.yaml plus every published analysis page.
     in_progress items are kept apart and never presented as finished; a
@@ -422,6 +440,8 @@ def load_work(services, analysis):
         if _is_placeholder(item.get("target_date")):
             item["target_date"] = ""
         item["methods"] = item.get("methods") or []
+        if item.get("what_numbers"):
+            item["what"] = fill_what(item["what"], HERE / item["what_numbers"])
         item["markers"] = item.get("markers") or []
         bad = [m for m in item["markers"] if m not in WORK_MARKERS]
         if bad:
