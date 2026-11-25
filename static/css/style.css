@@ -454,6 +454,19 @@ h2 {
 }
 .page-head .demo-tag { margin-top: 0.9rem; }
 
+/* ---------- exploratory chapter tag and the audit trail (analysis pages) ---------- */
+.prose .tag-exploratory {
+  display: inline-block; font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+  border: 1px solid currentColor; border-radius: 2px; padding: 0.05rem 0.45rem; margin: 0 0 0.9rem;
+}
+.prose details.audit-trail { margin: 0.5rem 0 1.5rem; }
+.prose details.audit-trail > summary { cursor: pointer; font-family: var(--mono); font-size: 0.85rem; }
+.prose details.audit-trail > summary:hover { color: var(--ink); }
+/* long URLs and file paths wrap instead of widening the page on phones */
+.prose a, .prose code { overflow-wrap: anywhere; }
+.prose p, .prose li { overflow-wrap: break-word; }
+
 /* ---------- methods line ---------- */
 .methods-line {
   font-family: var(--mono); font-size: 0.8rem; line-height: 1.55;

@@ -33,7 +33,7 @@ TEMPLATES = HERE / "templates"
 STATIC = HERE / "static"
 DIST = HERE / "dist"
 
-MD_EXTENSIONS = ["footnotes", "attr_list", "toc", "tables"]
+MD_EXTENSIONS = ["footnotes", "attr_list", "toc", "tables", "md_in_html"]  # md_in_html: markdown inside <details markdown="1">
 
 env = Environment(
     loader=FileSystemLoader(TEMPLATES),

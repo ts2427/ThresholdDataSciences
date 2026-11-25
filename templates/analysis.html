@@ -24,10 +24,12 @@
 
   {% include "_step.html" %}
 
+  {% set parts = piece.body.split('<!-- how-to-cite -->') if piece.cite_inline else [piece.body] %}
   <div class="shell measure prose">
-    {{ piece.body | safe }}
+    {{ parts[0] | safe }}
   </div>
 
+  {% if not piece.cite_inline %}
   <aside class="shell measure methods" aria-label="Method and sources">
     {% if piece.method %}
     <h2>Method</h2>
@@ -46,6 +48,7 @@
     <p><a href="{{ piece.download }}">Download the underlying data (CSV)</a></p>
     {% endif %}
   </aside>
+  {% endif %}
 
   {% if piece.corrections %}
   <aside class="shell measure corrections" aria-label="Corrections">
@@ -81,5 +84,11 @@
     <p class="cite-text">{{ piece.citation }}</p>
     {% endif %}
   </aside>
+
+  {% if piece.cite_inline and parts | length > 1 %}
+  <div class="shell measure prose">
+    {{ parts[1] | safe }}
+  </div>
+  {% endif %}
 </article>
 {% endblock %}
