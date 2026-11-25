@@ -246,6 +246,9 @@ SITE["show_price_range"] = (
     and not _is_placeholder(SITE.get("price_range_high")))
 
 DEMO_TAG = "Demonstration · Public data · Not client work"
+WORK_LABEL = "Demonstrations built on public data. None is client work."  # said once, at the top of /work/
+FEATURED_LABEL = "Demonstration · Public data"  # the home page's featured example stands alone there
+WORK_MARKERS = ("Open dataset", "DOI", "Reproducible code", "Datasheet")  # shown only where true
 SITE["demo_tag"] = DEMO_TAG
 
 if "pensacolastate" in SITE.get("contact_form_action", ""):
@@ -408,7 +411,7 @@ def load_work(services, analysis):
         if q not in by_question:
             sys.exit(f"BUILD FAILED: work.yaml item {item.get('title')!r} "
                      f"question {q!r} matches no service in services.yaml.")
-        for field in ("title", "summary", "data_note", "url"):
+        for field in ("title", "summary", "data_note", "url", "what"):
             if "TODO" in str(item.get(field) or ""):
                 sys.exit(f"BUILD FAILED: work.yaml item {item.get('title')!r} "
                          f"has TODO in {field}.")
@@ -419,6 +422,11 @@ def load_work(services, analysis):
         if _is_placeholder(item.get("target_date")):
             item["target_date"] = ""
         item["methods"] = item.get("methods") or []
+        item["markers"] = item.get("markers") or []
+        bad = [m for m in item["markers"] if m not in WORK_MARKERS]
+        if bad:
+            sys.exit(f"BUILD FAILED: work.yaml item {item.get('title')!r} has unknown markers {bad}; "
+                     f"use only {WORK_MARKERS}.")
         (live if status == "live" else in_progress).append(item)
     listed = {w.get("url") for w in live + in_progress}
     for piece in analysis:
@@ -607,6 +615,15 @@ def main():
     services, entry_offers = load_services()
     work_live, work_in_progress = load_work(services, analysis)
     questions_with_work = {w["question"] for w in work_live}
+    featured = [w for w in work_live if w.get("featured")]
+    if len(featured) != 1:
+        sys.exit(f"BUILD FAILED: work.yaml must mark exactly one live item featured (found {len(featured)}).")
+    question_examples = {}  # the home page's question cards link to their own example
+    for w in work_live:
+        if w.get("home_card"):
+            if w["question"] in question_examples:
+                sys.exit(f"BUILD FAILED: two home_card examples for {w['question']!r}.")
+            question_examples[w["question"]] = w["url"]
     press = load_yaml(CONTENT / "press.yaml") or []
 
     # Category cross-links (from content, never hardcoded).
@@ -621,7 +638,8 @@ def main():
     render("home.html", "index.html",
            issues=issues[:2], press=press, services=services,
            entry_offers=entry_offers,
-           featured=work_live[0] if work_live else None,
+           featured=featured[0], featured_label=FEATURED_LABEL,
+           question_examples=question_examples,
            questions_with_work=questions_with_work, page_url="/")
 
     # Services
@@ -636,7 +654,7 @@ def main():
 
     # Work
     render("work.html", "work/index.html",
-           live=work_live, in_progress=work_in_progress, page_url="/work/",
+           live=work_live, in_progress=work_in_progress, work_label=WORK_LABEL, page_url="/work/",
            schema_extra=collection_node(
                "Work", "/work/",
                "Worked examples on public data from Threshold Data Sciences."))

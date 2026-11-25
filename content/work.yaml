@@ -1,58 +1,80 @@
-# Worked examples for /work/. Every item renders with the tag
-# "DEMONSTRATION · PUBLIC DATA · NOT CLIENT WORK".
+# Worked examples for /work/. The Work page states once that these are demonstrations on public data, not client
+# work; the home page's featured example carries a short form of that label.
 #
 # status: live         — finished and published; may be featured on the home page
 # status: in_progress  — listed under "In progress", never presented as finished;
 #                        target_date is hidden while it is TODO
 # question must match a `question` in services.yaml exactly.
+# what:      what the piece is, in a manager's words, with its scale; every fact from the example's own page or results
+# markers:   only what is true of the example, from: Open dataset, DOI, Reproducible code, Datasheet
+# featured:  the home page's worked example (exactly one)
+# home_card: the example the home page's question card links to (one per question)
 # Any non-draft page in content/analysis/ joins /work/ automatically.
 
 - title: "Who Leaves, Who to Save, and What It Costs"
   url: "https://timothydspivey.com/retention-playbook"
   question: "What happens next?"
+  what: "Long-form playbook: nine chapters on four public datasets, from who is likely to leave to whom it pays to contact."
   summary: "A retention playbook from churn analysis to the targeting decision: calibrated models, profit-based contact rules, uplift on a randomized experiment and a fairness audit."
   methods:
     - "Calibrated classification"
     - "Profit-based targeting"
     - "Uplift modeling"
     - "Fairness audit"
+  markers: []
   data_note: "Public and fictional datasets; findings checked against operators' public disclosures."
   status: "live"
+  home_card: true
   target_date: ""
 
 - title: "When the Network Goes Dark"
   url: "/analysis/when-the-network-goes-dark/"
-  question: "Did it work?"
+  question: "Can you trust the number?"
+  what: "Full study and open dataset: 22 storms and 169 FCC reports, checked line by line, released with a DOI."
   summary: "Cell-site outages and recovery in 22 Gulf and Southeast hurricanes, 2017–2026: half the sites out at the peak were back within a median of 2 days, only 6 to 11 of 20 storms with a report after their peak reach 90% before the FCC's reports end, cell outages tend to rise and fall with power outages, and in all 22 storms the FCC's last public report still showed cell sites out: 1,887 in total."
   methods:
     - "Parsing and validating FCC DIRS reports"
     - "County-bootstrap intervals"
     - "Calibrated exposure model"
     - "Discrete-time hazard with censoring"
+  markers:
+    - "Open dataset"
+    - "DOI"
+    - "Reproducible code"
+    - "Datasheet"
   data_note: "Public data: FCC DIRS reports, ORNL/DOE EAGLE-I, NOAA NHC, CDC/ATSDR SVI, OpenFEMA and Census."
   status: "live"
+  featured: true
+  home_card: true
   target_date: ""
 
 - title: "Did Medicaid expansion reduce uninsurance among low-income adults?"
   url: "/analysis/medicaid-expansion-uninsured/"
   question: "Did it work?"
-  summary: "A staggered difference-in-differences analysis of state Medicaid expansions and the uninsured rate among adults under 138% of the poverty line, with a pre-registered plan, robustness checks and sensitivity bounds."
+  what: "Focused analysis: one policy question, one design (staggered difference-in-differences) on Census data for the 50 states and DC, 2009–2019."
+  summary: "A staggered difference-in-differences analysis of state Medicaid expansions and the uninsured rate among adults under 138% of the poverty line, with a committed analysis plan, robustness checks and sensitivity bounds."
   methods:
     - "Difference-in-differences with staggered timing"
     - "Callaway–Sant'Anna estimator"
     - "HonestDiD sensitivity bounds"
+  markers:
+    - "Reproducible code"
   data_note: "Public data: Census American Community Survey microdata and KFF expansion dates."
   status: "live"
+  home_card: true
   target_date: ""
 
 - title: "Who files the most severe-injury reports? It depends on how you count employers"
   url: "/analysis/osha-severe-injury-reports-audit/"
   question: "Can you trust the number?"
+  what: "Data audit: one federal file, 71,454 employer names reduced step by step to about 56,083 employers, with the matcher's accuracy measured on 300 labeled pairs."
   summary: "A step-by-step audit of OSHA's Severe Injury Reports: duplicates, name normalization and fuzzy entity resolution, with the matcher's precision and recall measured on a labeled sample."
   methods:
     - "Data-quality profiling"
     - "Entity resolution and duplicate detection"
     - "Precision and recall from a stratified labeled sample"
+  markers:
+    - "Reproducible code"
   data_note: "Public data: OSHA Severe Injury Reports (federal-OSHA jurisdictions only) and company Form 10-K filings."
   status: "live"
   target_date: ""

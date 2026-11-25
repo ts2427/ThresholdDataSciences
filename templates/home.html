@@ -30,7 +30,7 @@
         <p>{{ s.card_line }}</p>
         <p class="methods-line">{{ s.methods_line }}</p>
         {% if s.question in questions_with_work %}
-        <p class="card-link"><a href="/work/">See a worked example<span class="visually-hidden"> for “{{ s.question }}”</span></a></p>
+        <p class="card-link"><a href="{{ question_examples.get(s.question, '/work/') }}">See a worked example<span class="visually-hidden"> for “{{ s.question }}”</span></a></p>
         {% endif %}
       </li>
       {% endfor %}
@@ -43,6 +43,7 @@
 <section class="home-featured" aria-labelledby="featured-head">
   <div class="shell">
     <h2 id="featured-head">A worked example</h2>
+    <p class="demo-tag">{{ featured_label }}</p>
     <ul class="work-list">
       {% with w = featured %}{% include "_work_item.html" %}{% endwith %}
     </ul>

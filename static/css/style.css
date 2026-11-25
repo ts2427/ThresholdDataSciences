@@ -511,6 +511,13 @@ h2 {
 .work-title a { color: var(--ink); }
 .work-title a:hover { color: var(--slate); }
 .work-summary { max-width: var(--measure); }
+.work-what { max-width: var(--measure); font-weight: 600; margin-bottom: 0.5rem; }
+.work-markers { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.7rem; padding: 0; }
+.work-markers li {
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink);
+  border: 1px solid var(--rule); border-radius: 2px; padding: 0.1rem 0.45rem;
+}
+.work-label { margin-top: 0.6rem; }
 .work-note { font-size: 0.9rem; color: var(--muted); margin-top: 0.6rem; }
 .work-status {
   font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase;

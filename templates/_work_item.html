@@ -1,9 +1,12 @@
 <li class="work-item">
-  {% include "_demo_tag.html" %}
   {% if w.question %}<p class="work-question">{{ w.question }}</p>{% endif %}
   <h3 class="work-title">{% if w.url %}<a href="{{ w.url }}">{{ w.title }}</a>{% else %}{{ w.title }}{% endif %}</h3>
+  {% if w.what %}<p class="work-what">{{ w.what }}</p>{% endif %}
   <p class="work-summary">{{ w.summary }}</p>
   {% if w.methods %}<p class="methods-line">{{ w.methods | join(" · ") }}</p>{% endif %}
+  {% if w.markers %}<ul class="work-markers" aria-label="Comes with">
+    {% for m in w.markers %}<li>{{ m }}</li>{% endfor %}
+  </ul>{% endif %}
   {% if w.data_note %}<p class="work-note">{{ w.data_note }}</p>{% endif %}
   {% if w.status == "in_progress" %}
   <p class="work-status">In progress{% if w.target_date %} · expected {{ w.target_date }}{% endif %}</p>
