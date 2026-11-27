@@ -225,7 +225,7 @@ I put them side by side: 169 FCC reports from 22 hurricanes, 2017–2026, checke
 
 - In the median storm, half the sites out at the peak report were back by the second daily report after it; the largest storms took about three days.
 - In the 17 storms whose reports print causes (2019 on), lost power and lost network connections, not damage to the sites themselves (6.6% of sites out, 95% interval 2.3 to 15.4), account for most outages, and county-reports with more electricity customers without power tend to have more cell sites out.
-- Counties with higher social vulnerability did not take measurably longer for cell outages to fall below 5% of sites.
+- Under the main model, counties with higher social vulnerability did not take measurably longer for cell outages to fall below 5% of sites.
 - The FCC's reporting often ended before recovery could be confirmed: only 6 to 11 of 20 storms reached 90% restored within the reports.
 - *Exploratory.* In all 22 storms, the FCC's last public report still showed cell sites out: 1,887 in total. The median share of a storm's peak still out at its last report is 9.0% (20 storms). For Nate and Nicole, the last report is also the peak.
 - *Exploratory.* The FCC printed sites operating on backup power for 11 of 22 storms; the most in one report was 1,990 sites, in Helene.
@@ -531,7 +531,7 @@ Note. Laura's report of 2020-08-25, kept off Laura's timeline (the combined Marc
 
 ### 8. Social vulnerability {#8-who-waits-longest}
 
-**Claim.** In this data, counties with higher social vulnerability did not take measurably longer for cell outages to fall below 5% of sites. Under the main model the most vulnerable quartile's hazard ratio is 1.14 (0.90 to 1.45), consistent with no difference. Under the plan's censoring and serious-flag sensitivities the lower end falls to 0.81, so a modest slowdown can't be excluded; without any flagged report (plan item 5, a much smaller sample: 5 storms, 145 storm-counties) the ratio is 0.44 (0.24 to 0.80). The raw curves suggest a slower start in the first three days: 14% of the most vulnerable quartile's storm-counties were below 5% by day 3, against 23% to 25% in the other quartiles.
+**Claim.** Under the main model, counties with higher social vulnerability did not take measurably longer for cell outages to fall below 5% of sites. Under the main model the most vulnerable quartile's hazard ratio is 1.14 (0.90 to 1.45), consistent with no difference. Under the plan's censoring and serious-flag sensitivities the lower end falls to 0.81, so a modest slowdown can't be excluded; without any flagged report (plan item 5, a much smaller sample: 5 storms, 145 storm-counties) the ratio is 0.44 (0.24 to 0.80). The raw curves suggest a slower start in the first three days: 14% of the most vulnerable quartile's storm-counties were below 5% by day 3, against 23% to 25% in the other quartiles.
 
 **Exhibit.**
 
