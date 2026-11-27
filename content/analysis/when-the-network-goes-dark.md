@@ -6,7 +6,7 @@ updated: "2026-11-25"
 summary: "FCC reports on cell sites out in 22 Gulf hurricanes, 2017–2026: half back within 2 days of the peak. Sites out are not people without service."
 cite_inline: true
 toc: true
-dataset: {"name": "When the Network Goes Dark: Gulf Coast cell-site outages in hurricanes, 2017-2026 (data and code)", "description": "County-by-report panel of FCC Disaster Information Reporting System (DIRS) cell-site outages for 22 Atlantic storms in ten Gulf and Southeast states, 2017-2026, each report checked against its printed totals, with the public inputs and the code that rebuild the panel and every number on the page. Cell sites as reported to the FCC; not a count of people without service.", "keywords": ["FCC DIRS", "cell site outages", "hurricanes", "telecommunications resilience", "power outages", "EAGLE-I", "disaster recovery", "public records"], "version": "3.2.1", "concept_doi": "10.5281/zenodo.24477809", "version_doi": "10.5281/zenodo.24595378", "repository": "https://github.com/ts2427/when-the-network-goes-dark-data", "license": "https://creativecommons.org/licenses/by/4.0/", "temporal_coverage": "2017-08-26/2026-10-12", "spatial_coverage": ["Alabama", "Florida", "Georgia", "Louisiana", "Mississippi", "North Carolina", "South Carolina", "Tennessee", "Texas", "Virginia"], "variables": [{"name": "storm_key", "description": "Storm key: NHC ID and DIRS activation date, joined by an underscore.", "unit": ""}, {"name": "nhc_id", "description": "National Hurricane Center storm ID (basin, number, year).", "unit": ""}, {"name": "storm", "description": "Storm name.", "unit": ""}, {"name": "dirs_activation_date", "description": "Date the FCC activated DIRS for the storm.", "unit": ""}, {"name": "rule_period", "description": "FCC rule period by activation date. P0: Voluntary DIRS, voluntary Framework (2016-01-01 to 2024-04-30); P1: MDRI in force, DIRS voluntary (2024-05-01 to 2025-02-19); P2: MDRI + mandatory DIRS (2025-02-20 to 2026-06-29); P3: Mandatory DIRS, with FCC 26-34 in effect from 2026-06-30 (its revised reporting list, 47 CFR 4.18, not yet in effect) (2026-06-30 to present).", "unit": ""}, {"name": "doc_id", "description": "FCC EDOCS document number of the report.", "unit": ""}, {"name": "report_date", "description": "Date of the report.", "unit": ""}, {"name": "as_of_utc", "description": "The report's stated as-of time, in UTC.", "unit": "UTC"}, {"name": "as_of_imputed", "description": "True when as_of_utc was set to 12:00 Eastern because the report prints no time.", "unit": ""}, {"name": "report_status", "description": "Validation status of the report (step 4): ok, flagged (a check raised a note) or known_fcc_inconsistency (a stated total the FCC's own rows do not sum to, listed in code/manifest/known_fcc_inconsistencies.csv).", "unit": ""}, {"name": "state", "description": "State, as printed.", "unit": ""}, {"name": "county", "description": "County as printed by the FCC (upper case).", "unit": ""}, {"name": "fips", "description": "Five-digit county FIPS code (with leading zero).", "unit": ""}, {"name": "sites_served", "description": "Cell sites served in the county, as reported.", "unit": "sites"}, {"name": "sites_out", "description": "Cell sites out of service in the county, as reported.", "unit": "sites"}, {"name": "pct_out", "description": "Percent of sites out, as printed (computed from the two counts where not printed).", "unit": "percent"}, {"name": "pct_printed", "description": "True when the report printed the percent column.", "unit": ""}, {"name": "out_damage", "description": "Sites out due to damage, as reported.", "unit": "sites"}, {"name": "out_transport", "description": "Sites out due to transport (backhaul), as reported.", "unit": "sites"}, {"name": "out_power", "description": "Sites out due to power, as reported.", "unit": "sites"}, {"name": "on_backup_power", "description": "Sites operating on backup power, as reported.", "unit": "sites"}, {"name": "out_unattributed", "description": "Sites out with no cause given: sites_out minus the three causes, never below 0.", "unit": "sites"}, {"name": "out_overattributed", "description": "Causes in excess of sites out (sites counted under more than one cause).", "unit": "sites"}, {"name": "area_status", "description": "Whether the county is in the FCC's notice area on the report date: inside, inside_spelling_variant, outside_notice_area or table_not_in_list.", "unit": ""}, {"name": "fema_declared", "description": "True if OpenFEMA lists a declaration for the storm covering the county.", "unit": ""}, {"name": "time_flag", "description": "Blank, or pre_onset_likely_marco for Laura's Aug 25, 2020 report (the FCC's combined Marco and Laura report), which is kept but left out of every time-based result.", "unit": ""}], "distribution": {"url": "https://zenodo.org/api/records/24595378/files/ts2427/when-the-network-goes-dark-data-v3.2.1.zip/content", "bytes": 128623231, "format": "application/zip"}, "panel_csv": {"path": "/static/data/hurricane-dirs-county-day.csv", "bytes": 1762625, "format": "text/csv", "name": "County-report panel, DIRS fields only (CSV)"}, "citations": {"general": "Spivey, T. D. (2026). When the Network Goes Dark: Gulf Coast cell-site outages in hurricanes, 2017-2026 (data and code) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.24477809", "version": "Spivey, T. D. (2026). When the Network Goes Dark: Gulf Coast cell-site outages in hurricanes, 2017-2026 (data and code) (Version 3.2.1) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.24595378"}}
+dataset: {"name": "When the Network Goes Dark: Gulf Coast cell-site outages in hurricanes, 2017-2026 (data and code)", "description": "County-by-report panel of FCC Disaster Information Reporting System (DIRS) cell-site outages for 22 Atlantic storms in ten Gulf and Southeast states, 2017-2026, each report checked against its printed totals, with the public inputs and the code that rebuild the panel and every number on the page. Cell sites as reported to the FCC; not a count of people without service.", "keywords": ["FCC DIRS", "cell site outages", "hurricanes", "telecommunications resilience", "power outages", "EAGLE-I", "disaster recovery", "public records"], "version": "3.2.1", "concept_doi": "10.5281/zenodo.24477809", "version_doi": "10.5281/zenodo.24595378", "repository": "https://github.com/ts2427/when-the-network-goes-dark-data", "license": "https://creativecommons.org/licenses/by/4.0/", "temporal_coverage": "2017-08-26/2026-10-12", "spatial_coverage": ["Alabama", "Florida", "Georgia", "Louisiana", "Mississippi", "North Carolina", "South Carolina", "Tennessee", "Texas", "Virginia"], "variables": [{"name": "storm_key", "description": "Storm key: NHC ID and DIRS activation date, joined by an underscore.", "unit": ""}, {"name": "nhc_id", "description": "National Hurricane Center storm ID (basin, number, year).", "unit": ""}, {"name": "storm", "description": "Storm name.", "unit": ""}, {"name": "dirs_activation_date", "description": "Date the FCC activated DIRS for the storm.", "unit": ""}, {"name": "rule_period", "description": "FCC rule period by activation date. P0: Voluntary DIRS, voluntary Framework (2016-01-01 to 2024-04-30); P1: MDRI in force, DIRS voluntary (2024-05-01 to 2025-02-19); P2: MDRI + mandatory DIRS (2025-02-20 to 2026-06-29); P3: Mandatory DIRS, with FCC 26-34 in effect from 2026-06-30 (its revised reporting list, 47 CFR 4.18, not yet in effect) (2026-06-30 to present).", "unit": ""}, {"name": "doc_id", "description": "FCC EDOCS document number of the report.", "unit": ""}, {"name": "report_date", "description": "Date of the report.", "unit": ""}, {"name": "as_of_utc", "description": "The report's stated as-of time, in UTC.", "unit": "UTC"}, {"name": "as_of_imputed", "description": "True when as_of_utc was set to 12:00 Eastern because the report prints no time.", "unit": ""}, {"name": "report_status", "description": "Validation status of the report (step 4): ok, flagged (a check raised a note) or known_fcc_inconsistency (a stated total the FCC's own rows do not sum to, listed in code/manifest/known_fcc_inconsistencies.csv).", "unit": ""}, {"name": "state", "description": "State, as printed.", "unit": ""}, {"name": "county", "description": "County as printed by the FCC; case and suffix vary by report format.", "unit": ""}, {"name": "county_name_census", "description": "The county's 2020 Census name for its FIPS code (NAMELSAD form, e.g. \"Baldwin County\", \"Orleans Parish\"), from data/input/census/national_county2020.txt.", "unit": ""}, {"name": "fips", "description": "Five-digit county FIPS code (with leading zero).", "unit": ""}, {"name": "sites_served", "description": "Cell sites served in the county, as reported.", "unit": "sites"}, {"name": "sites_out", "description": "Cell sites out of service in the county, as reported.", "unit": "sites"}, {"name": "pct_out", "description": "Percent of sites out, as printed (computed from the two counts where not printed).", "unit": "percent"}, {"name": "pct_printed", "description": "True when the report printed the percent column.", "unit": ""}, {"name": "out_damage", "description": "Sites out due to damage, as reported.", "unit": "sites"}, {"name": "out_transport", "description": "Sites out due to transport (backhaul), as reported.", "unit": "sites"}, {"name": "out_power", "description": "Sites out due to power, as reported.", "unit": "sites"}, {"name": "on_backup_power", "description": "Sites operating on backup power, as reported.", "unit": "sites"}, {"name": "out_unattributed", "description": "Sites out with no cause given: sites_out minus the three causes, never below 0.", "unit": "sites"}, {"name": "out_overattributed", "description": "Causes in excess of sites out (sites counted under more than one cause).", "unit": "sites"}, {"name": "area_status", "description": "Whether the county is in the FCC's notice area on the report date: inside, inside_spelling_variant, outside_notice_area or table_not_in_list.", "unit": ""}, {"name": "fema_declared", "description": "True if OpenFEMA lists a declaration for the storm covering the county.", "unit": ""}, {"name": "time_flag", "description": "Blank, or pre_onset_likely_marco for Laura's Aug 25, 2020 report (the FCC's combined Marco and Laura report), which is kept but left out of every time-based result.", "unit": ""}], "distribution": {"url": "https://zenodo.org/api/records/24595378/files/ts2427/when-the-network-goes-dark-data-v3.2.1.zip/content", "bytes": 128623231, "format": "application/zip"}, "panel_csv": {"path": "/static/data/hurricane-dirs-county-day.csv", "bytes": 2158753, "format": "text/csv", "name": "County-report panel, DIRS fields only (CSV)"}, "citations": {"general": "Spivey, T. D. (2026). When the Network Goes Dark: Gulf Coast cell-site outages in hurricanes, 2017-2026 (data and code) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.24477809", "version": "Spivey, T. D. (2026). When the Network Goes Dark: Gulf Coast cell-site outages in hurricanes, 2017-2026 (data and code) (Version 3.2.1) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.24595378"}}
 figures:
   - id: "fig-isaias"
     type: "bar"
@@ -97,7 +97,7 @@ figures:
     x: "day"
     y: "pct_out"
     title: "Every storm's reports, day by day"
-    caption: "Each row is a storm, in date order; each cell is one FCC report, by calendar days since the storm's 34-knot winds first reached a study-state county (day 0; see the methods), shaded by the share of sites served that were out. Blank cells: no FCC report that day. Crossed cells: an FCC report that exists but is excluded (Laura days 2–4 and Helene days 8–9; listed in the methods). Outlined cell: Laura's report of 2020-08-25, the combined Marco–Laura report, before Laura's winds arrived (shown here as the one exception to keeping it off Laura's timeline; see Laura's note in chapter 2). Rule periods are marked at the right. Late dark cells can reflect a reporting area narrowed to a few hard-hit counties (Laura)."
+    caption: "Each row is a storm, in date order; each cell is one FCC report, by calendar days since the storm's 34-knot winds first reached a study-state county (day 0; see the methods), shaded by the share of sites served that were out. Blank cells: no FCC report that day. No report is excluded. Outlined cell: Laura's report of 2020-08-25, the combined Marco–Laura report, before Laura's winds arrived (shown here as the one exception to keeping it off Laura's timeline; see Laura's note in chapter 2). Rule periods are marked at the right. Late dark cells can reflect a reporting area narrowed to a few hard-hit counties (Laura)."
     source: "FCC DIRS Communications Status Reports."
     source_url: ""
     data_public: true
@@ -163,7 +163,7 @@ figures:
     x: "day"
     y: "pct"
     title: "Power outages and cell outages, storm by storm"
-    caption: "Share of electricity customers (meters) without power and share of cell sites out, percent, in each report over the counties matched to EAGLE-I in that report, by days since the storm's 34-knot winds arrived. EAGLE-I ends in 2025, so Isaias is not shown. The matched counties narrow as the FCC's reporting area shrinks (Harvey 31 to 2; Florence 55 to 15; Michael 85 to 13; Laura 94 to 4; Sally 24 to 10; Delta 91 to 8; Zeta 118 to 14; Ida 68 to 7; Ian 54 to 3; Idalia 38 to 6; Francine 43 to 21; Helene 143 to 4 counties, first to last report), so late values describe only the counties still reported. Reports with no power match are left out: one of Laura's reports (its Sep 1, 2020 report, which prints no as-of time)."
+    caption: "Share of electricity customers (meters) without power and share of cell sites out, percent, in each report over the counties matched to EAGLE-I in that report, by days since the storm's 34-knot winds arrived. EAGLE-I ends in 2025, so Isaias is not shown. The matched counties narrow as the FCC's reporting area shrinks (Harvey 31 to 2; Florence 55 to 15; Michael 85 to 13; Laura 94 to 4; Sally 24 to 10; Delta 91 to 8; Zeta 118 to 14; Ida 68 to 7; Ian 54 to 3; Idalia 38 to 6; Francine 43 to 21; Helene 143 to 4 counties, first to last report), so late values describe only the counties still reported."
     source: "FCC DIRS; ORNL/DOE EAGLE-I."
     source_url: ""
     data_public: true
@@ -205,7 +205,7 @@ figures:
     lo: "ci95_low"
     hi: "ci95_high"
 og_image: "/static/img/og/when-the-network-goes-dark.png"
-og_image_alt: "When the Network Goes Dark: 22 hurricanes, 169 FCC reports, 2017–2026. A heatmap of the share of cell sites out in each storm's FCC reports, by day."
+og_image_alt: "When the Network Goes Dark: 22 hurricanes, 174 FCC reports, 2017–2026. A heatmap of the share of cell sites out in each storm's FCC reports, by day."
 og_image_width: 1200
 og_image_height: 630
 ---
@@ -217,19 +217,19 @@ When a hurricane reaches the Gulf Coast, a working phone is often what people ne
 
 During major storms the FCC tracks cell-site outages and publishes a daily report. But it publishes them one PDF at a time, storm by storm, in formats that change from year to year, so nobody can easily see the whole picture.
 
-I put them side by side: 169 FCC reports from 22 hurricanes, 2017–2026, checked line by line against the originals and linked to power-outage, storm-track and social-vulnerability data. The page asks four questions: How much of the network goes dark? How fast does it come back? What takes it down? Who waits longest?
+I put them side by side: 174 FCC reports from 22 hurricanes, 2017–2026, checked line by line against the originals and linked to power-outage, storm-track and social-vulnerability data. The page asks four questions: How much of the network goes dark? How fast does it come back? What takes it down? Who waits longest?
 
 ### What I found
 
 <div id="what-version-2-adds"></div>
 
 - In the median storm, half the sites out at the peak report were back by the second daily report after it; the largest storms took about three days.
-- In the 17 storms whose reports print causes (2019 on), lost power and lost network connections, not damage to the sites themselves (6.6% of sites out, 95% interval 2.3 to 15.4), account for most outages, and county-reports with more electricity customers without power tend to have more cell sites out.
+- In the 17 storms whose reports print causes (2019 on), lost power and lost network connections, not damage to the sites themselves (6.4% of sites out, 95% interval 2.4 to 14.8), account for most outages, and county-reports with more electricity customers without power tend to have more cell sites out.
 - Under the main model, counties with higher social vulnerability did not take measurably longer for cell outages to fall below 5% of sites.
 - The FCC's reporting often ended before recovery could be confirmed: only 6 to 11 of 20 storms reached 90% restored within the reports.
-- *Exploratory.* In all 22 storms, the FCC's last public report still showed cell sites out: 1,887 in total. The median share of a storm's peak still out at its last report is 9.0% (20 storms). For Nate and Nicole, the last report is also the peak.
+- *Exploratory.* In all 22 storms, the FCC's last public report still showed cell sites out: 1,887 in total. The median share of a storm's peak still out at its last report is 8.9% (20 storms). For Nate and Nicole, the last report is also the peak.
 - *Exploratory.* The FCC printed sites operating on backup power for 11 of 22 storms; the most in one report was 1,990 sites, in Helene.
-- *Exploratory.* Where the order could be determined (352 of 499 counties), cell outages fell below 5% of sites first in 159 counties and power outages fell below 5% of customers first in 66; in 127 both fell below 5% in the same report. The two are measured on different scales (cell sites served, electricity meters), so this is not the order in which people got service back.
+- *Exploratory.* Where the order could be determined (364 of 509 counties), cell outages fell below 5% of sites first in 168 counties and power outages fell below 5% of customers first in 72; in 124 both fell below 5% in the same report. The two are measured on different scales (cell sites served, electricity meters), so this is not the order in which people got service back.
 - *Exploratory.* In storms from 2022 on, counties served by more mobile providers did not show a consistent difference in how long cell outages took to fall below 5% of sites.
 
 
@@ -248,8 +248,8 @@ for its numbers, and the cause shares where the report gives them. The table und
 the chosen report. Drawn in your browser from the published data for all 22 storms, with county shapes from the
 Census Bureau; the map's code, shapes and data are all served from this site. Laura's report of 2020-08-25 (the combined Marco–Laura report) is not a step on Laura's slider.
 
-Across all 9,891 county-reports, 48.3%
-show 0% of sites out and 3.1% show 50% or more.
+Across all 11,136 county-reports, 50.4%
+show 0% of sites out and 3.0% show 50% or more.
 
 <div class="storm-map" data-src="/static/data/hurricane-map.json" data-topo="/static/data/hurricane-counties.topo.json" data-scale="steps">
 <div class="storm-map-controls">
@@ -272,7 +272,7 @@ panel (CSV)</a>.</p></noscript>
 
 ## The data {#1-the-question-and-the-data}
 
-**Claim.** The FCC's Disaster Information Reporting System (DIRS) publishes, for each activated storm, a daily county table of cell sites served and out. Of 178 reports in scope, 5 are excluded (they fail validation; listed in the methods) and 4 have county rows only outside the ten study states (Irma, 2017-09-07 to 2017-09-10: Puerto Rico and the U.S. Virgin Islands), leaving 169 reports for 22 storms: 10,051 county-report rows in 814 counties of ten Gulf and Southeast states.
+**Claim.** The FCC's Disaster Information Reporting System (DIRS) publishes, for each activated storm, a daily county table of cell sites served and out. Of 178 reports in scope, none is excluded (every one passes validation) and 4 have county rows only outside the ten study states (Irma, 2017-09-07 to 2017-09-10: Puerto Rico and the U.S. Virgin Islands), leaving 174 reports for 22 storms: 11,296 county-report rows in 916 counties of ten Gulf and Southeast states.
 
 **What it means.** The tables combine all providers, so no single company's network is visible. Coverage changes during a storm: counties join and leave the reporting area, and the FCC narrows the area as outages fall. Reporting was voluntary before February 20, 2025 and mandatory after; from June 30, 2026, FCC 26-34 exempts providers that do not own their own facilities (DIRS stays mandatory for those that do). So who reports can change between storms. FCC 26-34 also ended the DIRS final report, a filing that, like every DIRS filing, is presumptively confidential (FCC 26-34, citing 47 CFR 0.457(d)(1)(vi) and 4.2); the public reports never included it, so ending it does not change what this page can see. The page groups storms by these rule periods, using each storm's DIRS activation date:
 
@@ -309,7 +309,9 @@ panel (CSV)</a>.</p></noscript>
 
 ### 2. How much goes dark {#3-how-much-goes-dark}
 
-**Claim.** At their peaks, between 0.1% and 28.7% of the cell sites in storms' reporting areas were out; the median across 22 storms is 9.8% (95% interval 2.9 to 12.3). Helene had the most sites out, 4,562 (95% interval 3,593 to 5,651).
+**Claim.** At their peaks, between 0.1% and 28.7% of the cell sites in storms' reporting areas were out; the median across 22 storms is 9.8% (95% interval 3.0 to 12.3). Helene had the most sites out, 4,562 (95% interval 3,593 to 5,651).[^peak-headline]
+
+[^peak-headline]: The FCC's own text in that report (Helene, 2024-09-28, DOC-405893A1) says "5.6% (up from 0.2% yesterday)" of cell sites were out, while its table gives 12.1% (4,562 of 37,717). The page uses the table, as for every report; the report is flagged as a headline mismatch (methods).
 
 **Exhibit.**
 
@@ -324,12 +326,12 @@ panel (CSV)</a>.</p></noscript>
 | Michael | P0 | 2018-10-11 | 1.4 | 1,357 (837 to 2,043) | 18.8 | 7,212 | not printed |
 | Barry | P0 | 2019-07-14 | 2.1 | 90 (52 to 134) | 1.7 | 5,169 | not printed |
 | Dorian | P0 | 2019-09-06 | 3.8 | 281 (134 to 507) | 3.4 | 8,167 | not printed |
-| Laura | P0 | 2020-08-27 | 1.1 | 513 (265 to 887) | 1.6 | 32,136 | 192,915 |
+| Laura | P0 | 2020-08-28 | 2.1 | 852 (521 to 1,291) | 2.7 | 32,127 | 334,791 |
 | Sally | P0 | 2020-09-17 | 2.5 | 454 (148 to 870) | 17.1 | 2,659 | 156,147 |
 | Delta | P0 | 2020-10-10 | 1.1 | 674 (478 to 928) | 5.6 | 12,051 | 304,992 |
 | Zeta | P0 | 2020-10-29 | 1.0 | 1,555 (936 to 2,340) | 10.3 | 15,073 | 362,327 |
-| Ida | P0 | 2021-08-30 | 1.4 | 1,824 (1,110 to 2,633) | 28.1 | 6,492 | not printed |
-| Nicholas | P0 | 2021-09-15 | 1.8 | 128 (25 to 312) | 2.4 | 5,249 | not printed |
+| Ida | P0 | 2021-08-30 | 1.4 | 1,824 (1,115 to 2,622) | 28.1 | 6,492 | not printed |
+| Nicholas | P0 | 2021-09-15 | 1.8 | 128 (25 to 311) | 2.4 | 5,329 | not printed |
 | Ian | P0 | 2022-09-29 | 1.6 | 1,552 (913 to 2,316) | 10.9 | 14,188 | 525,966 |
 | Nicole | P0 | 2022-11-11 | 2.7 | 103 (52 to 183) | 0.9 | 11,450 | 55,372 |
 | Idalia | P0 | 2023-08-31 | 1.7 | 157 (98 to 227) | 1.9 | 8,268 | 57,715 |
@@ -342,7 +344,7 @@ panel (CSV)</a>.</p></noscript>
 
 Days count from day 0: the first time the storm's 34-knot (tropical-storm-force) winds reach any study-state county in its reports, from the NHC best-track wind radii. Every storm has 34-knot radii at that time, so none uses the fallback (its first landfall in the study states).
 
-**What it means.** Peaks are shares of each storm's own reporting area, which ranges from a few counties to hundreds, so a small share can hide a large count and the reverse. Laura's peak may be understated: its reports of 2020-08-28, 2020-08-29 and 2020-08-30, after the peak report of 2020-08-27, are excluded. Laura's report of 2020-08-25 is the FCC's combined report for Marco and Laura, keyed to Laura; it falls 0.9 days before Laura's 34-knot winds reached a study-state county, so its outages are likely Marco's. It stays in the published panel, flagged pre_onset_likely_marco. It is left out of anything that places it on Laura's timeline (peak timing, recovery, waiting times, rule periods, the power overlay chart), with one exception: the coverage heatmap shows it as a marked (outlined) cell. It is kept where only same-time comparisons are made (the power-cell correlations). Beryl's peak share comes from 6 counties. Michael's reports print 261 sites served in Jefferson County, Florida, against a median of 40 in later storms' reports: an apparent FCC denominator error, kept as printed. Without it, Michael's peak is 19.3%. Cable and wireline subscribers out are printed for the whole report area, with no county detail.
+**What it means.** Peaks are shares of each storm's own reporting area, which ranges from a few counties to hundreds, so a small share can hide a large count and the reverse. Beryl's peak share comes from 6 counties. Laura's report of 2020-08-25 is the FCC's combined report for Marco and Laura, keyed to Laura; it falls 0.9 days before Laura's 34-knot winds reached a study-state county, so its outages are likely Marco's. It stays in the published panel, flagged pre_onset_likely_marco. It is left out of anything that places it on Laura's timeline (peak timing, recovery, waiting times, rule periods, the power overlay chart), with one exception: the coverage heatmap shows it as a marked (outlined) cell. It is kept where only same-time comparisons are made (the power-cell correlations). Michael's reports print 261 sites served in Jefferson County, Florida, against a median of 40 in later storms' reports: an apparent FCC denominator error, kept as printed. Without it, Michael's peak is 19.3%. Cable and wireline subscribers out are printed for the whole report area, with no county detail.
 
 ### 3. How fast it comes back {#4-how-fast-it-comes-back}
 
@@ -363,7 +365,7 @@ Days count from day 0: the first time the storm's 34-knot (tropical-storm-force)
 | Michael | 1,357 | 2 | 12 | 11 | 4,706 |
 | Barry | 90 | 1 | not reached by day 1 | not reached by day 1 | 58 |
 | Dorian | 281 | 1 | not reached by day 1 | not reached by day 1 | 187 |
-| Laura | 513 | 7 | not reached by day 12 | not reached by day 12 | 3,833 |
+| Laura | 852 | 3 | not reached by day 11 | not reached by day 11 | 3,725 |
 | Sally | 454 | 1 | 3 | 3 | 481 |
 | Delta | 674 | 2 | not reached by day 4 | 3 | 1,396 |
 | Zeta | 1,555 | 2 | not reached by day 3 | 2 | 2,774 |
@@ -375,7 +377,7 @@ Days count from day 0: the first time the storm's 34-knot (tropical-storm-force)
 | Beryl | 1,335 | 3 | not reached by day 5 | not reached by day 5 | 3,142 |
 | Debby | 119 | 1 | not reached by day 3 | 2 | 183 |
 | Francine | 255 | 1 | not reached by day 2 | 2 | 193 |
-| Helene | 4,562 | 3 | 20 | 9 | 22,594 |
+| Helene | 4,562 | 3 | 18 | 9 | 21,799 |
 | Milton | 1,953 | 3 | not reached by day 4 | not reached by day 4 | 4,771 |
 | Isaias | 627 | 2 | not reached by day 2 | not reached by day 2 | 725 |
 
@@ -383,13 +385,13 @@ Note. Nate: no report after its peak, so no recovery could be observed.
 
 Note. Nicole: no report after its peak, so no recovery could be observed.
 
-**What it means.** Where it is seen, recovery to half takes from 1 to 7 days. The last stretch to 90% is not observed in 14 of 20 storms if leaving counties are counted as still out, or 9 if they are counted as restored, because the reports stop. A time is the first report from which the share restored stays past the threshold in every later report; the true time falls after the report before. Site-days lost (median 2,099, range 58 to 22,594, 20 storms) count only to each storm's last report. These medians, ranges and counts leave out Nate and Nicole (note above).
+**What it means.** Where it is seen, recovery to half takes from 1 to 4 days. The last stretch to 90% is not observed in 14 of 20 storms if leaving counties are counted as still out, or 9 if they are counted as restored, because the reports stop. A time is the first report from which the share restored stays past the threshold in every later report; the true time falls after the report before. Site-days lost (median 2,099, range 58 to 21,799, 20 storms) count only to each storm's last report. These medians, ranges and counts leave out Nate and Nicole (note above).
 
 ## Part II: Why it goes dark
 
 ### 4. Why sites go dark {#5-why-sites-go-dark}
 
-**Claim.** In the FCC's cause columns, loss of commercial power accounts for 59.2% of cell sites out (95% interval 52.5 to 64.6), loss of transport (backhaul) 29.1%, and damage to the site 6.6% (95% interval 2.3 to 15.4), pooled over the 17 storms whose reports print causes (2019 on) (each site counts once for every report in which it is out). 5.4% have no cause given, and causes exceed sites out by 0.4%, consistent with some sites counted under more than one cause.
+**Claim.** In the FCC's cause columns, loss of commercial power accounts for 58.0% of cell sites out (95% interval 51.4 to 63.9), loss of transport (backhaul) 30.1%, and damage to the site 6.4% (95% interval 2.4 to 14.8), pooled over the 17 storms whose reports print causes (2019 on) (each site counts once for every report in which it is out). 5.9% have no cause given, and causes exceed sites out by 0.4%, consistent with some sites counted under more than one cause.
 
 **Exhibit.**
 
@@ -399,7 +401,7 @@ Note. Nicole: no report after its peak, so no recovery could be observed.
 |---|---|---|---|---|---|
 | Barry | 72.2 | 25.2 | 0.9 | 1.7 | 0.0 |
 | Dorian | 61.0 | 30.2 | 5.7 | 4.5 | 1.3 |
-| Laura | 35.4 | 53.8 | 6.8 | 4.2 | 0.2 |
+| Laura | 37.4 | 49.7 | 6.2 | 7.0 | 0.3 |
 | Sally | 54.4 | 37.8 | 4.5 | 3.5 | 0.2 |
 | Delta | 46.1 | 13.8 | 37.7 | 3.0 | 0.6 |
 | Zeta | 45.9 | 18.5 | 33.9 | 2.0 | 0.3 |
@@ -411,15 +413,15 @@ Note. Nicole: no report after its peak, so no recovery could be observed.
 | Beryl | 80.3 | 5.1 | 0.8 | 13.9 | 0.0 |
 | Debby | 41.6 | 13.9 | 6.4 | 40.4 | 2.2 |
 | Francine | 85.7 | 7.2 | 2.0 | 5.2 | 0.0 |
-| Helene | 59.9 | 32.1 | 1.0 | 7.0 | 0.1 |
+| Helene | 58.4 | 33.1 | 1.0 | 7.7 | 0.1 |
 | Milton | 68.3 | 23.9 | 1.2 | 6.6 | 0.0 |
 | Isaias | 55.2 | 37.2 | 1.8 | 5.8 | 0.0 |
 
-**What it means.** Every share is a share of all sites out, not only of those with a cause. Causes exceeding sites out are read as consistent with sites out for more than one cause, and are not treated as an FCC error. Reports for Idalia (2023) and Beryl (2024) say so: "The number of total cell sites out may differ from the sum of numbers of cell sites out by cause. This is due to sites being out due to multiple causes or because providers are still assessing the causes of some sites being out of service." For other reports that reading is an inference. Harvey, Irma, Nate, Florence and Michael print no cause columns; they are left out, not counted as zero. As a check, converted to the attributed-only base of Olukola et al. (2026), who use 23 days of cause data from 24 reports where this page uses 22, this page's Helene shares are damage 1.1%, power 64.4% and transport 34.5%, against their 1.1%, 63.2% and 35.7%.
+**What it means.** Every share is a share of all sites out, not only of those with a cause. Causes exceeding sites out are read as consistent with sites out for more than one cause, and are not treated as an FCC error. Reports for Idalia (2023) and Beryl (2024) say so: "The number of total cell sites out may differ from the sum of numbers of cell sites out by cause. This is due to sites being out due to multiple causes or because providers are still assessing the causes of some sites being out of service." For other reports that reading is an inference. Harvey, Irma, Nate, Florence and Michael print no cause columns; they are left out, not counted as zero. As a check, converted to the attributed-only base of Olukola et al. (2026), who use 23 days of cause data from 24 reports where this page uses 24, this page's Helene shares are damage 1.1%, power 63.1% and transport 35.8%, against their 1.1%, 63.2% and 35.7%.
 
 ### 5. The power coupling {#6-the-power-coupling}
 
-**Claim.** Within a storm, county-reports with a higher share of electricity customers without power tend to have a higher share of cell sites out: the median rank correlation across 20 storms is 0.61 (95% interval 0.46 to 0.67). Cell outages line up about as closely with power outages 6 hours earlier (median correlation 0.62) as with power outages at the same time (0.61), and less closely with power outages 24 hours earlier (0.35).
+**Claim.** Within a storm, county-reports with a higher share of electricity customers without power tend to have a higher share of cell sites out: the median rank correlation across 20 storms is 0.61 (95% interval 0.47 to 0.67). Cell outages line up about as closely with power outages 6 hours earlier (median correlation 0.60) as with power outages at the same time (0.61), and less closely with power outages 24 hours earlier (0.36).
 
 These correlations describe how the share of electricity customers without power and the share of cell sites out move together across county-reports within a storm. Both may follow the storm's path and strength, so the correlation does not show how much one drives the other.
 
@@ -438,19 +440,19 @@ These correlations describe how the share of electricity customers without power
 | Michael | 0.59 (0.50 to 0.66) | 627 | ok 588, low coverage 39 |
 | Barry | 0.48 (0.28 to 0.64) | 130 | low coverage 130 |
 | Dorian | 0.55 (0.42 to 0.65) | 257 | ok 257 |
-| Laura | 0.41 (0.21 to 0.57) | 512 | ok 263, low coverage 249 |
+| Laura | 0.40 (0.26 to 0.52) | 1,102 | low coverage 564, ok 538 |
 | Sally | 0.76 (0.60 to 0.84) | 109 | ok 88, low coverage 21 |
 | Delta | 0.58 (0.45 to 0.69) | 181 | ok 148, low coverage 33 |
 | Zeta | 0.69 (0.62 to 0.75) | 297 | ok 259, low coverage 38 |
-| Ida | 0.68 (0.52 to 0.77) | 604 | low coverage 579, ok 25 |
-| Nicholas | 0.36 (−0.29 to 0.85) | 22 | ok 18, low coverage 4 |
+| Ida | 0.68 (0.52 to 0.77) | 602 | low coverage 579, ok 23 |
+| Nicholas | 0.46 (−0.16 to 0.86) | 24 | ok 20, low coverage 4 |
 | Ian | 0.66 (0.52 to 0.76) | 423 | ok 423 |
 | Nicole | 0.33 (0.06 to 0.54) | 60 | ok 60 |
 | Idalia | 0.39 (0.20 to 0.55) | 128 | coverage unknown 128 |
 | Beryl | 0.63 (0.52 to 0.94) | 22 | coverage unknown 22 |
 | Debby | 0.41 (0.30 to 0.51) | 275 | coverage unknown 275 |
 | Francine | 0.65 (0.46 to 0.77) | 87 | coverage unknown 87 |
-| Helene | 0.66 (0.58 to 0.73) | 1,303 | coverage unknown 1,303 |
+| Helene | 0.66 (0.58 to 0.73) | 1,428 | coverage unknown 1,428 |
 | Milton | 0.87 (0.81 to 0.91) | 219 | coverage unknown 219 |
 
 Note. Laura's correlation includes its report of 2020-08-25, the combined Marco–Laura report: same-time co-movement of power and cell outages doesn't depend on which storm caused the outage.
@@ -461,7 +463,7 @@ Note. Laura's correlation includes its report of 2020-08-25, the combined Marco�
 
 <p class="tag-exploratory">Exploratory</p>
 
-**Claim.** Where the order could be determined (352 of 499 counties, as defined), cell outages fell below 5% first in 159 counties and power outages first in 66; in 127 both fell below 5% in the same report. Where both fell below 5% (296 counties), the median gap is 0 days. For the other 147 counties (29.5%, 95% interval 16.4% to 47.4%), the order can't be determined because a county left the reports, or its power record ended, first.
+**Claim.** Where the order could be determined (364 of 509 counties, as defined), cell outages fell below 5% first in 168 counties and power outages first in 72; in 124 both fell below 5% in the same report. Where both fell below 5% (310 counties), the median gap is 0 days. For the other 145 counties (28.5%, 95% interval 15.8% to 46.3%), the order can't be determined because a county left the reports, or its power record ended, first.
 
 The two thresholds are on different scales: cell's 5% is of sites served, and power's 5% is of EAGLE-I meters, so "cell first" doesn't mean phone service returned before household power.
 
@@ -469,19 +471,19 @@ The two thresholds are on different scales: cell's 5% is of sites served, and po
 
 | Order | Counties | Share (95% storm-bootstrap interval) |
 |---|---|---|
-| Power fell below 5% first | 66 | 13.2% (5.7% to 18.8%) |
-| Same report | 127 | 25.5% (22.0% to 30.6%) |
-| Cell fell below 5% first | 159 | 31.9% (21.6% to 41.4%) |
-| Undetermined (censoring) | 147 | 29.5% (16.4% to 47.4%) |
+| Power fell below 5% first | 72 | 14.1% (6.8% to 19.7%) |
+| Same report | 124 | 24.4% (21.0% to 29.6%) |
+| Cell fell below 5% first | 168 | 33.0% (22.4% to 41.9%) |
+| Undetermined (censoring) | 145 | 28.5% (15.8% to 46.3%) |
 
 | Sensitivity display | Counties (storms) | Power first | Same report | Cell first | Undetermined |
 |---|---|---|---|---|---|
-| Both thresholds at 10% | 353 (18) | 13.9% | 20.1% | 48.2% | 17.8% |
-| First crossing instead of staying below | 499 (19) | 12.4% | 26.3% | 33.1% | 28.3% |
-| Without low- and unknown-coverage EAGLE-I counties | 219 (9) | 11.9% | 26.0% | 27.4% | 34.7% |
-| Without reports with a serious flag | 311 (16) | 12.2% | 22.2% | 28.6% | 37.0% |
+| Both thresholds at 10% | 361 (18) | 14.4% | 18.6% | 50.4% | 16.6% |
+| First crossing instead of staying below | 509 (19) | 13.4% | 25.1% | 34.4% | 27.1% |
+| Without low- and unknown-coverage EAGLE-I counties | 228 (9) | 13.2% | 24.6% | 28.9% | 33.3% |
+| Without reports with a serious flag | 321 (16) | 13.1% | 21.8% | 29.9% | 35.2% |
 
-By rule period, shown and not compared: P0: 335 counties in 14 storms; power first 11.3%, same report 24.5%, cell first 33.1%, undetermined 31.0%; P1: 164 counties in 5 storms; power first 17.1%, same report 27.4%, cell first 29.3%, undetermined 26.2%.
+By rule period, shown and not compared: P0: 345 counties in 14 storms; power first 12.5%, same report 23.5%, cell first 33.9%, undetermined 30.1%; P1: 164 counties in 5 storms; power first 17.7%, same report 26.2%, cell first 31.1%, undetermined 25.0%.
 
 **What it means.** Factors this data doesn't measure, any of which could bear on the order: portable cell sites brought in after the storm, generators placed at cell sites, service carried by other networks (roaming), the order in which crews restore lines and repairs to the network connections that link sites (backhaul). Storms without EAGLE-I data (Isaias) are not included, and Nate and Nicholas have no county at or above 5% of sites out. "Same report" means within one report interval, not at the same moment.
 
@@ -501,7 +503,7 @@ By rule period, shown and not compared: P0: 335 counties in 14 storms; power fir
 | Beryl | 6 of 6 | 490 | 2024-07-09 (day 1.5) | 4,656 | 10.5% |
 | Debby | 5 of 5 | 221 | 2024-08-06 (day 2.0) | 13,465 | 1.6% |
 | Francine | 3 of 3 | 215 | 2024-09-12 (day 0.9) | 2,731 | 7.9% |
-| Helene | 22 of 22 | 1,990 | 2024-09-28 (day 2.6) | 37,717 | 5.3% |
+| Helene | 24 of 24 | 1,990 | 2024-09-28 (day 2.6) | 37,717 | 5.3% |
 | Milton | 5 of 5 | 716 | 2024-10-11 (day 1.9) | 15,878 | 4.5% |
 | Isaias | 3 of 3 | 469 | 2026-10-11 (day 1.9) | 4,088 | 11.5% |
 
@@ -519,7 +521,7 @@ Note. Laura's report of 2020-08-25, kept off Laura's timeline (the combined Marc
 
 ### 7. Exposure {#7-exposure}
 
-**Claim.** Counties inside a storm's 64-knot winds had a peak of 32.1% of cell sites out (95% interval 26.4 to 38.0); outside its 34-knot winds, 0.7% (95% interval 0.5 to 1.5).
+**Claim.** Counties inside a storm's 64-knot winds had a peak of 32.4% of cell sites out (95% interval 26.6 to 38.8); outside its 34-knot winds, 0.7% (95% interval 0.5 to 1.5).
 
 **Exhibit.**
 
@@ -527,11 +529,11 @@ Note. Laura's report of 2020-08-25, kept off Laura's timeline (the combined Marc
 
 [figure:fig-distance]
 
-**What it means.** With wind zone in the model, the intervals for distance and for the storm's intensity include no association (model in the methods). Here a storm's peak share pools each county's own peak report, so it can differ from the single-report peak in chapter 2. Held out of the fit, with misses of 5 percentage points or more listed, storms' pooled peak shares were higher than predicted for Ida (28.4% observed, 9.1% predicted), Helene (13.5% observed, 8.1% predicted) and Irma (27.0% observed, 17.8% predicted); and lower than predicted for Idalia (2.3% observed, 8.0% predicted), Nicholas (2.5% observed, 15.2% predicted), Nate (0.1% observed, 8.6% predicted) and Nicole (1.2% observed, 9.9% predicted). Flooding, road access and fiber cuts are possible unmeasured factors; this design cannot tell whether they, or something else, account for the gaps.
+**What it means.** With wind zone in the model, the intervals for distance and for the storm's intensity include no association (model in the methods). Here a storm's peak share pools each county's own peak report, so it can differ from the single-report peak in chapter 2. Held out of the fit, with misses of 5 percentage points or more listed, storms' pooled peak shares were higher than predicted for Ida (28.8% observed, 9.4% predicted), Helene (13.5% observed, 8.3% predicted) and Irma (27.0% observed, 17.9% predicted); and lower than predicted for Idalia (2.3% observed, 8.2% predicted), Nicholas (2.4% observed, 15.1% predicted), Nate (0.1% observed, 8.8% predicted) and Nicole (1.2% observed, 10.0% predicted). Flooding, road access and fiber cuts are possible unmeasured factors; this design cannot tell whether they, or something else, account for the gaps.
 
 ### 8. Social vulnerability {#8-who-waits-longest}
 
-**Claim.** Under the main model, counties with higher social vulnerability did not take measurably longer for cell outages to fall below 5% of sites. Under the main model the most vulnerable quartile's hazard ratio is 1.14 (0.90 to 1.45), consistent with no difference. Under the plan's censoring and serious-flag sensitivities the lower end falls to 0.81, so a modest slowdown can't be excluded; without any flagged report (plan item 5, a much smaller sample: 5 storms, 145 storm-counties) the ratio is 0.44 (0.24 to 0.80). The raw curves suggest a slower start in the first three days: 14% of the most vulnerable quartile's storm-counties were below 5% by day 3, against 23% to 25% in the other quartiles.
+**Claim.** Under the main model, counties with higher social vulnerability did not take measurably longer for cell outages to fall below 5% of sites. Under the main model the most vulnerable quartile's hazard ratio is 1.21 (0.95 to 1.53), consistent with no difference. Under the plan's censoring and serious-flag sensitivities the lower end falls to 0.88, so a modest slowdown can't be excluded; without any flagged report (plan item 5, a much smaller sample: 5 storms, 206 storm-counties) the ratio is 0.65 (0.38 to 1.12). The raw curves suggest a slower start in the first three days: 14% of the most vulnerable quartile's storm-counties were below 5% by day 3, against 22% to 25% in the other quartiles.
 
 **Exhibit.**
 
@@ -539,32 +541,32 @@ Note. Laura's report of 2020-08-25, kept off Laura's timeline (the combined Marc
 
 | SVI quartile | Storm-counties | SVI range | Median days (95% interval) | Censored | Below 5% by day 3 / 7 / 14 |
 |---|---|---|---|---|---|
-| Q1 (least) | 204 | 0.013 to 0.615 | 4.9 (4.6 to 5.6) | 46 | 23% / 65% / 88% |
-| Q2 | 203 | 0.617 to 0.786 | 4.9 (4.4 to 5.5) | 56 | 25% / 65% / 85% |
-| Q3 | 204 | 0.787 to 0.902 | 4.6 (4.1 to 5.1) | 51 | 24% / 71% / 92% |
-| Q4 (most) | 202 | 0.903 to 1.000 | 5.1 (4.6 to 5.4) | 45 | 14% / 67% / 90% |
+| Q1 (least) | 208 | 0.013 to 0.617 | 4.8 (4.6 to 5.6) | 46 | 22% / 64% / 87% |
+| Q2 | 209 | 0.619 to 0.789 | 4.7 (4.1 to 5.4) | 56 | 25% / 66% / 85% |
+| Q3 | 208 | 0.790 to 0.902 | 4.6 (4.0 to 4.8) | 49 | 24% / 72% / 92% |
+| Q4 (most) | 207 | 0.903 to 1.000 | 5.0 (4.2 to 5.4) | 40 | 14% / 68% / 90% |
 
-Holding wind zone, distance, track intensity and the storm fixed, the hazard ratios for reaching below 5% (above 1 is sooner) are 0.93 (0.73 to 1.20) for the second quartile, 1.21 (0.95 to 1.54) for the third and 1.14 (0.90 to 1.45) for the most vulnerable.
+Holding wind zone, distance, track intensity and the storm fixed, the hazard ratios for reaching below 5% (above 1 is sooner) are 0.96 (0.75 to 1.23) for the second quartile, 1.23 (0.97 to 1.57) for the third and 1.21 (0.95 to 1.53) for the most vulnerable.
 
-Day 0 was redefined twice after results were seen (methods). The second- to fourth-quartile hazard ratios were 0.96 (0.75 to 1.23), 1.22 (0.96 to 1.55), 1.16 (0.91 to 1.47) under the original rule (earliest landfall nearest a county); 0.96 (0.75 to 1.23), 1.22 (0.96 to 1.54), 1.16 (0.91 to 1.48) under the first correction (first study-state landfall or closest approach). The headline's wording is the same under all three rules; only its bound moves: "more than 10% slower" under the original rule and "more than 9% slower" under the first correction, and "more than 11% slower" now.
+Day 0 was redefined twice after results were seen (methods). The second- to fourth-quartile hazard ratios were 0.99 (0.77 to 1.26), 1.25 (0.98 to 1.58), 1.22 (0.97 to 1.55) under the original rule (earliest landfall nearest a county); 0.99 (0.77 to 1.26), 1.24 (0.98 to 1.58), 1.23 (0.97 to 1.57) under the first correction (first study-state landfall or closest approach). The headline's wording is the same under all three rules; only its bound moves: "more than 4% slower" under the original rule and "more than 3% slower" under the first correction, and "more than 5% slower" now.
 
 
 Sensitivity displays for the most vulnerable quartile's hazard ratio (above 1 = reaches below 5% sooner; 95% interval):
 
 | Display | Hazard ratio, most vulnerable quartile |
 |---|---|
-| Main model | 1.14 (0.90 to 1.45) |
-| Counties that left while out counted as reaching 5% at their next report (plan item 3) | 1.32 (1.06 to 1.65) |
-| Counties that left while out counted as never reaching 5% (plan item 3) | 1.02 (0.81 to 1.29) |
-| Without any flagged report (plan item 5) | 0.44 (0.24 to 0.80) |
-| Without reports with a serious flag (plan item 5b) | 1.12 (0.81 to 1.55) |
-| Without the report kept by the state-total rule (plan item 6) | 1.09 (0.85 to 1.39) |
-| Sites served held at each county's peak (plan item 2) | 1.12 (0.88 to 1.43) |
-| First crossing below 5% instead of staying below | 1.26 (0.98 to 1.63) |
-| National SVI quartile cut points | 1.59 (0.87 to 2.92) |
-| Original day 0 (first landfall) | 1.16 (0.91 to 1.47) |
-| First corrected day 0 (landfall or closest approach) | 1.16 (0.91 to 1.48) |
-| Dropping one storm at a time (plan item 1) | 0.95 to 1.20 (points) |
+| Main model | 1.21 (0.95 to 1.53) |
+| Counties that left while out counted as reaching 5% at their next report (plan item 3) | 1.35 (1.08 to 1.68) |
+| Counties that left while out counted as never reaching 5% (plan item 3) | 1.12 (0.89 to 1.41) |
+| Without any flagged report (plan item 5) | 0.65 (0.38 to 1.12) |
+| Without reports with a serious flag (plan item 5b) | 1.21 (0.88 to 1.66) |
+| Without the report kept by the state-total rule (plan item 6) | 1.16 (0.91 to 1.47) |
+| Sites served held at each county's peak (plan item 2) | 1.19 (0.94 to 1.51) |
+| First crossing below 5% instead of staying below | 1.31 (1.02 to 1.68) |
+| National SVI quartile cut points | 1.68 (0.91 to 3.10) |
+| Original day 0 (first landfall) | 1.22 (0.97 to 1.55) |
+| First corrected day 0 (landfall or closest approach) | 1.23 (0.97 to 1.57) |
+| Dropping one storm at a time (plan item 1) | 0.99 to 1.28 (points) |
 
 **What it means.** Associations only: these results describe how long counties in each SVI quartile took to fall below 5% of sites out. They do not show why, and say nothing about anyone's intent. What these data cannot separate:
 
@@ -573,7 +575,7 @@ Sensitivity displays for the most vulnerable quartile's hazard ratio (above 1 = 
 - Counties that leave the reports while still out are censored; if leaving the reports differs by SVI quartile, the comparison can shift (see the best and worst cases).
 - Wind zone, distance and track-point wind do not capture flooding, road access or fiber cuts.
 
-Sensitivity display, not a finding: if counties that leave the reports while still out are counted as having fallen below 5% at their next unreported report, the third and fourth quartiles reach it sooner (hazard ratios 1.35 [1.07, 1.71] and 1.32 [1.06, 1.65]). The difference disappears if those counties are instead kept at risk to the storm's last report (1.04 [0.84, 1.29] and 1.02 [0.81, 1.29]).
+Sensitivity display, not a finding: if counties that leave the reports while still out are counted as having fallen below 5% at their next unreported report, the third and fourth quartiles reach it sooner (hazard ratios 1.36 [1.08, 1.72] and 1.35 [1.08, 1.68]). The difference disappears if those counties are instead kept at risk to the storm's last report (1.09 [0.88, 1.36] and 1.12 [0.89, 1.41]).
 
 ### 9. Mobile providers {#13-do-counties-with-more-mobile-providers-recover-differently}
 
@@ -587,20 +589,20 @@ Provider counts describe reported coverage (mobile providers covering at least h
 
 | Mobile providers covering at least half the county's area | Storm-counties (all) | Storm-counties at risk | Median days to stay below 5% (95% interval) | Censored | Hazard ratio (95% interval; above 1 = sooner) |
 |---|---|---|---|---|---|
-| 2 or fewer | 228 | 127 | 5.6 (4.6 to 9.6 days) | 37 | reference |
-| 3 | 386 | 156 | 4.6 (4.6 to 5.6 days) | 37 | 1.14 (0.85 to 1.54) |
-| 4 or more | 174 | 50 | 4.6 (3.6 to 6.5 days) | 7 | 1.50 (1.01 to 2.23) |
+| 2 or fewer | 228 | 127 | 5.6 (4.6 to 7.6 days) | 32 | reference |
+| 3 | 386 | 156 | 4.6 (4.6 to 5.6 days) | 37 | 1.07 (0.80 to 1.43) |
+| 4 or more | 174 | 50 | 4.6 (3.6 to 6.5 days) | 7 | 1.44 (0.97 to 2.14) |
 
 | Sensitivity display | Hazard ratios (95% interval) |
 |---|---|
-| Provider count as a number | per provider: 1.06 (0.92 to 1.22) |
-| Mobile, any coverage, count as a number | per provider: 0.70 (0.55 to 0.88) |
-| Including storms before 2022 (network data from after the storm) | 3 providers: 1.08 (0.89 to 1.31); 4 or more providers: 1.36 (1.03 to 1.80) |
-| Without reports with a serious flag | 3 providers: 0.98 (0.62 to 1.54); 4 or more providers: 1.36 (0.81 to 2.27) |
-| Fixed, any service, near-universal providers excluded | 5 to 6 providers: 0.91 (0.62 to 1.32); 7 or more providers: 0.65 (0.45 to 0.95) |
-| Fixed, any service | 10 to 11 providers: 0.94 (0.66 to 1.34); 12 or more providers: 0.66 (0.45 to 0.96) |
-| Fixed, at least half of locations | 5 providers: 1.15 (0.81 to 1.63); 6 or more providers: 1.02 (0.71 to 1.45) |
-| Fixed, at least half of locations, near-universal providers excluded, count as a number | per provider: 0.80 (0.68 to 0.94) |
+| Provider count as a number | per provider: 1.04 (0.90 to 1.19) |
+| Mobile, any coverage, count as a number | per provider: 0.68 (0.54 to 0.85) |
+| Including storms before 2022 (network data from after the storm) | 3 providers: 1.09 (0.90 to 1.32); 4 or more providers: 1.37 (1.03 to 1.81) |
+| Without reports with a serious flag | 3 providers: 0.86 (0.56 to 1.34); 4 or more providers: 1.27 (0.76 to 2.12) |
+| Fixed, any service, near-universal providers excluded | 5 to 6 providers: 0.99 (0.68 to 1.44); 7 or more providers: 0.65 (0.45 to 0.95) |
+| Fixed, any service | 10 to 11 providers: 0.98 (0.69 to 1.39); 12 or more providers: 0.65 (0.45 to 0.95) |
+| Fixed, at least half of locations | 5 providers: 1.12 (0.79 to 1.59); 6 or more providers: 0.93 (0.65 to 1.32) |
+| Fixed, at least half of locations, near-universal providers excluded, count as a number | per provider: 0.78 (0.66 to 0.92) |
 
 Groups were fixed from the counts alone, before any recovery data was joined: whole values as close to thirds as ties allow, no group under 20% of storm-counties. Fixed broadband is shown only as sensitivity displays; rows marked "near-universal providers excluded" leave out near-universal providers (likely satellite or national fixed-wireless; this file doesn't identify technology). The hazard model covers 8 of the 9 storms (262 counties); a storm whose effect cannot be estimated stays in the raw table. Every main storm's release is within 12 months before its day 0, so the planned 'release within 12 months' display would equal the main analysis.
 
@@ -623,19 +625,19 @@ Groups were fixed from the counts alone, before any recovery data was joined: wh
 | Michael | P0 | 2018-10-09 | 16 | 110 | 2018-10-11 to 2018-10-26 | 0 |
 | Barry | P0 | 2019-07-12 | 2 | 73 | 2019-07-14 to 2019-07-15 | 0 |
 | Dorian | P0 | 2019-08-27 | 5 | 132 | 2019-09-03 to 2019-09-07 | 0 |
-| Laura | P0 | 2020-08-24 | 12 | 325 | 2020-08-25 to 2020-09-08 | 3 |
+| Laura | P0 | 2020-08-24 | 15 | 542 | 2020-08-25 to 2020-09-08 | 0 |
 | Sally | P0 | 2020-09-14 | 7 | 31 | 2020-09-15 to 2020-09-21 | 0 |
 | Delta | P0 | 2020-10-08 | 5 | 110 | 2020-10-10 to 2020-10-14 | 0 |
 | Zeta | P0 | 2020-10-28 | 4 | 210 | 2020-10-29 to 2020-11-01 | 0 |
-| Ida | P0 | 2021-08-29 | 22 | 101 | 2021-08-30 to 2021-09-20 | 0 |
-| Nicholas | P0 | 2021-09-14 | 2 | 14 | 2021-09-15 to 2021-09-16 | 0 |
+| Ida | P0 | 2021-08-29 | 22 | 100 | 2021-08-30 to 2021-09-20 | 0 |
+| Nicholas | P0 | 2021-09-14 | 2 | 15 | 2021-09-15 to 2021-09-16 | 0 |
 | Ian | P0 | 2022-09-27 | 13 | 101 | 2022-09-28 to 2022-10-10 | 0 |
 | Nicole | P0 | 2022-11-09 | 2 | 34 | 2022-11-10 to 2022-11-11 | 0 |
 | Idalia | P0 | 2023-08-29 | 6 | 64 | 2023-08-30 to 2023-09-04 | 0 |
 | Beryl | P1 | 2024-07-08 | 6 | 6 | 2024-07-09 to 2024-07-14 | 0 |
 | Debby | P1 | 2024-08-04 | 5 | 120 | 2024-08-05 to 2024-08-09 | 0 |
 | Francine | P1 | 2024-09-11 | 3 | 45 | 2024-09-12 to 2024-09-14 | 0 |
-| Helene | P1 | 2024-09-25 | 22 | 322 | 2024-09-26 to 2024-10-19 | 2 |
+| Helene | P1 | 2024-09-25 | 24 | 322 | 2024-09-26 to 2024-10-19 | 0 |
 | Milton | P1 | 2024-10-07 | 5 | 52 | 2024-10-10 to 2024-10-14 | 0 |
 | Isaias | P3 | 2026-10-08 | 3 | 44 | 2026-10-10 to 2026-10-12 | 0 |
 
@@ -645,7 +647,7 @@ Ida, Nicholas share 2 reports, so the "Reports used" column counts those reports
 
 **Claim.** In all 22 storms, the FCC's last public report still showed cell sites out: 1,887 in total.
 
-Still out in the FCC's last report: a median of 9.0% of the storm's peak sites out (20 storms). Upper bound, if every county that left the reports while still out had stayed out: a median of 16.9%.
+Still out in the FCC's last report: a median of 8.9% of the storm's peak sites out (20 storms). Upper bound, if every county that left the reports while still out had stayed out: a median of 16.9%.
 
 **Exhibit.**
 
@@ -658,19 +660,19 @@ Still out in the FCC's last report: a median of 9.0% of the storm's peak sites o
 | Michael | 2018-10-26 | 45 | 1,357 | 3.3% | 6 of 21 | 50 (3.7%) |
 | Barry | 2019-07-15 | 25 | 90 | 27.8% | 11 of 73 | 25 (27.8%) |
 | Dorian | 2019-09-07 | 91 | 281 | 32.4% | 22 of 64 | 112 (39.9%) |
-| Laura | 2020-09-08 | 91 | 513 | 17.7% | 5 of 5 | 231 (45.0%) |
+| Laura | 2020-09-08 | 91 | 852 | 10.7% | 5 of 5 | 288 (33.8%) |
 | Sally | 2020-09-21 | 21 | 454 | 4.6% | 4 of 13 | 23 (5.1%) |
 | Delta | 2020-10-14 | 28 | 674 | 4.2% | 6 of 9 | 238 (35.3%) |
 | Zeta | 2020-11-01 | 68 | 1,555 | 4.4% | 15 of 20 | 874 (56.2%) |
 | Ida | 2021-09-20 | 16 | 1,824 | 0.9% | 6 of 12 | 64 (3.5%) |
-| Nicholas | 2021-09-16 | 101 | 128 | 78.9% | 12 of 14 | 101 (78.9%) |
+| Nicholas | 2021-09-16 | 101 | 128 | 78.9% | 12 of 15 | 101 (78.9%) |
 | Ian | 2022-10-10 | 21 | 1,552 | 1.4% | 3 of 3 | 158 (10.2%) |
 | Nicole | 2022-11-11 | 103 | 103 | 100.0% | 20 of 34 | 103 (100.0%) |
 | Idalia | 2023-09-04 | 8 | 157 | 5.1% | 4 of 13 | 69 (43.9%) |
 | Beryl | 2024-07-14 | 207 | 1,335 | 15.5% | 3 of 3 | 219 (16.4%) |
 | Debby | 2024-08-09 | 37 | 119 | 31.1% | 15 of 75 | 83 (69.7%) |
 | Francine | 2024-09-14 | 18 | 255 | 7.1% | 10 of 30 | 33 (12.9%) |
-| Helene | 2024-10-19 | 23 | 4,562 | 0.5% | 8 of 16 | 434 (9.5%) |
+| Helene | 2024-10-19 | 23 | 4,562 | 0.5% | 8 of 16 | 396 (8.7%) |
 | Milton | 2024-10-14 | 341 | 1,953 | 17.5% | 31 of 52 | 341 (17.5%) |
 | Isaias | 2026-10-12 | 75 | 627 | 12.0% | 11 of 44 | 75 (12.0%) |
 
@@ -688,7 +690,7 @@ Note. Nicole: its last report is its peak, so the share still out is 100% by con
 
 <p class="tag-exploratory">Exploratory</p>
 
-**Claim.** Across 178 reports for 22 storms, the FCC printed cause columns in 127 of 178 (71%) reports with county rows. Where it did, the causes fell short of sites out in at least one county in 89 of 127 (70%), and exceeded sites out in 38 of 127 (30%). The printed headline % out differed from the report's own county rows by more than 0.2 points in 11 of 177 reports with a headline; 1 printed no headline. 1 of 178 reports lacks a state total, 36 of 178 list a county in the table but not in the report's own county list, and 9 of 178 include counties outside the storm's notice area. The backup-power column is printed in 68 of 169 reports in the panel, and 5 of 178 reports were excluded from the analysis.
+**Claim.** Across 178 reports for 22 storms, the FCC printed cause columns in 127 of 178 (71%) reports with county rows. Where it did, the causes fell short of sites out in at least one county in 89 of 127 (70%), and exceeded sites out in 38 of 127 (30%). The printed headline % out differed from the report's own county rows by more than 0.2 points in 11 of 177 reports with a headline; 1 printed no headline. 0 of 178 reports lack a state total, 35 of 178 list a county in the table but not in the report's own county list, and 9 of 178 include counties outside the storm's notice area. The backup-power column is printed in 70 of 174 reports in the panel, and 0 of 178 reports were excluded from the analysis.
 
 **Exhibit.** By year (the storm's DIRS activation year). Each cell is reports with the feature, of the reports it applies to, and the share.
 
@@ -697,21 +699,21 @@ Note. Nicole: its last report is its peak, so the share still out is 100% by con
 | 2017 | 3 | 24 | 0 of 24 (0%) | n/a | n/a | 8 of 23 (35%) | 0 of 24 (0%) | 3 of 24 (13%) | 8 of 24 (33%) | 0 of 20 (0%) | 0 of 24 (0%) |
 | 2018 | 2 | 27 | 0 of 27 (0%) | n/a | n/a | 0 of 27 (0%) | 0 of 27 (0%) | 5 of 27 (19%) | 0 of 27 (0%) | 0 of 27 (0%) | 0 of 27 (0%) |
 | 2019 | 2 | 7 | 7 of 7 (100%) | 6 of 7 (86%) | 1 of 7 (14%) | 0 of 7 (0%) | 0 of 7 (0%) | 5 of 7 (71%) | 0 of 7 (0%) | 0 of 7 (0%) | 0 of 7 (0%) |
-| 2020 | 4 | 31 | 31 of 31 (100%) | 24 of 31 (77%) | 13 of 31 (42%) | 0 of 31 (0%) | 0 of 31 (0%) | 3 of 31 (10%) | 1 of 31 (3%) | 3 of 28 (11%) | 3 of 31 (10%) |
+| 2020 | 4 | 31 | 31 of 31 (100%) | 24 of 31 (77%) | 13 of 31 (42%) | 0 of 31 (0%) | 0 of 31 (0%) | 2 of 31 (6%) | 1 of 31 (3%) | 3 of 31 (10%) | 0 of 31 (0%) |
 | 2021 | 2 | 22 | 22 of 22 (100%) | 10 of 22 (45%) | 17 of 22 (77%) | 0 of 22 (0%) | 0 of 22 (0%) | 2 of 22 (9%) | 0 of 22 (0%) | 0 of 22 (0%) | 0 of 22 (0%) |
 | 2022 | 2 | 15 | 15 of 15 (100%) | 2 of 15 (13%) | 0 of 15 (0%) | 0 of 15 (0%) | 0 of 15 (0%) | 9 of 15 (60%) | 0 of 15 (0%) | 15 of 15 (100%) | 0 of 15 (0%) |
 | 2023 | 1 | 6 | 6 of 6 (100%) | 4 of 6 (67%) | 0 of 6 (0%) | 1 of 6 (17%) | 0 of 6 (0%) | 1 of 6 (17%) | 0 of 6 (0%) | 6 of 6 (100%) | 0 of 6 (0%) |
-| 2024 | 5 | 43 | 43 of 43 (100%) | 40 of 43 (93%) | 7 of 43 (16%) | 2 of 43 (5%) | 1 of 43 (2%) | 8 of 43 (19%) | 0 of 43 (0%) | 41 of 41 (100%) | 2 of 43 (5%) |
+| 2024 | 5 | 43 | 43 of 43 (100%) | 40 of 43 (93%) | 7 of 43 (16%) | 2 of 43 (5%) | 0 of 43 (0%) | 8 of 43 (19%) | 0 of 43 (0%) | 43 of 43 (100%) | 0 of 43 (0%) |
 | 2026 | 1 | 3 | 3 of 3 (100%) | 3 of 3 (100%) | 0 of 3 (0%) | 0 of 3 (0%) | 0 of 3 (0%) | 0 of 3 (0%) | 0 of 3 (0%) | 3 of 3 (100%) | 0 of 3 (0%) |
 
 - 2017: 3 storms, 24 reports (0 excluded). Cause columns in 0 of 24; causes short of sites out: not applicable (no cause columns); causes above sites out: not applicable (no cause columns); headline mismatch in 8 of 23; a state total missing in 0 of 24; table counties not in the county list in 3 of 24; counties outside the notice area in 8 of 24; backup-power column in 0 of 20.
 - 2018: 2 storms, 27 reports (0 excluded). Cause columns in 0 of 27; causes short of sites out: not applicable (no cause columns); causes above sites out: not applicable (no cause columns); headline mismatch in 0 of 27; a state total missing in 0 of 27; table counties not in the county list in 5 of 27; counties outside the notice area in 0 of 27; backup-power column in 0 of 27.
 - 2019: 2 storms, 7 reports (0 excluded). Cause columns in 7 of 7; causes short of sites out in 6 of 7; causes above sites out in 1 of 7; headline mismatch in 0 of 7; a state total missing in 0 of 7; table counties not in the county list in 5 of 7; counties outside the notice area in 0 of 7; backup-power column in 0 of 7.
-- 2020: 4 storms, 31 reports (3 excluded). Cause columns in 31 of 31; causes short of sites out in 24 of 31; causes above sites out in 13 of 31; headline mismatch in 0 of 31; a state total missing in 0 of 31; table counties not in the county list in 3 of 31; counties outside the notice area in 1 of 31; backup-power column in 3 of 28.
+- 2020: 4 storms, 31 reports (0 excluded). Cause columns in 31 of 31; causes short of sites out in 24 of 31; causes above sites out in 13 of 31; headline mismatch in 0 of 31; a state total missing in 0 of 31; table counties not in the county list in 2 of 31; counties outside the notice area in 1 of 31; backup-power column in 3 of 31.
 - 2021: 2 storms, 22 reports (0 excluded). Cause columns in 22 of 22; causes short of sites out in 10 of 22; causes above sites out in 17 of 22; headline mismatch in 0 of 22; a state total missing in 0 of 22; table counties not in the county list in 2 of 22; counties outside the notice area in 0 of 22; backup-power column in 0 of 22.
 - 2022: 2 storms, 15 reports (0 excluded). Cause columns in 15 of 15; causes short of sites out in 2 of 15; causes above sites out in 0 of 15; headline mismatch in 0 of 15; a state total missing in 0 of 15; table counties not in the county list in 9 of 15; counties outside the notice area in 0 of 15; backup-power column in 15 of 15.
 - 2023: 1 storm, 6 reports (0 excluded). Cause columns in 6 of 6; causes short of sites out in 4 of 6; causes above sites out in 0 of 6; headline mismatch in 1 of 6; a state total missing in 0 of 6; table counties not in the county list in 1 of 6; counties outside the notice area in 0 of 6; backup-power column in 6 of 6.
-- 2024: 5 storms, 43 reports (2 excluded). Cause columns in 43 of 43; causes short of sites out in 40 of 43; causes above sites out in 7 of 43; headline mismatch in 2 of 43; a state total missing in 1 of 43; table counties not in the county list in 8 of 43; counties outside the notice area in 0 of 43; backup-power column in 41 of 41.
+- 2024: 5 storms, 43 reports (0 excluded). Cause columns in 43 of 43; causes short of sites out in 40 of 43; causes above sites out in 7 of 43; headline mismatch in 2 of 43; a state total missing in 0 of 43; table counties not in the county list in 8 of 43; counties outside the notice area in 0 of 43; backup-power column in 43 of 43.
 - 2026: 1 storm, 3 reports (0 excluded). Cause columns in 3 of 3; causes short of sites out in 3 of 3; causes above sites out in 0 of 3; headline mismatch in 0 of 3; a state total missing in 0 of 3; table counties not in the county list in 0 of 3; counties outside the notice area in 0 of 3; backup-power column in 3 of 3.
 
 By storm (counts; the shares are in `results.json`):
@@ -725,7 +727,7 @@ By storm (counts; the shares are in `results.json`):
 | Michael | 2018 | 16 | 0 of 16 | n/a | n/a | 0 of 16 | 0 of 16 | 0 of 16 | 0 of 16 | 0 of 16 | 0 of 16 |
 | Barry | 2019 | 2 | 2 of 2 | 2 of 2 | 0 of 2 | 0 of 2 | 0 of 2 | 2 of 2 | 0 of 2 | 0 of 2 | 0 of 2 |
 | Dorian | 2019 | 5 | 5 of 5 | 4 of 5 | 1 of 5 | 0 of 5 | 0 of 5 | 3 of 5 | 0 of 5 | 0 of 5 | 0 of 5 |
-| Laura | 2020 | 15 | 15 of 15 | 13 of 15 | 6 of 15 | 0 of 15 | 0 of 15 | 2 of 15 | 0 of 15 | 2 of 12 | 3 of 15 |
+| Laura | 2020 | 15 | 15 of 15 | 13 of 15 | 6 of 15 | 0 of 15 | 0 of 15 | 1 of 15 | 0 of 15 | 2 of 15 | 0 of 15 |
 | Sally | 2020 | 7 | 7 of 7 | 5 of 7 | 2 of 7 | 0 of 7 | 0 of 7 | 0 of 7 | 0 of 7 | 0 of 7 | 0 of 7 |
 | Delta | 2020 | 5 | 5 of 5 | 3 of 5 | 2 of 5 | 0 of 5 | 0 of 5 | 1 of 5 | 0 of 5 | 1 of 5 | 0 of 5 |
 | Zeta | 2020 | 4 | 4 of 4 | 3 of 4 | 3 of 4 | 0 of 4 | 0 of 4 | 0 of 4 | 1 of 4 | 0 of 4 | 0 of 4 |
@@ -737,12 +739,9 @@ By storm (counts; the shares are in `results.json`):
 | Beryl | 2024 | 6 | 6 of 6 | 6 of 6 | 0 of 6 | 0 of 6 | 0 of 6 | 0 of 6 | 0 of 6 | 6 of 6 | 0 of 6 |
 | Debby | 2024 | 5 | 5 of 5 | 5 of 5 | 2 of 5 | 0 of 5 | 0 of 5 | 3 of 5 | 0 of 5 | 5 of 5 | 0 of 5 |
 | Francine | 2024 | 3 | 3 of 3 | 3 of 3 | 0 of 3 | 0 of 3 | 0 of 3 | 0 of 3 | 0 of 3 | 3 of 3 | 0 of 3 |
-| Helene | 2024 | 24 | 24 of 24 | 21 of 24 | 5 of 24 | 2 of 24 | 1 of 24 | 5 of 24 | 0 of 24 | 22 of 22 | 2 of 24 |
+| Helene | 2024 | 24 | 24 of 24 | 21 of 24 | 5 of 24 | 2 of 24 | 0 of 24 | 5 of 24 | 0 of 24 | 24 of 24 | 0 of 24 |
 | Milton | 2024 | 5 | 5 of 5 | 5 of 5 | 0 of 5 | 0 of 5 | 0 of 5 | 0 of 5 | 0 of 5 | 5 of 5 | 0 of 5 |
 | Isaias | 2026 | 3 | 3 of 3 | 3 of 3 | 0 of 3 | 0 of 3 | 0 of 3 | 0 of 3 | 0 of 3 | 3 of 3 | 0 of 3 |
-
-Excluded reports: Laura 2020-08-28 (DOC-366519A1): San Augustine, Texas row not confirmed by the second reading; Laura 2020-08-29 (DOC-366524A1): Maryland served does not reconcile (5,521 vs 6,522 printed); San Augustine not confirmed; names with backquotes not matched; Laura 2020-08-30 (DOC-366526A1): San Augustine, Texas row not confirmed by the second reading; Helene 2024-10-03 (DOC-406144A1): FCC inconsistency: Hamilton row prints transport 0, Florida total prints 1; Helene 2024-10-04 (DOC-406197A1): Washington County, Tennessee row not confirmed by the second reading.
-
 **What it means.** These are properties of the reports as the FCC published them, not of the networks or of the providers that filed. A shortfall in causes means some sites out have no cause given. An excess is consistent with sites counted under more than one cause; the FCC says this can happen in some of its other reports, but none of the reports with an excess says so. Each check is the one described in the methods (validation); the counts come from its outputs, with no new data. 2 reports are shared by two storms and count for both; 4 reports with county rows only outside the ten study states are counted in every check except the backup column, which covers reports in the panel.
 
 **External check.** Checked against the FCC's own 2017 Atlantic Hurricane Season Impact on Communications report: 60 of 70 comparable figures agree. In the other 10, the season report differs from the FCC's daily reports themselves (details in the [methods](#external-check) and the data repository).
@@ -762,7 +761,7 @@ Excluded reports: Laura 2020-08-28 (DOC-366519A1): San Augustine, Texas row not 
 | Michael | P0 | 18.8 | 2 | 12 | 11 | 4,706 | 140 | 20 |
 | Barry | P0 | 1.7 | 1 | not reached by day 1 | not reached by day 1 | 58 | 65 | 4 |
 | Dorian | P0 | 3.4 | 1 | not reached by day 1 | not reached by day 1 | 187 | 115 | 7 |
-| Laura | P0 | 1.6 | 7 | not reached by day 12 | not reached by day 12 | 3,833 | 130 | 9 |
+| Laura | P0 | 2.7 | 3 | not reached by day 11 | not reached by day 11 | 3,725 | 130 | 9 |
 | Sally | P0 | 17.1 | 1 | 3 | 3 | 481 | 95 | 2 |
 | Delta | P0 | 5.6 | 2 | not reached by day 4 | 3 | 1,396 | 90 | 4 |
 | Zeta | P0 | 10.3 | 2 | not reached by day 3 | 2 | 2,774 | 100 | 15 |
@@ -774,14 +773,14 @@ Excluded reports: Laura 2020-08-28 (DOC-366519A1): San Augustine, Texas row not 
 | Beryl | P1 | 28.7 | 3 | not reached by day 5 | not reached by day 5 | 3,142 | 78 | 3 |
 | Debby | P1 | 0.9 | 1 | not reached by day 3 | 2 | 183 | 70 | 2 |
 | Francine | P1 | 9.3 | 1 | not reached by day 2 | 2 | 193 | 90 | 3 |
-| Helene | P1 | 12.1 | 3 | 20 | 9 | 22,594 | 120 | 25 |
+| Helene | P1 | 12.1 | 3 | 18 | 9 | 21,799 | 120 | 25 |
 | Milton | P1 | 12.3 | 3 | not reached by day 4 | not reached by day 4 | 4,771 | 105 | 8 |
 | Isaias | P3 | 15.5 | 2 | not reached by day 2 | not reached by day 2 | 725 | 97 | 3 |
 
 | Rule period | Storms | Peak % out | Days to 50% | Days to 90% (still out) | Days to 90% (restored) | Site-days lost | Strongest wind (kt) |
 |---|---|---|---|---|---|---|---|
-| P0: neither rule (DIRS activated before May 1, 2024) | 16 | 5.1 (0.1 to 28.1) | 2 (1 to 7; 1 censored) | no median (censored) (3 to 12; 9 censored) | no median (censored) (2 to 11; 6 censored) | 2,099 (58 to 13,145) | 102 (65 to 140) |
-| P1: MDRI in force, DIRS voluntary (May 1, 2024 to February 19, 2025) | 5 | 12.1 (0.9 to 28.7) | 3 (1 to 3) | no median (censored) (20 to 20; 4 censored) | no median (censored) (2 to 9; 2 censored) | 3,142 (183 to 22,594) | 90 (70 to 120) |
+| P0: neither rule (DIRS activated before May 1, 2024) | 16 | 5.1 (0.1 to 28.1) | 2 (1 to 4; 1 censored) | no median (censored) (3 to 12; 9 censored) | no median (censored) (2 to 11; 6 censored) | 2,099 (58 to 13,145) | 102 (65 to 140) |
+| P1: MDRI in force, DIRS voluntary (May 1, 2024 to February 19, 2025) | 5 | 12.1 (0.9 to 28.7) | 3 (1 to 3) | no median (censored) (18 to 18; 4 censored) | no median (censored) (2 to 9; 2 censored) | 3,142 (183 to 21,799) | 90 (70 to 120) |
 | P2: MDRI and mandatory DIRS (February 20, 2025 to June 29, 2026) | 0 | no storm | no storm | no storm | no storm | no storm | no storm |
 | P3: MDRI and mandatory DIRS as modified by FCC 26-34 (from June 30, 2026) | 1 | 15.5 (Isaias) | 2 (Isaias) | not reached (Isaias) | not reached (Isaias) | 725 (Isaias) | 97 (Isaias) |
 
@@ -804,16 +803,16 @@ The plan's red flags (any one rules out the plan's "coincided with" wording for 
 
 ## What it adds up to
 
-- **For emergency managers:** The first half of recovery is fast, and the last stretch is often not visible. Half of the cell sites out at a storm's peak were back within a median of 2 days, but only 6 to 11 of 20 storms reached 90% restored before the FCC's reports ended. In all 22 storms, the last report still showed sites out (1,887 in total). For Nate and Nicole, the last report is also the peak. Exposure is associated with much larger outages: counties inside a storm's 64-knot winds peaked at 32.1% of sites out, against 0.7% outside its 34-knot winds.
-- **For carriers:** In the 17 storms whose reports print causes (2019 on), most sites out are attributed to lost power and lost backhaul, not damage to the site itself: commercial power accounts for 59.2% of sites out, transport (backhaul) for 29.1%, and site damage for 6.6% (95% interval 2.3 to 15.4). Within a storm, county-reports with more electricity customers without power tend to have more cell sites out (median rank correlation 0.61). These describe what the reports record together; they do not show which measure would have kept sites up.
+- **For emergency managers:** The first half of recovery is fast, and the last stretch is often not visible. Half of the cell sites out at a storm's peak were back within a median of 2 days, but only 6 to 11 of 20 storms reached 90% restored before the FCC's reports ended. In all 22 storms, the last report still showed sites out (1,887 in total). For Nate and Nicole, the last report is also the peak. Exposure is associated with much larger outages: counties inside a storm's 64-knot winds peaked at 32.4% of sites out, against 0.7% outside its 34-knot winds.
+- **For carriers:** In the 17 storms whose reports print causes (2019 on), most sites out are attributed to lost power and lost backhaul, not damage to the site itself: commercial power accounts for 58.0% of sites out, transport (backhaul) for 30.1%, and site damage for 6.4% (95% interval 2.4 to 14.8). Within a storm, county-reports with more electricity customers without power tend to have more cell sites out (median rank correlation 0.61). These describe what the reports record together; they do not show which measure would have kept sites up.
 - **For regulators:** The public record often ends before recovery is complete, and what it prints varies. Cause columns appear in 127 of 178 reports, and backup-power counts for 11 of 22 storms. The FCC's own 2017 season summary differs from its daily reports in 10 of 70 comparable figures. The reports can't yet show whether the 2024–2026 rule changes coincided with any change in recovery.
-- **For researchers:** The panel supports descriptive work, within known limits. Its counts agree with the FCC's own 2017 season report in 60 of 70 comparable figures. Under the main model the most vulnerable SVI quartile's hazard ratio is 1.14 (0.90 to 1.45), consistent with no difference; the plan's sensitivity displays bring the lower end down, so a modest slowdown can't be excluded. Mobile-provider counts show no consistent difference. Counties leaving the reports are censored, not recovered, and the county bootstrap treats counties within a storm as independent, so some intervals may be narrow.
+- **For researchers:** The panel supports descriptive work, within known limits. Its counts agree with the FCC's own 2017 season report in 60 of 70 comparable figures. Under the main model the most vulnerable SVI quartile's hazard ratio is 1.21 (0.95 to 1.53), consistent with no difference; the plan's sensitivity displays bring the lower end down, so a modest slowdown can't be excluded. Mobile-provider counts show no consistent difference. Counties leaving the reports are censored, not recovered, and the county bootstrap treats counties within a storm as independent, so some intervals may be narrow.
 
 Associations, not causes: each point repeats a finding stated, with its uncertainty, in its chapter.
 
 ## Look up a county
 
-Choose any of the 814 counties in the FCC's reports to see each storm's share of the county's cell sites out, report
+Choose any of the 916 counties in the FCC's reports to see each storm's share of the county's cell sites out, report
 by report, by days since the storm's 34-knot winds first reached a study-state county. Points are the FCC's reports;
 lines join only consecutive reports of that storm at most 1.5 days apart, so a missing or excluded report leaves a gap. Built in the browser from the published data, with its code and data
 served from this site. Laura's report of 2020-08-25 (the combined Marco–Laura report) is left off Laura's line.
@@ -850,20 +849,20 @@ A county or storm reaches a threshold at the first report from which it stays pa
 <details class="method-detail" markdown="1">
 <summary>Exposure model (chapter 7), checked for calibration.</summary>
 
-A binomial model of each county's peak share of sites out on wind zone, distance to the track and the storm's intensity at the nearest track point, with storm-clustered intervals. Odds ratios: inside 64-knot winds 48.4 (20.9 to 111.9), 50-64 knots 23.2 (11.8 to 45.6), 34-50 knots 7.5 (4.4 to 12.8), log distance 0.88 (0.69 to 1.12), per 10 knots 1.07 (0.90 to 1.28). Calibration on storms held out of the fit one at a time: slope 0.87 (0.48 to 1.26; 1 is ideal), calibration-in-the-large −0.01 (−0.35 to 0.33; 0 is ideal), mean absolute error 9.2 percentage points.
+A binomial model of each county's peak share of sites out on wind zone, distance to the track and the storm's intensity at the nearest track point, with storm-clustered intervals. Odds ratios: inside 64-knot winds 43.4 (20.0 to 94.1), 50-64 knots 21.2 (12.0 to 37.5), 34-50 knots 7.0 (4.2 to 11.5), log distance 0.87 (0.68 to 1.10), per 10 knots 1.08 (0.91 to 1.28). Calibration on storms held out of the fit one at a time: slope 0.88 (0.52 to 1.25; 1 is ideal), calibration-in-the-large −0.01 (−0.34 to 0.33; 0 is ideal), mean absolute error 8.6 percentage points.
 
 | Decile of predicted share | Storm-counties | Mean predicted % | Observed % |
 |---|---|---|---|
-| 1 | 216 | 0.6 | 1.2 |
-| 2 | 216 | 0.8 | 0.5 |
-| 3 | 216 | 1.7 | 7.9 |
-| 4 | 215 | 4.0 | 4.5 |
-| 5 | 216 | 4.8 | 5.6 |
-| 6 | 216 | 5.3 | 4.4 |
-| 7 | 215 | 6.0 | 2.2 |
-| 8 | 216 | 9.9 | 10.4 |
-| 9 | 216 | 16.6 | 13.7 |
-| 10 | 216 | 30.5 | 29.6 |
+| 1 | 238 | 0.6 | 0.8 |
+| 2 | 237 | 0.7 | 0.7 |
+| 3 | 238 | 0.9 | 0.6 |
+| 4 | 237 | 2.3 | 8.8 |
+| 5 | 238 | 4.6 | 3.7 |
+| 6 | 237 | 5.1 | 5.3 |
+| 7 | 237 | 5.8 | 3.3 |
+| 8 | 238 | 8.8 | 8.1 |
+| 9 | 237 | 16.2 | 14.3 |
+| 10 | 238 | 29.4 | 28.2 |
 
 [figure:fig-calibration]
 
@@ -872,7 +871,7 @@ A binomial model of each county's peak share of sites out on wind zone, distance
 <details class="method-detail" markdown="1">
 <summary>Waiting-time model (chapter 8).</summary>
 
-A discrete-time hazard with a complementary log-log link over the intervals between a county's reports (interval censoring), with exposure, storm fixed effects and county-clustered intervals: 2,765 intervals, 605 events, 465 counties, 18 storms (two storms whose fixed effect cannot be estimated stay in the raw tables). The worst-case sensitivity display is fitted by Newton's method because the default fitter (IRLS) did not converge; the model and its likelihood are the same. SVI quartiles are of the at-risk storm-counties' national percentiles; on the national cut points only 19 storm-counties fall in the lowest quartile.
+A discrete-time hazard with a complementary log-log link over the intervals between a county's reports (interval censoring), with exposure, storm fixed effects and county-clustered intervals: 2,998 intervals, 631 events, 479 counties, 18 storms (two storms whose fixed effect cannot be estimated stay in the raw tables). The worst-case sensitivity display is fitted by Newton's method because the default fitter (IRLS) did not converge; the model and its likelihood are the same. SVI quartiles are of the at-risk storm-counties' national percentiles; on the national cut points only 19 storm-counties fall in the lowest quartile.
 
 </details>
 
@@ -900,7 +899,7 @@ Each FCC report carries this caveat: "The number of cell site outages in a speci
 <details class="method-detail" markdown="1">
 <summary>EAGLE-I denominators.</summary>
 
-EAGLE-I's modeled customer count is below EAGLE-I's own recorded outages in 230 of 2,114 storm-counties (for example, Henderson County, North Carolina: 24 modeled customers, 131,460 customers out, 49,494 households). Those storm-counties are left out of every % of customers result; using households as the denominator instead is shown as a sensitivity.
+EAGLE-I's modeled customer count is below EAGLE-I's own recorded outages in 249 of 2,331 storm-counties (for example, Henderson County, North Carolina: 24 modeled customers, 131,460 customers out, 49,494 households). Those storm-counties are left out of every % of customers result; using households as the denominator instead is shown as a sensitivity.
 
 </details>
 
@@ -914,24 +913,24 @@ Provider counts come from the FCC's Broadband Data Collection public data (Natio
 <details class="method-detail" markdown="1">
 <summary>Validation.</summary>
 
-Every in-scope report was checked against its own printed totals: 126 flagged, 44 ok, 5 excluded, 3 known FCC inconsistencies. Flags on the reports used, by type (a report can carry several):
+Every in-scope report was checked against its own printed totals: 130 flagged, 44 ok, 4 known FCC inconsistencies. Flags on the reports used, by type (a report can carry several):
 
 | Flag | Kind | Reports |
 |---|---|---|
-| County rows in the table but not in the report's list | serious | 34 |
+| County rows in the table but not in the report's list | serious | 35 |
 | Stated headline differs from the computed share (computed used) | serious | 10 |
 | County rows outside the FCC notice's area | serious | 5 |
-| One state printed no total (its rows all confirmed) | serious | 1 |
 | No headline % printed (rows confirmed, totals reconcile; computed used) | serious | 1 |
-| Causes short of sites out (some sites with no cause) | benign | 84 |
-| Causes exceed sites out (confirmed in the PDF) | benign | 35 |
+| Causes short of sites out (some sites with no cause) | benign | 89 |
+| Causes exceed sites out (confirmed in the PDF) | benign | 37 |
+| County listed twice in the report's list | benign | 23 |
 | County name spelling variant | benign | 23 |
-| County listed twice in the report's list | benign | 22 |
+| Rows confirmed across lines the PDF text splits (4.0.0) | benign | 5 |
 | County not in the list (checked exception) | benign | 3 |
-| Known FCC inconsistency in a printed state total (rows confirmed) | benign | 2 |
+| Known FCC inconsistency in a printed state total (rows confirmed) | benign | 3 |
 | Known FCC inconsistency in the headline | benign | 1 |
 | Causes exceed sites out (checked exception) | benign | 1 |
-| Rows confirmed by the next report's reprint (PDF rows broken) | benign | 1 |
+| Listed county printed with no sites (no data row) | benign | 1 |
 
 The known FCC inconsistencies, each checked against the PDF:
 
@@ -940,6 +939,8 @@ The known FCC inconsistencies, each checked against the PDF:
 - Harvey, 2017-09-04 (DOC-346482A1): the printed Texas total of sites served is 4,200, while its county rows, each confirmed in the PDF, add up to 4,199; the rows are used.
 
 - Harvey, 2017-09-05 (DOC-346499A1): the printed Texas total of sites served is 4,200, while its county rows, each confirmed in the PDF, add up to 4,199; the rows are used.
+
+- Helene, 2024-10-03 (DOC-406144A1): the printed Florida total of sites out due to transport is 1, while its county rows, each confirmed in the PDF, add up to 0; the rows are used.
 
 </details>
 
@@ -979,13 +980,7 @@ The FCC's report on Hurricane Michael (DOC-357387A1, May 2019) gives 12 figures 
 
 Each report's flags and reasons are in the snapshot's [`data/analysis/validation/validation_dirs.csv`](https://github.com/ts2427/when-the-network-goes-dark-data/blob/v3.2.1/data/analysis/validation/validation_dirs.csv). Excluded reports:
 
-| Report | Storm | Date | Reason |
-|---|---|---|---|
-| DOC-366519A1 | Laura | 2020-08-28 | San Augustine, Texas row not confirmed by the second reading |
-| DOC-366524A1 | Laura | 2020-08-29 | Maryland served does not reconcile (5,521 vs 6,522 printed); San Augustine not confirmed; names with backquotes not matched |
-| DOC-366526A1 | Laura | 2020-08-30 | San Augustine, Texas row not confirmed by the second reading |
-| DOC-406144A1 | Helene | 2024-10-03 | FCC inconsistency: Hamilton row prints transport 0, Florida total prints 1 |
-| DOC-406197A1 | Helene | 2024-10-04 | Washington County, Tennessee row not confirmed by the second reading |
+None: every report in scope passes validation.
 
 </details>
 
@@ -1002,7 +997,7 @@ The data repository (from version 3.2.1) adds three descriptive tables under a w
 
 **Datasheet.** What the data can and cannot be used for, its known limitations and how it is maintained: [`DATASHEET.md`](https://github.com/ts2427/when-the-network-goes-dark-data/blob/v3.2.1/DATASHEET.md) in the data repository.
 
-**Disclosure.** The author works in the telecommunications industry. This analysis was done independently, on personal time, using only publicly available government data. It uses no employer data or confidential information, and the views are the author's alone. The author has no financial interest in any FCC proceeding.
+**Disclosure.** Competing interests: The author works for a cable operator. This is independent work on public data only; no employer data, time or resources were used, and the employer has no role in it. Funding: none. The views are the author's alone, and the author has no financial interest in any FCC proceeding.
 
 ### Audit trail {#audit-trail}
 
@@ -1014,7 +1009,7 @@ Every deviation from the analysis plan, every decision on the exhibits, every co
 
 **Deviations from the analysis plan**, each logged in `docs/decisions.md` before it was run:
 
-- *2026-11-22.* DEVIATION from the plan (Validation: 'every report in scope must pass step 4 ... a failure stops the build'): the 7 reports in manifest/excluded_reports.csv are not used in steps 9-10, and the build does not stop on them. Nate's only report is among them, so Nate has no chapter 3 row; Laura loses Aug 28-30, 2020 and Harvey Sep 3, 2017. Each storm's results say which of its reports were excluded (Tim's stopping rule of 2026-11-22 (one round of parser fixes, then exclude with reason). Logged before running step 9) *Superseded by the combined correction of 2026-11-24 below: 5 reports are now excluded, and Nate's report is in use.*
+- *2026-11-22.* DEVIATION from the plan (Validation: 'every report in scope must pass step 4 ... a failure stops the build'): the 7 reports in manifest/excluded_reports.csv are not used in steps 9-10, and the build does not stop on them. Nate's only report is among them, so Nate has no chapter 3 row; Laura loses Aug 28-30, 2020 and Harvey Sep 3, 2017. Each storm's results say which of its reports were excluded (Tim's stopping rule of 2026-11-22 (one round of parser fixes, then exclude with reason). Logged before running step 9) *Superseded by the combined correction of 2026-11-24 below, and by the 4.0.0 corrections of 2026-11-27: 0 reports are now excluded, and Nate's report is in use.*
 - *2026-11-22.* DEVIATION (Scope and keys: days since landfall): Isaias 2026's GIS best track has no landfall marker, so its reference time is the track time closest to the nearest of its study counties, flagged landfall_source = 'closest approach (no landfall marker)'. For every other storm the reference is the earliest HURDAT2 landfall that is the nearest landfall to at least one of its counties (so Harvey's Barbados landfall is not used) (No landfall time exists for Isaias in the approved sources. Logged before running) *Superseded: day 0 is now the first time 34-knot winds reach a study-state county (2026-11-23 corrections).*
 - *2026-11-22.* DEVIATION (Unit: each report's as-of time): Laura's Sep 1, 2020 report prints no as-of time; for the time axis it is placed at 12:00 Eastern on its report date and flagged as_of_imputed. It is not used for EAGLE-I matching (already no_as_of_time) (One report of 167; noon is the most common printed time. Logged before running)
 - *2026-11-22.* DEVIATION, made AFTER seeing the chapter 3 result: the flagged-reports display (plan item 5) dropped the peak day of most storms and left 9 storms, so it says little. Added display 5b, which drops only reports with a serious flag; item 5 is kept as well. Serious (Tim): headline_mismatch, state_total_missing, no_printed_totals, outside_notice_area, table_not_in_list. Benign (Tim): causes short of sites out, spelling variants (FCC spelling, inside_spelling_variant), over-attribution confirmed by the second reading. Assigned by the AI coding assistant, not named by Tim: 'in table, not in the report's county list' = serious (the names check's form of table_not_in_list); 'listed more than once by the FCC' = benign; entries on the checked exception lists (cause, county-list and headline) = benign. An unknown flag type stops step 10 (Tim's decision after seeing chapter 3; disclosed as such)
@@ -1060,6 +1055,7 @@ Every deviation from the analysis plan, every decision on the exhibits, every co
 - *2026-11-25.* CORRECTION (cable and wireline parser and the log entry about it; no published value changed): step 3 read Michael's cable and wireline figure for the reports of 2018-10-21, 22, 23 and 24 (DOC-354668A1, DOC-354677A1, DOC-354719A1, DOC-354749A1) from a summary paragraph, giving 103,811 each time; it now reads the report's Cable Systems and Wireline section first (falling back to the whole text only when the section has no figure), giving 56,334, 55,006, 50,387 and 45,506, with a test for this pattern. Rerunning step 3 changed only those four values in dirs_reports.parquet, and every later step reproduces every published file byte for byte, results.json included. The entry of 2026-11-25 above ("Found while building the 3.2.0 cable and wireline table") was wrong to say the value "is in the published panel (every county row of those four reports)": the published panel (dirs_county_day.csv) and the analysis-ready panel have no cable and wireline column, and no published file of the data repository or the site holds 103,811 (searched 2026-11-25). The value was only in the private intermediate files (dirs_reports.parquet, panel.parquet). Tim's decision to make this release 4.0.0 was taken on that wrong statement, and is put back to him (Found by the AI coding assistant while rerunning the pipeline, 2026-11-25)
 - *2026-11-25.* CORRECTION (rule dates in Tim's instructions; process, nothing published used them): Tim's instructions of 2026-11-25 gave mandatory DIRS as from 2025-01-21 (FCC 24-5). The Federal Register notice 2025-00495 (90 FR 6839) was published on January 21, 2025 and reads "Effective February 20, 2025" and "Compliance with 47 CFR 4.18 ... is required as of February 20, 2025" (read 2026-11-25 through the Federal Register API). The project has used February 20, 2025 throughout (config REGIMES, page, codebook), so nothing changes (Tim's instruction, 2026-11-25)
 - *2026-11-27.* CORRECTION (release process, v3.2.0 DOI commit; not a data change): CI on the data repository's main failed on both platforms from e0a4885 (the commit adding the v3.2.0 DOI, 2026-11-25): code/tests/test_build_page.py still pinned the 3.1.1 DOI and "Version 3.1.1" while the page code had moved to 3.2.0, and CI was not checked after that push. The test now reads the version DOI from CITATION.cff, so the DOI step of a release cannot leave it stale again (Found in the review, 2026-11-27)
+- *2026-11-27.* CORRECTION (4.0.0, restored reports, storm keys and EAGLE-I percent; the outcome of the corrections logged above on 2026-11-27 before anything was computed, recorded after the rebuild): published values change. reports used: 169 to 174; reports excluded: 5 to 0; county-report rows: 10,051 to 11,296; counties: 814 to 916; Laura's peak: 513 sites out (1.6%) to 852 sites out (2.7%); median peak sites out: 570 to 650.5; median peak share: 9.8% (2.9 to 12.3) to 9.8% (3.0 to 12.3); power 59.2% (52.5 to 64.6) to 58.0% (51.4 to 63.9); transport 29.1% (21.5 to 33.6) to 30.1% (22.1 to 35.1); damage 6.6% (2.3 to 15.4) to 6.4% (2.4 to 14.8); no cause 5.4% (2.2 to 7.9) to 5.9% (2.5 to 8.2); power correlation 0.61 (0.46 to 0.67) to 0.61 (0.47 to 0.67); SVI fourth quartile 1.14 (0.90 to 1.45) to 1.21 (0.95 to 1.53); second quartile 0.93 (0.73 to 1.20) to 0.96 (0.75 to 1.23); third quartile 1.21 (0.95 to 1.54) to 1.23 (0.97 to 1.57); the sensitivities' lowest end 0.81 to 0.88; inside 64-knot winds 32.1% (26.4 to 38.0) to 32.4% (26.6 to 38.8); cell first, power first, same report 159, 66, 127 of 352 determined (499 counties) to 168, 72, 124 of 364 determined (509 counties); share of peak still out 9.0% to 8.9%; recovery to half 1 to 7 days to 1 to 4 days; eaglei_pct_out above 100%: 415 rows to 0 rows; Harrison County, Texas (2 rows): Ida to Nicholas; Laura 2020-09-01 as_of_imputed (38 rows): True to False. Every changed value of results.json, 2,066 in all, is in docs/changes_4_0_0_results.csv (path, before, after); ERRATA.md lists these headline values (Tim's 4.0.0 list, 2026-11-27)
 
 **Seen before the plan was committed.** The analysis plan was committed on November 22, 2026, in the project's private version-controlled repository (commit 9fc17a4), before any recovery outcome was computed. The plan file as committed is published in the data repository with its SHA-256, so it can be checked against later changes. It is not blind to some figures, as listed below. From the plan:
 
