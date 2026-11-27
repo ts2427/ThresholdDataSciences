@@ -31,7 +31,7 @@
   url: "/analysis/when-the-network-goes-dark/"
   question: "Can you trust the number?"
   what: "Full study and open dataset: 22 storms and 169 FCC reports, checked line by line, released with a DOI."
-  summary: "Cell-site outages and recovery in 22 Gulf and Southeast hurricanes, 2017–2026: half the sites out at the peak were back within a median of 2 days, only 6 to 11 of 20 storms with a report after their peak reach 90% before the FCC's reports end, cell outages tend to rise and fall with power outages, and in all 22 storms the FCC's last public report still showed cell sites out: 1,887 in total."
+  summary: "Cell-site outages and recovery in 22 Gulf and Southeast hurricanes, 2017–2026: half the sites out at the peak were back within a median of 2 days, only 6 to 11 of 20 storms with a report after their peak reach 90% before the FCC's reports end, county-reports with more electricity customers without power tend to have more cell sites out, and in all 22 storms the FCC's last public report still showed cell sites out: 1,887 in total."
   methods:
     - "Parsing and validating FCC DIRS reports"
     - "County-bootstrap intervals"

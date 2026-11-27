@@ -753,6 +753,9 @@ def main():
                       "isBasedOn": {"@id": f"{SITE['base_url']}{piece['url']}#dataset"}}, dataset_node(piece)]
         render("analysis.html", f"analysis/{piece['slug']}/index.html",
                piece=piece, page_url=piece["url"],
+               # a page-specific link preview when the front matter has one (og_image, its alt text and size)
+               og_image=piece.get("og_image"), og_image_alt=piece.get("og_image_alt"),
+               og_image_width=piece.get("og_image_width"), og_image_height=piece.get("og_image_height"),
                schema_extra=extra)
         urls.append(piece["url"])
 
