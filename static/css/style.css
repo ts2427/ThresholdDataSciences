@@ -719,9 +719,39 @@ h2 {
   }
 }
 
+/* ---------- tabbed analysis pages (2026-11-28; page-sections.js) ---------- */
+/* Without JavaScript the tab bar stays hidden and every .tab-panel shows in order. */
+.tab-bar {
+  display: flex; flex-wrap: wrap; gap: 0.25rem 0.5rem;  /* not sticky: a fixed bar covers targets under it (axe target-size) */
+  background: var(--paper); border-bottom: 1px solid var(--rule); padding: 0.5rem 0; margin-bottom: 1rem;
+}
+.tab-bar[hidden] { display: none; }
+.tab-bar [role="tab"] {
+  font-family: var(--sans); font-size: 0.9rem; color: var(--ink); background: none; cursor: pointer;
+  border: 0; border-bottom: 3px solid transparent; padding: 0.35rem 0.5rem; min-height: 24px;
+}
+.tab-bar [role="tab"][aria-selected="true"] { border-bottom-color: var(--slate); font-weight: 600; }
+.tab-bar [role="tab"]:hover { border-bottom-color: var(--rule); }
+.tab-bar [role="tab"]:focus-visible { outline: 2px solid var(--slate); outline-offset: 2px; }
+.prose .tab-panel[hidden] { display: none; }
+/* with the tab bar showing, each panel's own title repeats the selected tab: kept for screen readers, hidden on screen */
+.has-tabs .prose .tab-panel > .tab-title {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+.prose .tab-panel + .tab-panel { margin-top: 2.5rem; }
+.has-tabs .prose .tab-panel + .tab-panel { margin-top: 0; }
+.prose .xref { font-size: 0.88rem; color: var(--muted); }
+/* WCAG 2.2 target size for the section toggles and the chart download link: axe checks only what is on screen, and
+   the tab states bring these into view (they were below the fold on the untabbed page) */
+.prose details.section-collapse > summary, .prose details.audit-trail > summary { min-height: 24px; padding: 0.2rem 0; }
+.fig-download a { display: inline-block; min-height: 24px; padding: 0.2rem 0; }
+.prose .cite-block { margin: 1.5rem 0; }
+
 /* ---------- print: issues get printed and saved as PDFs ---------- */
 @media print {
-  .page-toc, .toc-mobile { display: none !important; }
+  .page-toc, .toc-mobile, .tab-bar { display: none !important; }
+  /* a tabbed page prints its selected tab (the others stay hidden); without JavaScript every tab prints */
   /* every collapsed section prints open (page-sections.js opens them too, for browsers without ::details-content) */
   details::details-content { content-visibility: visible; display: block; }
   .site-nav, .footer-links, .step-rule, .skip-link, .filter-bar, .btn-nav, .btn-row,

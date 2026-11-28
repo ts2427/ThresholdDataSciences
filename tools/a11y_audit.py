@@ -31,7 +31,22 @@ def sitemap_pages():
     return [re.sub(r"^https?://[^/]+", "", u) or "/" for u in locs]
 
 
+def tab_states(pages):
+    """Each tabbed page once per tab (2026-11-28): page#tab-id, so every tab state is audited with its panel shown."""
+    out = []
+    for path in pages:
+        f = DIST / path.strip("/") / "index.html" if path != "/" else DIST / "index.html"
+        if not f.exists():
+            continue
+        page = f.read_text(encoding="utf-8")
+        bar = re.search(r'<div class="tab-bar[^"]*" role="tablist".*?</div>', page, re.S)
+        if bar:
+            out += [f"{path}#{t}" for t in re.findall(r'aria-controls="([^"]+)"', bar.group(0))]
+    return out
+
+
 PAGES = sitemap_pages()
+PAGES += tab_states(PAGES)
 
 
 def serve():

@@ -26,6 +26,7 @@ import yaml
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import figures as figlib
+import tabs
 
 HERE = Path(__file__).parent
 CONTENT = HERE / "content"
@@ -381,7 +382,11 @@ def load_analysis():
         meta["slug"] = path.stem
         meta["url"] = f"/analysis/{meta['slug']}/"
         meta["body"] = _process_figures(meta, body, path)
-        if meta.get("toc"):
+        if meta["slug"] in tabs.TAB_PAGES:  # 2026-11-28: the page's sections regrouped into tabs (tabs.py)
+            meta["body"] = tabs.tabify(meta["body"])
+            meta["tabs"] = [{"id": t, "title": title} for t, title in tabs.TABS]
+            meta["toc"] = tabs.toc(meta["body"])
+        elif meta.get("toc"):
             meta["toc"] = page_toc(meta["body"])
         meta["display_date"] = fmt_date(meta["date"])
         meta["iso_date"] = iso_date(meta["date"])

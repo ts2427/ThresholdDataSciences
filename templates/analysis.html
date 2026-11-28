@@ -8,7 +8,7 @@
 <ul class="toc-list">
   {% for e in entries %}
   <li><a href="#{{ e.id }}">{{ e.text }}</a>{% if e.children %}
-    <ul>{% for c in e.children %}<li><a href="#{{ c.id }}">{{ c.text }}</a></li>{% endfor %}</ul>{% endif %}</li>
+    {{ toc_list(e.children) }}{% endif %}</li>
   {% endfor %}
 </ul>
 {% endmacro %}
@@ -45,9 +45,25 @@
   {% endif %}
 
   {% set parts = piece.body.split('<!-- how-to-cite -->') if piece.cite_inline else [piece.body] %}
+  {% if piece.tabs %}
+  {# 2026-11-28: each tab is a <section> with its own id. Without JavaScript all of them show in order under the table
+     of contents; page-sections.js shows the tab bar and one section at a time (WAI-ARIA tabs). #}
+  <div class="tab-bar shell measure" role="tablist" aria-label="Page sections" hidden>
+    {% for t in piece.tabs %}
+    <button type="button" role="tab" id="tab-{{ t.id }}" aria-controls="{{ t.id }}" aria-selected="false"
+            tabindex="-1">{{ t.title }}</button>
+    {% endfor %}
+  </div>
+  <div class="shell measure prose tabbed">
+    {{ parts[0] | safe }}
+    {% if parts | length > 1 %}<div class="cite-block">{% include "_cite.html" %}</div>
+    {{ parts[1] | safe }}{% endif %}
+  </div>
+  {% else %}
   <div class="shell measure prose">
     {{ parts[0] | safe }}
   </div>
+  {% endif %}
 
   {% if not piece.cite_inline %}
   <aside class="shell measure methods" aria-label="Method and sources">
@@ -90,22 +106,13 @@
   </aside>
   {% endif %}
 
+  {% if not piece.tabs %}
   <aside class="shell measure cite-block" aria-label="Citation">
-    {% if piece.dataset %}
-    <h2 id="how-to-cite">How to cite</h2>
-    <p class="cite-label">This analysis</p>
-    <p class="cite-text">{{ piece.citation }}</p>
-    <p class="cite-label">The data and code, in general (all versions)</p>
-    <p class="cite-text">{{ piece.dataset.citations.general }}</p>
-    <p class="cite-label">These specific numbers (version {{ piece.dataset.version }})</p>
-    <p class="cite-text">{{ piece.dataset.citations.version }}</p>
-    {% else %}
-    <h2>Cite this analysis</h2>
-    <p class="cite-text">{{ piece.citation }}</p>
-    {% endif %}
+    {% include "_cite.html" %}
   </aside>
+  {% endif %}
 
-  {% if piece.cite_inline and parts | length > 1 %}
+  {% if piece.cite_inline and parts | length > 1 and not piece.tabs %}
   <div class="shell measure prose">
     {{ parts[1] | safe }}
   </div>

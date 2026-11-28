@@ -16,7 +16,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 BUILD_PYTHON = sys.executable if importlib.util.find_spec("jinja2") else (shutil.which("python") or sys.executable)
-NEEDED = ["build.py", "figures.py", "site.yaml", "templates", "static", "content", "demos/results/osha_audit.json"]
+NEEDED = ["build.py", "figures.py", "tabs.py", "site.yaml", "templates", "static", "content", "demos/results/osha_audit.json"]
 OLD_ANCHORS = ["what-i-found", "how-to-read-it", "1-the-question-and-the-data",
                "2-anatomy-of-a-storm-isaias-october-2026", "3-how-much-goes-dark", "4-how-fast-it-comes-back",
                "5-why-sites-go-dark", "6-the-power-coupling", "7-exposure", "8-who-waits-longest",

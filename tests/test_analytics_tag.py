@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 GA_ID = re.search(r'^ga4_measurement_id:\s*"([^"]*)"', (ROOT / "site.yaml").read_text(encoding="utf-8"), re.M).group(1)
 # The build needs Jinja2, Markdown and PyYAML: use this interpreter if it has them, else the "python" on PATH.
 BUILD_PYTHON = sys.executable if importlib.util.find_spec("jinja2") else (shutil.which("python") or sys.executable)
-NEEDED = ["build.py", "figures.py", "site.yaml", "templates", "static", "content",
+NEEDED = ["build.py", "figures.py", "tabs.py", "site.yaml", "templates", "static", "content",
           "demos/results/osha_audit.json"]  # the OSHA Work card's numbers come from the audit's output
 
 

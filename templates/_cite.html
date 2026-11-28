@@ -1,0 +1,13 @@
+{# The How to cite block (shared by the plain and the tabbed analysis layouts). #}
+{% if piece.dataset %}
+<h2 id="how-to-cite">How to cite</h2>
+<p class="cite-label">This analysis</p>
+<p class="cite-text">{{ piece.citation }}</p>
+<p class="cite-label">The data and code, in general (all versions)</p>
+<p class="cite-text">{{ piece.dataset.citations.general }}</p>
+<p class="cite-label">These specific numbers (version {{ piece.dataset.version }})</p>
+<p class="cite-text">{{ piece.dataset.citations.version }}</p>
+{% else %}
+<h2>Cite this analysis</h2>
+<p class="cite-text">{{ piece.citation }}</p>
+{% endif %}

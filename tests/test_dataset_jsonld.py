@@ -18,7 +18,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 BUILD_PYTHON = sys.executable if importlib.util.find_spec("jinja2") else (shutil.which("python") or sys.executable)
-NEEDED = ["build.py", "figures.py", "site.yaml", "templates", "static", "content", "demos/results/osha_audit.json"]
+NEEDED = ["build.py", "figures.py", "tabs.py", "site.yaml", "templates", "static", "content", "demos/results/osha_audit.json"]
 CONCEPT_DOI = "10.5281/zenodo.24477809"
 
 
