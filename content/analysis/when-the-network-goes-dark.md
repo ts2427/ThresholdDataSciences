@@ -274,6 +274,8 @@ panel (CSV)</a>.</p></noscript>
 
 **Claim.** The FCC's Disaster Information Reporting System (DIRS) publishes, for each activated storm, a daily county table of cell sites served and out. Of 178 reports in scope, none is excluded (every one passes validation) and 4 have county rows only outside the ten study states (Irma, 2017-09-07 to 2017-09-10: Puerto Rico and the U.S. Virgin Islands), leaving 174 reports for 22 storms: 11,296 county-report rows in 916 counties of ten Gulf and Southeast states.
 
+Note on counts. The page counts 178 reports in scope. 174 of them have county rows in the study states; 177 print a headline percent of sites out (Nate's DOC-347137A1 prints none), the base of the headline checks; and the per-storm table below sums to 176 because 2 reports are shared by Ida and Nicholas.
+
 **What it means.** The tables combine all providers, so no single company's network is visible. Coverage changes during a storm: counties join and leave the reporting area, and the FCC narrows the area as outages fall. Reporting was voluntary before February 20, 2025 and mandatory after; from June 30, 2026, FCC 26-34 exempts providers that do not own their own facilities (DIRS stays mandatory for those that do). So who reports can change between storms. FCC 26-34 also ended the DIRS final report, a filing that, like every DIRS filing, is presumptively confidential (FCC 26-34, citing 47 CFR 0.457(d)(1)(vi) and 4.2); the public reports never included it, so ending it does not change what this page can see. The page groups storms by these rule periods, using each storm's DIRS activation date:
 
 - **P0:** neither rule (DIRS activated before May 1, 2024)
