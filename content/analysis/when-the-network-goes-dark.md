@@ -533,7 +533,7 @@ Note. Laura's report of 2020-08-25, kept off Laura's timeline (the combined Marc
 
 ### 8. Social vulnerability {#8-who-waits-longest}
 
-**Claim.** Under the main model, counties with higher social vulnerability did not take measurably longer for cell outages to fall below 5% of sites. Under the main model the most vulnerable quartile's hazard ratio is 1.21 (0.95 to 1.53), consistent with no difference. Under the plan's censoring and serious-flag sensitivities the lower end falls to 0.88, so a modest slowdown can't be excluded; without any flagged report (plan item 5, a much smaller sample: 5 storms, 206 storm-counties) the ratio is 0.65 (0.38 to 1.12). The raw curves suggest a slower start in the first three days: 14% of the most vulnerable quartile's storm-counties were below 5% by day 3, against 22% to 25% in the other quartiles.
+**Claim.** Under the main model, counties with higher social vulnerability did not take measurably longer for cell outages to fall below 5% of sites. The most vulnerable quartile's hazard ratio is 1.21 (0.95 to 1.53), consistent with no difference. A ratio above 1 means faster recovery than the least vulnerable quartile, and below 1 means slower. Under the plan's censoring and serious-flag sensitivities the lower end falls to 0.88, so a modest slowdown can't be excluded; without any flagged report (plan item 5, a much smaller sample: 5 storms, 206 storm-counties) the ratio is 0.65 (0.38 to 1.12). The raw curves suggest a slower start in the first three days: 14% of the most vulnerable quartile's storm-counties were below 5% by day 3, against 22% to 25% in the other quartiles.
 
 **Exhibit.**
 
