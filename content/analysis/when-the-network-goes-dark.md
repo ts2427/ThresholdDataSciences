@@ -387,11 +387,11 @@ Note. Nicole: no report after its peak, so no recovery could be observed.
 
 **What it means.** Where it is seen, recovery to half takes from 1 to 4 days. The last stretch to 90% is not observed in 14 of 20 storms if leaving counties are counted as still out, or 9 if they are counted as restored, because the reports stop. A time is the first report from which the share restored stays past the threshold in every later report; the true time falls after the report before. Site-days lost (median 2,099, range 58 to 21,799, 20 storms) count only to each storm's last report. These medians, ranges and counts leave out Nate and Nicole (note above).
 
-<aside class="why-box" aria-label="Why this happens" markdown="1">
+<div class="why-box" markdown="1">
 
 **Why this happens.** This data shows the first half of recovery coming fast and the last stretch rarely seen: in all 22 storms the FCC's last public report still showed sites out (Where the reports stop). Published evidence: outages from lost power can be bridged with generators, while lost backhaul takes longer; after Hurricane Michael, backhaul outages "began to increase in the days following the storm", many from the recovery itself, as crews clearing debris or replacing utility poles cut fiber, and one backhaul provider told the FCC that the power company restoring utility poles had cut its telecommunications property "at least 33 times" (both in FCC, 2019). The sites left also face flooding and blocked roads: after Helene one provider reported "denial of site access due to flooded roads" (FCC, 2025). The FCC's public reports end when DIRS is deactivated, so the last sites are usually not seen coming back.
 
-</aside>
+</div>
 
 ## Part II: Why it goes dark
 
@@ -427,11 +427,11 @@ Note. Nicole: no report after its peak, so no recovery could be observed.
 
 **What it means.** Every share is a share of all sites out, not only of those with a cause. Causes exceeding sites out are read as consistent with sites out for more than one cause, and are not treated as an FCC error. Reports for Idalia (2023) and Beryl (2024) say so: "The number of total cell sites out may differ from the sum of numbers of cell sites out by cause. This is due to sites being out due to multiple causes or because providers are still assessing the causes of some sites being out of service." For other reports that reading is an inference. Harvey, Irma, Nate, Florence and Michael print no cause columns; they are left out, not counted as zero. As a check, converted to the attributed-only base of Olukola et al. (2026), who use 23 days of cause data from 24 reports where this page uses 24, this page's Helene shares are damage 1.1%, power 63.1% and transport 35.8%, against their 1.1%, 63.2% and 35.7%.
 
-<aside class="why-box" aria-label="Why this happens" markdown="1">
+<div class="why-box" markdown="1">
 
 **Why this happens.** This data shows only the providers' own codes: power and transport (backhaul) account for most sites out, and damage to the site for 6.4%. Published evidence points the same way: after Hurricane Katrina the FCC's review panel found that base stations were in general "not destroyed" and that most wireless outages were "due to a lack of commercial power or a lack of transport connectivity" (FCC, 2007), and a site survey found the main cause of outage was "lack of power due to fuel supply disruptions, flooding and security issues" (Kwasinski et al., 2009). Most cell sites have batteries that "can power the cell sites for four to eight hours", and the use of fixed generators "varies by company and by site" (FCC, 2025; on batteries, also City of New York, 2013), so a grid outage that lasts longer can take a standing site off the air. This dataset cannot show what happened at any one site.
 
-</aside>
+</div>
 
 ### 5. The power coupling {#6-the-power-coupling}
 
@@ -501,11 +501,11 @@ By rule period, shown and not compared: P0: 345 counties in 14 storms; power fir
 
 **What it means.** Factors this data doesn't measure, any of which could bear on the order: portable cell sites brought in after the storm, generators placed at cell sites, service carried by other networks (roaming), the order in which crews restore lines and repairs to the network connections that link sites (backhaul). Storms without EAGLE-I data (Isaias) are not included, and Nate and Nicholas have no county at or above 5% of sites out. "Same report" means within one report interval, not at the same moment.
 
-<aside class="why-box" aria-label="Why this happens" markdown="1">
+<div class="why-box" markdown="1">
 
 **Why this happens.** This data shows cell outages moving with power outages within a storm, and, where the order could be determined, cell outages falling below 5% first more often than power outages (168 counties against 72). Published evidence offers a reason: after Hurricane Michael the FCC found that sites out for lost power "were restored much more quickly" than sites out for backhaul, since back-up power assets "like generators, are easier to pre-deploy and activate" (FCC, 2019); providers also deploy cells on wheels for supplemental coverage (FCC, 2019) and portable generators at sites without fixed ones (FCC, 2025). We found no published evidence that utilities systematically put cell sites at the front of the restoration queue: Texas's critical-load rule gives listed customers notice of interruptions and says designation "does not guarantee the uninterrupted supply of electricity" (Public Utility Commission of Texas, 2018), and Florida's continuity-of-service rule asks utilities to restore service "within the shortest time practicable" without setting an order (Florida Public Service Commission, r. 25-6.044).
 
-</aside>
+</div>
 
 ### 6. Running on backup power {#11-sites-on-backup-power}
 
@@ -555,11 +555,11 @@ Note. Laura's report of 2020-08-25, kept off Laura's timeline (the combined Marc
 
 **What it means.** With wind zone in the model, the intervals for distance and for the storm's intensity include no association (model in the methods). Here a storm's peak share pools each county's own peak report, so it can differ from the single-report peak in chapter 2. Held out of the fit, with misses of 5 percentage points or more listed, storms' pooled peak shares were higher than predicted for Ida (28.8% observed, 9.4% predicted), Helene (13.5% observed, 8.3% predicted) and Irma (27.0% observed, 17.9% predicted); and lower than predicted for Idalia (2.3% observed, 8.2% predicted), Nicholas (2.4% observed, 15.1% predicted), Nate (0.1% observed, 8.8% predicted) and Nicole (1.2% observed, 10.0% predicted). Flooding, road access and fiber cuts are possible unmeasured factors; this design cannot tell whether they, or something else, account for the gaps.
 
-<aside class="why-box" aria-label="Why this happens" markdown="1">
+<div class="why-box" markdown="1">
 
 **Why this happens.** This data shows much larger outages inside a storm's strongest winds than outside them; it shows the association, not the mechanism. Published evidence: after Hurricane Michael the FCC found that "aerial fiber was most susceptible to damage during the hurricane (e.g., wind damage, trees on wires)" (FCC, 2019), and after Katrina the review panel found that "the duration of power outages far outlasted most generator fuel reserves" (FCC, 2007). Outside the strongest winds those failures are plausibly fewer, which would fit the smaller share there; this dataset does not test it.
 
-</aside>
+</div>
 
 ### 8. Social vulnerability {#8-who-waits-longest}
 
@@ -607,11 +607,11 @@ Sensitivity displays for the most vulnerable quartile's hazard ratio (above 1 = 
 
 Sensitivity display, not a finding: if counties that leave the reports while still out are counted as having fallen below 5% at their next unreported report, the third and fourth quartiles reach it sooner (hazard ratios 1.36 [1.08, 1.72] and 1.35 [1.08, 1.68]). The difference disappears if those counties are instead kept at risk to the storm's last report (1.09 [0.88, 1.36] and 1.12 [0.89, 1.41]).
 
-<aside class="why-box" aria-label="Why this happens" markdown="1">
+<div class="why-box" markdown="1">
 
 **Why this happens.** This data shows no clear difference by social vulnerability under the main model (the claim above gives the intervals). Published evidence on power outages, not cell service, finds a gap: across eight Atlantic hurricanes from 2017 to 2020, a one-decile change in the SVI's socioeconomic theme was associated with a 6.1% change in how long counties waited for power to return to 95% of customers (Ganz et al., 2023, abstract), and after Winter Storm Uri and Hurricane Ida, areas with lower incomes had longer median outages (Coleman et al., 2023); Mitsova et al. (2018) studied power restoration timelines and vulnerability in Florida after Irma. For internet service, a study of Harris County, Texas, found vulnerable communities faced worse disruptions in Harvey and Uri (Gupta et al., 2024, abstract), and a Florida household survey finds losing power and cell phone or internet service to be significant predictors of recovery (Mitsova et al., 2019, abstract). We found no published study of the FCC's cell-site outages by social vulnerability, so this result has no direct comparison.
 
-</aside>
+</div>
 
 ### 9. Mobile providers {#13-do-counties-with-more-mobile-providers-recover-differently}
 
@@ -644,11 +644,11 @@ Groups were fixed from the counts alone, before any recovery data was joined: wh
 
 **What it means.** Association only: these counts describe reported coverage before the storm, not which networks were out or how they were restored.
 
-<aside class="why-box" aria-label="Why this happens" markdown="1">
+<div class="why-box" markdown="1">
 
 **Why this happens.** This data shows no consistent difference between counties served by more or fewer mobile providers. A plausible explanation, not a finding: providers in a county often depend on the same towers, utility poles, fiber routes, electric feeders and roads, so a storm that cuts one of them can cut several networks at once (a common-mode failure). After Hurricane Michael the FCC found that third-party crews clearing debris or restoring power lines and utility poles damaged communications assets, bringing restored service down again (FCC, 2019). This dataset cannot test it: the public tables combine all providers.
 
-</aside>
+</div>
 
 ## Part IV: What the public record can and can't tell us
 

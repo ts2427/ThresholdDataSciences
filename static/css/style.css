@@ -464,10 +464,10 @@ h2 {
 .prose details.audit-trail > summary { cursor: pointer; font-family: var(--mono); font-size: 0.85rem; }
 .prose details.audit-trail > summary:hover { color: var(--ink); }
 /* "Why this happens": published evidence kept apart from the chapter's own findings (analysis pages) */
-.prose aside.why-box {
+.prose .why-box {
   background: var(--field); border-left: 3px solid var(--slate); padding: 0.75rem 1rem; margin: 0 0 1.5rem;
 }
-.prose aside.why-box > p:last-child { margin-bottom: 0; }
+.prose .why-box > p:last-child { margin-bottom: 0; }
 /* long URLs and file paths wrap instead of widening the page on phones */
 .prose a, .prose code { overflow-wrap: anywhere; }
 .prose p, .prose li { overflow-wrap: break-word; }
