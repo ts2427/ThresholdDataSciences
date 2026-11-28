@@ -1048,6 +1048,13 @@ Causes are reported by the providers themselves: each report "incorporates netwo
 
 </details>
 
+<details class="method-detail" markdown="1">
+<summary>Gap audit.</summary>
+
+What was searched for and not found, source by source, with what has not been searched yet: `docs/gap_audit_2026-11-28.md` in the data repository. The storm coverage inventory and the candidate hazard datasets are in `docs/STORM_COVERAGE.md`.
+
+</details>
+
 ### Audit trail {#audit-trail}
 
 Every deviation from the analysis plan, every decision on the exhibits, every correction, and what was seen before the plan was committed, dated and in full. The entries use the chapter numbers the page had when each was written: chapter 1 is now The data (its heatmap is in chapter 10); 2 to 6 are now 1 to 5; 7 and 8 are unchanged; 9 is now 12; 10 is still 10; 11 is now 6; 12 is now part of 5; 13 is now 9; 14 is now 11.
