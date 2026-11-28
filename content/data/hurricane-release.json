@@ -1,0 +1,28 @@
+{
+ "data_release": "4.0.0",
+ "data_repository": "https://github.com/ts2427/when-the-network-goes-dark-data",
+ "results_json_sha256": "8935224bbea018b5c9f9074aa9e5fc039ced576c0d091835dad39f58d42f0a65",
+ "download": {
+  "path": "static/data/hurricane-dirs-county-day.csv",
+  "release_path": "data/analysis/dirs_county_day.csv",
+  "rows": 11296,
+  "sha256": "452b40792bf29c761f7b5e418d614a2a18ff474388f24c7e073652d8bd12d65e"
+ },
+ "chart_data_sha256": {
+  "content/data/hurricane-calibration.csv": "d0a197b4d4bd69969dd28b723e0bce128e6082d44339b34679848a52e0d63d7f",
+  "content/data/hurricane-causes.csv": "52cd4b826240513e34224c6b3bffba83c077bd1feb9fd39fb93cee6252318f42",
+  "content/data/hurricane-coverage-heatmap.csv": "2630c65c0eed15cbc4b258ee05ca1f62b7eea06e36638482a517283b9c96e054",
+  "content/data/hurricane-distance.csv": "d4cfc105736d68646bd485cb89b26892c6aa61fbbb51473cf1b232ca709da58a",
+  "content/data/hurricane-isaias-counties.csv": "177336630f1c07886f49b4e4904c41279720768082cff2ab451a6849f36a5045",
+  "content/data/hurricane-isaias-map.csv": "b6f9bd6a820a80d5ed4603d30768a55139cbd76dd2416ec5c200eedf05258081",
+  "content/data/hurricane-peaks.csv": "9ff4e551839eda332c838669d6c9f979e5196d4e63e53e5e61172c8f7f7848b2",
+  "content/data/hurricane-power-lags.csv": "02d58675b081a18d1ea7e477d105e9bc3540acca6077e39b54d0a1125b38cad0",
+  "content/data/hurricane-power-overlay.csv": "314ac69d2111edc755c423e181b5959f1292432dfe1b06dabb62584e99bedc05",
+  "content/data/hurricane-recovery-curves.csv": "bd8812cb44ee8ed4608cd5152fe4b0840a42167182bfeed3f7d49882626da367",
+  "content/data/hurricane-restored.csv": "a06971480b80d85f04afdad8c6c29e9b4c4f1e78733b39c6fc7d97ecb828775a",
+  "content/data/hurricane-svi-wait.csv": "70fd9ace116f20770a79312ee26561b867f63e55b3603feb1afd8dea02c1ed03",
+  "content/data/hurricane-wind-zone.csv": "e5fae3c96ffa7e7ae471ec50887cf22c01b5817873fb930201d7bc3618885c3c",
+  "static/data/hurricane-county-lookup.json": "34f8bf45f4b2de3acd55bdf0a1becc0e444903185dab82c3e3e5cb9da97fe239",
+  "static/data/hurricane-map.json": "9e2b74612185fdf77ae0a79dd4575ccde9d5bf69ef2df5473e4ffbb815ef3017"
+ }
+}

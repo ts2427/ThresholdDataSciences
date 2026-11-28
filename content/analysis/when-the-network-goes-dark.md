@@ -521,7 +521,7 @@ Note. Laura's report of 2020-08-25, kept off Laura's timeline (the combined Marc
 
 ### 7. Exposure {#7-exposure}
 
-**Claim.** Counties inside a storm's 64-knot winds had a peak of 32.4% of cell sites out (95% interval 26.6 to 38.8); outside its 34-knot winds, 0.7% (95% interval 0.5 to 1.5).
+**Claim.** Counties inside a storm's 64-knot winds had a peak of 32.4% of cell sites out (95% interval 26.6 to 38.8); outside its 34-knot winds, under 1% of sites out (0.7% in the chart, 95% interval 0.5 to 1.5; 0.7% to 0.9% when storm-counties listed in a single report, or Laura's Virginia rows, are left out: `docs/sensitivity_single_report_counties.csv` in the data repository).
 
 **Exhibit.**
 
