@@ -399,6 +399,8 @@ Note. Nicole: no report after its peak, so no recovery could be observed.
 
 **Claim.** In the FCC's cause columns, loss of commercial power accounts for 58.0% of cell sites out (95% interval 51.4 to 63.9), loss of transport (backhaul) 30.1%, and damage to the site 6.4% (95% interval 2.4 to 14.8), pooled over the 17 storms whose reports print causes (2019 on) (each site counts once for every report in which it is out). 5.9% have no cause given, and causes exceed sites out by 0.4%, consistent with some sites counted under more than one cause.
 
+**Sensitivity.** Without Delta and Zeta, flagged for their damage coding (data/derived/cause_quality_flags.csv): power 58.9%, transport 31.1%, damage 4.2% (15 storms, 120 reports; data/derived/cause_shares_sensitivity.csv). The headline shares above are unchanged.
+
 **Exhibit.**
 
 [figure:fig-causes]
@@ -1038,6 +1040,13 @@ The data repository (from version 3.2.1) adds three descriptive tables under a w
 **Datasheet.** What the data can and cannot be used for, its known limitations and how it is maintained: [`DATASHEET.md`](https://github.com/ts2427/when-the-network-goes-dark-data/blob/v3.2.1/DATASHEET.md) in the data repository.
 
 **Disclosure.** Competing interests: The author works for a cable operator. This is independent work on public data only; no employer data, time or resources were used, and the employer has no role in it. Funding: none. The views are the author's alone.
+
+<details class="method-detail" markdown="1">
+<summary>Cause-field limitations.</summary>
+
+Causes are reported by the providers themselves: each report "incorporates network outage data submitted by communications providers" to DIRS. Only transport is defined in the reports, in a footnote: "These are cell sites that are out due to issues with the (typically wireline) networks that route communications traffic to and from the cell sites" (Hurricane Ida report, August 31, 2021, DOC-375367A1); damage and power are not defined. The FCC's proposed worksheet list names the fields "Cell Sites Out Due to Cell Site Damage by County", "Cell Sites Out Due to Transport by County" and "Cell Sites Out Due to No Power at Cell Site by County" (FCC 25-45, Appendix E; the same list is in the draft attached to the FCC 26-34 fact sheet). We found no published rule for counting a site with several causes; reports for Idalia (2023) and Beryl (2024) say "The number of total cell sites out may differ from the sum of numbers of cell sites out by cause. This is due to sites being out due to multiple causes or because providers are still assessing the causes of some sites being out of service." The public reports print no cause columns before 2019 (Barry); the FCC's Hurricane Michael report shows that DIRS recorded causes in 2018 (Figure 4), but the public reports did not print them. Damage from one storm may carry over into the next storm's filings: Delta made landfall "only about 10 n mi east of where Hurricane Laura's eye struck the coast" (Cangialosi & Berg, 2021), and Delta and Zeta are flagged suspect (data/derived/cause_quality_flags.csv; the county check is in data/derived/cause_carryover_check.csv).
+
+</details>
 
 ### Audit trail {#audit-trail}
 
